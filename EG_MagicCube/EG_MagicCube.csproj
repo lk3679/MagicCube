@@ -262,8 +262,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\EG_MagicCubeEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EG_MagicCubeEntity.Context.cs</LastGenOutput>
       <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
+      <LastGenOutput>EG_MagicCubeEntity.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\EG_MagicCubeEntity.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -310,8 +310,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\InputModels\" />
-    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -347,9 +345,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>62866</DevelopmentServerPort>
+          <DevelopmentServerPort>60098</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:62866/</IISUrl>
+          <IISUrl>http://localhost:60098/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

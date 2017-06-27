@@ -10,7 +10,6 @@ namespace EG_MagicCube.Controllers
     {
         public ActionResult Index()
         {
-          
             return View();
         }
 
