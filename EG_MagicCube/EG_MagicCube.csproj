@@ -179,6 +179,7 @@
     <Compile Include="Models\Author_Prop_Tag.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BusinessModels\Package.cs" />
     <Compile Include="Models\EG_MagicCubeEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -194,6 +195,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\InputModels\Package.cs" />
     <Compile Include="Models\InputModels\Works.cs" />
     <Compile Include="Models\Menu_AuthorArea.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
