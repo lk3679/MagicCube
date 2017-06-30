@@ -194,6 +194,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\InputModels\Works.cs" />
     <Compile Include="Models\Menu_AuthorArea.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
@@ -218,6 +219,8 @@
     <Compile Include="Models\Menu_WareType.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BusinessModels\Author.cs" />
+    <Compile Include="Models\BusinessModels\Works.cs" />
     <Compile Include="Models\PackageItemList.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
@@ -230,6 +233,9 @@
     <Compile Include="Models\User_AccountList.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel\Author.cs" />
+    <Compile Include="Models\ViewModel\Package.cs" />
+    <Compile Include="Models\ViewModel\Works.cs" />
     <Compile Include="Models\Works_Author.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
@@ -327,7 +333,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
