@@ -5,22 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="8dd3353dae8741259e9698af6b9246b6" Name="Diagram1">
-        <EntityTypeShape EntityType="EG_MagicCubeModel.Author_List" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="EG_MagicCubeModel.Author_Prop_Area" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EG_MagicCubeModel.Author_Prop_Tag" Width="1.5" PointX="6" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_AuthorArea" Width="1.5" PointX="0.75" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Author_List" Width="1.5" PointX="3.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Author_Prop_Area" Width="1.5" PointX="1.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Author_Prop_Tag" Width="1.5" PointX="5.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_AuthorArea" Width="1.5" PointX="0.5" PointY="20.25" IsExpanded="false" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_AuthorTag" Width="1.5" PointX="3.75" PointY="26.875" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_CountNoun" Width="1.5" PointX="3.75" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_Genre" Width="1.5" PointX="0.75" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_Genre" Width="1.5" PointX="0.75" PointY="20.875" IsExpanded="false" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_Material" Width="1.5" PointX="3.75" PointY="21.125" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_Owner" Width="1.5" PointX="3.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_Style" Width="1.5" PointX="3.75" PointY="23.875" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_WareType" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.Package_List" Width="1.5" PointX="0.75" PointY="17.375" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.PackageItemList" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EG_MagicCubeModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EG_MagicCubeModel.User_AccountList" Width="1.5" PointX="7.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EG_MagicCubeModel.Works_Author" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.sysdiagrams" Width="1.5" PointX="0.875" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.User_AccountList" Width="1.5" PointX="6.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Works_Author" Width="1.5" PointX="3.625" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.Works_List" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.Works_Module_List" Width="1.5" PointX="6" PointY="11.875" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.Works_Prop_Genre" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
