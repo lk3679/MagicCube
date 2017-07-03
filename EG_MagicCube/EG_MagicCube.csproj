@@ -170,6 +170,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AuthorModel.cs" />
     <Compile Include="Models\Entities\Author_List.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
@@ -179,7 +180,6 @@
     <Compile Include="Models\Entities\Author_Prop_Tag.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BusinessModels\Package.cs" />
     <Compile Include="Models\Entities\EG_MagicCubeEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -195,8 +195,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\InputModels\Package.cs" />
-    <Compile Include="Models\InputModels\Works.cs" />
     <Compile Include="Models\Entities\Menu_AuthorArea.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
@@ -221,7 +219,6 @@
     <Compile Include="Models\Entities\Menu_WareType.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BusinessModels\Works.cs" />
     <Compile Include="Models\Entities\PackageItemList.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
@@ -234,6 +231,7 @@
     <Compile Include="Models\Entities\User_AccountList.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PackageModel.cs" />
     <Compile Include="Models\ViewModel\Package.cs" />
     <Compile Include="Models\ViewModel\Works.cs" />
     <Compile Include="Models\Entities\Works_Author.cs">
@@ -257,6 +255,7 @@
     <Compile Include="Models\Entities\Works_Prop_WareType.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WorksModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

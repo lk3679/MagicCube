@@ -116,7 +116,6 @@ namespace EG_MagicCube.Models
         [Required]
         public int Author_No { get; set; }
 
-        [Required]
         public string Materials_ID { get; set; }
 
         [Required]
