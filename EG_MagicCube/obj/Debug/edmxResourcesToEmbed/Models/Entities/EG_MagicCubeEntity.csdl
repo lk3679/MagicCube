@@ -1,0 +1,579 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EG_MagicCubeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Author_List">
+    <Key>
+      <PropertyRef Name="Author_No" />
+    </Key>
+    <Property Name="Author_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Materials_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AuthorCName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AuthorEName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifyUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Author_Prop_Area" Relationship="Self.FK_Author_Prop_Area_Author_List" FromRole="Author_List" ToRole="Author_Prop_Area" />
+    <NavigationProperty Name="Author_Prop_Tag" Relationship="Self.FK_Author_Prop_Tag_Author_List" FromRole="Author_List" ToRole="Author_Prop_Tag" />
+    <NavigationProperty Name="Works_Author" Relationship="Self.FK_Works_Author_Author_List" FromRole="Author_List" ToRole="Works_Author" />
+  </EntityType>
+  <EntityType Name="Author_Prop_Area">
+    <Key>
+      <PropertyRef Name="AuthorPropArea_No" />
+    </Key>
+    <Property Name="AuthorPropArea_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Author_No" Type="Int32" Nullable="false" />
+    <Property Name="AuthorArea_No" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Author_List" Relationship="Self.FK_Author_Prop_Area_Author_List" FromRole="Author_Prop_Area" ToRole="Author_List" />
+    <NavigationProperty Name="Menu_AuthorArea" Relationship="Self.FK_Author_Prop_Area_Menu_AuthorArea" FromRole="Author_Prop_Area" ToRole="Menu_AuthorArea" />
+  </EntityType>
+  <EntityType Name="Author_Prop_Tag">
+    <Key>
+      <PropertyRef Name="Author_Prop_Tag_No" />
+    </Key>
+    <Property Name="Author_Prop_Tag_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Author_No" Type="Int32" Nullable="false" />
+    <Property Name="AuthorArea_No" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Author_List" Relationship="Self.FK_Author_Prop_Tag_Author_List" FromRole="Author_Prop_Tag" ToRole="Author_List" />
+    <NavigationProperty Name="Menu_AuthorTag" Relationship="Self.FK_Author_Prop_Tag_Menu_AuthorTag" FromRole="Author_Prop_Tag" ToRole="Menu_AuthorTag" />
+  </EntityType>
+  <EntityType Name="Menu_AuthorArea">
+    <Key>
+      <PropertyRef Name="AuthorArea_No" />
+    </Key>
+    <Property Name="AuthorArea_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AuthorArea_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Author_Prop_Area" Relationship="Self.FK_Author_Prop_Area_Menu_AuthorArea" FromRole="Menu_AuthorArea" ToRole="Author_Prop_Area" />
+  </EntityType>
+  <EntityType Name="Menu_AuthorTag">
+    <Key>
+      <PropertyRef Name="AuthorTag_No" />
+    </Key>
+    <Property Name="AuthorTag_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AuthorTag_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Author_Prop_Tag" Relationship="Self.FK_Author_Prop_Tag_Menu_AuthorTag" FromRole="Menu_AuthorTag" ToRole="Author_Prop_Tag" />
+  </EntityType>
+  <EntityType Name="Menu_CountNoun">
+    <Key>
+      <PropertyRef Name="CountNoun_No" />
+    </Key>
+    <Property Name="CountNoun_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CountNoun_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Works_Module_List" Relationship="Self.FK_Works_Module_List_Menu_CountNoun" FromRole="Menu_CountNoun" ToRole="Works_Module_List" />
+  </EntityType>
+  <EntityType Name="Menu_Genre">
+    <Key>
+      <PropertyRef Name="Genre_No" />
+    </Key>
+    <Property Name="Genre_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Genre_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Works_Prop_Genre" Relationship="Self.FK_Works_Prop_Genre_Menu_Genre" FromRole="Menu_Genre" ToRole="Works_Prop_Genre" />
+  </EntityType>
+  <EntityType Name="Menu_Material">
+    <Key>
+      <PropertyRef Name="Material_No" />
+    </Key>
+    <Property Name="Material_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Material_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Works_Module_List" Relationship="Self.FK_Works_Module_List_Menu_Material" FromRole="Menu_Material" ToRole="Works_Module_List" />
+  </EntityType>
+  <EntityType Name="Menu_Owner">
+    <Key>
+      <PropertyRef Name="Owner_No" />
+    </Key>
+    <Property Name="Owner_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Owner_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Works_Prop_Owner" Relationship="Self.FK_Works_Prop_Owner_Menu_Owner" FromRole="Menu_Owner" ToRole="Works_Prop_Owner" />
+  </EntityType>
+  <EntityType Name="Menu_Style">
+    <Key>
+      <PropertyRef Name="Style_No" />
+    </Key>
+    <Property Name="Style_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Style_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Works_Prop_Style" Relationship="Self.FK_Works_Prop_Style_Menu_Style" FromRole="Menu_Style" ToRole="Works_Prop_Style" />
+  </EntityType>
+  <EntityType Name="Menu_WareType">
+    <Key>
+      <PropertyRef Name="WareType_No" />
+    </Key>
+    <Property Name="WareType_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WareType_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Works_Prop_WareType" Relationship="Self.FK_Works_Prop_WareType_Menu_WareType" FromRole="Menu_WareType" ToRole="Works_Prop_WareType" />
+  </EntityType>
+  <EntityType Name="Package_List">
+    <Key>
+      <PropertyRef Name="PG_No" />
+    </Key>
+    <Property Name="PG_No" Type="Guid" Nullable="false" />
+    <Property Name="PG_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="PackingDate" Type="DateTime" Precision="3" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="PackageItemList" Relationship="Self.FK_PackageItemList_Package_List" FromRole="Package_List" ToRole="PackageItemList" />
+  </EntityType>
+  <EntityType Name="PackageItemList">
+    <Key>
+      <PropertyRef Name="PGItem_No" />
+    </Key>
+    <Property Name="PGItem_No" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PG_No" Type="Guid" Nullable="false" />
+    <Property Name="Works_No" Type="Guid" Nullable="false" />
+    <Property Name="JoinDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DelDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Package_List" Relationship="Self.FK_PackageItemList_Package_List" FromRole="PackageItemList" ToRole="Package_List" />
+    <NavigationProperty Name="Works_List" Relationship="Self.FK_PackageItemList_Works_List" FromRole="PackageItemList" ToRole="Works_List" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User_AccountList">
+    <Key>
+      <PropertyRef Name="Account_No" />
+    </Key>
+    <Property Name="Account_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Pwdself" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Account_Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Account_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Account_Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Works_Author">
+    <Key>
+      <PropertyRef Name="Works_Author_No" />
+    </Key>
+    <Property Name="Works_Author_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Works_No" Type="Guid" Nullable="false" />
+    <Property Name="Author_No" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Author_List" Relationship="Self.FK_Works_Author_Author_List" FromRole="Works_Author" ToRole="Author_List" />
+    <NavigationProperty Name="Works_List" Relationship="Self.FK_Works_Author_Works_List" FromRole="Works_Author" ToRole="Works_List" />
+  </EntityType>
+  <EntityType Name="Works_List">
+    <Key>
+      <PropertyRef Name="Works_No" />
+    </Key>
+    <Property Name="Works_No" Type="Guid" Nullable="false" />
+    <Property Name="Materials_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Author_No" Type="Int32" Nullable="false" />
+    <Property Name="WorksName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Year_Start" Type="Int16" Nullable="false" />
+    <Property Name="Year_End" Type="Int16" Nullable="false" />
+    <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Cost" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="PricingDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="GrossMargin" Type="Double" Nullable="false" />
+    <Property Name="Marketability" Type="Double" Nullable="false" />
+    <Property Name="Packageability" Type="Double" Nullable="false" />
+    <Property Name="Valuability" Type="Double" Nullable="false" />
+    <Property Name="Artisticability" Type="Double" Nullable="false" />
+    <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifyUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="PackageItemList" Relationship="Self.FK_PackageItemList_Works_List" FromRole="Works_List" ToRole="PackageItemList" />
+    <NavigationProperty Name="Works_Author" Relationship="Self.FK_Works_Author_Works_List" FromRole="Works_List" ToRole="Works_Author" />
+    <NavigationProperty Name="Works_Module_List" Relationship="Self.FK_Works_Module_List_Works_List" FromRole="Works_List" ToRole="Works_Module_List" />
+    <NavigationProperty Name="Works_Prop_Genre" Relationship="Self.FK_Works_Prop_Genre_Works_List" FromRole="Works_List" ToRole="Works_Prop_Genre" />
+    <NavigationProperty Name="Works_Prop_Owner" Relationship="Self.FK_Works_Prop_Owner_Works_List" FromRole="Works_List" ToRole="Works_Prop_Owner" />
+    <NavigationProperty Name="Works_Prop_Style" Relationship="Self.FK_Works_Prop_Style_Works_List" FromRole="Works_List" ToRole="Works_Prop_Style" />
+    <NavigationProperty Name="Works_Prop_WareType" Relationship="Self.FK_Works_Prop_WareType_Works_List" FromRole="Works_List" ToRole="Works_Prop_WareType" />
+  </EntityType>
+  <EntityType Name="Works_Module_List">
+    <Key>
+      <PropertyRef Name="Works_Module_No" />
+    </Key>
+    <Property Name="Works_Module_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Works_No" Type="Guid" Nullable="false" />
+    <Property Name="Material" Type="Int32" Nullable="false" />
+    <Property Name="Measure" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Length" Type="Double" Nullable="false" />
+    <Property Name="Width" Type="Double" Nullable="false" />
+    <Property Name="High" Type="Double" Nullable="false" />
+    <Property Name="Deep" Type="Double" Nullable="false" />
+    <Property Name="TimeLength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
+    <Property Name="CountNoun" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Menu_CountNoun" Relationship="Self.FK_Works_Module_List_Menu_CountNoun" FromRole="Works_Module_List" ToRole="Menu_CountNoun" />
+    <NavigationProperty Name="Menu_Material" Relationship="Self.FK_Works_Module_List_Menu_Material" FromRole="Works_Module_List" ToRole="Menu_Material" />
+    <NavigationProperty Name="Works_List" Relationship="Self.FK_Works_Module_List_Works_List" FromRole="Works_Module_List" ToRole="Works_List" />
+  </EntityType>
+  <EntityType Name="Works_Prop_Genre">
+    <Key>
+      <PropertyRef Name="Works_Prop_Genre_No" />
+    </Key>
+    <Property Name="Works_Prop_Genre_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Works_No" Type="Guid" Nullable="false" />
+    <Property Name="Genre_No" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Menu_Genre" Relationship="Self.FK_Works_Prop_Genre_Menu_Genre" FromRole="Works_Prop_Genre" ToRole="Menu_Genre" />
+    <NavigationProperty Name="Works_List" Relationship="Self.FK_Works_Prop_Genre_Works_List" FromRole="Works_Prop_Genre" ToRole="Works_List" />
+  </EntityType>
+  <EntityType Name="Works_Prop_Owner">
+    <Key>
+      <PropertyRef Name="Works_Prop_Owner_No" />
+    </Key>
+    <Property Name="Works_Prop_Owner_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Works_No" Type="Guid" Nullable="false" />
+    <Property Name="Owner_No" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Menu_Owner" Relationship="Self.FK_Works_Prop_Owner_Menu_Owner" FromRole="Works_Prop_Owner" ToRole="Menu_Owner" />
+    <NavigationProperty Name="Works_List" Relationship="Self.FK_Works_Prop_Owner_Works_List" FromRole="Works_Prop_Owner" ToRole="Works_List" />
+  </EntityType>
+  <EntityType Name="Works_Prop_Style">
+    <Key>
+      <PropertyRef Name="Works_Prop_Style_No" />
+    </Key>
+    <Property Name="Works_Prop_Style_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Works_No" Type="Guid" Nullable="false" />
+    <Property Name="Style_No" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Menu_Style" Relationship="Self.FK_Works_Prop_Style_Menu_Style" FromRole="Works_Prop_Style" ToRole="Menu_Style" />
+    <NavigationProperty Name="Works_List" Relationship="Self.FK_Works_Prop_Style_Works_List" FromRole="Works_Prop_Style" ToRole="Works_List" />
+  </EntityType>
+  <EntityType Name="Works_Prop_WareType">
+    <Key>
+      <PropertyRef Name="Works_Prop_WareType_No" />
+    </Key>
+    <Property Name="Works_Prop_WareType_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Works_No" Type="Guid" Nullable="false" />
+    <Property Name="WareType_No" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Menu_WareType" Relationship="Self.FK_Works_Prop_WareType_Menu_WareType" FromRole="Works_Prop_WareType" ToRole="Menu_WareType" />
+    <NavigationProperty Name="Works_List" Relationship="Self.FK_Works_Prop_WareType_Works_List" FromRole="Works_Prop_WareType" ToRole="Works_List" />
+  </EntityType>
+  <Association Name="FK_Author_Prop_Area_Author_List">
+    <End Role="Author_List" Type="Self.Author_List" Multiplicity="1" />
+    <End Role="Author_Prop_Area" Type="Self.Author_Prop_Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author_List">
+        <PropertyRef Name="Author_No" />
+      </Principal>
+      <Dependent Role="Author_Prop_Area">
+        <PropertyRef Name="Author_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Author_Prop_Tag_Author_List">
+    <End Role="Author_List" Type="Self.Author_List" Multiplicity="1" />
+    <End Role="Author_Prop_Tag" Type="Self.Author_Prop_Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author_List">
+        <PropertyRef Name="Author_No" />
+      </Principal>
+      <Dependent Role="Author_Prop_Tag">
+        <PropertyRef Name="Author_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Works_Author_Author_List">
+    <End Role="Author_List" Type="Self.Author_List" Multiplicity="1" />
+    <End Role="Works_Author" Type="Self.Works_Author" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author_List">
+        <PropertyRef Name="Author_No" />
+      </Principal>
+      <Dependent Role="Works_Author">
+        <PropertyRef Name="Author_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Author_Prop_Area_Menu_AuthorArea">
+    <End Role="Menu_AuthorArea" Type="Self.Menu_AuthorArea" Multiplicity="1" />
+    <End Role="Author_Prop_Area" Type="Self.Author_Prop_Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu_AuthorArea">
+        <PropertyRef Name="AuthorArea_No" />
+      </Principal>
+      <Dependent Role="Author_Prop_Area">
+        <PropertyRef Name="AuthorArea_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Author_Prop_Tag_Menu_AuthorTag">
+    <End Role="Menu_AuthorTag" Type="Self.Menu_AuthorTag" Multiplicity="1" />
+    <End Role="Author_Prop_Tag" Type="Self.Author_Prop_Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu_AuthorTag">
+        <PropertyRef Name="AuthorTag_No" />
+      </Principal>
+      <Dependent Role="Author_Prop_Tag">
+        <PropertyRef Name="AuthorArea_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Works_Module_List_Menu_CountNoun">
+    <End Role="Menu_CountNoun" Type="Self.Menu_CountNoun" Multiplicity="1" />
+    <End Role="Works_Module_List" Type="Self.Works_Module_List" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu_CountNoun">
+        <PropertyRef Name="CountNoun_No" />
+      </Principal>
+      <Dependent Role="Works_Module_List">
+        <PropertyRef Name="CountNoun" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Works_Prop_Genre_Menu_Genre">
+    <End Role="Menu_Genre" Type="Self.Menu_Genre" Multiplicity="1" />
+    <End Role="Works_Prop_Genre" Type="Self.Works_Prop_Genre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu_Genre">
+        <PropertyRef Name="Genre_No" />
+      </Principal>
+      <Dependent Role="Works_Prop_Genre">
+        <PropertyRef Name="Genre_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Works_Module_List_Menu_Material">
+    <End Role="Menu_Material" Type="Self.Menu_Material" Multiplicity="1" />
+    <End Role="Works_Module_List" Type="Self.Works_Module_List" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu_Material">
+        <PropertyRef Name="Material_No" />
+      </Principal>
+      <Dependent Role="Works_Module_List">
+        <PropertyRef Name="Material" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Works_Prop_Owner_Menu_Owner">
+    <End Role="Menu_Owner" Type="Self.Menu_Owner" Multiplicity="1" />
+    <End Role="Works_Prop_Owner" Type="Self.Works_Prop_Owner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu_Owner">
+        <PropertyRef Name="Owner_No" />
+      </Principal>
+      <Dependent Role="Works_Prop_Owner">
+        <PropertyRef Name="Owner_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Works_Prop_Style_Menu_Style">
+    <End Role="Menu_Style" Type="Self.Menu_Style" Multiplicity="1" />
+    <End Role="Works_Prop_Style" Type="Self.Works_Prop_Style" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu_Style">
+        <PropertyRef Name="Style_No" />
+      </Principal>
+      <Dependent Role="Works_Prop_Style">
+        <PropertyRef Name="Style_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Works_Prop_WareType_Menu_WareType">
+    <End Role="Menu_WareType" Type="Self.Menu_WareType" Multiplicity="1" />
+    <End Role="Works_Prop_WareType" Type="Self.Works_Prop_WareType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu_WareType">
+        <PropertyRef Name="WareType_No" />
+      </Principal>
+      <Dependent Role="Works_Prop_WareType">
+        <PropertyRef Name="WareType_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PackageItemList_Package_List">
+    <End Role="Package_List" Type="Self.Package_List" Multiplicity="1" />
+    <End Role="PackageItemList" Type="Self.PackageItemList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Package_List">
+        <PropertyRef Name="PG_No" />
+      </Principal>
+      <Dependent Role="PackageItemList">
+        <PropertyRef Name="PG_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PackageItemList_Works_List">
+    <End Role="Works_List" Type="Self.Works_List" Multiplicity="1" />
+    <End Role="PackageItemList" Type="Self.PackageItemList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Works_List">
+        <PropertyRef Name="Works_No" />
+      </Principal>
+      <Dependent Role="PackageItemList">
+        <PropertyRef Name="Works_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Works_Author_Works_List">
+    <End Role="Works_List" Type="Self.Works_List" Multiplicity="1" />
+    <End Role="Works_Author" Type="Self.Works_Author" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Works_List">
+        <PropertyRef Name="Works_No" />
+      </Principal>
+      <Dependent Role="Works_Author">
+        <PropertyRef Name="Works_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Works_Module_List_Works_List">
+    <End Role="Works_List" Type="Self.Works_List" Multiplicity="1" />
+    <End Role="Works_Module_List" Type="Self.Works_Module_List" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Works_List">
+        <PropertyRef Name="Works_No" />
+      </Principal>
+      <Dependent Role="Works_Module_List">
+        <PropertyRef Name="Works_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Works_Prop_Genre_Works_List">
+    <End Role="Works_List" Type="Self.Works_List" Multiplicity="1" />
+    <End Role="Works_Prop_Genre" Type="Self.Works_Prop_Genre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Works_List">
+        <PropertyRef Name="Works_No" />
+      </Principal>
+      <Dependent Role="Works_Prop_Genre">
+        <PropertyRef Name="Works_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Works_Prop_Owner_Works_List">
+    <End Role="Works_List" Type="Self.Works_List" Multiplicity="1" />
+    <End Role="Works_Prop_Owner" Type="Self.Works_Prop_Owner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Works_List">
+        <PropertyRef Name="Works_No" />
+      </Principal>
+      <Dependent Role="Works_Prop_Owner">
+        <PropertyRef Name="Works_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Works_Prop_Style_Works_List">
+    <End Role="Works_List" Type="Self.Works_List" Multiplicity="1" />
+    <End Role="Works_Prop_Style" Type="Self.Works_Prop_Style" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Works_List">
+        <PropertyRef Name="Works_No" />
+      </Principal>
+      <Dependent Role="Works_Prop_Style">
+        <PropertyRef Name="Works_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Works_Prop_WareType_Works_List">
+    <End Role="Works_List" Type="Self.Works_List" Multiplicity="1" />
+    <End Role="Works_Prop_WareType" Type="Self.Works_Prop_WareType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Works_List">
+        <PropertyRef Name="Works_No" />
+      </Principal>
+      <Dependent Role="Works_Prop_WareType">
+        <PropertyRef Name="Works_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EG_MagicCubeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Author_List" EntityType="Self.Author_List" />
+    <EntitySet Name="Author_Prop_Area" EntityType="Self.Author_Prop_Area" />
+    <EntitySet Name="Author_Prop_Tag" EntityType="Self.Author_Prop_Tag" />
+    <EntitySet Name="Menu_AuthorArea" EntityType="Self.Menu_AuthorArea" />
+    <EntitySet Name="Menu_AuthorTag" EntityType="Self.Menu_AuthorTag" />
+    <EntitySet Name="Menu_CountNoun" EntityType="Self.Menu_CountNoun" />
+    <EntitySet Name="Menu_Genre" EntityType="Self.Menu_Genre" />
+    <EntitySet Name="Menu_Material" EntityType="Self.Menu_Material" />
+    <EntitySet Name="Menu_Owner" EntityType="Self.Menu_Owner" />
+    <EntitySet Name="Menu_Style" EntityType="Self.Menu_Style" />
+    <EntitySet Name="Menu_WareType" EntityType="Self.Menu_WareType" />
+    <EntitySet Name="Package_List" EntityType="Self.Package_List" />
+    <EntitySet Name="PackageItemList" EntityType="Self.PackageItemList" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="User_AccountList" EntityType="Self.User_AccountList" />
+    <EntitySet Name="Works_Author" EntityType="Self.Works_Author" />
+    <EntitySet Name="Works_List" EntityType="Self.Works_List" />
+    <EntitySet Name="Works_Module_List" EntityType="Self.Works_Module_List" />
+    <EntitySet Name="Works_Prop_Genre" EntityType="Self.Works_Prop_Genre" />
+    <EntitySet Name="Works_Prop_Owner" EntityType="Self.Works_Prop_Owner" />
+    <EntitySet Name="Works_Prop_Style" EntityType="Self.Works_Prop_Style" />
+    <EntitySet Name="Works_Prop_WareType" EntityType="Self.Works_Prop_WareType" />
+    <AssociationSet Name="FK_Author_Prop_Area_Author_List" Association="Self.FK_Author_Prop_Area_Author_List">
+      <End Role="Author_List" EntitySet="Author_List" />
+      <End Role="Author_Prop_Area" EntitySet="Author_Prop_Area" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Author_Prop_Tag_Author_List" Association="Self.FK_Author_Prop_Tag_Author_List">
+      <End Role="Author_List" EntitySet="Author_List" />
+      <End Role="Author_Prop_Tag" EntitySet="Author_Prop_Tag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Works_Author_Author_List" Association="Self.FK_Works_Author_Author_List">
+      <End Role="Author_List" EntitySet="Author_List" />
+      <End Role="Works_Author" EntitySet="Works_Author" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Author_Prop_Area_Menu_AuthorArea" Association="Self.FK_Author_Prop_Area_Menu_AuthorArea">
+      <End Role="Menu_AuthorArea" EntitySet="Menu_AuthorArea" />
+      <End Role="Author_Prop_Area" EntitySet="Author_Prop_Area" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Author_Prop_Tag_Menu_AuthorTag" Association="Self.FK_Author_Prop_Tag_Menu_AuthorTag">
+      <End Role="Menu_AuthorTag" EntitySet="Menu_AuthorTag" />
+      <End Role="Author_Prop_Tag" EntitySet="Author_Prop_Tag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Works_Module_List_Menu_CountNoun" Association="Self.FK_Works_Module_List_Menu_CountNoun">
+      <End Role="Menu_CountNoun" EntitySet="Menu_CountNoun" />
+      <End Role="Works_Module_List" EntitySet="Works_Module_List" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Works_Prop_Genre_Menu_Genre" Association="Self.FK_Works_Prop_Genre_Menu_Genre">
+      <End Role="Menu_Genre" EntitySet="Menu_Genre" />
+      <End Role="Works_Prop_Genre" EntitySet="Works_Prop_Genre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Works_Module_List_Menu_Material" Association="Self.FK_Works_Module_List_Menu_Material">
+      <End Role="Menu_Material" EntitySet="Menu_Material" />
+      <End Role="Works_Module_List" EntitySet="Works_Module_List" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Works_Prop_Owner_Menu_Owner" Association="Self.FK_Works_Prop_Owner_Menu_Owner">
+      <End Role="Menu_Owner" EntitySet="Menu_Owner" />
+      <End Role="Works_Prop_Owner" EntitySet="Works_Prop_Owner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Works_Prop_Style_Menu_Style" Association="Self.FK_Works_Prop_Style_Menu_Style">
+      <End Role="Menu_Style" EntitySet="Menu_Style" />
+      <End Role="Works_Prop_Style" EntitySet="Works_Prop_Style" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Works_Prop_WareType_Menu_WareType" Association="Self.FK_Works_Prop_WareType_Menu_WareType">
+      <End Role="Menu_WareType" EntitySet="Menu_WareType" />
+      <End Role="Works_Prop_WareType" EntitySet="Works_Prop_WareType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PackageItemList_Package_List" Association="Self.FK_PackageItemList_Package_List">
+      <End Role="Package_List" EntitySet="Package_List" />
+      <End Role="PackageItemList" EntitySet="PackageItemList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PackageItemList_Works_List" Association="Self.FK_PackageItemList_Works_List">
+      <End Role="Works_List" EntitySet="Works_List" />
+      <End Role="PackageItemList" EntitySet="PackageItemList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Works_Author_Works_List" Association="Self.FK_Works_Author_Works_List">
+      <End Role="Works_List" EntitySet="Works_List" />
+      <End Role="Works_Author" EntitySet="Works_Author" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Works_Module_List_Works_List" Association="Self.FK_Works_Module_List_Works_List">
+      <End Role="Works_List" EntitySet="Works_List" />
+      <End Role="Works_Module_List" EntitySet="Works_Module_List" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Works_Prop_Genre_Works_List" Association="Self.FK_Works_Prop_Genre_Works_List">
+      <End Role="Works_List" EntitySet="Works_List" />
+      <End Role="Works_Prop_Genre" EntitySet="Works_Prop_Genre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Works_Prop_Owner_Works_List" Association="Self.FK_Works_Prop_Owner_Works_List">
+      <End Role="Works_List" EntitySet="Works_List" />
+      <End Role="Works_Prop_Owner" EntitySet="Works_Prop_Owner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Works_Prop_Style_Works_List" Association="Self.FK_Works_Prop_Style_Works_List">
+      <End Role="Works_List" EntitySet="Works_List" />
+      <End Role="Works_Prop_Style" EntitySet="Works_Prop_Style" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Works_Prop_WareType_Works_List" Association="Self.FK_Works_Prop_WareType_Works_List">
+      <End Role="Works_List" EntitySet="Works_List" />
+      <End Role="Works_Prop_WareType" EntitySet="Works_Prop_WareType" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
