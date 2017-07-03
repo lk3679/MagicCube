@@ -170,93 +170,91 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Author_List.cs">
+    <Compile Include="Models\Entities\Author_List.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Author_Prop_Area.cs">
+    <Compile Include="Models\Entities\Author_Prop_Area.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Author_Prop_Tag.cs">
+    <Compile Include="Models\Entities\Author_Prop_Tag.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BusinessModels\Package.cs" />
-    <Compile Include="Models\EG_MagicCubeEntity.Context.cs">
+    <Compile Include="Models\Entities\EG_MagicCubeEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EG_MagicCubeEntity.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EG_MagicCubeEntity.cs">
+    <Compile Include="Models\Entities\EG_MagicCubeEntity.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EG_MagicCubeEntity.Designer.cs">
+    <Compile Include="Models\Entities\EG_MagicCubeEntity.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\InputModels\Package.cs" />
     <Compile Include="Models\InputModels\Works.cs" />
-    <Compile Include="Models\Menu_AuthorArea.cs">
+    <Compile Include="Models\Entities\Menu_AuthorArea.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Menu_AuthorTag.cs">
+    <Compile Include="Models\Entities\Menu_AuthorTag.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Menu_CountNoun.cs">
+    <Compile Include="Models\Entities\Menu_CountNoun.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Menu_Genre.cs">
+    <Compile Include="Models\Entities\Menu_Genre.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Menu_Material.cs">
+    <Compile Include="Models\Entities\Menu_Material.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Menu_Owner.cs">
+    <Compile Include="Models\Entities\Menu_Owner.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Menu_Style.cs">
+    <Compile Include="Models\Entities\Menu_Style.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Menu_WareType.cs">
+    <Compile Include="Models\Entities\Menu_WareType.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BusinessModels\Author.cs" />
     <Compile Include="Models\BusinessModels\Works.cs" />
-    <Compile Include="Models\PackageItemList.cs">
+    <Compile Include="Models\Entities\PackageItemList.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Package_List.cs">
+    <Compile Include="Models\Entities\Package_List.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
+    <Compile Include="Models\Entities\sysdiagrams.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\User_AccountList.cs">
+    <Compile Include="Models\Entities\User_AccountList.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ViewModel\Author.cs" />
     <Compile Include="Models\ViewModel\Package.cs" />
     <Compile Include="Models\ViewModel\Works.cs" />
-    <Compile Include="Models\Works_Author.cs">
+    <Compile Include="Models\Entities\Works_Author.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Works_List.cs">
+    <Compile Include="Models\Entities\Works_List.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Works_Module_List.cs">
+    <Compile Include="Models\Entities\Works_Module_List.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Works_Prop_Genre.cs">
+    <Compile Include="Models\Entities\Works_Prop_Genre.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Works_Prop_Owner.cs">
+    <Compile Include="Models\Entities\Works_Prop_Owner.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Works_Prop_Style.cs">
+    <Compile Include="Models\Entities\Works_Prop_Style.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Works_Prop_WareType.cs">
+    <Compile Include="Models\Entities\Works_Prop_WareType.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -270,12 +268,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\EG_MagicCubeEntity.Context.tt">
+    <Content Include="Models\Entities\EG_MagicCubeEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
       <LastGenOutput>EG_MagicCubeEntity.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\EG_MagicCubeEntity.tt">
+    <Content Include="Models\Entities\EG_MagicCubeEntity.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
       <LastGenOutput>EG_MagicCubeEntity.cs</LastGenOutput>
@@ -285,11 +283,11 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\EG_MagicCubeEntity.edmx">
+    <EntityDeploy Include="Models\Entities\EG_MagicCubeEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>EG_MagicCubeEntity.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\EG_MagicCubeEntity.edmx.diagram">
+    <Content Include="Models\Entities\EG_MagicCubeEntity.edmx.diagram">
       <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
     </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
