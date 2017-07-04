@@ -12,9 +12,9 @@ namespace EG_MagicCube.Models.BusinessModels
         /// </summary>
         /// <param name="Name">包裝名稱</param>
         /// <returns></returns>
-        public static List<ViewModel.Package> GetList(string Name)
+        public static List<ViewModel.PackageViewModel> GetList(string Name)
         {
-            List<ViewModel.Package> _PackageList = new List<ViewModel.Package>();
+            List<ViewModel.PackageViewModel> _PackageList = new List<ViewModel.PackageViewModel>();
 
             using (EG_MagicCubeEntities egmce = new EG_MagicCubeEntities())
             {
