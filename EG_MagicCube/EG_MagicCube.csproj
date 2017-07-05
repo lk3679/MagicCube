@@ -170,94 +170,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AuthorModel.cs" />
-    <Compile Include="Models\Entities\Author_List.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Author_Prop_Area.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Author_Prop_Tag.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\EG_MagicCubeEntity.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EG_MagicCubeEntity.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\EG_MagicCubeEntity.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\EG_MagicCubeEntity.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Menu_AuthorArea.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Menu_AuthorTag.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Menu_CountNoun.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Menu_Genre.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Menu_Material.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Menu_Owner.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Menu_Style.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Menu_WareType.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\PackageItemList.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Package_List.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\sysdiagrams.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\User_AccountList.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Works_Files.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PackageModel.cs" />
+    <Compile Include="Models\AuthorsModel.cs" />
+    <Compile Include="Models\PackagesModel.cs" />
     <Compile Include="Models\ViewModel\Package.cs" />
     <Compile Include="Models\ViewModel\Works.cs" />
-    <Compile Include="Models\Entities\Works_Author.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Works_List.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Works_Module_List.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Works_Prop_Genre.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Works_Prop_Owner.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Works_Prop_Style.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Works_Prop_WareType.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\WorksModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -270,27 +186,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\Entities\EG_MagicCubeEntity.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
-      <LastGenOutput>EG_MagicCubeEntity.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Entities\EG_MagicCubeEntity.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
-      <LastGenOutput>EG_MagicCubeEntity.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Models\Entities\EG_MagicCubeEntity.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EG_MagicCubeEntity.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Entities\EG_MagicCubeEntity.edmx.diagram">
-      <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
     </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -341,6 +240,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EG_MagicCubeEntity\EG_MagicCubeEntity.csproj">
+      <Project>{bbf15cdb-ff9e-49e2-be4b-ce4d15ecb112}</Project>
+      <Name>EG_MagicCubeEntity</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

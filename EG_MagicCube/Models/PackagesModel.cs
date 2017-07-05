@@ -8,8 +8,8 @@ using System.Web;
 
 namespace EG_MagicCube.Models
 {
-    [MetadataType(typeof(WorksModelMetaData))]
-    public partial class PackageModel:Packages
+    [MetadataType(typeof(PackagesModelMetaData))]
+    public partial class PackagesModel:Packages
     {
         #region Methods
         #region Create
@@ -63,7 +63,7 @@ namespace EG_MagicCube.Models
         /// </summary>
         /// <param name="newPackages">新包裝資料</param>
         /// <returns></returns>
-        public bool Update(PackageModel newPackages)
+        public bool Update(PackagesModel newPackages)
         {
             using (var context = new EG_MagicCubeEntities())
             {
@@ -107,6 +107,56 @@ namespace EG_MagicCube.Models
         }
         #endregion
 
+        #endregion
+    }
+    public partial class PackagesModelMetaData
+    {
+        #region Properties
+        [Required]
+        [DisplayName("作品序號")]
+        public string WorksNo { get; set; }
+        [Required]
+        [DisplayName("物料代碼")]
+        public string MaterialsID { get; set; }
+        [Required]
+        [DisplayName("藝術家編號")]
+        public string AuthorsNo { get; set; }
+        [Required]
+        [DisplayName("作品名稱")]
+        public string WorksName { get; set; }
+        [Required]
+        [DisplayName("作品起始年分")]
+        public string YearStart { get; set; }
+        [Required]
+        [DisplayName("作品結束年分")]
+        public string YearEnd { get; set; }
+        [Required]
+        [DisplayName("備註")]
+        public string Remarks { get; set; }
+        [Required]
+        [DisplayName("成本價")]
+        public string Cost { get; set; }
+        [Required]
+        [DisplayName("定價")]
+        public string Price { get; set; }
+        [Required]
+        [DisplayName("定價時間")]
+        public string PricingDate { get; set; }
+        [Required]
+        [DisplayName("毛利率")]
+        public string GrossMargin { get; set; }
+        [Required]
+        [DisplayName("市場性")]
+        public string Marketability { get; set; }
+        [Required]
+        [DisplayName("包裹性")]
+        public string Packageability { get; set; }
+        [Required]
+        [DisplayName("增值性")]
+        public string Valuability { get; set; }
+        [Required]
+        [DisplayName("藝術性")]
+        public string Artisticability { get; set; }
         #endregion
     }
 }
