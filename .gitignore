@@ -1,1 +1,4 @@
 /EG_MagicCube/Web.config
+/packages
+/.vs
+/EG_MagicCube/obj

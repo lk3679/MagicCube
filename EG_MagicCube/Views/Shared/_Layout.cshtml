@@ -15,12 +15,15 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    }
                     <a class="navbar-brand" href="#">
                         <img src="http://www.eslitegallery.com/img/logo-welcome.png" alt="誠品畫廊" style="" />
 
@@ -30,14 +33,15 @@
                 {
                     @Html.AntiForgeryToken()
                     <div id="navbar" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            @if (Request.IsAuthenticated)
-                            {
+                        @if (Request.IsAuthenticated)
+                        {
+                            <ul class="nav navbar-nav navbar-right">
+
                                 <li><a href="">@User.Identity.Name ，您好！</a></li>
                                 <li class="active"><a href="#">首頁</a></li>
                                 <li>@Html.ActionLink("作品查詢", "AdSearch", "Package")</li>
 
-                                <li>@Html.ActionLink("包裝管理", "AdSearch", "Package")</li>
+                                <li>@Html.ActionLink("包裝管理", "Index", "Package")</li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">系統管理<span class="caret"></span></a>
                                     <ul class="dropdown-menu">
@@ -48,8 +52,9 @@
                                 </li>
 
                                 <li><a href="javascript:document.getElementById('logoutForm').submit()">登出</a></li>
-                            }
-                        </ul>
+
+                            </ul>
+                        }
                     </div><!--/.nav-collapse -->
                 }
             </div><!--/.container-fluid -->

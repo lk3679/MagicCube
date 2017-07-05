@@ -21,7 +21,9 @@ namespace EG_MagicCube.Models.ViewModel
         public string Url { get; set; }
 
         [Display(Name = "到期時間")]
-        public string EndDate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        public DateTime EndDate { get; set; }
 
         [Display(Name = "建立時間")]
         public DateTime CreateDate { get; set; }
@@ -30,10 +32,10 @@ namespace EG_MagicCube.Models.ViewModel
         public int WorksAmount { get; set; }
 
         [Display(Name = "預算")]
-        int Budget { get; set; }
+        public int Budget { get; set; }
 
-        [Display(Name = "總計")]
-        int Summary { get; set; }
+        [Display(Name = "金額總計")]
+        public int Summary { get; set; }
 
         [Display(Name = "作品清單")]
         public List<WorksInfoViewModel> WorksList { get; set; }
