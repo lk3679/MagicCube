@@ -1,0 +1,50 @@
+﻿@model EG_MagicCube.Models.ViewModel.LoginViewModel
+
+@{
+    ViewBag.Title = "登入";
+}
+
+<div class="main-login main-center">
+
+    <form class="form-horizontal" method="post">
+        <div class="row  panel-group" style="margin-top:20px;">
+
+            <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-1 col-lg-8 col-md-8 col-sm-10 col-xs-12  control-group" style="line-height: 60px;">
+                <div class="row">
+                    <div class="control-group">
+                        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-1 col-xs-offset-1 col-lg-8 col-md-8 col-sm-10 col-xs-10 ">
+                            @Html.LabelFor(model => model.LoginAccount, new { @class = " control-label" })
+                            @Html.TextBoxFor(model => model.LoginAccount, new { @class = "form-control", placeholder = ModelMetadata.FromLambdaExpression(model => model.LoginAccount, ViewData).Watermark })
+                            @Html.ValidationMessageFor(model => model.LoginAccount, "", new { @class = "validation-error" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="control-group">
+                        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-1  col-xs-offset-1 col-lg-8 col-md-8 col-sm-10 col-xs-10 ">
+                            @Html.LabelFor(model => model.Password, new { @class = " control-label" })
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = ModelMetadata.FromLambdaExpression(model => model.Password, ViewData).Watermark })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "validation-error" })
+                        </div>
+
+                    </div>
+                </div>
+                <div data-valmsg-summary="true"></div>
+
+                <div class="row text-right col-lg-10 col-md-10" >
+                    <div class="btn-group">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <input class="btn btn-primary btn-lg login-button text-justify btn-block" type="submit" value="登入" />
+                    </div>
+                </div>
+            </div>
+            @*<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 container" style="padding:30px 20px 0 20px;font-size:14px;line-height: 25px;">
+                    <span>
+                        介紹文。<br />
+                    </span>
+                    <img src="http://www.eslitecorp.com/images/logo.png" style="width:144px;height:28px;float:right;margin:20px 20px 0 0;">
+                </div>*@
+        </div>
+    </form>
+</div>
+

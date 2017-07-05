@@ -175,97 +175,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Author_List.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Author_Prop_Area.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Author_Prop_Tag.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BusinessModels\Package.cs" />
-    <Compile Include="Models\EG_MagicCubeEntity.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EG_MagicCubeEntity.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EG_MagicCubeEntity.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EG_MagicCubeEntity.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\InputModels\Package.cs" />
-    <Compile Include="Models\InputModels\Works.cs" />
-    <Compile Include="Models\Menu_AuthorArea.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Menu_AuthorTag.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Menu_CountNoun.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Menu_Genre.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Menu_Material.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Menu_Owner.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Menu_Style.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Menu_WareType.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BusinessModels\Works.cs" />
-    <Compile Include="Models\PackageItemList.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Package_List.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User_AccountList.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ViewModel\AdSearchViewModel.cs" />
     <Compile Include="Models\ViewModel\LoginViewModel.cs" />
     <Compile Include="Models\ViewModel\PackageViewModel.cs" />
     <Compile Include="Models\ViewModel\PackgeListViewModel.cs" />
     <Compile Include="Models\ViewModel\Works.cs" />
     <Compile Include="Models\ViewModel\WorksInfoViewModel.cs" />
-    <Compile Include="Models\Works_Author.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Works_List.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Works_Module_List.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Works_Prop_Genre.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Works_Prop_Owner.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Works_Prop_Style.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Works_Prop_WareType.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -279,27 +194,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\EG_MagicCubeEntity.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
-      <LastGenOutput>EG_MagicCubeEntity.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\EG_MagicCubeEntity.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
-      <LastGenOutput>EG_MagicCubeEntity.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Models\EG_MagicCubeEntity.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EG_MagicCubeEntity.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\EG_MagicCubeEntity.edmx.diagram">
-      <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
     </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -311,53 +209,6 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="Scripts\i18n\ar.js" />
-    <Content Include="Scripts\i18n\az.js" />
-    <Content Include="Scripts\i18n\bg.js" />
-    <Content Include="Scripts\i18n\ca.js" />
-    <Content Include="Scripts\i18n\cs.js" />
-    <Content Include="Scripts\i18n\da.js" />
-    <Content Include="Scripts\i18n\de.js" />
-    <Content Include="Scripts\i18n\el.js" />
-    <Content Include="Scripts\i18n\en.js" />
-    <Content Include="Scripts\i18n\es.js" />
-    <Content Include="Scripts\i18n\et.js" />
-    <Content Include="Scripts\i18n\eu.js" />
-    <Content Include="Scripts\i18n\fa.js" />
-    <Content Include="Scripts\i18n\fi.js" />
-    <Content Include="Scripts\i18n\fr.js" />
-    <Content Include="Scripts\i18n\gl.js" />
-    <Content Include="Scripts\i18n\he.js" />
-    <Content Include="Scripts\i18n\hi.js" />
-    <Content Include="Scripts\i18n\hr.js" />
-    <Content Include="Scripts\i18n\hu.js" />
-    <Content Include="Scripts\i18n\id.js" />
-    <Content Include="Scripts\i18n\is.js" />
-    <Content Include="Scripts\i18n\it.js" />
-    <Content Include="Scripts\i18n\ja.js" />
-    <Content Include="Scripts\i18n\km.js" />
-    <Content Include="Scripts\i18n\ko.js" />
-    <Content Include="Scripts\i18n\lt.js" />
-    <Content Include="Scripts\i18n\lv.js" />
-    <Content Include="Scripts\i18n\mk.js" />
-    <Content Include="Scripts\i18n\ms.js" />
-    <Content Include="Scripts\i18n\nb.js" />
-    <Content Include="Scripts\i18n\nl.js" />
-    <Content Include="Scripts\i18n\pl.js" />
-    <Content Include="Scripts\i18n\pt-BR.js" />
-    <Content Include="Scripts\i18n\pt.js" />
-    <Content Include="Scripts\i18n\ro.js" />
-    <Content Include="Scripts\i18n\ru.js" />
-    <Content Include="Scripts\i18n\sk.js" />
-    <Content Include="Scripts\i18n\sr-Cyrl.js" />
-    <Content Include="Scripts\i18n\sr.js" />
-    <Content Include="Scripts\i18n\sv.js" />
-    <Content Include="Scripts\i18n\th.js" />
-    <Content Include="Scripts\i18n\tr.js" />
-    <Content Include="Scripts\i18n\uk.js" />
-    <Content Include="Scripts\i18n\vi.js" />
-    <Content Include="Scripts\i18n\zh-CN.js" />
-    <Content Include="Scripts\i18n\zh-TW.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
