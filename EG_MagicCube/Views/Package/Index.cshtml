@@ -1,0 +1,92 @@
+﻿@model IEnumerable<EG_MagicCube.Models.ViewModel.PackageViewModel>
+
+@{
+    ViewBag.Title = "包裝管理";
+}
+
+<h2>包裝列表</h2>
+
+<p>
+    @Html.ActionLink("新增包裝", "Edit")
+</p>
+@using (Html.BeginForm())
+{
+    <div class="search">
+        <div class="col-lg-6 col-md-6 ">
+            @Html.DisplayNameFor(model => model.PG_Name): <input type="text" name="q_PGName" class="form-control text-box single-line" />
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 ">
+            @Html.DisplayNameFor(model => model.Summary): <input class="form-control text-box single-line valid" data-val="true" data-val-number="必須是數字。"
+                                                                 name="q_Summary" type="number" />
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 ">
+            建立日期: <select class="form-control " tabindex="-1" name="q_CreateDate">
+                <option value="ASC">由舊到新</option><
+                <option value="DESC">由新到舊</option>
+            </select>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  text-right">
+            <input type="submit" name="search-btn" class="btn btn-default" />
+        </div>
+    </div>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PG_No)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PG_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorksAmount)
+        </th>
+        <th></th>
+    </tr>
+
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PG_No)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PG_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorksAmount)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PG_No }) 
+                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                    @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    }
+</table>
+<div class="pull-right">
+    @if (ViewBag.pi > 0)
+    {
+        @Html.ActionLink("前一頁 ", "Index", new { p = (ViewBag.pi - 1) })
+    }
+    @if (ViewBag.pi > 0 && ViewBag.pn > 0) { <text> | </text> }
+    @if (ViewBag.pn > 0)
+    {
+        @Html.ActionLink("後一頁", "Index", new { p = (ViewBag.pn) })
+    }
+</div>
