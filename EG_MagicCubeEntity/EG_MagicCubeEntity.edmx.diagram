@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c03eaf65e6b440799ce8357f83dce5c6" Name="Diagram1">
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Authors" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.AuthorsPropArea" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.AuthorsPropTag" Width="1.5" PointX="6" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_AuthorsArea" Width="1.5" PointX="0.75" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_AuthorsTag" Width="1.5" PointX="3.75" PointY="29.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_CountNoun" Width="1.5" PointX="3.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_Genre" Width="1.5" PointX="0.75" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_Material" Width="1.5" PointX="3.75" PointY="24.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_Owner" Width="1.5" PointX="3.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_Style" Width="1.5" PointX="3.75" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_WareType" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.PackageItems" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Packages" Width="1.5" PointX="0.75" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.UserAccountRoles" Width="1.5" PointX="8.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.UserAccounts" Width="1.5" PointX="11" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Works" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.WorksAuthors" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.WorksFiles" Width="1.5" PointX="3" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.WorksModules" Width="1.5" PointX="6" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.WorksPropGenre" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.WorksPropOwner" Width="1.5" PointX="6" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.WorksPropStyle" Width="1.5" PointX="6" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.WorksPropWareType" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Author_Prop_Area_Author_List" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Author_Prop_Tag_Author_List" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Author_Author_List" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Author_Prop_Area_Menu_AuthorArea" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Author_Prop_Tag_Menu_AuthorTag" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Module_List_Menu_CountNoun" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Genre_Menu_Genre" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Module_List_Menu_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Owner_Menu_Owner" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Style_Menu_Style" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_WareType_Menu_WareType" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_PackageItemList_Package_List" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_PackageItemList_Works_List" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_UserAccounts_UserAccountRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Author_Works_List" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Files_Works_List" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Module_List_Works_List" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Genre_Works_List" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Owner_Works_List" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Style_Works_List" ManuallyRouted="false" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_WareType_Works_List" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
