@@ -231,6 +231,9 @@
     <Compile Include="Models\Entities\User_AccountList.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Works_Files.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PackageModel.cs" />
     <Compile Include="Models\ViewModel\Package.cs" />
     <Compile Include="Models\ViewModel\Works.cs" />
