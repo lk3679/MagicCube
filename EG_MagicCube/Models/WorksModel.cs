@@ -1,4 +1,4 @@
-﻿using EG_MagicCube.Models.Entities;
+﻿using EG_MagicCubeEntity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Web;
 namespace EG_MagicCube.Models
 {
     [MetadataType(typeof(WorksModelMetaData))]
-    public partial class WorksModel:Works_List
+    public partial class WorksModel:Works
     {
         #region Methods
         #region Create
@@ -21,7 +21,8 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                context.Works_List.Add(this);
+                
+                context.Works.Add(this);
                 if (context.SaveChanges() == 0)
                 {
                     return false;
@@ -35,24 +36,24 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 取得作品
         /// </summary>
-        public IQueryable<Works_List> All()
+        public IQueryable<Works> All()
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                return context.Works_List;
+                return context.Works;
             }
         }
 
         /// <summary>
         /// 以作品編號取得作品
         /// </summary>
-        /// <param name="Works_No">作品編號</param>
+        /// <param name="WorksNo">作品編號</param>
         /// <returns></returns>
-        public Works_List GetWorksByWorksNo(string Works_No)
+        public Works GetWorksByWorksNo(string WorksNo)
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                return context.Works_List.FirstOrDefault(x => x.Works_No == Guid.Parse(Works_No));
+                return context.Works.FirstOrDefault(x => x.WorksNo == Guid.Parse(WorksNo));
             }
         }
         #endregion
@@ -67,13 +68,13 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var oldWorks = context.Works_List.First(x => x.Works_No == newWorks.Works_No);
-                oldWorks.Author_No = newWorks.Author_No;
+                var oldWorks = context.Works.First(x => x.WorksNo == newWorks.WorksNo);
+                oldWorks.AuthorsNo = newWorks.AuthorsNo;
                 oldWorks.WorksName = newWorks.WorksName;
                 
                 
-                oldWorks.Year_Start = newWorks.Year_Start;
-                oldWorks.Year_End = newWorks.Year_End;
+                oldWorks.YearStart = newWorks.YearStart;
+                oldWorks.YearEnd = newWorks.YearEnd;
                 oldWorks.Remarks = newWorks.Remarks;
                 oldWorks.Cost = newWorks.Cost;
                 oldWorks.Price = newWorks.Price;
@@ -98,17 +99,17 @@ namespace EG_MagicCube.Models
         #endregion
 
         #region Delete
-        public bool Delete(string Works_No)
+        public bool Delete(string WorksNo)
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var works = context.Works_List.FirstOrDefault(x => x.Works_No == Guid.Parse(Works_No));
+                var works = context.Works.FirstOrDefault(x => x.WorksNo == Guid.Parse(WorksNo));
                 if (works == null)
                 {
                     return false;
                 }
 
-                context.Works_List.Remove(works);
+                context.Works.Remove(works);
                 if (context.SaveChanges() == 0)
                 {
                     return false;
@@ -127,22 +128,22 @@ namespace EG_MagicCube.Models
         #region Properties
         [Required]
         [DisplayName("作品序號")]
-        public string Works_No { get; set; }
+        public string WorksNo { get; set; }
         [Required]
         [DisplayName("物料代碼")]
-        public string Materials_ID { get; set; }
+        public string MaterialsID { get; set; }
         [Required]
         [DisplayName("藝術家編號")]
-        public string Author_No { get; set; }
+        public string AuthorsNo { get; set; }
         [Required]
         [DisplayName("作品名稱")]
         public string WorksName { get; set; }
         [Required]
         [DisplayName("作品起始年分")]
-        public string Year_Start { get; set; }
+        public string YearStart { get; set; }
         [Required]
         [DisplayName("作品結束年分")]
-        public string Year_End { get; set; }
+        public string YearEnd { get; set; }
         [Required]
         [DisplayName("備註")]
         public string Remarks { get; set; }

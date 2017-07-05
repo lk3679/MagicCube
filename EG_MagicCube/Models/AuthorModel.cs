@@ -1,4 +1,4 @@
-﻿using EG_MagicCube.Models.Entities;
+﻿using EG_MagicCubeEntity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,8 +8,8 @@ using System.Web;
 
 namespace EG_MagicCube.Models
 {
-    [MetadataType(typeof(AuthorModelMetaData))]
-    public partial class AuthorModel : Author_List
+    [MetadataType(typeof(AuthorsModelMetaData))]
+    public partial class AuthorsModel : Authors
     {
         #region Methods
         #region Create
@@ -21,7 +21,7 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                context.Author_List.Add(this);
+                context.Authors.Add(this);
                 if (context.SaveChanges() == 0)
                 {
                     return false;
@@ -35,24 +35,24 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 取得所有藝術家
         /// </summary>
-        public IQueryable<Author_List> All()
+        public IQueryable<Authors> All()
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                return context.Author_List;
+                return context.Authors;
             }
         }
 
         /// <summary>
         /// 以藝術家編號取得藝術家
         /// </summary>
-        /// <param name="authorNo">藝術家編號</param>
+        /// <param name="authorsNo">藝術家編號</param>
         /// <returns></returns>
-        public Author_List GetAuthorByAuthorNo(int authorNo)
+        public Authors GetAuthorByAuthorNo(int authorsNo)
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                return context.Author_List.FirstOrDefault(x => x.Author_No == authorNo);
+                return context.Authors.FirstOrDefault(x => x.AuthorsNo == authorsNo);
             }
         }
         #endregion
@@ -61,19 +61,19 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 以新藝術家資料更新
         /// </summary>
-        /// <param name="newAuthor">新藝術家資料</param>
+        /// <param name="newAuthors">新藝術家資料</param>
         /// <returns></returns>
-        public bool Update(AuthorModel newAuthor)
+        public bool Update(AuthorsModel newAuthors)
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var oldAuthor = context.Author_List.First(x => x.Author_No == newAuthor.Author_No);
+                var oldAuthors = context.Authors.First(x => x.AuthorsNo == newAuthors.AuthorsNo);
 
-                oldAuthor.Materials_ID = newAuthor.Materials_ID;
-                oldAuthor.AuthorCName = newAuthor.AuthorCName;
-                oldAuthor.AuthorEName = newAuthor.AuthorEName;
-                oldAuthor.ModifyUser = newAuthor.ModifyUser;
-                oldAuthor.ModifyDate = DateTime.Now;
+                oldAuthors.MaterialsID = newAuthors.MaterialsID;
+                oldAuthors.AuthorsCName = newAuthors.AuthorsCName;
+                oldAuthors.AuthorsEName = newAuthors.AuthorsEName;
+                oldAuthors.ModifyUser = newAuthors.ModifyUser;
+                oldAuthors.ModifyDate = DateTime.Now;
 
                 if (context.SaveChanges() == 0)
                 {
@@ -90,13 +90,13 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var author = context.Author_List.FirstOrDefault(x => x.Author_No == authorNo);
+                var author = context.Authors.FirstOrDefault(x => x.AuthorsNo == authorNo);
                 if (author == null)
                 {
                     return false;
                 }
 
-                context.Author_List.Remove(author);
+                context.Authors.Remove(author);
                 if (context.SaveChanges() == 0)
                 {
                     return false;
@@ -110,21 +110,21 @@ namespace EG_MagicCube.Models
         #endregion
     }
 
-    public partial class AuthorModelMetaData
+    public partial class AuthorsModelMetaData
     {
         #region Properties
         [Required]
-        public int Author_No { get; set; }
+        public int AuthorsNo { get; set; }
 
-        public string Materials_ID { get; set; }
+        public string MaterialsID { get; set; }
 
         [Required]
         [DisplayName("藝術家名稱")]
-        public string AuthorCName { get; set; }
+        public string AuthorsCName { get; set; }
 
         [Required]
         [DisplayName("藝術家英文名稱")]
-        public string AuthorEName { get; set; }
+        public string AuthorsEName { get; set; }
 
         [Required]
         public string CreateUser { get; set; }

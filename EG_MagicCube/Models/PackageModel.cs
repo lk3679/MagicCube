@@ -1,4 +1,4 @@
-﻿using EG_MagicCube.Models.Entities;
+﻿using EG_MagicCubeEntity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +8,8 @@ using System.Web;
 
 namespace EG_MagicCube.Models
 {
-    public partial class PackageModel:Package_List
+    [MetadataType(typeof(WorksModelMetaData))]
+    public partial class PackageModel:Packages
     {
         #region Methods
         #region Create
@@ -20,7 +21,7 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                context.Package_List.Add(this);
+                context.Packages.Add(this);
                 if (context.SaveChanges() == 0)
                 {
                     return false;
@@ -34,24 +35,24 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 取得包裝
         /// </summary>
-        public IQueryable<Package_List> All()
+        public IQueryable<Packages> All()
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                return context.Package_List;
+                return context.Packages;
             }
         }
 
         /// <summary>
         /// 以包裝編號取得包裝品
         /// </summary>
-        /// <param name="PG_No">包裝編號</param>
+        /// <param name="PackagesNo">包裝編號</param>
         /// <returns></returns>
-        public Package_List GetPackagesByPG_No(string PG_No)
+        public Packages GetPackagesByPG_No(string PackagesNo)
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                return context.Package_List.FirstOrDefault(x => x.PG_No == Guid.Parse(PG_No));
+                return context.Packages.FirstOrDefault(x => x.PackagesNo == Guid.Parse(PackagesNo));
             }
         }
         #endregion
@@ -60,19 +61,20 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 以包裝資料更新
         /// </summary>
-        /// <param name="newPackage">新包裝資料</param>
+        /// <param name="newPackages">新包裝資料</param>
         /// <returns></returns>
-        public bool Update(PackageModel newPackage)
+        public bool Update(PackageModel newPackages)
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var oldPackage = context.Package_List.First(x => x.PG_No == newPackage.PG_No);
-                oldPackage.PG_Name = newPackage.PG_Name;
-                oldPackage.PackingDate = newPackage.PackingDate;
-                oldPackage.PackageItemList = newPackage.PackageItemList;
-                oldPackage.EndDate = newPackage.EndDate;
-                oldPackage.ModifyUser = newPackage.ModifyUser;
-                oldPackage.ModifyDate = newPackage.ModifyDate;
+                var oldPackages = context.Packages.First(x => x.PackagesNo == newPackages.PackagesNo);
+                oldPackages.PackagesName = newPackages.PackagesName;
+                oldPackages.PackingDate = newPackages.PackingDate;
+                oldPackages.PackageItems = newPackages.PackageItems;
+                oldPackages.EndDate = newPackages.EndDate;
+                oldPackages.ModifyUser = newPackages.ModifyUser;
+                oldPackages.ModifyDate = newPackages.ModifyDate;
+                oldPackages.PackagesMemo = newPackages.PackagesMemo;
                 if (context.SaveChanges() == 0)
                 {
                     return false;
@@ -84,17 +86,17 @@ namespace EG_MagicCube.Models
         #endregion
 
         #region Delete
-        public bool Delete(string PG_No)
+        public bool Delete(string PackagesNo)
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var package = context.Package_List.FirstOrDefault(x => x.PG_No == Guid.Parse(PG_No));
-                if (package == null)
+                var packages = context.Packages.FirstOrDefault(x => x.PackagesNo == Guid.Parse(PackagesNo));
+                if (packages == null)
                 {
                     return false;
                 }
 
-                context.Package_List.Remove(package);
+                context.Packages.Remove(packages);
                 if (context.SaveChanges() == 0)
                 {
                     return false;
