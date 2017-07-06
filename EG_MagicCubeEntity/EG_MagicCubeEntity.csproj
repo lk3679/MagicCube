@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BBF15CDB-FF9E-49E2-BE4B-CE4D15ECB112}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EG_MagicCubeEntity</RootNamespace>
+    <AssemblyName>EG_MagicCubeEntity</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authors.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AuthorsPropArea.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AuthorsPropTag.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EG_MagicCubeEntity.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EG_MagicCubeEntity.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EG_MagicCubeEntity.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EG_MagicCubeEntity.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Menu_AuthorsArea.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Menu_AuthorsTag.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Menu_CountNoun.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Menu_Genre.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Menu_Material.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Menu_Owner.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Menu_Style.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Menu_WareType.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PackageItems.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Packages.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserAccountRoles.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserAccounts.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Works.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorksAuthors.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorksFiles.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorksModules.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorksPropGenre.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorksPropOwner.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorksPropStyle.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorksPropWareType.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="EG_MagicCubeEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EG_MagicCubeEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EG_MagicCubeEntity.edmx.diagram">
+      <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EG_MagicCubeEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
+      <LastGenOutput>EG_MagicCubeEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EG_MagicCubeEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
+      <LastGenOutput>EG_MagicCubeEntity.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
