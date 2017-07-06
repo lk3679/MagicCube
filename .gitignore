@@ -2,3 +2,5 @@
 /packages
 /.vs
 /EG_MagicCube/obj
+/EG_MagicCubeDBSchema/bin/Debug
+/EG_MagicCubeDBSchema/obj
