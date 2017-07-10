@@ -11,8 +11,10 @@ namespace EG_MagicCube.Models.ViewModel
     {
         [Display(Name = "作品序號")]
         public string WorksNo { get; set; }
+
+        [Required]
         [Display(Name = "藝術家")]
-        public int AuthorsNo { get; set; }
+        public string AuthorsNo { get; set; }
         [Display(Name = "作品名稱")]
         public string WorksName { get; set; }
         [Display(Name = "年代起")]
@@ -20,7 +22,7 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "年代迄")]
         public string YearEnd { get; set; }
         [Display(Name = "材質清單")]
-        public List<Material> MaterialsList { get; set; }
+        public List<MaterialViewModel> MaterialsList { get; set; }
 
         [Display(Name = "圖片")]
         public string Img { get; set; }
@@ -33,12 +35,10 @@ namespace EG_MagicCube.Models.ViewModel
         public System.DateTime PricingDate { get; set; }
         [Display(Name = "毛利率")]
         public double GrossMargin { get; set; }
-
         [Display(Name = "作品類型")]
-        public List<SelectListItem> WorksStyle { get; set; }
-
+        public string WorksStyle { get; set; }
         [Display(Name = "作品風格")]
-        public List<SelectListItem> WorksGenre { get; set; }
+        public string WorksGenre { get; set; }
 
         public double Marketability { get; set; }
         public double Packageability { get; set; }
@@ -60,7 +60,7 @@ namespace EG_MagicCube.Models.ViewModel
         //public virtual ICollection<WorksPropWareType> WorksPropWareType { get; set; }
     }
 
-    public class Material
+    public class MaterialViewModel
     {
         public string No { get; set; }
         public int Height { get; set; }

@@ -21,9 +21,7 @@ namespace EG_MagicCube.Models.ViewModel
         public string Url { get; set; }
 
         [Display(Name = "到期時間")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; }
 
         [Display(Name = "建立時間")]
         public DateTime CreateDate { get; set; }

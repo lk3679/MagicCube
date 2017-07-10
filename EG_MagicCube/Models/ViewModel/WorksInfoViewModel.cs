@@ -11,11 +11,11 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "作品序號")]
         public string No { get; set; }
 
-        [Display(Name = "藝術家")]
-        public string Author { get; set; }
-
         [Display(Name = "作品名稱")]
         public string Name { get; set; }
+
+        [Display(Name = "藝術家")]
+        public string Author { get; set; }
 
         [Display(Name = "尺寸")]
         public string Size { get; set; }
