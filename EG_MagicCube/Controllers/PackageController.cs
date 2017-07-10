@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EG_MagicCube.Models.ViewModel;
+using EG_MagicCube.Models;
 
 namespace EG_MagicCube.Controllers
 {
@@ -12,22 +13,35 @@ namespace EG_MagicCube.Controllers
         // GET: Package
         public ActionResult Index(int p = 0)
         {
-            //AccountModel am = new AccountModel();
-            //List<AcctListViewModels> Modle = new List<AcctListViewModels>();
-            //Modle = am.GetAccts(p * take, take + 1);
-            ////多取一，若有表示有下一頁
-            //if (Modle.Count == (take + 1))
-            //{
-            //    ViewBag.pn = p + 1;
-            //    Modle.RemoveAt(take);
-            //}
-            //else
-            //{
-            //    ViewBag.pn = 0;
-            //}
-            //ViewBag.pi = p;
-
-            return View();
+            int take = 10;
+            PackagesModel model = new PackagesModel();
+            List<PackageViewModel> value = new List<PackageViewModel>();
+            var _value = model.All(p * take, take + 1);
+            //多取一，若有表示有下一頁
+            if (_value.Count == (take + 1))
+            {
+                ViewBag.pn = p + 1;
+                _value.RemoveAt(take);
+            }
+            else
+            {
+                ViewBag.pn = 0;
+            }
+            ViewBag.pi = p;
+            for (int i = 0; i < _value.Count; i++)
+            {
+                value.Add(new PackageViewModel()
+                {
+                    Budget = 0,
+                    CreateDate = _value[i].CreateDate,
+                    //EndDate = _value[i].EndDate.HasValue ? _value[i].EndDate.Value.ToString("yyyy/MM/dd") : "",
+                    PG_Name = _value[i].PackagesName,
+                    PG_No = _value[i].PackagesNo.ToString(),
+                    //Summary = _value[i].PackageItems.Where(w => w.IsJoin == "Y").Sum(s => s.Works.Price),
+                    WorksAmount = _value[i].PackageItems.Count
+                });
+            }
+            return View(value);
         }
 
         [HttpPost]
@@ -64,14 +78,10 @@ namespace EG_MagicCube.Controllers
             AdSearchViewModel model = new AdSearchViewModel()
             {
                 Budget = 10000,
-                Deep = 10,
-                Height = 20,
-                Length = 30,
                 PG_Name = "test",
                 PG_No = "123",
                 Price_L = 10000,
-                Price_U = 10,
-                Width = 40
+                Price_U = 10
             };
             List<SelectListItem> Authorsitems = new List<SelectListItem>();
             Authorsitems.Add(new SelectListItem()
@@ -146,13 +156,117 @@ namespace EG_MagicCube.Controllers
         }
 
         [HttpPost]
-        public ActionResult AdSearch(string pgno, FormCollection collection)
+        public ActionResult AdSearch(string pgno, AdSearchViewModel collection)
         {
             //根據條件篩選
             var v = collection;
+
+            WorksSearchModel model = new WorksSearchModel()
+            {
+                MaxDeep = collection.MaxDeep
+            };
+
             //儲存篩選條件
             return View();
         }
+
+        public ActionResult Filter(string pgno = "")
+        {
+            AdSearchViewModel model = new AdSearchViewModel()
+            {
+                Budget = 10000,
+                MaxDeep = 10,
+                MineDeep = 0,
+                MaxHeight = 20,
+                MaxLength = 30,
+                MineHeight = 0,
+                MineLength = 0,
+                MaxWidth = 40,
+                MineWidth = 0,
+                PG_Name = "test",
+                PG_No = "123",
+                Price_L = 10000,
+                Price_U = 10
+            };
+            MenuModel mm = new MenuModel();
+            List<SelectListItem> Authorsitems = new List<SelectListItem>();
+            var _AuthorNoList = mm.GetMenu(MenuModel.MenuClass.AuthorTag);
+            for (int i = 0; i < _AuthorNoList.Count; i++)
+            {
+                Authorsitems.Add(new SelectListItem()
+                {
+                    Text = _AuthorNoList[i].MenuName,
+                    Value = _AuthorNoList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.AuthorNoList = Authorsitems;
+
+            List<SelectListItem> WorksStyleitems = new List<SelectListItem>();
+            var _WorksStyleList = mm.GetMenu(MenuModel.MenuClass.Style);
+            for (int i = 0; i < _WorksStyleList.Count; i++)
+            {
+                WorksStyleitems.Add(new SelectListItem()
+                {
+                    Text = _WorksStyleList[i].MenuName,
+                    Value = _WorksStyleList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.StyleNoList = WorksStyleitems;
+
+            List<SelectListItem> WorksGenreitems = new List<SelectListItem>();
+            var _WorksGenreList = mm.GetMenu(MenuModel.MenuClass.Genre);
+            for (int i = 0; i < _WorksStyleList.Count; i++)
+            {
+                WorksGenreitems.Add(new SelectListItem()
+                {
+                    Text = _WorksGenreList[i].MenuName,
+                    Value = _WorksGenreList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.GenreNoList = WorksGenreitems;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Filter(AdSearchViewModel collection, string pgno = "")
+        {
+            WorksSearchModel value = new WorksSearchModel()
+            {
+                Budget = collection.Budget,
+                MaxDeep = collection.MaxDeep,                
+                MaxHeight = collection.MaxHeight,
+                MaxLength = collection.MaxLength,
+                MaxPrice = collection.MaxLength,
+                MaxTimeLength = collection.MaxTimeLength,
+                MaxWidth = collection.MaxWidth,
+                MineDeep = collection.MineDeep,
+                MineHeight = collection.MineHeight,
+                MineLength = collection.MineLength,
+                MinePrice = collection.MineLength,
+                MineTimeLength = collection.MineTimeLength,
+                MineWidth = collection.MineWidth,
+                WorksName = collection.WorksName,
+                StyleNoList = collection.StyleNoList.Split(',').ToList(),
+                AuthorNoList = collection.AuthorNoList.Split(',').ToList(),
+                GenreNoList = collection.GenreNoList.Split(',').ToList(),
+                GradedNoList = collection.GradedNoList.Split(',').ToList(),
+            };
+            if (string.IsNullOrEmpty(pgno))
+            {
+                pgno = new Guid().ToString();
+            }
+            PackagesModel pm = new PackagesModel();
+
+            // 將搜尋結果加入PackagesModel 的WorksNos
+            // value.Search(0);
+
+
+
+            //儲存篩選條件
+            return View();
+        }
+
 
         [AllowAnonymous]
         // GET: Package/Details/5
@@ -234,7 +348,6 @@ namespace EG_MagicCube.Controllers
             try
             {
                 // TODO: Add insert logic here
-
                 return RedirectToAction("Index");
             }
             catch
@@ -260,7 +373,6 @@ namespace EG_MagicCube.Controllers
             try
             {
                 // TODO: Add update logic here
-
                 return RedirectToAction("Index");
             }
             catch

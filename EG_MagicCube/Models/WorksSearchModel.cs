@@ -23,7 +23,7 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 藝術家編號清單
         /// </summary>
-        public List<int> AuthorNoList { get; set; }
+        public List<string> AuthorNoList { get; set; }
         /// <summary>
         /// 作品名稱
         /// </summary>
@@ -79,15 +79,15 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 類型編號清單
         /// </summary>
-        public List<int> GenreNoList { get; set; }
+        public List<string> GenreNoList { get; set; }
         /// <summary>
         /// 風格編號清單
         /// </summary>
-        public List<int> StyleNoList { get; set; }
+        public List<string> StyleNoList { get; set; }
         /// <summary>
         /// 分級
         /// </summary>
-        public List<int> GradedNoList { get; set; }
+        public List<string> GradedNoList { get; set; }
         /// <summary>
         /// 包裝編號
         /// </summary>
@@ -159,17 +159,17 @@ namespace EG_MagicCube.Models
                 //藝術家
                 if (this.AuthorNoList !=null && this.AuthorNoList.Count>0)
                 {
-                    r = r.Where(f => f.WorksAuthors.Any(wa=> this.AuthorNoList.Contains(wa.Works_Author_No)));
+                    r = r.Where(f => f.WorksAuthors.Any(wa=> this.AuthorNoList.Contains(wa.Works_Author_No.ToString())));
                 }
                 //類型
                 if (this.GenreNoList != null && this.GenreNoList.Count > 0)
                 {
-                    r = r.Where(f => f.WorksPropGenre.Any(wpg => this.GenreNoList.Contains(wpg.GenreNo)));
+                    r = r.Where(f => f.WorksPropGenre.Any(wpg => this.GenreNoList.Contains(wpg.GenreNo.ToString())));
                 }
                 //風格
                 if (this.StyleNoList != null && this.StyleNoList.Count > 0)
                 {
-                    r = r.Where(f => f.WorksPropStyle.Any(wps => this.StyleNoList.Contains(wps.StyleNo)));
+                    r = r.Where(f => f.WorksPropStyle.Any(wps => this.StyleNoList.Contains(wps.StyleNo.ToString())));
                 }
                 if (this.PackagesNo != null )
                 {

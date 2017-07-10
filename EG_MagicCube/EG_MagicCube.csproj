@@ -184,6 +184,7 @@
     <Compile Include="Models\ViewModel\PackageViewModel.cs" />
     <Compile Include="Models\ViewModel\PackgeListViewModel.cs" />
     <Compile Include="Models\ViewModel\WorksInfoViewModel.cs" />
+    <Compile Include="Models\WorksSearchModel.cs" />
     <Compile Include="Models\Work\WorksSearchModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -307,15 +308,14 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
-	<Content Include="App.config" />    
-	<Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="App.config" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\FontAwesome.otf" />    
-	<None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="Scripts\imagesloaded.pkgd.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -334,8 +334,6 @@
     <Content Include="Scripts\select2.full.min.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
-    <Content Include="Scripts\wookmark.js" />
-    <Content Include="Scripts\wookmark.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -357,8 +355,9 @@
     <Content Include="Views\Package\Index.cshtml" />
     <Content Include="Views\Package\Edit.cshtml" />
     <Content Include="Views\Package\Edit_WorksList.cshtml" />
-	<Content Include="Views\Package\Detail_Works.cshtml" />  
-	</ItemGroup>
+    <Content Include="Views\Package\Detail_Works.cshtml" />
+    <Content Include="Views\Package\Filter.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\App_Data\" />
@@ -392,7 +391,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60098</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

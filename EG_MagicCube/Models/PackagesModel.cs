@@ -64,7 +64,7 @@ namespace EG_MagicCube.Models
         /// 備註
         /// </summary>
         public string PackagesMemo { get; set; }
-        /// <summary>
+        /// <summary> 
         /// 作品編號清單
         /// </summary>
         [DisplayName("作品編號清單")]
