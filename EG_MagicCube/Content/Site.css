@@ -34,3 +34,57 @@ textarea {
 .modelcont {
     margin-top: 7px;
 }
+
+nav.navbar {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+a.navbar-brand img {
+    padding-left: 15px;
+}
+
+div.container {
+    margin-top: 40px;
+}
+
+/*@media screen and (max-width: 576px) {
+    .itemContainer {
+        column-count: 1;
+        -moz-columns: 1;
+        -o-columns: 1;
+        -webkit-columns: 1;
+    }
+}
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    .itemContainer {
+        column-count: 2;
+        -moz-columns: 2;
+        -o-columns: 2;
+        -webkit-columns: 2;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    .itemContainer {
+        column-count: 3;
+        -moz-columns: 3;
+        -o-columns: 3;
+        -webkit-columns: 3;
+    }
+}
+@media screen and (min-width: 992px) {
+    .itemContainer {
+        column-count: 4;
+        -moz-columns: 4;
+        -o-columns: 4;
+        -webkit-columns: 4;
+    }
+}*/
+
+div.item {
+    float: left;
+    min-height: 500px;
+}

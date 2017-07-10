@@ -170,11 +170,13 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PackageController.cs" />
+    <Compile Include="Controllers\WorksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\PackagesModel.cs" />
+    <Compile Include="Models\ViewModel\WorksCreateViewModel.cs" />
     <Compile Include="Models\WorksModel.cs" />
     <Compile Include="Models\AuthorsModel.cs" />
     <Compile Include="Models\ViewModel\AdSearchViewModel.cs" />
@@ -313,6 +315,7 @@
     <Content Include="fonts\FontAwesome.otf" />    
 	<None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\imagesloaded.pkgd.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -331,6 +334,8 @@
     <Content Include="Scripts\select2.full.min.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\wookmark.js" />
+    <Content Include="Scripts\wookmark.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -359,6 +364,7 @@
     <Folder Include="bin\App_Data\" />
     <Folder Include="Views\Author\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Works\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
