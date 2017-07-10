@@ -9,6 +9,7 @@ using System.Web;
 using System.Drawing;
 using System.IO;
 using ImageMagick;
+using EG_MagicCube.Models;
 namespace EG_MagicCube.Models
 {
     /// <summary>
@@ -69,35 +70,53 @@ namespace EG_MagicCube.Models
         /// </summary>
         public int? MaxTimeLength { get; set; }
         /// <summary>
-        /// 最小時間定價
+        /// 最小定價
         /// </summary>
         public int? MinePrice { get; set; }
         /// <summary>
-        /// 最大時間定價
+        /// 最大定價
         /// </summary>
         public int? MaxPrice { get; set; }
         /// <summary>
         /// 類型編號清單
         /// </summary>
-        public List<int> GenreNoList { get; set; }
+        public List<string> GenreNoList { get; set; }
         /// <summary>
         /// 風格編號清單
         /// </summary>
-        public List<int> StyleNoList { get; set; }
+        public List<string> StyleNoList { get; set; }
         /// <summary>
         /// 分級
         /// </summary>
         public List<int> GradedNoList { get; set; }
+
         /// <summary>
         /// 包裝編號
         /// </summary>
-        public Guid PackagesNo { get; set; }
+        public string PackagesNo { get; set; }
 
-        public List<Works> Search(int PageIndex = 1, int PageSize = 10)
+        /// <summary>
+        /// 作品編號
+        /// </summary>
+        public string WorksNo { get; set; }
+        /// <summary>
+        /// 搜尋
+        /// </summary>
+        /// <param name="PageIndex"></param>
+        /// <param name="PageSize"></param>
+        /// <returns></returns>
+        public List<WorksModel> Search(int PageIndex = 0, int PageSize = 0)
         {
+            //if (PageIndex == 0) PageIndex = 0;
+
             using (var context = new EG_MagicCubeEntities())
             {
                 var r = (from f in context.Works select f);
+
+                if (!string.IsNullOrEmpty(this.WorksNo))
+                {
+                    r = r.Where(f => f.WorksNo == Guid.Parse(WorksNo));
+                }
                 if (!string.IsNullOrEmpty(this.WorksName))
                 {
                     r = r.Where(f => f.WorksName.Contains(this.WorksName));
@@ -164,22 +183,65 @@ namespace EG_MagicCube.Models
                 //類型
                 if (this.GenreNoList != null && this.GenreNoList.Count > 0)
                 {
-                    r = r.Where(f => f.WorksPropGenre.Any(wpg => this.GenreNoList.Contains(wpg.GenreNo)));
+                    //int[] _GenreNoArray = this.GenreNoList.ConvertAll( s => int.Parse(s));
+                    //r = r.Where(f => f.WorksPropGenre.Any(wpg => this.GenreNoList.Contains(wpg.GenreNo)));
                 }
                 //風格
                 if (this.StyleNoList != null && this.StyleNoList.Count > 0)
                 {
-                    r = r.Where(f => f.WorksPropStyle.Any(wps => this.StyleNoList.Contains(wps.StyleNo)));
+                    //r = r.Where(f => f.WorksPropStyle.Any(wps => this.StyleNoList.Contains(wps.StyleNo)));
                 }
+                //以包裝序號查詢
                 if (this.PackagesNo != null )
                 {
-                    r = r.Where(f => f.PackageItems.Any(pkg => pkg.PackagesNo==PackagesNo));
+                    r = r.Where(f => f.PackageItems.Any(pkg => pkg.PackagesNo== Guid.Parse(this.PackagesNo)));
                 }
                 //if (GradedNoList != null && GradedNoList.Count > 0)
                 //{
                 //    r = r.Where(f => f.WorksAuthors.Any(wa => AuthorNoList.Contains(wa.Works_Author_No)));
                 //}
-                return r.OrderBy(c=>c.AuthorsNo).Skip((PageIndex * PageSize)- PageSize).Take(PageSize).ToList();
+                List<WorksModel> _WorksModel = r.OrderBy(c => c.AuthorsNo).Skip((PageIndex * PageSize) - PageSize).Take(PageSize).Select(c =>
+                     new WorksModel() {
+                         WorksNo = c.WorksNo.ToString(),
+                         MaterialsID = c.MaterialsID,
+                         AuthorsNo = c.AuthorsNo,
+                         AuthorsName = c.WorksAuthors.FirstOrDefault().Authors.AuthorsCName,
+                         WorksName = c.WorksName,
+                         YearStart = c.YearStart,
+                         YearEnd = c.YearEnd,
+                         Remarks = c.Remarks,
+                         Cost = c.Cost,
+                         Price = c.Price,
+                         PricingDate = c.PricingDate,
+                         GrossMargin = c.GrossMargin,
+                         Marketability = c.Marketability,
+                         Packageability = c.Packageability,
+                         Valuability = c.Valuability,
+                         Artisticability = c.Artisticability,
+                         CreateUser = c.CreateUser,
+                         CreateDate = c.CreateDate,
+                         ModifyUser = c.ModifyUser,
+                         ModifyDate = (DateTime)c.ModifyDate,
+
+                         WorksModuleList = c.WorksModules.Select(wm => new WorksModel.WorksModuleModel()
+                         {
+                             WorksModulesNo = wm.WorksModulesNo,
+                             WorksNo = wm.WorksNo,
+                             Material = new MenuViewModel { MenuID = wm.Menu_Material.MaterialNo, MenuName = wm.Menu_Material.MaterialName },
+                             Measure = wm.Measure,
+                             Length = wm.Length,
+                             Width = wm.Width,
+                             High = wm.High,
+                             Deep = wm.Deep,
+                             TimeLength = wm.TimeLength,
+                             Amount = wm.Amount,
+                             CountNoun = new MenuViewModel { MenuID = wm.Menu_CountNoun.CountNounNo, MenuName = wm.Menu_CountNoun.CountNounName }
+                         }).ToList()
+
+                     }
+                    ).ToList();
+                
+                return _WorksModel;
             }
         }
     }
