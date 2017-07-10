@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace EG_MagicCube.Models
 {
-    [MetadataType(typeof(AuthorsModelMetaData))]
-    public partial class AuthorsModel : Authors
+    public partial class AuthorsModel 
     {
         #region Methods
         #region Create
@@ -21,7 +21,7 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                context.Authors.Add(this);
+                //context.Authors.Add(this);
                 if (context.SaveChanges() == 0)
                 {
                     return false;
@@ -67,13 +67,13 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var oldAuthors = context.Authors.First(x => x.AuthorsNo == newAuthors.AuthorsNo);
+                //var oldAuthors = context.Authors.First(x => x.AuthorsNo == newAuthors.);
 
-                oldAuthors.MaterialsID = newAuthors.MaterialsID;
-                oldAuthors.AuthorsCName = newAuthors.AuthorsCName;
-                oldAuthors.AuthorsEName = newAuthors.AuthorsEName;
-                oldAuthors.ModifyUser = newAuthors.ModifyUser;
-                oldAuthors.ModifyDate = DateTime.Now;
+                //oldAuthors.MaterialsID = newAuthors.MaterialsID;
+                //oldAuthors.AuthorsCName = newAuthors.AuthorsCName;
+                //oldAuthors.AuthorsEName = newAuthors.AuthorsEName;
+                //oldAuthors.ModifyUser = newAuthors.ModifyUser;
+                //oldAuthors.ModifyDate = DateTime.Now;
 
                 if (context.SaveChanges() == 0)
                 {
@@ -107,34 +107,6 @@ namespace EG_MagicCube.Models
         }
         #endregion
 
-        #endregion
-    }
-
-    public partial class AuthorsModelMetaData
-    {
-        #region Properties
-        [Required]
-        public int AuthorsNo { get; set; }
-
-        public string MaterialsID { get; set; }
-
-        [Required]
-        [DisplayName("藝術家名稱")]
-        public string AuthorsCName { get; set; }
-
-        [Required]
-        [DisplayName("藝術家英文名稱")]
-        public string AuthorsEName { get; set; }
-
-        [Required]
-        public string CreateUser { get; set; }
-
-        [Required]
-        public System.DateTime CreateDate { get; set; }
-
-        [Required]
-        public string ModifyUser { get; set; }
-        public Nullable<System.DateTime> ModifyDate { get; set; }
         #endregion
     }
 }
