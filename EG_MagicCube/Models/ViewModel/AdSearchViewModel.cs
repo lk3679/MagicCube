@@ -34,7 +34,7 @@ namespace EG_MagicCube.Models.ViewModel
         public float Width { get; set; }
 
         [Display(Name = "高(公分)")]
-        public float High { get; set; }
+        public float Height { get; set; }
 
         [Display(Name = "深(公分)")]
         public float Deep { get; set; }

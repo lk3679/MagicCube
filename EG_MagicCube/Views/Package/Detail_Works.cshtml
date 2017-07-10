@@ -68,46 +68,47 @@
         </dd>
 
     </dl>
-
-    @if (Model.WorksList != null && Model.WorksList.Count > 0)
-    {
-        foreach (var items in Model.WorksList)
+    <div class="itemContainer">
+        @if (Model.WorksList != null && Model.WorksList.Count > 0)
         {
-            <div class="form-group">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  " style="float:left;">
+            foreach (var items in Model.WorksList)
+            {
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  item" >
                     <div>
-                        @Html.LabelFor(WorksListitem => items.MiniImg, htmlAttributes: new { @class = "control-label " })
+                        <div>
+                            @Html.LabelFor(WorksListitem => items.MiniImg, htmlAttributes: new { @class = "control-label " })
+                        </div>
+                        <img src="data:image/png;base64,@Html.Raw(items.MiniImg)" style="width:100%;" />
                     </div>
-                    <img src="data:image/png;base64,@Html.Raw(items.MiniImg)" alt="Red dot" />
+                    <div>
+                        <div>
+                            <div>
+                                @Html.LabelFor(WorksListitem => items.Author, htmlAttributes: new { @class = "control-label " })
+                                @Html.DisplayFor(WorksListitem => items.Author, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                @Html.LabelFor(WorksListitem => items.Name, htmlAttributes: new { @class = "control-label " })
+                                @Html.DisplayFor(WorksListitem => items.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                @Html.LabelFor(WorksListitem => items.Size, htmlAttributes: new { @class = "control-label " })
+                                @Html.DisplayFor(WorksListitem => items.Size, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                @Html.LabelFor(WorksListitem => items.Price, htmlAttributes: new { @class = "control-label " })
+                                @Html.DisplayFor(WorksListitem => items.Price, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-8 col-md-8  col-sm-6 col-xs-12 " style="float:left;">
-                    <div>
-                        @Html.LabelFor(WorksListitem => items.Author, htmlAttributes: new { @class = "control-label " })
-                        <div>
-                            @Html.DisplayFor(WorksListitem => items.Author, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-                    <div>
-                        @Html.LabelFor(WorksListitem => items.Name, htmlAttributes: new { @class = "control-label " })
-                        <div>
-                            @Html.DisplayFor(WorksListitem => items.Name, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-                    <div>
-                        @Html.LabelFor(WorksListitem => items.Size, htmlAttributes: new { @class = "control-label " })
-                        <div>
-                            @Html.DisplayFor(WorksListitem => items.Size, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-                    <div>
-                        @Html.LabelFor(WorksListitem => items.Price, htmlAttributes: new { @class = "control-label " })
-                        <div>
-                            @Html.DisplayFor(WorksListitem => items.Price, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         }
-    }
+    </div>
 </div>
 
