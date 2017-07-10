@@ -16,11 +16,8 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// Menu類型
         /// </summary>
-        public enum MenuClass {
-            /// <summary>
-            /// 全部
-            /// </summary>
-            ALL,
+        public enum MenuClassEnum
+        {
             /// <summary>
             /// 藝術家區域
             /// </summary>
@@ -59,51 +56,51 @@ namespace EG_MagicCube.Models
         /// </summary>
         /// <param name="_MenuClass"></param>
         /// <returns></returns>
-        public List<MenuViewModel> GetMenu(MenuClass _MenuClass)
+        public List<MenuViewModel> GetMenu(MenuClassEnum _MenuClass)
         {
             List<MenuViewModel> _MenuViewModel = new List<MenuViewModel>();
-            string MenuClassName = Enum.GetName(typeof(MenuClass), _MenuClass);
+            string MenuClassName = Enum.GetName(typeof(MenuClassEnum), _MenuClass);
             using (var context = new EG_MagicCubeEntities())
             {
                 switch (_MenuClass)
                 {
-                    case MenuClass.AuthorArea:
+                    case MenuClassEnum.AuthorArea:
                         _MenuViewModel.AddRange((from f in context.Menu_AuthorsArea
                                                  select new MenuViewModel()
                                                  { MenuClass = MenuClassName, MenuID = f.AuthorsAreaNo, MenuName = f.AuthorsAreaName }).ToList());
                         break;
-                    case MenuClass.AuthorTag:
+                    case MenuClassEnum.AuthorTag:
                         _MenuViewModel.AddRange((from f in context.Menu_AuthorsTag
                                                  select new MenuViewModel()
                                                  { MenuClass = MenuClassName, MenuID = f.AuthorsTagNo, MenuName = f.AuthorsTagName }).ToList());
                         break;
-                    case MenuClass.CountNoun:
+                    case MenuClassEnum.CountNoun:
                         _MenuViewModel.AddRange((from f in context.Menu_CountNoun
                                                  select new MenuViewModel()
                                                  { MenuClass = MenuClassName, MenuID = f.CountNounNo, MenuName = f.CountNounName }).ToList());
                         break;
-                    case MenuClass.Genre:
+                    case MenuClassEnum.Genre:
                         _MenuViewModel.AddRange((from f in context.Menu_Genre
                                                  select new MenuViewModel()
                                                  { MenuClass = MenuClassName, MenuID = f.GenreNo, MenuName = f.GenreName }).ToList());
                         break;
-                    case MenuClass.Material:
+                    case MenuClassEnum.Material:
                         _MenuViewModel.AddRange((from f in context.Menu_Material
                                                  select new MenuViewModel()
                                                  { MenuClass = MenuClassName, MenuID = f.MaterialNo, MenuName = f.MaterialName }).ToList());
                         break;
-                    case MenuClass.Style:
+                    case MenuClassEnum.Style:
                         _MenuViewModel.AddRange((from f in context.Menu_Style
                                                  select new MenuViewModel()
                                                  { MenuClass = MenuClassName, MenuID = f.StyleNo, MenuName = f.StyleName }).ToList());
                         break;
-                    case MenuClass.WareType:
+                    case MenuClassEnum.WareType:
                         _MenuViewModel.AddRange((from f in context.Menu_WareType
                                                  select new MenuViewModel()
                                                  { MenuClass = MenuClassName, MenuID = f.WareTypeNo, MenuName = f.WareTypeName }).ToList());
                         break;
 
-                    case MenuClass.Owner:
+                    case MenuClassEnum.Owner:
                         _MenuViewModel.AddRange((from f in context.Menu_Owner
                                                  select new MenuViewModel()
                                                  { MenuClass = MenuClassName, MenuID = f.OwnerNo, MenuName = f.OwnerName }).ToList());
@@ -120,57 +117,57 @@ namespace EG_MagicCube.Models
         /// <param name="_MenuClass">Meun類型</param>
         /// <param name="_MenuViewModelList"></param>
         /// <returns></returns>
-        public bool InsertMenu(MenuClass _MenuClass, List<MenuViewModel> _MenuViewModelList)
+        public bool InsertMenu(MenuClassEnum _MenuClass, List<MenuViewModel> _MenuViewModelList)
         {
-            string MenuClassName = Enum.GetName(typeof(MenuClass), _MenuClass);
+            string MenuClassName = Enum.GetName(typeof(MenuClassEnum), _MenuClass);
             using (var context = new EG_MagicCubeEntities())
             {
                 switch (_MenuClass)
                 {
-                    case MenuClass.AuthorArea:
+                    case MenuClassEnum.AuthorArea:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             context.Menu_AuthorsArea.Add(new Menu_AuthorsArea() { AuthorsAreaNo = _MenuViewModel.MenuID, AuthorsAreaName = _MenuViewModel.MenuName });
                         }
                         break;
-                    case MenuClass.AuthorTag:
+                    case MenuClassEnum.AuthorTag:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             context.Menu_AuthorsTag.Add(new Menu_AuthorsTag() { AuthorsTagNo = _MenuViewModel.MenuID, AuthorsTagName = _MenuViewModel.MenuName });
                         }
                         break;
-                    case MenuClass.CountNoun:
+                    case MenuClassEnum.CountNoun:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             context.Menu_CountNoun.Add(new Menu_CountNoun() { CountNounNo = _MenuViewModel.MenuID, CountNounName = _MenuViewModel.MenuName });
                         }
                         break;
-                    case MenuClass.Genre:
+                    case MenuClassEnum.Genre:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             context.Menu_Genre.Add(new Menu_Genre() { GenreNo = _MenuViewModel.MenuID, GenreName = _MenuViewModel.MenuName });
                         }
                         break;
-                    case MenuClass.Material:
+                    case MenuClassEnum.Material:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             context.Menu_Material.Add(new Menu_Material() { MaterialNo = _MenuViewModel.MenuID, MaterialName = _MenuViewModel.MenuName });
                         }
                         break;
-                    case MenuClass.Style:
+                    case MenuClassEnum.Style:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             context.Menu_Style.Add(new Menu_Style() { StyleNo = _MenuViewModel.MenuID, StyleName = _MenuViewModel.MenuName });
                         }
                         break;
-                    case MenuClass.WareType:
+                    case MenuClassEnum.WareType:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             context.Menu_WareType.Add(new Menu_WareType() { WareTypeNo = _MenuViewModel.MenuID, WareTypeName = _MenuViewModel.MenuName });
                         }
                         break;
 
-                    case MenuClass.Owner:
+                    case MenuClassEnum.Owner:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             context.Menu_Owner.Add(new Menu_Owner() { OwnerNo = _MenuViewModel.MenuID, OwnerName = _MenuViewModel.MenuName });
@@ -184,16 +181,21 @@ namespace EG_MagicCube.Models
             }
             return true;
         }
-
-        public bool DeleteMenu(MenuClass _MenuClass, List<MenuViewModel> _MenuViewModelList)
+        /// <summary>
+        /// 刪除
+        /// </summary>
+        /// <param name="_MenuClass"></param>
+        /// <param name="_MenuViewModelList"></param>
+        /// <returns></returns>
+        public bool DeleteMenu(MenuClassEnum _MenuClass, List<MenuViewModel> _MenuViewModelList)
         {
 
-            string MenuClassName = Enum.GetName(typeof(MenuClass), _MenuClass);
+            string MenuClassName = Enum.GetName(typeof(MenuClassEnum), _MenuClass);
             using (var context = new EG_MagicCubeEntities())
             {
                 switch (_MenuClass)
                 {
-                    case MenuClass.AuthorArea:
+                    case MenuClassEnum.AuthorArea:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             var delobj = context.Menu_AuthorsArea.FirstOrDefault(x => x.AuthorsAreaNo == _MenuViewModel.MenuID);
@@ -203,7 +205,7 @@ namespace EG_MagicCube.Models
                             }
                         }
                         break;
-                    case MenuClass.AuthorTag:
+                    case MenuClassEnum.AuthorTag:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             var delobj = context.Menu_AuthorsTag.FirstOrDefault(x => x.AuthorsTagNo == _MenuViewModel.MenuID);
@@ -213,7 +215,7 @@ namespace EG_MagicCube.Models
                             }
                         }
                         break;
-                    case MenuClass.CountNoun:
+                    case MenuClassEnum.CountNoun:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             var delobj = context.Menu_CountNoun.FirstOrDefault(x => x.CountNounNo == _MenuViewModel.MenuID);
@@ -223,7 +225,7 @@ namespace EG_MagicCube.Models
                             }
                         }
                         break;
-                    case MenuClass.Genre:
+                    case MenuClassEnum.Genre:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             var delobj = context.Menu_Genre.FirstOrDefault(x => x.GenreNo == _MenuViewModel.MenuID);
@@ -233,7 +235,7 @@ namespace EG_MagicCube.Models
                             }
                         }
                         break;
-                    case MenuClass.Material:
+                    case MenuClassEnum.Material:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             var delobj = context.Menu_Material.FirstOrDefault(x => x.MaterialNo == _MenuViewModel.MenuID);
@@ -243,7 +245,7 @@ namespace EG_MagicCube.Models
                             }
                         }
                         break;
-                    case MenuClass.Style:
+                    case MenuClassEnum.Style:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             var delobj = context.Menu_Style.FirstOrDefault(x => x.StyleNo == _MenuViewModel.MenuID);
@@ -253,7 +255,7 @@ namespace EG_MagicCube.Models
                             }
                         }
                         break;
-                    case MenuClass.WareType:
+                    case MenuClassEnum.WareType:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             var delobj = context.Menu_WareType.FirstOrDefault(x => x.WareTypeNo == _MenuViewModel.MenuID);
@@ -263,7 +265,7 @@ namespace EG_MagicCube.Models
                             }
                         }
                         break;
-                    case MenuClass.Owner:
+                    case MenuClassEnum.Owner:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             var delobj = context.Menu_Owner.FirstOrDefault(x => x.OwnerNo == _MenuViewModel.MenuID);

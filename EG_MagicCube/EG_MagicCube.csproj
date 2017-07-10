@@ -184,7 +184,7 @@
     <Compile Include="Models\ViewModel\PackageViewModel.cs" />
     <Compile Include="Models\ViewModel\PackgeListViewModel.cs" />
     <Compile Include="Models\ViewModel\WorksInfoViewModel.cs" />
-    <Compile Include="Models\Work\WorksSearchModel.cs" />
+    <Compile Include="Models\WorksSearchModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -276,11 +276,11 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="font-awesome\font-awesome.css" />
-    <Content Include="font-awesome\font-awesome.min.css" />
+    <Content Include="font-awesome\font-awesome.min.css" />    
     <Content Include="Content\select2.css" />
     <Content Include="Content\select2.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\fontawesome-webfont.svg" />    
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -307,13 +307,13 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
-	<Content Include="App.config" />    
+    <Content Include="App.config" />
 	<Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />    
-	<None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\imagesloaded.pkgd.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -357,8 +357,8 @@
     <Content Include="Views\Package\Index.cshtml" />
     <Content Include="Views\Package\Edit.cshtml" />
     <Content Include="Views\Package\Edit_WorksList.cshtml" />
-	<Content Include="Views\Package\Detail_Works.cshtml" />  
-	</ItemGroup>
+	<Content Include="Views\Package\Detail_Works.cshtml" />   
+</ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\App_Data\" />
