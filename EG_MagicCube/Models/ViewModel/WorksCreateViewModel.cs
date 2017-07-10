@@ -20,8 +20,7 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "年代迄")]
         public string YearEnd { get; set; }
         [Display(Name = "材質清單")]
-        public string MaterialsList { get; set; }
-
+        public List<Material> MaterialsList { get; set; }
 
         [Display(Name = "圖片")]
         public string Img { get; set; }
@@ -59,5 +58,16 @@ namespace EG_MagicCube.Models.ViewModel
         //public virtual ICollection<WorksPropOwner> WorksPropOwner { get; set; }
         //public virtual ICollection<WorksPropStyle> WorksPropStyle { get; set; }
         //public virtual ICollection<WorksPropWareType> WorksPropWareType { get; set; }
+    }
+
+    public class Material
+    {
+        public string No { get; set; }
+        public int Height { get; set; }
+        public int Width { get; set; }
+        public int Deep { get; set; }
+        public int VideoMins { get; set; }
+        public int Count { get; set; }
+        public string Unit { get; set; }
     }
 }
