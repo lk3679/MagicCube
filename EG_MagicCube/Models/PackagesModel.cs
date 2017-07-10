@@ -19,7 +19,7 @@ namespace EG_MagicCube.Models
         /// 包裝序號
         /// </summary>
         [DisplayName("包裝序號")]
-        public Guid PackagesNo { get; set; }
+        public string PackagesNo { get; set; }
         /// <summary>
         /// 包裝名稱
         /// </summary>
@@ -64,11 +64,17 @@ namespace EG_MagicCube.Models
         /// 備註
         /// </summary>
         public string PackagesMemo { get; set; }
-        /// <summary> 
-        /// 作品編號清單
+        /// <summary>
+        /// 包裝內作品項目
         /// </summary>
-        [DisplayName("作品編號清單")]
-        public List<string> WorksNos { get; set; }
+        [DisplayName("包裝內作品項目")]
+        public List<PackageItemModel> PackageItems { get; set; }
+        /// <summary>
+        /// QRCode Base64圖片
+        /// </summary>
+        [DisplayName("QRCode Base64圖片")]
+        public string QRImg { get; set; }
+
         #region Methods
         #region Create
         /// <summary>
@@ -90,14 +96,14 @@ namespace EG_MagicCube.Models
                 _Package.CreateUser = "";
                 _Package.ModifyDate = DateTime.Now;
                 _Package.ModifyUser = "";
-                foreach (string WorksNo in WorksNos)
+                foreach (PackageItemModel _PackageItemModel in PackageItems)
                 {
-                    _Package.PackageItems.Add(new EG_MagicCubeEntity.PackageItems()
+                    _Package.PackageItems.Add(new PackageItems()
                     {
                         PackagesNo = _Package.PackagesNo,
-                        WorksNo = Guid.Parse(WorksNo),
+                        WorksNo = Guid.Parse(_PackageItemModel.WorksNo),
                         JoinDate = DateTime.Now,
-                        IsJoin = "Y"
+                        IsJoin = _PackageItemModel.IsJoin
                     });
                 }
                 context.Packages.Add(_Package);
@@ -109,16 +115,136 @@ namespace EG_MagicCube.Models
             return true;
         }
         #endregion
-
+        public enum OrderByTypeEnum
+        {
+            /// <summary>
+            /// 無
+            /// </summary>
+            None,
+            /// <summary>
+            /// 時間最新再前面
+            /// </summary>
+            MaxTime,
+            /// <summary>
+            /// 時間最舊再前面
+            /// </summary>
+            MineTime
+        }
         #region Read
         /// <summary>
         /// 取得包裝
         /// </summary>
-        public List<Packages> All(int PageIndex = 1, int PageSize = 10)
+        /// <param name="KeyWords">關鍵字,包裝名稱、包裝備註</param>
+        /// <param name="OrderByType">排序方式</param>
+        /// <param name="PageIndex">頁碼</param>
+        /// <param name="PageSize">每頁筆數</param>
+        /// <returns></returns>
+        public List<PackagesModel> GetPackageList(string KeyWords="", OrderByTypeEnum OrderByType = OrderByTypeEnum.None, int PageIndex = 1, int PageSize = 10)
         {
+            List<PackagesModel> _PackagesList = new List<PackagesModel>();
             using (var context = new EG_MagicCubeEntities())
             {
-                return context.Packages.OrderBy(c => c.PackagesNo).Skip((PageIndex * PageSize) - PageSize).Take(PageSize).ToList();
+                _PackagesList = context.Packages.Where(f=> 
+                                                f.PackagesName.Contains(KeyWords)
+                                               || f.PackagesMemo.Contains(KeyWords)).Select(c=>
+                                               new PackagesModel()
+                                               {
+                                                   PackagesNo= c.PackagesNo.ToString(),
+                                                   //QRImg= DrawQRcodeToImgBase64sting(c.PackagesNo.ToString()),
+                                                   PackagesName = c.PackagesName,
+                                                   EndDate = c.EndDate,
+                                                   //PackingDate = c = (DateTime?)c.PackingDate,
+                                                   CreateDate = c.CreateDate,
+                                                   CreateUser = c.CreateUser,
+                                                   ModifyUser = c.ModifyUser,
+                                                   ModifyDate = c.ModifyDate,
+                                                   //SearchJson = c.SearchJson,
+                                                   PackagesMemo = c.PackagesMemo
+                                                   //PackageItems=c.PackageItems.Select(pi=> new PackageItemModel() {
+                                                   // WorksModel= new WorksModel().GetWorksModelByWorksNo(pi.WorksNo.ToString())
+                                                   // ,IsJoin=pi.IsJoin
+                                                   //}
+                                                 //  ).ToList()
+                                               }
+                                               
+                                               ).ToList();
+            }
+            return _PackagesList;
+        }
+        /// <summary>
+        /// 取得包裝明細
+        /// </summary>
+        /// <param name="PackagesNo">包裝編號</param>
+        /// <returns></returns>
+        public PackagesModel GetPackageDetail(string PackagesNo)
+        {
+            PackagesModel _PackagesModel = new PackagesModel();
+            using (var context = new EG_MagicCubeEntities())
+            {
+                _PackagesModel = context.Packages.Where(f => f.PackagesNo == Guid.Parse(PackagesNo)).Select(c =>
+                                                  new PackagesModel()
+                                                  {
+                                                      PackagesNo = c.PackagesNo.ToString(),
+                                                      QRImg = DrawQRcodeToImgBase64sting(c.PackagesNo.ToString()),
+                                                      PackagesName = c.PackagesName,
+                                                      EndDate = c.EndDate,
+                                                      //PackingDate = c = (DateTime?)c.PackingDate,
+                                                      CreateDate = c.CreateDate,
+                                                      CreateUser = c.CreateUser,
+                                                      ModifyUser = c.ModifyUser,
+                                                      ModifyDate = c.ModifyDate,
+                                                      SearchJson = c.SearchJson,
+                                                      PackagesMemo = c.PackagesMemo
+                                                   //PackageItems=c.PackageItems.Select(pi=> new PackageItemModel() {
+                                                   // WorksModel= new WorksModel().GetWorksModelByWorksNo(pi.WorksNo.ToString())
+                                                   // ,IsJoin=pi.IsJoin
+                                                   //}
+                                                   //  ).ToList()
+                                               }
+
+                                               ).FirstOrDefault();
+            }
+            
+            return _PackagesModel;
+        }
+        /// <summary>
+        /// 取得包裝項目
+        /// </summary>
+        /// <param name="PackagesNo">包裝編號</param>
+        /// <param name="ShowJoin">只顯示加入包裝的</param>
+        /// <returns></returns>
+        public bool GetPackageItemList(string PackagesNo,bool ShowJoin)
+        {
+            
+            List<PackageItemModel> _PackageItemList = new List<PackageItemModel>();
+            using (var context = new EG_MagicCubeEntities())
+            {
+                var r = context.PackageItems.Where(f => f.PackagesNo == Guid.Parse(PackagesNo)).Select(c =>
+                                                  new PackageItemModel() {
+                                                      WorksNo = c.WorksNo.ToString(),
+                                                      WorksImg = c.Works.WorksFiles.FirstOrDefault().FileBase64Str.ToString(),
+                                                      AuthorsName = c.Works.WorksAuthors.FirstOrDefault().Authors.AuthorsCName.ToString(),
+                                                      WorksName=c.Works.WorksName,IsJoin=c.IsJoin
+                                                  }
+
+                                               );
+                if (ShowJoin)
+                {
+                    _PackageItemList=r.Where(f => f.IsJoin == "Y").ToList();
+                }
+                else
+                {
+                    _PackageItemList=r.ToList();
+                }
+            }
+            this.PackageItems = _PackageItemList;
+            if (_PackageItemList.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
         #endregion
@@ -133,7 +259,7 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var oldPackages = context.Packages.First(x => x.PackagesNo == newPackages.PackagesNo);
+                var oldPackages = context.Packages.First(x => x.PackagesNo == Guid.Parse(newPackages.PackagesNo));
                 oldPackages.PackagesName = newPackages.PackagesName;
                 oldPackages.PackingDate = newPackages.PackingDate;
                 oldPackages.EndDate = newPackages.EndDate;
@@ -141,8 +267,23 @@ namespace EG_MagicCube.Models
                 oldPackages.ModifyDate = newPackages.ModifyDate;
                 oldPackages.PackagesMemo = newPackages.PackagesMemo;
                 oldPackages.SearchJson = newPackages.SearchJson;
-                
-
+                if (oldPackages.PackageItems != null)
+                {
+                    foreach (PackageItems _PackageItems in oldPackages.PackageItems)
+                    {
+                        oldPackages.PackageItems.Remove(_PackageItems);
+                    }
+                }
+                foreach (PackageItemModel _PackageItemModel in newPackages.PackageItems)
+                {
+                    oldPackages.PackageItems.Add(new EG_MagicCubeEntity.PackageItems()
+                    {
+                        PackagesNo = oldPackages.PackagesNo,
+                        WorksNo = Guid.Parse(_PackageItemModel.WorksNo),
+                        JoinDate = DateTime.Now,
+                        IsJoin = _PackageItemModel.IsJoin
+                    });
+                }
                 if (context.SaveChanges() == 0)
                 {
                     return false;
@@ -151,20 +292,37 @@ namespace EG_MagicCube.Models
 
             return true;
         }
+
+
         #endregion
 
         #region Delete
+        /// <summary>
+        /// 刪除包裝
+        /// </summary>
+        /// <param name="PackagesNo"></param>
+        /// <returns></returns>
         public bool Delete(string PackagesNo)
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var packages = context.Packages.FirstOrDefault(x => x.PackagesNo == Guid.Parse(PackagesNo));
-                if (packages == null)
+             
+                var package = context.Packages.FirstOrDefault(x => x.PackagesNo == Guid.Parse(PackagesNo));
+                if (package == null)
                 {
                     return false;
                 }
-
-                context.Packages.Remove(packages);
+                else
+                {
+                    if (package.PackageItems != null)
+                    {
+                        foreach (PackageItems _PackageItems in package.PackageItems)
+                        {
+                            package.PackageItems.Remove(_PackageItems);
+                        }
+                    } 
+                }
+                context.Packages.Remove(package);
                 if (context.SaveChanges() == 0)
                 {
                     return false;
@@ -175,18 +333,35 @@ namespace EG_MagicCube.Models
         }
         #endregion
 
-        #endregion
-    }
-    public partial class QRCodeWriter
-    {
-        private string _Base64String = "";
-        public string Base64String { get { return _Base64String; } }
-        public QRCodeWriter(string _Contens)
+        /// <summary>
+        /// 包裝內作品項目
+        /// </summary>
+        public partial class PackageItemModel
         {
-            DrawQRcodeToImgBase64sting(_Contens);
+            /// <summary>
+            /// 作品序號
+            /// </summary>
+            public string WorksNo { set; get; }
+            /// <summary>
+            /// 作品名稱
+            /// </summary>
+            public string WorksName { set; get; }
+            /// <summary>
+            /// 藝術家名稱
+            /// </summary>
+            public string AuthorsName { set; get; }
+            /// <summary>
+            /// 作品圖片
+            /// </summary>
+            public string WorksImg { set; get; }
+            /// <summary>
+            /// 是否加入包裝
+            /// </summary>
+            public string IsJoin { set; get; }
         }
-        public void DrawQRcodeToImgBase64sting(string _Contens)
+        public static string DrawQRcodeToImgBase64sting(string _Contens)
         {
+            string _Base64String = "";
             MemoryStream ms_qr = new MemoryStream();
             //產生256*2562的QRCode PNG圖片物件
             ((System.Drawing.Image)(new BarcodeWriter
@@ -212,6 +387,10 @@ namespace EG_MagicCube.Models
 
             ms_qr.Dispose();
             ms_mini.Dispose();
+
+            return _Base64String;
         }
+        #endregion
     }
+
 }

@@ -16,7 +16,7 @@ namespace EG_MagicCube.Controllers
             int take = 10;
             PackagesModel model = new PackagesModel();
             List<PackageViewModel> value = new List<PackageViewModel>();
-            var _value = model.All(p * take, take + 1);
+            var _value = model.GetPackageList("", PackagesModel.OrderByTypeEnum.None,p * take, take + 1);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
@@ -190,7 +190,7 @@ namespace EG_MagicCube.Controllers
             };
             MenuModel mm = new MenuModel();
             List<SelectListItem> Authorsitems = new List<SelectListItem>();
-            var _AuthorNoList = mm.GetMenu(MenuModel.MenuClass.AuthorTag);
+            var _AuthorNoList = mm.GetMenu(MenuModel.MenuClassEnum.AuthorTag);
             for (int i = 0; i < _AuthorNoList.Count; i++)
             {
                 Authorsitems.Add(new SelectListItem()
@@ -202,7 +202,7 @@ namespace EG_MagicCube.Controllers
             ViewBag.AuthorNoList = Authorsitems;
 
             List<SelectListItem> WorksStyleitems = new List<SelectListItem>();
-            var _WorksStyleList = mm.GetMenu(MenuModel.MenuClass.Style);
+            var _WorksStyleList = mm.GetMenu(MenuModel.MenuClassEnum.Style);
             for (int i = 0; i < _WorksStyleList.Count; i++)
             {
                 WorksStyleitems.Add(new SelectListItem()
@@ -214,7 +214,7 @@ namespace EG_MagicCube.Controllers
             ViewBag.StyleNoList = WorksStyleitems;
 
             List<SelectListItem> WorksGenreitems = new List<SelectListItem>();
-            var _WorksGenreList = mm.GetMenu(MenuModel.MenuClass.Genre);
+            var _WorksGenreList = mm.GetMenu(MenuModel.MenuClassEnum.Genre);
             for (int i = 0; i < _WorksStyleList.Count; i++)
             {
                 WorksGenreitems.Add(new SelectListItem()

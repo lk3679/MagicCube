@@ -35,11 +35,11 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 取得所有藝術家
         /// </summary>
-        public IQueryable<Authors> All()
+        public List<Authors> All()
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                return context.Authors;
+                return context.Authors.ToList();
             }
         }
 
