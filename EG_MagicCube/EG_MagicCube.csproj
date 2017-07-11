@@ -360,8 +360,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\App_Data\" />
-    <Folder Include="Views\Author\" />
-    <Folder Include="Views\Base\" />
+    <Folder Include="Views\Author\" />    <Folder Include="Views\Base\" />
     <Folder Include="Views\Works\" />
   </ItemGroup>
   <ItemGroup>
