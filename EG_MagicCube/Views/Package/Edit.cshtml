@@ -7,68 +7,69 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>PackageViewModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="form-group text-center">
-            <div >
-                @Html.LabelFor(model => model.QRImg, htmlAttributes: new { @class = "control-label " })
-            </div>
-            <img src="data:image/png;base64,@Html.Raw(Model.QRImg)" alt="Red dot" />
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.PG_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PG_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PG_Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreateDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-6 modelcont">
-                @Html.DisplayFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.WorksAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-6 modelcont">
-                @Html.DisplayFor(model => model.WorksAmount, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+<div class="form-horizontal">
+    <h4>PackageViewModel</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">        
+        <div class="col-md-10 modelcont">
+            @Html.HiddenFor(model => model.PG_No, new { htmlAttributes = new { @class = "form-control " } })
         </div>
     </div>
-}
+    <div class="form-group text-center">
+        <div>
+            @Html.LabelFor(model => model.QRImg, htmlAttributes: new { @class = "control-label " })
+        </div>
+        <img src="data:image/png;base64,@Html.Raw(Model.QRImg)" alt="Red dot" />
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.PG_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PG_Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PG_Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CreateDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6 modelcont">
+            @Html.DisplayFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.WorksAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6 modelcont">
+            @Html.DisplayFor(model => model.WorksAmount, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+
 <div>
-    @Html.ActionLink("推薦清單", "Edit_WorksList" , new { id = Model.PG_No})
+    @Html.ActionLink("推薦清單", "Edit_WorksList", new { id = Model.PG_No })
 </div>
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -76,4 +77,31 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $('i.fa').click(function () {
+            $(this).toggleClass('fa-square-o');
+            $(this).toggleClass('fa-check-square-o');
+            var wn = $(this).attr('value');
+            var _addtype = $(this).hasClass('fa-check-square-o');
+            $.ajax({
+                type: "Post",
+                url: '@Url.Action("Edit")',
+                data: {
+                    PG_No: $('#PG_No').val(), PG_Name: $('#PG_Name').val(),
+                    EndDate: $('#EndDate').val(), Remark: $('#Remark').val()
+                },
+                async: true,
+                cache: false,
+                dataType: "json",
+                success: function (data) {
+                    alert(data);
+                },
+                error: function (viewHTML) {
+                    alert("載入異常....");
+                }
+            });
+
+        });
+    </script>
+
 }

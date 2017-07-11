@@ -12,6 +12,7 @@ namespace EG_MagicCube.Models.ViewModel
         public string PG_No { get; set; }
 
         [Display(Name = "包裝名稱")]
+        [StringLength(50)]
         public string PG_Name { get; set; }
 
         [Display(Name = "QRCode圖片")]
@@ -21,7 +22,8 @@ namespace EG_MagicCube.Models.ViewModel
         public string Url { get; set; }
 
         [Display(Name = "到期時間")]
-        public string EndDate { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime? EndDate { get; set; }
 
         [Display(Name = "建立時間")]
         public DateTime CreateDate { get; set; }
@@ -37,5 +39,9 @@ namespace EG_MagicCube.Models.ViewModel
 
         [Display(Name = "作品清單")]
         public List<WorksInfoViewModel> WorksList { get; set; }
+
+        [Display(Name = "備註")]
+        [StringLength(500)]
+        public string Remark { get; set; }
     }
 }
