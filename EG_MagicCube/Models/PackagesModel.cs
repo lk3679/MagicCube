@@ -181,6 +181,7 @@ namespace EG_MagicCube.Models
             PackagesModel _PackagesModel = new PackagesModel();
             using (var context = new EG_MagicCubeEntities())
             {
+                this.ModifyUser = "system";
                 _PackagesModel = context.Packages.Where(f => f.PackagesNo == Guid.Parse(PackagesNo)).Select(c =>
                                                   new PackagesModel()
                                                   {
