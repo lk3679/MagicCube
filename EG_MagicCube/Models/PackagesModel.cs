@@ -215,7 +215,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.Packages.Count() > 0)
                 {
-                    _PackagesModel = context.Packages.Where(f => f.PackagesNo == Guid.Parse(PackagesNo)).Select(c =>
+                    _PackagesModel = context.Packages.AsEnumerable().Where(f => f.PackagesNo == Guid.Parse( PackagesNo) ).Select(c =>
                                   new PackagesModel()
                                   {
                                       PackagesNo = c.PackagesNo.ToString(),
@@ -398,7 +398,7 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var oldPackages = context.Packages.First(x => x.PackagesNo == Guid.Parse(newPackages.PackagesNo));
+                var oldPackages = context.Packages.AsEnumerable().First(x => x.PackagesNo == Guid.Parse(newPackages.PackagesNo));
                 if (oldPackages != null)
                 {
                     oldPackages.PackagesName = newPackages.PackagesName;

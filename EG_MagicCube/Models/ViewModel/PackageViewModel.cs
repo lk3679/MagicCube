@@ -23,7 +23,8 @@ namespace EG_MagicCube.Models.ViewModel
 
         [Display(Name = "到期時間")]
         [DataType(DataType.DateTime)]
-        public DateTime? EndDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        public DateTime EndDate { get; set; }
 
         [Display(Name = "建立時間")]
         public DateTime CreateDate { get; set; }
