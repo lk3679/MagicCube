@@ -11,6 +11,41 @@ namespace EG_MagicCube.Models
 {
     public partial class AuthorsModel 
     {
+        /// <summary>
+        /// 藝術家序號
+        /// </summary>
+        public int AuthorsNo { get; set; } = 0;
+        /// <summary>
+        /// 物料代碼
+        /// </summary>
+        public string MaterialsID { get; set; } = "";
+        /// <summary>
+        /// 藝術家中文名稱
+        /// </summary>
+        public string AuthorsCName { get; set; } = "";
+        /// <summary>
+        /// 藝術家外文名稱
+        /// </summary>
+        public string AuthorsEName { get; set; } = "";
+        /// <summary>
+        /// 建立者
+        /// </summary>
+        public string CreateUser { get; set; } = "";
+        /// <summary>
+        /// 建立時間
+        /// </summary>
+        public DateTime CreateDate { get; set; } = DateTime.Now;
+        /// <summary>
+        /// 修改者
+        /// </summary>
+        public string ModifyUser { get; set; } = "";
+        /// <summary>
+        /// 修改時間
+        /// </summary>
+        public DateTime ModifyDate { get; set; } = DateTime.Now;
+
+        public List<MenuViewModel> AuthorsPropArea { get; set; }
+        public List<MenuViewModel> AuthorsPropTag { get; set; }
         #region Methods
         #region Create
         /// <summary>
@@ -29,18 +64,35 @@ namespace EG_MagicCube.Models
             }
             return true;
         }
+
+        public AuthorsModel CreateAndReturn()
+        {
+            AuthorsModel _AuthorsModel = new AuthorsModel();
+            //if (this.Create())
+            //{
+            //    _AuthorsModel=;
+            //}
+            return _AuthorsModel;
+        }
         #endregion
 
         #region Read
         /// <summary>
         /// 取得所有藝術家
         /// </summary>
-        public List<Authors> All()
+        public static List<AuthorsModel> GetAuthorList(string KeyWords = "", int PageIndex = 1, int PageSize = 10)
         {
+            List<AuthorsModel> _AuthorsModel = new List<AuthorsModel>();
             using (var context = new EG_MagicCubeEntities())
             {
-                return context.Authors.ToList();
+                //if (context.Authors.Count() > 0)
+                //{
+                //    _AuthorsModel=context.Authors.AsEnumerable().Where(c=> c.AuthorsCName)
+                //}
+
+                //return context.Authors.ToList();
             }
+            return _AuthorsModel;
         }
 
         /// <summary>
@@ -48,7 +100,7 @@ namespace EG_MagicCube.Models
         /// </summary>
         /// <param name="authorsNo">藝術家編號</param>
         /// <returns></returns>
-        public Authors GetAuthorByAuthorNo(int authorsNo)
+        public Authors GetAuthorDetail(int authorsNo)
         {
             using (var context = new EG_MagicCubeEntities())
             {

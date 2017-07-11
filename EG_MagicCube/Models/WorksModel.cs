@@ -24,111 +24,97 @@ namespace EG_MagicCube.Models
         /// 作品序號
         /// </summary>
         [DisplayName("作品序號")]
-        public string WorksNo { get; set; }
+        public string WorksNo { get; set; } = "";
         /// <summary>
         /// 物料代碼
         /// </summary>
         [DisplayName("物料代碼")]
-        public string MaterialsID { get; set; }
+        public string MaterialsID { get; set; } = "";
         /// <summary>
         /// 藝術家編號
         /// </summary>
-        [Required]
         [DisplayName("藝術家編號")]
-        public int AuthorsNo { get; set; }
+        public int AuthorsNo { get; set; } = 0;
         /// <summary>
         /// 藝術家名稱
         /// </summary>
         [DisplayName("藝術家名稱")]
-        public string AuthorsName { get; set; }
+        public string AuthorsName { get; set; } = "";
         /// <summary>
         /// 作品名稱
         /// </summary>
-        [Required]
         [DisplayName("作品名稱")]
-        public string WorksName { get; set; }
+        public string WorksName { get; set; } = "";
         /// <summary>
         /// 作品起始年分
         /// </summary>
-        [Required]
         [DisplayName("作品起始年分")]
-        public short YearStart { get; set; }
+        public short YearStart { get; set; } = 0;
         /// <summary>
         /// 作品結束年分
         /// </summary>
-        [Required]
         [DisplayName("作品結束年分")]
-        public short YearEnd { get; set; }
+        public short YearEnd { get; set; } = 0;
         /// <summary>
         /// 備註
         /// </summary>
         [DisplayName("備註")]
-        public string Remarks { get; set; }
+        public string Remarks { get; set; } = "";
         /// <summary>
         /// 成本價
         /// </summary>
-        [Required]
         [DisplayName("成本價")]
-        public int Cost { get; set; }
+        public int Cost { get; set; } = 0;
         /// <summary>
         /// 定價
         /// </summary>
-        [Required]
         [DisplayName("定價")]
-        public int Price { get; set; }
+        public int Price { get; set; } = 0;
         /// <summary>
         /// 定價時間
         /// </summary>
-        [Required]
         [DisplayName("定價時間")]
-        public DateTime PricingDate { get; set; }
+        public DateTime PricingDate { get; set; } = DateTime.MinValue;
         /// <summary>
         /// 毛利率
         /// </summary>
-        [Required]
         [DisplayName("毛利率")]
-        public double GrossMargin { get; set; }
+        public double GrossMargin { get; set; } = 0.0;
         /// <summary>
         /// 市場性
         /// </summary>
-        [Required]
         [DisplayName("市場性")]
-        public double Marketability { get; set; }
+        public double Marketability { get; set; } = 0.0;
         /// <summary>
         /// 包裹性
         /// </summary>
-        [Required]
         [DisplayName("包裹性")]
-        public double Packageability { get; set; }
+        public double Packageability { get; set; } = 0.0;
         /// <summary>
         /// 增值性
         /// </summary>
-        [Required]
         [DisplayName("增值性")]
-        public double Valuability { get; set; }
+        public double Valuability { get; set; } = 0.0;
         /// <summary>
         /// 藝術性
         /// </summary>
-        [Required]
         [DisplayName("藝術性")]
-        public double Artisticability { get; set; }
+        public double Artisticability { get; set; } = 0.0;
         /// <summary>
         /// 建立者
         /// </summary>
-        [Required]
         [DisplayName("建立者")]
-        public string CreateUser { get; set; }
+        public string CreateUser { get; set; } = "";
         /// <summary>
         /// 建立時間
         /// </summary>
-        [Required]
         [DisplayName("建立時間")]
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.Now;
         /// <summary>
         /// 修改者
         /// </summary>
         [DisplayName("修改者")]
-        public string ModifyUser { get; set; }
+        public string ModifyUser { get; set; } = "";
         /// <summary>
         /// 修改時間
         /// </summary>
@@ -138,46 +124,46 @@ namespace EG_MagicCube.Models
         /// 作品所屬藝術家
         /// </summary>
         [DisplayName("作品所屬藝術家")]
-        public List<MenuViewModel> WorksAuthors { get; set; }
+        public List<MenuViewModel> WorksAuthors { get; set; } = new List<MenuViewModel>();
         /// <summary>
         /// 檢視作品檔案Base64
         /// </summary>
         [DisplayName("作品檔案")]
-        public List<MenuViewModel> ViewWorksFiles { get; set; }
+        public List<string> ViewWorksFiles { get; set; } = new List<string>();
         /// <summary>
         /// 上傳作品檔案
         /// </summary>
         [DisplayName("上傳作品檔案")]
-        public List<HttpPostedFileBase> UploadWorksFiles { get; set; }
+        public List<HttpPostedFileBase> UploadWorksFiles { get; set; } = new List<HttpPostedFileBase>();
         /// <summary>
         /// 作品組件
         /// </summary>
         [DisplayName("作品組件")]
-        public List<WorksModuleModel> WorksModuleList { get; set; }
+        public List<WorksModuleModel> WorksModuleList { get; set; } = new List<WorksModuleModel>();
         /// <summary>
         /// 作品類型
         /// </summary>
         [DisplayName("作品類型")]
-        public List<MenuViewModel> WorksPropGenreList { get; set; }
+        public List<MenuViewModel> WorksPropGenreList { get; set; } = new List<MenuViewModel>();
         /// <summary>
         /// 作品所有人
         /// </summary>
         [DisplayName("作品所有人")]
-        public List<MenuViewModel> WorksPropOwnerList { get; set; }
+        public List<MenuViewModel> WorksPropOwnerList { get; set; } = new List<MenuViewModel>();
         /// <summary>
         /// 作品風格
         /// </summary>
         [DisplayName("作品風格")]
-        public List<MenuViewModel> WorksPropStyleList { get; set; }
+        public List<MenuViewModel> WorksPropStyleList { get; set; } = new List<MenuViewModel>();
         /// <summary>
         /// 庫別
         /// </summary>
         [DisplayName("庫別")]
-        public List<MenuViewModel> WorksPropWareTypeList { get; set; }
+        public List<MenuViewModel> WorksPropWareTypeList { get; set; } = new List<MenuViewModel>();
         /// <summary>
         /// 
         /// </summary>
-        public bool IsJoin { get; set; }
+        public bool IsJoin { get; set; } = false;
         #endregion
 
         #region Methods
@@ -193,6 +179,7 @@ namespace EG_MagicCube.Models
             {
                 Works _Works = new Works();
                 _Works.WorksNo = Guid.NewGuid();
+                this.WorksNo = _Works.WorksNo.ToString();
                 _Works.MaterialsID = this.MaterialsID;
                 _Works.AuthorsNo = this.AuthorsNo;
                 _Works.WorksName = this.WorksName;
@@ -201,57 +188,61 @@ namespace EG_MagicCube.Models
                 _Works.Cost = this.Cost;
                 _Works.Price = this.Price;
                 _Works.GrossMargin = this.GrossMargin;
-                _Works.PricingDate = this.PricingDate;
+                _Works.PricingDate = DateTime.Now;
                 _Works.Artisticability = this.Artisticability;
                 _Works.Marketability = this.Marketability;
                 _Works.Packageability = this.Packageability;
                 _Works.Valuability = this.Valuability;
                 _Works.CreateUser = this.CreateUser;
-                _Works.CreateDate = this.CreateDate;
+                _Works.CreateDate = DateTime.Now;
                 _Works.ModifyUser = this.ModifyUser;
-                _Works.ModifyDate = this.ModifyDate;
+                _Works.ModifyDate = DateTime.Now;
                 _Works.Remarks = this.Remarks;
                 context.Works.Add(_Works);
 
                 //組件
-                foreach(WorksModuleModel _WorksModuleModel in this.WorksModuleList)
-                {
-                    WorksModules _WorksModules = new WorksModules();
-                    _WorksModules.WorksNo = _Works.WorksNo;
-                    _WorksModules.Material = _WorksModuleModel.Material.MenuID;
-                    _WorksModules.Measure = _WorksModuleModel.Measure;
+                //foreach(WorksModuleModel _WorksModuleModel in this.WorksModuleList)
+                //{
+                //    WorksModules _WorksModules = new WorksModules();
+                //    _WorksModules.WorksNo = _Works.WorksNo;
+                //    _WorksModules.Material = _WorksModuleModel.Material.MenuID;
+                //    _WorksModules.Measure = _WorksModuleModel.Measure;
                     
-                    _WorksModules.Length = _WorksModuleModel.Length;
-                    _WorksModules.Width = _WorksModuleModel.Width;
-                    _WorksModules.High = _WorksModuleModel.High;
-                    _WorksModules.Deep = _WorksModuleModel.Deep;
-                    _WorksModules.TimeLength = _WorksModuleModel.TimeLength;
+                //    _WorksModules.Length = _WorksModuleModel.Length;
+                //    _WorksModules.Width = _WorksModuleModel.Width;
+                //    _WorksModules.High = _WorksModuleModel.Height;
+                //    _WorksModules.Deep = _WorksModuleModel.Deep;
+                //    _WorksModules.TimeLength = _WorksModuleModel.TimeLength.ToString();
                     
-                    _WorksModules.Amount = _WorksModuleModel.Amount;
-                    _WorksModules.CountNoun = _WorksModuleModel.CountNoun.MenuID;
-                    context.WorksModules.Add(_WorksModules);
-                }
-                foreach (HttpPostedFileBase _Files in this.UploadWorksFiles)
-                {
-                    string base64_file = FileToBase64(_Files);
-                    context.WorksFiles.Add(new WorksFiles() { WorksNo=Guid.Parse(this.WorksNo),FileBase64Str= base64_file });
-                }
-                foreach (MenuViewModel _Genre in this.WorksPropGenreList)
-                {
-                    context.WorksPropGenre.Add(new WorksPropGenre() { WorksNo = Guid.Parse(this.WorksNo), GenreNo = _Genre.MenuID });
-                }
-                foreach (MenuViewModel _Style in this.WorksPropStyleList)
-                {
-                    context.WorksPropStyle.Add(new WorksPropStyle() { WorksNo = Guid.Parse(this.WorksNo), StyleNo = _Style.MenuID });
-                }
-                foreach (MenuViewModel _Owner in this.WorksPropOwnerList)
-                {
-                    context.WorksPropOwner.Add(new WorksPropOwner() { WorksNo = Guid.Parse(this.WorksNo), OwnerNo = _Owner.MenuID });
-                }
-                foreach (MenuViewModel _WareType in this.WorksPropWareTypeList)
-                {
-                    context.WorksPropWareType.Add(new WorksPropWareType() { WorksNo = Guid.Parse(this.WorksNo), WareTypeNo = _WareType.MenuID });
-                }
+                //    _WorksModules.Amount = _WorksModuleModel.Amount;
+                //    _WorksModules.CountNoun = 1;
+                //    context.WorksModules.Add(_WorksModules);
+                //}
+                //foreach (HttpPostedFileBase _Files in this.UploadWorksFiles)
+                //{
+                //    string base64_file = FileToBase64(_Files);
+                //    context.WorksFiles.Add(new WorksFiles() { WorksNo= _Works.WorksNo, FileBase64Str= base64_file });
+                //}
+                //foreach (MenuViewModel _Author in this.WorksAuthors)
+                //{
+                //    context.WorksAuthors.Add(new WorksAuthors() { Works_No = _Works.WorksNo, Author_No = _Author.MenuID });
+                //}
+                //foreach (MenuViewModel _Genre in this.WorksPropGenreList)
+                //{
+                //    context.WorksPropGenre.Add(new WorksPropGenre() { WorksNo = _Works.WorksNo, GenreNo = _Genre.MenuID });
+                //}
+                //foreach (MenuViewModel _Style in this.WorksPropStyleList)
+                //{
+                //    context.WorksPropStyle.Add(new WorksPropStyle() { WorksNo = _Works.WorksNo, StyleNo = _Style.MenuID });
+                //}
+                //foreach (MenuViewModel _Owner in this.WorksPropOwnerList)
+                //{
+                //    context.WorksPropOwner.Add(new WorksPropOwner() { WorksNo = _Works.WorksNo, OwnerNo = _Owner.MenuID });
+                //}
+                //foreach (MenuViewModel _WareType in this.WorksPropWareTypeList)
+                //{
+                //    context.WorksPropWareType.Add(new WorksPropWareType() { WorksNo = _Works.WorksNo, WareTypeNo = _WareType.MenuID });
+                //}
                 if (context.SaveChanges() == 0)
                 {
                     return false;
@@ -259,51 +250,73 @@ namespace EG_MagicCube.Models
             }
             return true;
         }
+
+        /// <summary>
+        /// 新增並回傳
+        /// </summary>
+        /// <returns></returns>
+        public WorksModel CreateAndReturn()
+        {
+            WorksModel _PackagesModel = new WorksModel();
+            if (this.Create())
+            {
+                _PackagesModel = GetWorksModelDetail(this.WorksNo);
+            }
+            return _PackagesModel;
+        }
+
         #endregion
+
         /// <summary>
         /// 用作品編號找作品
         /// </summary>
         /// <param name="WorksNo"></param>
         /// <returns></returns>
-        public WorksModel GetWorksModelByWorksNo(string WorksNo)
+        public static WorksModel GetWorksModelDetail(string WorksNo)
         {
             WorksModel _WorksModel = new WorksModel();
+            Guid Guid_WorksNo = Guid.Parse(WorksNo);
             using (var context = new EG_MagicCubeEntities())
             {
-               _WorksModel = context.Works.Where(c => c.WorksNo == Guid.Parse(WorksNo)).Select(c=>
-               new WorksModel()
-               {
-                   WorksNo = c.WorksNo.ToString(),
-                   MaterialsID = c.MaterialsID,
-                   AuthorsNo = c.AuthorsNo,
-                   AuthorsName = c.WorksAuthors.FirstOrDefault().Authors.AuthorsCName,
-                   WorksName = c.WorksName,
-                   YearStart = c.YearStart,
-                   YearEnd = c.YearEnd,
-                   Remarks = c.Remarks,
-                   Cost = c.Cost,
-                   Price = c.Price,
-                   PricingDate = c.PricingDate,
-                   GrossMargin = c.GrossMargin,
-                   Marketability = c.Marketability,
-                   Packageability = c.Packageability,
-                   Valuability = c.Valuability,
-                   Artisticability = c.Artisticability,
-                   CreateUser = c.CreateUser,
-                   CreateDate = c.CreateDate,
-                   ModifyUser = c.ModifyUser,
-                   ModifyDate = (DateTime)c.ModifyDate,
-                   WorksModuleList = c.WorksModules.Select(wm => new WorksModel.WorksModuleModel()
+                _WorksModel = context.Works.Where(c => c.WorksNo == Guid_WorksNo).Select(c =>
+                new WorksModel()
+                {
+                    WorksNo = c.WorksNo.ToString(),
+                    MaterialsID = c.MaterialsID,
+                    AuthorsNo = c.AuthorsNo,
+                    AuthorsName = c.WorksAuthors.FirstOrDefault().Authors.AuthorsCName,
+                    WorksName = c.WorksName,
+                    YearStart = c.YearStart,
+                    YearEnd = c.YearEnd,
+                    Remarks = c.Remarks,
+                    Cost = c.Cost,
+                    Price = c.Price,
+                    PricingDate = c.PricingDate,
+                    GrossMargin = c.GrossMargin,
+                    Marketability = c.Marketability,
+                    Packageability = c.Packageability,
+                    Valuability = c.Valuability,
+                    Artisticability = c.Artisticability,
+                    CreateUser = c.CreateUser,
+                    CreateDate = c.CreateDate,
+                    ModifyUser = c.ModifyUser,
+                    ModifyDate = (DateTime)c.ModifyDate,
+                    WorksPropGenreList = c.WorksPropGenre.Select(wpg => new MenuViewModel() { MenuID = wpg.Menu_Genre.GenreNo,MenuName= wpg.Menu_Genre.GenreName }).ToList(),
+                    WorksPropOwnerList = c.WorksPropOwner.Select(wpo => new MenuViewModel() { MenuID = wpo.OwnerNo, MenuName = wpo.Menu_Owner.OwnerName }).ToList(),
+                    WorksPropStyleList = c.WorksPropStyle.Select(wps => new MenuViewModel() { MenuID = wps.Menu_Style.StyleNo, MenuName = wps.Menu_Style.StyleName }).ToList(),
+                    WorksPropWareTypeList = c.WorksPropWareType.Select(wpwt => new MenuViewModel() { MenuID = wpwt.Menu_WareType.WareTypeNo, MenuName = wpwt.Menu_WareType.WareTypeName}).ToList(),
+                    ViewWorksFiles = c.WorksFiles.Select(wf => wf.FileBase64Str).ToList(),
+                    WorksModuleList = c.WorksModules.Select(wm => new WorksModel.WorksModuleModel()
                    {
                        WorksModulesNo = wm.WorksModulesNo,
-                       WorksNo = wm.WorksNo,
+                       WorksNo = wm.WorksNo.ToString(),
                        Material = new MenuViewModel { MenuID = wm.Menu_Material.MaterialNo, MenuName = wm.Menu_Material.MaterialName },
                        Measure = wm.Measure,
                        Length = wm.Length,
                        Width = wm.Width,
-                       High = wm.High,
+                       Height = wm.High,
                        Deep = wm.Deep,
-                       TimeLength = wm.TimeLength,
+                       TimeLength = int.Parse(wm.TimeLength),
                        Amount = wm.Amount,
                        CountNoun = new MenuViewModel { MenuID = wm.Menu_CountNoun.CountNounNo, MenuName = wm.Menu_CountNoun.CountNounName }
                    }).ToList()
@@ -322,9 +335,10 @@ namespace EG_MagicCube.Models
         /// <returns></returns>
         public bool Update(WorksModel newWorks)
         {
+            Guid Guid_WorksNo = Guid.Parse(newWorks.WorksNo);
             using (var context = new EG_MagicCubeEntities())
             {
-                var oldWorks = context.Works.First(x => x.WorksNo == Guid.Parse(newWorks.WorksNo));
+                var oldWorks = context.Works.AsEnumerable().First(x => x.WorksNo == Guid_WorksNo);
                 if (oldWorks != null)
                 {
                     if (oldWorks.WorksModules != null)
@@ -391,9 +405,9 @@ namespace EG_MagicCube.Models
 
                     _WorksModules.Length = _WorksModuleModel.Length;
                     _WorksModules.Width = _WorksModuleModel.Width;
-                    _WorksModules.High = _WorksModuleModel.High;
+                    _WorksModules.High = _WorksModuleModel.Height;
                     _WorksModules.Deep = _WorksModuleModel.Deep;
-                    _WorksModules.TimeLength = _WorksModuleModel.TimeLength;
+                    _WorksModules.TimeLength = _WorksModuleModel.TimeLength.ToString();
 
                     _WorksModules.Amount = _WorksModuleModel.Amount;
                     _WorksModules.CountNoun = _WorksModuleModel.CountNoun.MenuID;
@@ -428,6 +442,123 @@ namespace EG_MagicCube.Models
 
             return true;
         }
+
+        public bool Update()
+        {
+            Guid Guid_WorksNo = Guid.Parse(this.WorksNo);
+            using (var context = new EG_MagicCubeEntities())
+            {
+                var oldWorks = context.Works.AsEnumerable().First(x => x.WorksNo == Guid_WorksNo);
+                if (oldWorks != null)
+                {
+                    if (oldWorks.WorksModules != null)
+                    {
+                        foreach (WorksModules _WorksModules in oldWorks.WorksModules)
+                        {
+                            oldWorks.WorksModules.Remove(_WorksModules);
+                        }
+                    }
+                    if (oldWorks.WorksPropGenre != null)
+                    {
+                        foreach (WorksPropGenre _WorksPropGenre in oldWorks.WorksPropGenre)
+                        {
+                            oldWorks.WorksPropGenre.Remove(_WorksPropGenre);
+                        }
+                    }
+                    if (oldWorks.WorksPropStyle != null)
+                    {
+                        foreach (WorksPropStyle _WorksPropStyle in oldWorks.WorksPropStyle)
+                        {
+                            oldWorks.WorksPropStyle.Remove(_WorksPropStyle);
+                        }
+                    }
+                    if (oldWorks.WorksPropOwner != null)
+                    {
+                        foreach (WorksPropOwner _WorksPropOwner in oldWorks.WorksPropOwner)
+                        {
+                            oldWorks.WorksPropOwner.Remove(_WorksPropOwner);
+                        }
+                    }
+                    if (oldWorks.WorksPropWareType != null)
+                    {
+                        foreach (WorksPropWareType _WorksPropWareType in oldWorks.WorksPropWareType)
+                        {
+                            oldWorks.WorksPropWareType.Remove(_WorksPropWareType);
+                        }
+                    }
+                    if (oldWorks.WorksFiles != null)
+                    {
+                        foreach (WorksFiles _WorksFiles in oldWorks.WorksFiles)
+                        {
+                            oldWorks.WorksFiles.Remove(_WorksFiles);
+                        }
+                    }
+                }
+                oldWorks.MaterialsID = this.MaterialsID;
+                oldWorks.AuthorsNo = this.AuthorsNo;
+                oldWorks.WorksName = this.WorksName;
+                oldWorks.YearStart = this.YearStart;
+                oldWorks.YearEnd = this.YearEnd;
+                oldWorks.Cost = this.Cost;
+                oldWorks.Price = this.Price;
+                oldWorks.GrossMargin = this.GrossMargin;
+                oldWorks.PricingDate = this.PricingDate;
+                oldWorks.Artisticability = this.Artisticability;
+                oldWorks.Marketability = this.Marketability;
+                oldWorks.Packageability = this.Packageability;
+                oldWorks.Valuability = this.Valuability;
+                oldWorks.CreateUser = this.CreateUser;
+                oldWorks.CreateDate = this.CreateDate;
+                oldWorks.ModifyUser = this.ModifyUser;
+                oldWorks.ModifyDate = System.DateTime.Now;
+                oldWorks.Remarks = this.Remarks;
+                //組件
+                foreach (WorksModuleModel _WorksModuleModel in this.WorksModuleList)
+                {
+                    WorksModules _WorksModules = new WorksModules();
+                    _WorksModules.WorksNo = oldWorks.WorksNo;
+                    _WorksModules.Material = _WorksModuleModel.Material.MenuID;
+                    _WorksModules.Measure = _WorksModuleModel.Measure;
+
+                    _WorksModules.Length = _WorksModuleModel.Length;
+                    _WorksModules.Width = _WorksModuleModel.Width;
+                    _WorksModules.High = _WorksModuleModel.Height;
+                    _WorksModules.Deep = _WorksModuleModel.Deep;
+                    _WorksModules.TimeLength = _WorksModuleModel.TimeLength.ToString();
+
+                    _WorksModules.Amount = _WorksModuleModel.Amount;
+                    _WorksModules.CountNoun = _WorksModuleModel.CountNoun.MenuID;
+                    context.WorksModules.Add(_WorksModules);
+                }
+                foreach (HttpPostedFileBase _Files in this.UploadWorksFiles)
+                {
+                    string base64_file = FileToBase64(_Files);
+                    context.WorksFiles.Add(new WorksFiles() { WorksNo = oldWorks.WorksNo, FileBase64Str = base64_file });
+                }
+                foreach (MenuViewModel _Genre in this.WorksPropGenreList)
+                {
+                    context.WorksPropGenre.Add(new WorksPropGenre() { WorksNo = oldWorks.WorksNo, GenreNo = _Genre.MenuID });
+                }
+                foreach (MenuViewModel _Style in this.WorksPropStyleList)
+                {
+                    context.WorksPropStyle.Add(new WorksPropStyle() { WorksNo = oldWorks.WorksNo, StyleNo = _Style.MenuID });
+                }
+                foreach (MenuViewModel _Owner in this.WorksPropOwnerList)
+                {
+                    context.WorksPropOwner.Add(new WorksPropOwner() { WorksNo = oldWorks.WorksNo, OwnerNo = _Owner.MenuID });
+                }
+                foreach (MenuViewModel _WareType in this.WorksPropWareTypeList)
+                {
+                    context.WorksPropWareType.Add(new WorksPropWareType() { WorksNo = oldWorks.WorksNo, WareTypeNo = _WareType.MenuID });
+                }
+                if (context.SaveChanges() == 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
         #endregion
 
         #region Delete
@@ -436,11 +567,12 @@ namespace EG_MagicCube.Models
         /// </summary>
         /// <param name="WorksNo"></param>
         /// <returns></returns>
-        public bool Delete(string WorksNo)
+        public static bool Delete(string WorksNo)
         {
+            Guid Guid_WorksNo = Guid.Parse(WorksNo);
             using (var context = new EG_MagicCubeEntities())
             {
-                var works = context.Works.FirstOrDefault(x => x.WorksNo == Guid.Parse(WorksNo));
+                var works = context.Works.AsEnumerable().FirstOrDefault(x => x.WorksNo == Guid_WorksNo);
                 if (works == null)
                 {
                     return false;
@@ -504,47 +636,47 @@ namespace EG_MagicCube.Models
             /// <summary>
             /// 組件序號
             /// </summary>
-            public int WorksModulesNo { get; set; }
+            public int WorksModulesNo { get; set; } = 0;
             /// <summary>
             /// 作品編號
             /// </summary>
-            public Guid WorksNo { get; set; }
+            public string WorksNo { get; set; } = "";
             /// <summary>
             /// 媒材
             /// </summary>
-            public MenuViewModel Material { get; set; }
+            public MenuViewModel Material { get; set; } = new MenuViewModel() { MenuID=1 };
             /// <summary>
             /// 不計算尺寸
             /// </summary>
-            public string Measure { get; set; }
+            public string Measure { get; set; } = "";
             /// <summary>
             /// 長
             /// </summary>
-            public double Length { get; set; }
+            public double Length { get; set; } = 0.0;
             /// <summary>
             /// 寬
             /// </summary>
-            public double Width { get; set; }
+            public double Width { get; set; } = 0.0;
             /// <summary>
             /// 高
             /// </summary>
-            public double High { get; set; }
+            public double Height { get; set; } = 0.0;
             /// <summary>
             /// 深
             /// </summary>
-            public double Deep { get; set; }
+            public double Deep { get; set; } = 0.0;
             /// <summary>
             /// 時間長度
             /// </summary>
-            public string TimeLength { get; set; }
+            public int TimeLength { get; set; } = 0;
             /// <summary>
             /// 數量
             /// </summary>
-            public int Amount { get; set; }
+            public int Amount { get; set; } = 0;
             /// <summary>
             /// 單位詞
             /// </summary>
-            public MenuViewModel CountNoun { get; set; }
+            public MenuViewModel CountNoun { get; set; } = new MenuViewModel() { MenuID = 1 };
 
         }
 
@@ -555,15 +687,26 @@ namespace EG_MagicCube.Models
         /// <returns></returns>
         public static string FileToBase64(HttpPostedFileBase _File)
         {
-            
             string thePictureDataAsString = "";
             byte[] thePictureAsBytes = new byte[_File.ContentLength];
-            using (System.IO.BinaryReader theReader = new System.IO.BinaryReader(_File.InputStream))
+            using (BinaryReader theReader = new System.IO.BinaryReader(_File.InputStream))
             {
                 thePictureAsBytes = theReader.ReadBytes(_File.ContentLength);
-                MagickImage s = new MagickImage();
+                MemoryStream ms_mini = new MemoryStream();
+                //將圖片轉成png8,壓縮率70，
+                MagickImage workimg=(new MagickImage(thePictureAsBytes) { Format = MagickFormat.Jpeg, Quality = 70,CompressionMethod= CompressionMethod.JPEG});
+                if (workimg.Width > 600 || workimg.Height > 600)
+                {
+                    workimg.Resize(new MagickGeometry(600));
+                }
+                workimg.Sharpen(0, 0.8);
+                workimg.Strip();
+
+                workimg.Write(ms_mini);
+                thePictureDataAsString = Convert.ToBase64String(ms_mini.ToArray());
+                ms_mini.Dispose();
             }
-            thePictureDataAsString = Convert.ToBase64String(thePictureAsBytes);
+            
             return thePictureDataAsString;
         }
     }
