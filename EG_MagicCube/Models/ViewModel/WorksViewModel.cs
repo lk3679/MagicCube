@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace EG_MagicCube.Models.ViewModel
 {
-    public class WorksCreateViewModel
+    public class WorksViewModel
     {
         [Display(Name = "作品序號")]
         public string WorksNo { get; set; }
@@ -17,21 +17,25 @@ namespace EG_MagicCube.Models.ViewModel
         public string AuthorsNo { get; set; }
         [Display(Name = "作品名稱")]
         public string WorksName { get; set; }
-        [Display(Name = "年代起")]
-        public string YearStart { get; set; }
+        [Display(Name = "作品年代")]
+        [Range(1000, 2020)]
+        public short YearStart { get; set; } = 1000;
+        [Range(1001, 2020)]
         [Display(Name = "年代迄")]
-        public string YearEnd { get; set; }
+        public short YearEnd { get; set; } = 10001;
         [Display(Name = "材質清單")]
         public List<MaterialViewModel> MaterialsList { get; set; }
 
         [Display(Name = "圖片")]
-        public string Img { get; set; }
-        public string Remarks { get; set; }
+        public HttpPostedFileBase Img { get; set; }
+
+
         [Display(Name = "成本(萬)")]
         public int Cost { get; set; }
         [Display(Name = "定價(萬)")]
         public int Price { get; set; }
         [Display(Name = "定價日期")]
+        [DataType(DataType.Date)]
         public System.DateTime PricingDate { get; set; }
         [Display(Name = "毛利率")]
         public double GrossMargin { get; set; }
@@ -49,6 +53,9 @@ namespace EG_MagicCube.Models.ViewModel
         public System.DateTime CreateDate { get; set; }
         public string ModifyUser { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
+
+        [Display(Name = "備註")]
+        public string Remarks { get; set; }
 
         //public virtual ICollection<PackageItems> PackageItems { get; set; }
         //public virtual ICollection<WorksAuthors> WorksAuthors { get; set; }
