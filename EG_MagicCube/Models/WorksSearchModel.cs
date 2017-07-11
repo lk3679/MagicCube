@@ -24,7 +24,7 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 藝術家編號清單
         /// </summary>
-        public List<int> AuthorNoList { get; set; }
+        public List<string> AuthorNoList { get; set; }
         /// <summary>
         /// 作品名稱
         /// </summary>
@@ -88,7 +88,7 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 分級
         /// </summary>
-        public List<int> GradedNoList { get; set; }
+        public List<string> GradedNoList { get; set; }
 
         /// <summary>
         /// 包裝編號
@@ -178,7 +178,7 @@ namespace EG_MagicCube.Models
                 //藝術家
                 if (this.AuthorNoList !=null && this.AuthorNoList.Count>0)
                 {
-                    r = r.Where(f => f.WorksAuthors.Any(wa=> this.AuthorNoList.Contains(wa.Works_Author_No)));
+                    r = r.Where(f => f.WorksAuthors.Any(wa=> this.AuthorNoList.Contains(wa.Works_Author_No.ToString())));
                 }
                 //類型
                 if (this.GenreNoList != null && this.GenreNoList.Count > 0)
