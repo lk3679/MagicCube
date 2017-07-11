@@ -149,7 +149,7 @@ namespace EG_MagicCube.Models
         public PackagesModel CreateAndReturn()
         {
             PackagesModel _PackagesModel = new PackagesModel();
-            if (Create())
+            if (this.Create())
             {
                 _PackagesModel = GetPackageDetail(this.PackagesNo);
             }
@@ -460,7 +460,7 @@ namespace EG_MagicCube.Models
                 if (oldPackages != null)
                 {
                     oldPackages.PackagesName = this.PackagesName;
-                    oldPackages.PackingDate = this.PackingDate;
+                    oldPackages.PackingDate = new Nullable<DateTime>();
                     oldPackages.EndDate = this.EndDate;
                     oldPackages.ModifyUser = this.ModifyUser;
                     oldPackages.ModifyDate = this.ModifyDate;

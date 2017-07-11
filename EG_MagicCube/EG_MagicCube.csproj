@@ -175,6 +175,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\PackagesModel.cs" />
     <Compile Include="Models\ViewModel\WorksViewModel.cs" />
@@ -364,8 +365,10 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\App_Data\" />
-    <Folder Include="Views\Author\" />
+
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Works\" />
+    <Folder Include="Views\Author\" />
     <Folder Include="Views\Module\" />
   </ItemGroup>
   <ItemGroup>
