@@ -93,7 +93,10 @@ namespace EG_MagicCube.Models
         /// 包裝項目數量
         /// </summary>
         public int ItemAmount { get; set; } = 0;
-
+        /// <summary>
+        /// 預算
+        /// </summary>
+        public int Budget { get; set; } = 0;
         #region Methods
 
         #region Create
