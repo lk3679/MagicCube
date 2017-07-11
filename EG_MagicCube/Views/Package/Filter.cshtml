@@ -10,26 +10,26 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>AdSearchViewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.PG_No, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PG_No, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PG_No, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.PG_Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PG_Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PG_Name, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Budget, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -40,7 +40,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AuthorNoList, htmlAttributes: new { @class = "control-label col-md-2" })         
+            @Html.LabelFor(model => model.AuthorNoList, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("AuthorNoList", (IEnumerable<SelectListItem>)ViewBag.Authors, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
             </div>
@@ -153,9 +153,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.GenreNoList, htmlAttributes: new { @class = "control-label col-md-2" })
             @*<div class="col-md-10">
-                @Html.EditorFor(model => model.GenreNoList, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GenreNoList, "", new { @class = "text-danger" })
-            </div>*@
+                    @Html.EditorFor(model => model.GenreNoList, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.GenreNoList, "", new { @class = "text-danger" })
+                </div>*@
             <div class="col-md-10">
                 @Html.DropDownList("GenreNoList", (IEnumerable<SelectListItem>)ViewBag.GenreNoList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
             </div>
@@ -164,9 +164,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StyleNoList, htmlAttributes: new { @class = "control-label col-md-2" })
             @*<div class="col-md-10">
-                @Html.EditorFor(model => model.StyleNoList, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StyleNoList, "", new { @class = "text-danger" })
-            </div>*@
+                    @Html.EditorFor(model => model.StyleNoList, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StyleNoList, "", new { @class = "text-danger" })
+                </div>*@
             <div class="col-md-10">
                 @Html.DropDownList("StyleNoList", (IEnumerable<SelectListItem>)ViewBag.StyleNoList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
             </div>
@@ -175,9 +175,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.GradedNoList, htmlAttributes: new { @class = "control-label col-md-2" })
             @*<div class="col-md-10">
-                @Html.EditorFor(model => model.GradedNoList, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GradedNoList, "", new { @class = "text-danger" })
-            </div>*@
+                    @Html.EditorFor(model => model.GradedNoList, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.GradedNoList, "", new { @class = "text-danger" })
+                </div>*@
             <div class="col-md-10">
                 @Html.DropDownList("GradedNoList", (IEnumerable<SelectListItem>)ViewBag.GradedNoList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
             </div>

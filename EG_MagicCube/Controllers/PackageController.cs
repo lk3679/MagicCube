@@ -15,8 +15,7 @@ namespace EG_MagicCube.Controllers
         public ActionResult Index(int p = 0)
         {
             int take = 10;
-            PackagesModel model = new PackagesModel();
-            List<PackageViewModel> value = new List<PackageViewModel>();
+            List<PackageViewModel> model = new List<PackageViewModel>();
             try
             {
                 var _value = PackagesModel.GetPackageList("", PackagesModel.OrderByTypeEnum.None, p * take, take + 1);
@@ -33,7 +32,7 @@ namespace EG_MagicCube.Controllers
                 ViewBag.pi = p;
                 for (int i = 0; i < _value.Count; i++)
                 {
-                    value.Add(new PackageViewModel()
+                    model.Add(new PackageViewModel()
                     {
                         Budget = 0,
                         CreateDate = _value[i].CreateDate,
@@ -44,15 +43,15 @@ namespace EG_MagicCube.Controllers
                 }
             }
             catch { }
-            return View(value);
+            return View(model);
         }
 
         [HttpPost]
         public ActionResult Index(FormCollection collection, int p = 0)
         {
             int take = 10;
-            PackagesModel model = new PackagesModel();
-            List<PackageViewModel> value = new List<PackageViewModel>();
+
+            List<PackageViewModel> model = new List<PackageViewModel>();
             var _value = PackagesModel.GetPackageList(collection["PG_Name"],
                 collection["Sort"] == "ASC" ? PackagesModel.OrderByTypeEnum.MineTime : PackagesModel.OrderByTypeEnum.MaxTime, p * take, take + 1);
             //多取一，若有表示有下一頁
@@ -68,7 +67,7 @@ namespace EG_MagicCube.Controllers
             ViewBag.pi = p;
             for (int i = 0; i < _value.Count; i++)
             {
-                value.Add(new PackageViewModel()
+                model.Add(new PackageViewModel()
                 {
                     Budget = 0,
                     CreateDate = _value[i].CreateDate,
@@ -77,10 +76,10 @@ namespace EG_MagicCube.Controllers
                     WorksAmount = _value[i].PackageItems.Count
                 });
             }
-            return View(value);
+            return View(model);
         }
 
-        public ActionResult Filter(string pgno = "")
+        public ActionResult Filter(string id = "")
         {
             AdSearchViewModel model = new AdSearchViewModel()
             {
@@ -98,9 +97,15 @@ namespace EG_MagicCube.Controllers
                 Price_L = 10000,
                 Price_U = 10
             };
+            if (!string.IsNullOrEmpty(id))
+            {
+                var value = PackagesModel.GetPackageDetail(id);
+                model.Budget = 0;
+            }
             MenuModel mm = new MenuModel();
             List<SelectListItem> Authorsitems = new List<SelectListItem>();
             var _AuthorNoList = mm.GetMenu(MenuModel.MenuClassEnum.AuthorTag);
+
             for (int i = 0; i < _AuthorNoList.Count; i++)
             {
                 Authorsitems.Add(new SelectListItem()
@@ -109,10 +114,12 @@ namespace EG_MagicCube.Controllers
                     Value = _AuthorNoList[i].MenuID.ToString()
                 });
             }
+
             ViewBag.AuthorNoList = Authorsitems;
 
             List<SelectListItem> WorksStyleitems = new List<SelectListItem>();
             var _WorksStyleList = mm.GetMenu(MenuModel.MenuClassEnum.Style);
+
             for (int i = 0; i < _WorksStyleList.Count; i++)
             {
                 WorksStyleitems.Add(new SelectListItem()
@@ -121,10 +128,12 @@ namespace EG_MagicCube.Controllers
                     Value = _WorksStyleList[i].MenuID.ToString()
                 });
             }
+
             ViewBag.StyleNoList = WorksStyleitems;
 
             List<SelectListItem> WorksGenreitems = new List<SelectListItem>();
             var _WorksGenreList = mm.GetMenu(MenuModel.MenuClassEnum.Genre);
+
             for (int i = 0; i < _WorksStyleList.Count; i++)
             {
                 WorksGenreitems.Add(new SelectListItem()
@@ -133,14 +142,17 @@ namespace EG_MagicCube.Controllers
                     Value = _WorksGenreList[i].MenuID.ToString()
                 });
             }
+
             ViewBag.GenreNoList = WorksGenreitems;
+            ViewBag.GradedNoList = new List<SelectListItem>();
 
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Filter(AdSearchViewModel collection, string pgno = "")
+        public ActionResult Filter(AdSearchViewModel collection, string id = "")
         {
+
             WorksSearchModel value = new WorksSearchModel()
             {
                 Budget = collection.Budget,
@@ -157,19 +169,19 @@ namespace EG_MagicCube.Controllers
                 MineTimeLength = collection.MineTimeLength,
                 MineWidth = collection.MineWidth,
                 WorksName = collection.WorksName,
-                StyleNoList = collection.StyleNoList.Split(',').ToList(),
-                AuthorNoList = collection.AuthorNoList.Split(',').ToList(),
-                GenreNoList = collection.GenreNoList.Split(',').ToList(),
-                GradedNoList = collection.GradedNoList.Split(',').ToList(),
+                StyleNoList = string.IsNullOrEmpty(collection.StyleNoList) ? new List<string>() : collection.StyleNoList.Split(',').ToList(),
+                AuthorNoList = string.IsNullOrEmpty(collection.AuthorNoList) ? new List<string>() : collection.AuthorNoList.Split(',').ToList(),
+                GenreNoList = string.IsNullOrEmpty(collection.GenreNoList) ? new List<string>() : collection.GenreNoList.Split(',').ToList(),
+                GradedNoList = string.IsNullOrEmpty(collection.GradedNoList) ? new List<string>() : collection.GradedNoList.Split(',').ToList(),
             };
             PackagesModel pm = new PackagesModel();
-            if (string.IsNullOrEmpty(pgno))
+            if (string.IsNullOrEmpty(id))
             {
-                pgno = new Guid().ToString();
+                id = new Guid().ToString();
                 pm.PackagesName = "未命名" + DateTime.Now.ToString("yyMMddHHmmss");
                 pm.Create();
             }
-            pm = PackagesModel.GetPackageDetail(pgno);
+            pm = PackagesModel.GetPackageDetail(id);
             pm.PackagesName = "";
             // 將搜尋結果加入PackagesModel 的WorksNos
             var model = value.Search(0);
@@ -177,7 +189,8 @@ namespace EG_MagicCube.Controllers
             {
                 pm.PackageItems.Add(new PackagesModel.PackageItemModel()
                 {
-                    WorksNo = model[i].WorksNo
+                    WorksNo = model[i].WorksNo,
+                    IsJoin = "N"
                 });
             }
             pm.SearchJson = JsonConvert.SerializeObject(value);
@@ -250,17 +263,17 @@ namespace EG_MagicCube.Controllers
                 pm.PackagesName = "未命名" + DateTime.Now.ToString("yyMMddHHmmss");
                 pm.PackageItems = new List<PackagesModel.PackageItemModel>();
                 pm.Create();
-
+                id = pm.PackagesNo;
             }
-            if (!string.IsNullOrEmpty(SelectJSON))
-            {
-                PackageAddWorks(new PackageAddWorksJSONModel()
-                {
-                    addtype = true,
-                    PackageNo = "",
-                    WorkNo = ""
-                });
-            }
+            //if (!string.IsNullOrEmpty(SelectJSON))
+            //{
+            //    PackageAddWorks(new PackageAddWorksJSONModel()
+            //    {
+            //        addtype = true,
+            //        PackageNo = "",
+            //        WorkNo = ""
+            //    });
+            //}
             return RedirectToAction("Edit", new { id = id });
         }
 
@@ -289,9 +302,9 @@ namespace EG_MagicCube.Controllers
                 PG_No = value.PackagesNo,
                 PG_Name = value.PackagesName,
                 CreateDate = value.CreateDate,
-                EndDate = value.EndDate,
+                EndDate = value.EndDate ?? DateTime.Now.AddDays(1),
                 Url = this.Url.Action("Detail_Works", "Packages", new { id = id }, this.Request.Url.Scheme),
-                QRImg = value.QRImg,
+                QRImg = PackagesModel.DrawQRcodeToImgBase64sting(this.Url.Action("Detail_Works", "Packages", new { id = id }, this.Request.Url.Scheme)),
                 Remark = value.PackagesMemo,
                 WorksAmount = 0
             };
@@ -302,28 +315,35 @@ namespace EG_MagicCube.Controllers
         [HttpPost]
         public JsonResult Edit(PackageViewModel collection)
         {
-            try
-            {
-                PackagesModel value = new PackagesModel();
-                value = PackagesModel.GetPackageDetail(collection.PG_No);
-                value.PackagesName = collection.PG_Name;
-                value.EndDate = collection.EndDate;
-                value.PackagesMemo = collection.Remark;
-                value.Update(value);
-                return Json("儲存成功");
-            }
-            catch
-            {
-                return Json("儲存失敗");
-            }
+            //try
+            //{
+            PackagesModel value = new PackagesModel();
+            value = PackagesModel.GetPackageDetail(collection.PG_No);
+            value.PackagesName = collection.PG_Name;
+            value.EndDate = collection.EndDate;
+            value.PackagesMemo = collection.Remark;
+            value.Update(value);
+            return Json("儲存成功");
+            //}
+            //catch
+            //{
+            //    return Json("儲存失敗");
+            //}
         }
 
-        public ActionResult Edit_WorksList(string id = "A135184348")
+        public ActionResult Edit_WorksList(string id = "")
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return RedirectToAction("Filter");
+            }
             PackagesModel value = new PackagesModel();
             value = PackagesModel.GetPackageDetail(id);
             value.GetPackageItemList(false);
-
+            if (value.PackageItems == null || value.PackageItems.Count == 0)
+            {
+                return RedirectToAction("Filter", new { id = id });
+            }
             PackageViewModel model = new PackageViewModel();
             model.PG_No = id;
             model.PG_Name = value.PackagesName;
@@ -338,9 +358,8 @@ namespace EG_MagicCube.Controllers
                     Name = value.PackageItems[i].WorksName,
                     Checked = value.PackageItems[i].IsJoin == "Y"
                 });
-                //model.Summary += value.PackageItems[i].
+                model.Summary += value.PackageItems[i].Price;
             }
-
             return View(model);
         }
 
@@ -370,6 +389,7 @@ namespace EG_MagicCube.Controllers
         public JsonResult PackageAddWorks(PackageAddWorksJSONModel value)
         {
             //更改列表中，作品是否被勾選
+            PackagesModel.SetPackageItemJoin(value.PackageNo, value.WorkNo, value.addtype);
             return Json(value);
         }
 
