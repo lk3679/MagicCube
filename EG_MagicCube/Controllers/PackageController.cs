@@ -19,7 +19,7 @@ namespace EG_MagicCube.Controllers
             List<PackageViewModel> value = new List<PackageViewModel>();
             try
             {
-                var _value = model.GetPackageList("", PackagesModel.OrderByTypeEnum.None, p * take, take + 1);
+                var _value = PackagesModel.GetPackageList("", PackagesModel.OrderByTypeEnum.None, p * take, take + 1);
                 //多取一，若有表示有下一頁
                 if (_value.Count == (take + 1))
                 {
@@ -53,7 +53,7 @@ namespace EG_MagicCube.Controllers
             int take = 10;
             PackagesModel model = new PackagesModel();
             List<PackageViewModel> value = new List<PackageViewModel>();
-            var _value = model.GetPackageList(collection["PG_Name"],
+            var _value = PackagesModel.GetPackageList(collection["PG_Name"],
                 collection["Sort"] == "ASC" ? PackagesModel.OrderByTypeEnum.MineTime : PackagesModel.OrderByTypeEnum.MaxTime, p * take, take + 1);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
@@ -169,7 +169,7 @@ namespace EG_MagicCube.Controllers
                 pm.PackagesName = "未命名" + DateTime.Now.ToString("yyMMddHHmmss");
                 pm.Create();
             }
-            pm = pm.GetPackageDetail(pgno);
+            pm = PackagesModel.GetPackageDetail(pgno);
             pm.PackagesName = "";
             // 將搜尋結果加入PackagesModel 的WorksNos
             var model = value.Search(0);
@@ -283,7 +283,7 @@ namespace EG_MagicCube.Controllers
         public ActionResult Edit(string id)
         {
             PackagesModel value = new PackagesModel();
-            value = value.GetPackageDetail(id);
+            value = PackagesModel.GetPackageDetail(id);
             PackageViewModel model = new PackageViewModel()
             {
                 PG_No = value.PackagesNo,
@@ -305,7 +305,7 @@ namespace EG_MagicCube.Controllers
             try
             {
                 PackagesModel value = new PackagesModel();
-                value = value.GetPackageDetail(collection.PG_No);
+                value = PackagesModel.GetPackageDetail(collection.PG_No);
                 value.PackagesName = collection.PG_Name;
                 value.EndDate = collection.EndDate;
                 value.PackagesMemo = collection.Remark;
@@ -321,8 +321,8 @@ namespace EG_MagicCube.Controllers
         public ActionResult Edit_WorksList(string id = "A135184348")
         {
             PackagesModel value = new PackagesModel();
-            value = value.GetPackageDetail(id);
-            value.GetPackageItemList(id, false);
+            value = PackagesModel.GetPackageDetail(id);
+            value.GetPackageItemList(false);
 
             PackageViewModel model = new PackageViewModel();
             model.PG_No = id;
