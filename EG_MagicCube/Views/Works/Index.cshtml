@@ -1,0 +1,64 @@
+﻿@model IEnumerable<EG_MagicCube.Models.ViewModel.WorksViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WorksName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuthorsNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorksName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorsNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.YearStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.YearEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.WorksNo }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.WorksNo })
+                </td>
+            </tr>
+        }
+    }
+
+</table>
