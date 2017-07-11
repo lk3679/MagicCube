@@ -120,12 +120,14 @@ namespace EG_MagicCube.Models
 
                 foreach (PackageItemModel _PackageItemModel in PackageItems)
                 {
+                    Guid Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
                     _Package.PackageItems.Add(new PackageItems()
                     {
                         PackagesNo = _Package.PackagesNo,
-                        WorksNo = Guid.Parse(_PackageItemModel.WorksNo),
+                        WorksNo = Guid_WorksNo,
                         JoinDate = DateTime.Now,
-                        IsJoin = _PackageItemModel.IsJoin
+                        IsJoin = _PackageItemModel.IsJoin,
+                        DelDate =new Nullable<DateTime>()
                     });
                 }
                 context.Packages.Add(_Package);
@@ -170,7 +172,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.Packages.Count() > 0)
                 {
-                    _PackagesList = context.Packages.Where(f =>
+                    _PackagesList = context.Packages.AsEnumerable().Where(f =>
                                 f.PackagesName.Contains(KeyWords)
                                || f.PackagesMemo.Contains(KeyWords)).Select(c =>
                                new PackagesModel()
@@ -215,7 +217,8 @@ namespace EG_MagicCube.Models
             {
                 if (context.Packages.Count() > 0)
                 {
-                    _PackagesModel = context.Packages.Where(f => f.PackagesNo == Guid.Parse(PackagesNo)).Select(c =>
+                    var Guid_PackagesNo = Guid.Parse(PackagesNo.ToString());
+                    _PackagesModel = context.Packages.AsEnumerable().Where(f => f.PackagesNo == Guid_PackagesNo).Select(c =>
                                   new PackagesModel()
                                   {
                                       PackagesNo = c.PackagesNo.ToString(),
@@ -262,7 +265,8 @@ namespace EG_MagicCube.Models
             {
                 if (context.PackageItems.Count() > 0)
                 {
-                    var r = context.PackageItems.Where(f => f.PackagesNo == Guid.Parse(this.PackagesNo)).Select(c =>
+                    var Guid_PackagesNo = Guid.Parse(this.PackagesNo);
+                    var r = context.PackageItems.AsEnumerable().Where(f => f.PackagesNo == Guid_PackagesNo).Select(c =>
                                                   new PackageItemModel()
                                                   {
                                                       WorksNo = c.WorksNo.ToString(),
@@ -361,7 +365,8 @@ namespace EG_MagicCube.Models
             {
                 if (context.PackageItems.Count() > 0)
                 {
-                    var r = context.PackageItems.Where(f => f.PackagesNo == Guid.Parse(PackagesNo)).Select(c =>
+                    var Guid_PackagesNo = Guid.Parse(PackagesNo);
+                    var r = context.PackageItems.AsEnumerable().Where(f => f.PackagesNo == Guid_PackagesNo).Select(c =>
                                   new PackageItemModel()
                                   {
                                       WorksNo = c.WorksNo.ToString(),
@@ -398,7 +403,8 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var oldPackages = context.Packages.First(x => x.PackagesNo == Guid.Parse(newPackages.PackagesNo));
+                var Guid_PackagesNo = Guid.Parse(newPackages.PackagesNo);
+                var oldPackages = context.Packages.AsEnumerable().AsEnumerable().First(x => x.PackagesNo == Guid_PackagesNo);
                 if (oldPackages != null)
                 {
                     oldPackages.PackagesName = newPackages.PackagesName;
@@ -410,15 +416,17 @@ namespace EG_MagicCube.Models
                     oldPackages.SearchJson = newPackages.SearchJson;
                     foreach (PackageItemModel _PackageItemModel in newPackages.PackageItems)
                     {
-                        int PackageItemCount = context.PackageItems.Where(c => c.PackagesNo == oldPackages.PackagesNo && c.WorksNo == Guid.Parse(_PackageItemModel.WorksNo)).Count();
+                        var Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
+                        int PackageItemCount = context.PackageItems.AsEnumerable().Where(c => c.PackagesNo == oldPackages.PackagesNo && c.WorksNo == Guid_WorksNo).Count();
                         if (PackageItemCount == 0)
                         {
                             oldPackages.PackageItems.Add(new PackageItems()
                             {
                                 PackagesNo = oldPackages.PackagesNo,
-                                WorksNo = Guid.Parse(_PackageItemModel.WorksNo),
+                                WorksNo = Guid_WorksNo,
                                 JoinDate = DateTime.Now,
                                 IsJoin = _PackageItemModel.IsJoin,
+                                DelDate = new Nullable<DateTime>()
                             });
                         }
                     }
@@ -444,7 +452,8 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var oldPackages = context.Packages.First(x => x.PackagesNo == Guid.Parse(this.PackagesNo));
+                var Guid_PackagesNo = Guid.Parse(this.PackagesNo);
+                var oldPackages = context.Packages.AsEnumerable().First(x => x.PackagesNo == Guid_PackagesNo);
                 if (oldPackages != null)
                 {
                     oldPackages.PackagesName = this.PackagesName;
@@ -456,15 +465,17 @@ namespace EG_MagicCube.Models
                     oldPackages.SearchJson = this.SearchJson;
                     foreach (PackageItemModel _PackageItemModel in this.PackageItems)
                     {
-                        int PackageItemCount = context.PackageItems.Where(c => c.PackagesNo == oldPackages.PackagesNo && c.WorksNo == Guid.Parse(_PackageItemModel.WorksNo)).Count();
+                        var Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
+                        int PackageItemCount = context.PackageItems.AsEnumerable().Where(c => c.PackagesNo == oldPackages.PackagesNo && c.WorksNo == Guid_WorksNo).Count();
                         if (PackageItemCount == 0)
                         {
                             oldPackages.PackageItems.Add(new PackageItems()
                             {
                                 PackagesNo = oldPackages.PackagesNo,
-                                WorksNo = Guid.Parse(_PackageItemModel.WorksNo),
+                                WorksNo = Guid_WorksNo,
                                 JoinDate = DateTime.Now,
                                 IsJoin = _PackageItemModel.IsJoin,
+                                DelDate = new Nullable<DateTime>()
                             });
                         }
                     }
@@ -490,20 +501,24 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var oldPackages = context.Packages.First(x => x.PackagesNo == Guid.Parse(this.PackagesNo));
+                var Guid_PackagesNo = Guid.Parse(this.PackagesNo);
+
+                var oldPackages = context.Packages.AsEnumerable().First(x => x.PackagesNo == Guid_PackagesNo);
                 if (oldPackages != null)
                 {
                     foreach (PackageItemModel _PackageItemModel in this.PackageItems)
                     {
-                        int PackageItemCount = context.PackageItems.Where(c => c.PackagesNo == oldPackages.PackagesNo && c.WorksNo == Guid.Parse(_PackageItemModel.WorksNo)).Count();
+                        var Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
+                        int PackageItemCount = context.PackageItems.AsEnumerable().Where(c => c.PackagesNo == oldPackages.PackagesNo && c.WorksNo == Guid_WorksNo).Count();
                         if (PackageItemCount == 0)
                         {
                             oldPackages.PackageItems.Add(new PackageItems()
                             {
                                 PackagesNo = oldPackages.PackagesNo,
-                                WorksNo = Guid.Parse(_PackageItemModel.WorksNo),
+                                WorksNo = Guid_WorksNo,
                                 JoinDate = DateTime.Now,
                                 IsJoin = _PackageItemModel.IsJoin,
+                                DelDate = new Nullable<DateTime>()
                             });
                         }
                     }
@@ -530,20 +545,24 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var oldPackages = context.Packages.First(x => x.PackagesNo == Guid.Parse(PackagesNo));
+                var Guid_PackagesNo = Guid.Parse(PackagesNo);
+
+                var oldPackages = context.Packages.AsEnumerable().First(x => x.PackagesNo == Guid_PackagesNo);
                 if (oldPackages != null)
                 {
                     foreach (PackageItemModel _PackageItemModel in PackageItemModelList)
                     {
-                        int PackageItemCount = context.PackageItems.Where(c => c.PackagesNo == oldPackages.PackagesNo && c.WorksNo == Guid.Parse(_PackageItemModel.WorksNo)).Count();
+                        var Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
+                        int PackageItemCount = context.PackageItems.AsEnumerable().Where(c => c.PackagesNo == oldPackages.PackagesNo && c.WorksNo == Guid_WorksNo).Count();
                         if (PackageItemCount == 0)
                         {
                             oldPackages.PackageItems.Add(new PackageItems()
                             {
                                 PackagesNo = oldPackages.PackagesNo,
-                                WorksNo = Guid.Parse(_PackageItemModel.WorksNo),
+                                WorksNo = Guid_WorksNo,
                                 JoinDate = DateTime.Now,
                                 IsJoin = _PackageItemModel.IsJoin,
+                                DelDate = new Nullable<DateTime>()
                             });
                         }
                     }
@@ -573,8 +592,9 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-
-                var PackageItemList = context.PackageItems.Where(x => x.PackagesNo == Guid.Parse(PackagesNo) && x.WorksNo == Guid.Parse(WorksNo)).Select(c => c).ToList();
+                var Guid_PackagesNo = Guid.Parse(PackagesNo);
+                var Guid_WorksNo = Guid.Parse(WorksNo);
+                var PackageItemList = context.PackageItems.AsEnumerable().Where(x => x.PackagesNo == Guid_PackagesNo && x.WorksNo == Guid_WorksNo).Select(c => c).ToList();
 
                 if (PackageItemList != null | PackageItemList.Count > 0)
                 {
@@ -608,8 +628,8 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-
-                var package = context.Packages.FirstOrDefault(x => x.PackagesNo == Guid.Parse(PackagesNo));
+                var Guid_PackagesNo = Guid.Parse(PackagesNo);
+                var package = context.Packages.AsEnumerable().FirstOrDefault(x => x.PackagesNo == Guid_PackagesNo);
                 if (package == null)
                 {
                     return false;
@@ -643,8 +663,9 @@ namespace EG_MagicCube.Models
             {
                 using (var context = new EG_MagicCubeEntities())
                 {
+                    var Guid_PackagesNo = Guid.Parse(PackagesNo);
 
-                    var package = context.Packages.FirstOrDefault(x => x.PackagesNo == Guid.Parse(this.PackagesNo));
+                    var package = context.Packages.AsEnumerable().FirstOrDefault(x => x.PackagesNo == Guid_PackagesNo);
                     if (package == null)
                     {
                         return false;
@@ -685,8 +706,9 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-
-                var PackageItemList = context.PackageItems.Where(x => x.PackagesNo == Guid.Parse(PackagesNo) && x.WorksNo == Guid.Parse(WorksNo)).Select(c => c).ToList();
+                var Guid_PackagesNo = Guid.Parse(PackagesNo);
+                var Guid_WorksNo = Guid.Parse(WorksNo);
+                var PackageItemList = context.PackageItems.AsEnumerable().Where(x => x.PackagesNo == Guid_PackagesNo && x.WorksNo == Guid_WorksNo).Select(c => c).ToList();
 
                 if (PackageItemList != null | PackageItemList.Count > 0)
                 {
@@ -716,27 +738,27 @@ namespace EG_MagicCube.Models
             /// <summary>
             /// 作品序號
             /// </summary>
-            public string WorksNo { set; get; }
+            public string WorksNo { set; get; } = "";
             /// <summary>
             /// 作品名稱
             /// </summary>
-            public string WorksName { set; get; }
+            public string WorksName { set; get; } = "";
             /// <summary>
             /// 藝術家名稱
             /// </summary>
-            public string AuthorsName { set; get; }
+            public string AuthorsName { set; get; } = "";
             /// <summary>
             /// 作品圖片
             /// </summary>
-            public string WorksImg { set; get; }
+            public string WorksImg { set; get; } = "";
             /// <summary>
             /// 是否加入包裝
             /// </summary>
-            public string IsJoin { set; get; }
+            public string IsJoin { set; get; } = "N";
             /// <summary>
             /// 價格
             /// </summary>
-            public int Price { set; get; }
+            public int Price { set; get; } = 0;
 
         }
 
