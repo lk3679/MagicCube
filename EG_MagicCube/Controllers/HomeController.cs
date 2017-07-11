@@ -12,6 +12,7 @@ namespace EG_MagicCube.Controllers
     {
         public ActionResult Index()
         {
+            return RedirectToAction("Filter", "Package");
             return View();
         }
 

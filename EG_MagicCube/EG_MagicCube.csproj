@@ -169,6 +169,7 @@
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\PackageController.cs" />
     <Compile Include="Controllers\WorksController.cs" />
     <Compile Include="Global.asax.cs">
@@ -176,7 +177,7 @@
     </Compile>
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\PackagesModel.cs" />
-    <Compile Include="Models\ViewModel\WorksCreateViewModel.cs" />
+    <Compile Include="Models\ViewModel\WorksViewModel.cs" />
     <Compile Include="Models\WorksModel.cs" />
     <Compile Include="Models\AuthorsModel.cs" />
     <Compile Include="Models\ViewModel\AdSearchViewModel.cs" />
@@ -356,12 +357,16 @@
     <Content Include="Views\Package\Edit_WorksList.cshtml" />
     <Content Include="Views\Package\Detail_Works.cshtml" />
     <Content Include="Views\Package\Filter.cshtml" />
+    <Content Include="Views\Works\Index.cshtml" />
+    <Content Include="Views\Works\Create.cshtml" />
+    <Content Include="Views\Works\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\App_Data\" />
-    <Folder Include="Views\Author\" />    <Folder Include="Views\Base\" />
-    <Folder Include="Views\Works\" />
+    <Folder Include="Views\Author\" />
+    <Folder Include="Views\Base\" />
+    <Folder Include="Views\Module\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
