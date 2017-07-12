@@ -18,13 +18,13 @@
             作品基本資訊
         </div>
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.WorksAuthors, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">
+                @Html.LabelFor(model => model.AuthorNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("AuthorsNo", (IEnumerable<SelectListItem>)ViewBag.WorksAuthors, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-                    @Html.ValidationMessageFor(model => model.WorksAuthors, "", new { @class = "text-danger" })
+                    @Html.DropDownList("AuthorNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksAuthors, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                    @Html.ValidationMessageFor(model => model.AuthorNo_InputString, "", new { @class = "text-danger" })
                 </div>
-            </div>*@
+            </div>
         <div class="form-group">
             @Html.LabelFor(model => model.WorksName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -178,18 +178,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.WorksPropOwnerList, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.OwnerNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("GenreNoList", (IEnumerable<SelectListItem>)ViewBag.WorksPropOwnerList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-                @Html.ValidationMessageFor(model => model.WorksPropOwnerList, "", new { @class = "text-danger" })
+                @Html.DropDownList("OwnerNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropOwnerList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.OwnerNo_InputString, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.WorksPropWareTypeList, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.WareTypeNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("GenreNoList", (IEnumerable<SelectListItem>)ViewBag.WorksPropWareTypeList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-                @Html.ValidationMessageFor(model => model.WorksPropWareTypeList, "", new { @class = "text-danger" })
+                @Html.DropDownList("WareTypeNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropWareTypeList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.WareTypeNo_InputString, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -226,18 +226,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.WorksPropGenreList, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.GenreNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("GenreNoList", (IEnumerable<SelectListItem>)ViewBag.WorksPropGenreList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-                @Html.ValidationMessageFor(model => model.WorksPropGenreList, "", new { @class = "text-danger" })
+                @Html.DropDownList("GenreNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropGenreList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.GenreNo_InputString, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.WorksPropStyleList, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.StyleNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("StyleNoList", (IEnumerable<SelectListItem>)ViewBag.WorksPropStyleList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-                @Html.ValidationMessageFor(model => model.WorksPropStyleList, "", new { @class = "text-danger" })
+                @Html.DropDownList("StyleNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropStyleList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.StyleNo_InputString, "", new { @class = "text-danger" })
             </div>
         </div>
 

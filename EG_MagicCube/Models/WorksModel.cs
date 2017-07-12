@@ -128,8 +128,9 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 新增修改藝術家序號清單字串，用,分隔
         /// </summary>
-        [DisplayName("新增修改藝術家序號清單字串")]
-        public string AuthorNo_InputString { get; set; } = "";
+        [Required]
+        [DisplayName("藝術家")]
+        public List<string> AuthorNo_InputString { get; set; } = new List<string>();
         /// <summary>
         /// 檢視作品檔案Base64
         /// </summary>
@@ -153,8 +154,9 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 新增修改作品類型清單字串，用,分隔
         /// </summary>
-        [DisplayName("新增修改作品類型清單字串")]
-        public string GenreNo_InputString { get; set; } = "";
+        [Required]
+        [DisplayName("作品類型")]
+        public List<string> GenreNo_InputString { get; set; } = new List<string>();
         /// <summary>
         /// 作品所有人
         /// </summary>
@@ -163,8 +165,9 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 新增修改作品所有人清單字串，用,分隔
         /// </summary>
-        [DisplayName("新增修改作品所有人清單字串")]
-        public string OwnerNo_InputString { get; set; } = "";
+        [Required]
+        [DisplayName("作品所有人")]
+        public List<string> OwnerNo_InputString { get; set; } = new List<string>();
         /// <summary>
         /// 作品風格
         /// </summary>
@@ -173,8 +176,9 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 新增修改作品風格清單字串，用,分隔
         /// </summary>
-        [DisplayName("新增修改作品風格清單字串")]
-        public string StyleNo_InputString { get; set; } = "";
+        [Required]
+        [DisplayName("作品風格")]
+        public List<string> StyleNo_InputString { get; set; } = new List<string>();
         /// <summary>
         /// 庫別
         /// </summary>
@@ -183,8 +187,9 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 新增修改庫別清單字串，用,分隔
         /// </summary>
-        [DisplayName("新增修改庫別清單字串")]
-        public string WareTypeNo_InputString { get; set; } = "";
+        [Required]
+        [DisplayName("庫別")]
+        public List<string> WareTypeNo_InputString { get; set; } = new List<string>();
         /// <summary>
         /// 
         /// </summary>
@@ -252,7 +257,7 @@ namespace EG_MagicCube.Models
                         context.WorksFiles.Add(new WorksFiles() { WorksNo = _Works.WorksNo, FileBase64Str = base64_file });
                     }
                     //藝術家
-                    foreach (int _AuthorNo in this.AuthorNo_InputString.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                    foreach (int _AuthorNo in this.AuthorNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                     {
 
                         context.WorksAuthors.Add(new WorksAuthors() { Works_No = _Works.WorksNo, Author_No = _AuthorNo });
@@ -262,7 +267,7 @@ namespace EG_MagicCube.Models
                     //    context.WorksAuthors.Add(new WorksAuthors() { Works_No = _Works.WorksNo, Author_No = _Author.MenuID });
                     //}
                     //類型
-                    foreach (int _GenreNo in this.GenreNo_InputString.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                    foreach (int _GenreNo in this.GenreNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                     {
                         context.WorksPropGenre.Add(new WorksPropGenre() { WorksNo = _Works.WorksNo, GenreNo = _GenreNo });
                     }
@@ -271,7 +276,7 @@ namespace EG_MagicCube.Models
                     //    context.WorksPropGenre.Add(new WorksPropGenre() { WorksNo = _Works.WorksNo, GenreNo = _Genre.MenuID });
                     //}
                     //風格
-                    foreach (int _StyleNo in this.StyleNo_InputString.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                    foreach (int _StyleNo in this.StyleNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                     {
                         context.WorksPropStyle.Add(new WorksPropStyle() { WorksNo = _Works.WorksNo, StyleNo = _StyleNo });
                     }
@@ -280,16 +285,16 @@ namespace EG_MagicCube.Models
                     //    context.WorksPropStyle.Add(new WorksPropStyle() { WorksNo = _Works.WorksNo, StyleNo = _Style.MenuID });
                     //}
                     //擁有者
-                    foreach (int _OwnerNo in this.OwnerNo_InputString.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                    foreach (int _OwnerNo in this.OwnerNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                     {
-                        context.WorksPropStyle.Add(new WorksPropStyle() { WorksNo = _Works.WorksNo, StyleNo = _OwnerNo });
+                        context.WorksPropOwner.Add(new WorksPropOwner() { WorksNo = _Works.WorksNo, OwnerNo = _OwnerNo });
                     }
                     //foreach (MenuViewModel _Owner in this.WorksPropOwnerList)
                     //{
                     //    context.WorksPropOwner.Add(new WorksPropOwner() { WorksNo = _Works.WorksNo, OwnerNo = _Owner.MenuID });
                     //}
                     //庫別
-                    foreach (int _WareTypeNo in this.WareTypeNo_InputString.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                    foreach (int _WareTypeNo in this.WareTypeNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                     {
                         context.WorksPropWareType.Add(new WorksPropWareType() { WorksNo = _Works.WorksNo, WareTypeNo = _WareTypeNo });
                     }
@@ -306,7 +311,7 @@ namespace EG_MagicCube.Models
                 {
                     return false;
                 }
-                
+
             }
             return true;
         }
@@ -361,33 +366,33 @@ namespace EG_MagicCube.Models
                     CreateDate = c.CreateDate,
                     ModifyUser = c.ModifyUser,
                     ModifyDate = (DateTime)c.ModifyDate,
-                    AuthorNo_InputString = string.Join(",",c.WorksAuthors.Select(wa => wa.Authors.AuthorsNo).ToArray()),
-                    GenreNo_InputString = string.Join(",", c.WorksPropGenre.Select(wpg => wpg.Menu_Genre.GenreNo).ToArray()),
-                    StyleNo_InputString = string.Join(",", c.WorksPropStyle.Select(wpo => wpo.Menu_Style.StyleNo).ToArray()),
-                    OwnerNo_InputString = string.Join(",", c.WorksPropOwner.Select(wps => wps.Menu_Owner.OwnerNo).ToArray()),
-                    WareTypeNo_InputString = string.Join(",", c.WorksPropWareType.Select(wpwt => wpwt.Menu_WareType.WareTypeNo).ToArray()),
+                    AuthorNo_InputString = c.WorksAuthors.Select(wa => wa.Authors.AuthorsNo.ToString()).ToList(),
+                    GenreNo_InputString = c.WorksPropGenre.Select(wpg => wpg.Menu_Genre.GenreNo.ToString()).ToList(),
+                    StyleNo_InputString = c.WorksPropStyle.Select(wpo => wpo.Menu_Style.StyleNo.ToString()).ToList(),
+                    OwnerNo_InputString = c.WorksPropOwner.Select(wps => wps.Menu_Owner.OwnerNo.ToString()).ToList(),
+                    WareTypeNo_InputString = c.WorksPropWareType.Select(wpwt => wpwt.Menu_WareType.WareTypeNo.ToString()).ToList(),
                     WorksAuthors = c.WorksAuthors.Select(wa => new MenuViewModel() { MenuID = wa.Authors.AuthorsNo, MenuName = wa.Authors.AuthorsCName }).ToList(),
-                    WorksPropGenreList = c.WorksPropGenre.Select(wpg => new MenuViewModel() { MenuID = wpg.Menu_Genre.GenreNo,MenuName= wpg.Menu_Genre.GenreName }).ToList(),
+                    WorksPropGenreList = c.WorksPropGenre.Select(wpg => new MenuViewModel() { MenuID = wpg.Menu_Genre.GenreNo, MenuName = wpg.Menu_Genre.GenreName }).ToList(),
                     WorksPropOwnerList = c.WorksPropOwner.Select(wpo => new MenuViewModel() { MenuID = wpo.OwnerNo, MenuName = wpo.Menu_Owner.OwnerName }).ToList(),
                     WorksPropStyleList = c.WorksPropStyle.Select(wps => new MenuViewModel() { MenuID = wps.Menu_Style.StyleNo, MenuName = wps.Menu_Style.StyleName }).ToList(),
-                    WorksPropWareTypeList = c.WorksPropWareType.Select(wpwt => new MenuViewModel() { MenuID = wpwt.Menu_WareType.WareTypeNo, MenuName = wpwt.Menu_WareType.WareTypeName}).ToList(),
+                    WorksPropWareTypeList = c.WorksPropWareType.Select(wpwt => new MenuViewModel() { MenuID = wpwt.Menu_WareType.WareTypeNo, MenuName = wpwt.Menu_WareType.WareTypeName }).ToList(),
                     ViewWorksFiles = c.WorksFiles.Select(wf => wf.FileBase64Str).ToList(),
                     WorksModuleList = c.WorksModules.Select(wm => new WorksModel.WorksModuleModel()
-                   {
-                       WorksModulesNo = wm.WorksModulesNo,
-                       WorksNo = wm.WorksNo.ToString(),
-                       Material = new MenuViewModel { MenuID = wm.Menu_Material.MaterialNo, MenuName = wm.Menu_Material.MaterialName },
-                       Measure = wm.Measure,
-                       Length = wm.Length,
-                       Width = wm.Width,
-                       Height = wm.High,
-                       Deep = wm.Deep,
-                       TimeLength = int.Parse(wm.TimeLength),
-                       Amount = wm.Amount,
-                       CountNoun = new MenuViewModel { MenuID = wm.Menu_CountNoun.CountNounNo, MenuName = wm.Menu_CountNoun.CountNounName }
-                   }).ToList()
+                    {
+                        WorksModulesNo = wm.WorksModulesNo,
+                        WorksNo = wm.WorksNo.ToString(),
+                        Material = new MenuViewModel { MenuID = wm.Menu_Material.MaterialNo, MenuName = wm.Menu_Material.MaterialName },
+                        Measure = wm.Measure,
+                        Length = wm.Length,
+                        Width = wm.Width,
+                        Height = wm.High,
+                        Deep = wm.Deep,
+                        TimeLength = int.Parse(wm.TimeLength),
+                        Amount = wm.Amount,
+                        CountNoun = new MenuViewModel { MenuID = wm.Menu_CountNoun.CountNounNo, MenuName = wm.Menu_CountNoun.CountNounName }
+                    }).ToList()
 
-               }
+                }
                ).FirstOrDefault();
             }
             return _WorksModel;
@@ -492,51 +497,51 @@ namespace EG_MagicCube.Models
                     _WorksModules.CountNoun = _WorksModuleModel.CountNoun.MenuID;
                     context.WorksModules.Add(_WorksModules);
                 }
-                foreach (HttpPostedFileBase _Files in newWorks.UploadWorksFiles)
-                {
-                    string base64_file = FileToBase64(_Files);
-                    context.WorksFiles.Add(new WorksFiles() { WorksNo = oldWorks.WorksNo, FileBase64Str = base64_file });
-                }
+                //foreach (HttpPostedFileBase _Files in newWorks.UploadWorksFiles)
+                //{
+                //    string base64_file = FileToBase64(_Files);
+                //    context.WorksFiles.Add(new WorksFiles() { WorksNo = oldWorks.WorksNo, FileBase64Str = base64_file });
+                //}
                 //藝術家
-                if (!string.IsNullOrWhiteSpace(newWorks.AuthorNo_InputString))
+                if (newWorks.AuthorNo_InputString.Count != 0)
                 {
-                    foreach (int _AuthorNo in newWorks.AuthorNo_InputString.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                    foreach (int _AuthorNo in newWorks.AuthorNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                     {
                         context.WorksAuthors.Add(new WorksAuthors() { Works_No = oldWorks.WorksNo, Author_No = _AuthorNo });
                     }
                 }
 
                 //類型
-                if (!string.IsNullOrWhiteSpace(newWorks.GenreNo_InputString))
+                if (newWorks.GenreNo_InputString.Count != 0)
                 {
-                    foreach (int _GenreNo in newWorks.GenreNo_InputString.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                    foreach (int _GenreNo in newWorks.GenreNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                     {
                         context.WorksPropGenre.Add(new WorksPropGenre() { WorksNo = oldWorks.WorksNo, GenreNo = _GenreNo });
                     }
                 }
 
                 //風格
-                if (!string.IsNullOrWhiteSpace(newWorks.StyleNo_InputString))
+                if (newWorks.StyleNo_InputString.Count != 0)
                 {
-                    foreach (int _StyleNo in newWorks.StyleNo_InputString.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                    foreach (int _StyleNo in newWorks.StyleNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                     {
                         context.WorksPropStyle.Add(new WorksPropStyle() { WorksNo = oldWorks.WorksNo, StyleNo = _StyleNo });
                     }
                 }
 
                 //擁有者
-                if (!string.IsNullOrWhiteSpace(newWorks.OwnerNo_InputString))
+                if (newWorks.OwnerNo_InputString.Count != 0)
                 {
-                    foreach (int _OwnerNo in newWorks.OwnerNo_InputString.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                    foreach (int _OwnerNo in newWorks.OwnerNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                     {
-                        context.WorksPropStyle.Add(new WorksPropStyle() { WorksNo = oldWorks.WorksNo, StyleNo = _OwnerNo });
+                        context.WorksPropOwner.Add(new WorksPropOwner() { WorksNo = oldWorks.WorksNo, OwnerNo = _OwnerNo });
                     }
                 }
 
                 //庫別
-                if (!string.IsNullOrWhiteSpace(newWorks.WareTypeNo_InputString))
+                if (newWorks.WareTypeNo_InputString.Count != 0)
                 {
-                    foreach (int _WareTypeNo in newWorks.WareTypeNo_InputString.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                    foreach (int _WareTypeNo in newWorks.WareTypeNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                     {
                         context.WorksPropWareType.Add(new WorksPropWareType() { WorksNo = oldWorks.WorksNo, WareTypeNo = _WareTypeNo });
                     }
@@ -573,7 +578,7 @@ namespace EG_MagicCube.Models
 
         public bool Update()
         {
-           return Update(this);
+            return Update(this);
 
             //Guid Guid_WorksNo = Guid.Parse(this.WorksNo);
             //using (var context = new EG_MagicCubeEntities())
@@ -825,7 +830,7 @@ namespace EG_MagicCube.Models
             /// <summary>
             /// 媒材
             /// </summary>
-            public MenuViewModel Material { get; set; } = new MenuViewModel() { MenuID=1 };
+            public MenuViewModel Material { get; set; } = new MenuViewModel() { MenuID = 1 };
             /// <summary>
             /// 不計算尺寸
             /// </summary>
@@ -875,7 +880,7 @@ namespace EG_MagicCube.Models
                 thePictureAsBytes = theReader.ReadBytes(_File.ContentLength);
                 MemoryStream ms_mini = new MemoryStream();
                 //將圖片轉成png8,壓縮率70，
-                MagickImage workimg=(new MagickImage(thePictureAsBytes) { Format = MagickFormat.Jpeg, Quality = 70,CompressionMethod= CompressionMethod.JPEG});
+                MagickImage workimg = (new MagickImage(thePictureAsBytes) { Format = MagickFormat.Jpeg, Quality = 70, CompressionMethod = CompressionMethod.JPEG });
                 if (workimg.Width > 600 || workimg.Height > 600)
                 {
                     workimg.Resize(new MagickGeometry(600));
@@ -887,7 +892,7 @@ namespace EG_MagicCube.Models
                 thePictureDataAsString = Convert.ToBase64String(ms_mini.ToArray());
                 ms_mini.Dispose();
             }
-            
+
             return thePictureDataAsString;
         }
     }

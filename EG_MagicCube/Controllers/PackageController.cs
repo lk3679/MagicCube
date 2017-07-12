@@ -18,7 +18,7 @@ namespace EG_MagicCube.Controllers
             List<PackageViewModel> model = new List<PackageViewModel>();
             try
             {
-                var _value = PackagesModel.GetPackageList("", PackagesModel.OrderByTypeEnum.None, p * take, take + 1);
+                var _value = PackagesModel.GetPackageList("", PackagesModel.OrderByTypeEnum.None, p , take + 1);
                 //多取一，若有表示有下一頁
                 if (_value.Count == (take + 1))
                 {
@@ -54,7 +54,7 @@ namespace EG_MagicCube.Controllers
 
             List<PackageViewModel> model = new List<PackageViewModel>();
             var _value = PackagesModel.GetPackageList(collection["PG_Name"],
-                collection["Sort"] == "ASC" ? PackagesModel.OrderByTypeEnum.MineTime : PackagesModel.OrderByTypeEnum.MaxTime, p * take, take + 1);
+                collection["Sort"] == "ASC" ? PackagesModel.OrderByTypeEnum.MineTime : PackagesModel.OrderByTypeEnum.MaxTime, p , take + 1);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
@@ -171,10 +171,10 @@ namespace EG_MagicCube.Controllers
                 MineTimeLength = collection.MineTimeLength,
                 MineWidth = collection.MineWidth,
                 WorksName = collection.WorksName,
-                StyleNoList = string.IsNullOrEmpty(collection.StyleNoList) ? new List<string>() : collection.StyleNoList.Split(',').ToList(),
-                AuthorNoList = string.IsNullOrEmpty(collection.AuthorNoList) ? new List<string>() : collection.AuthorNoList.Split(',').ToList(),
-                GenreNoList = string.IsNullOrEmpty(collection.GenreNoList) ? new List<string>() : collection.GenreNoList.Split(',').ToList(),
-                GradedNoList = string.IsNullOrEmpty(collection.GradedNoList) ? new List<string>() : collection.GradedNoList.Split(',').ToList(),
+                StyleNoList =  collection.StyleNoList,
+                AuthorNoList =  collection.AuthorNoList,
+                GenreNoList =  collection.GenreNoList,
+                GradedNoList =  collection.GradedNoList
             };
             PackagesModel pm = new PackagesModel();
             if (string.IsNullOrEmpty(id))
@@ -197,7 +197,7 @@ namespace EG_MagicCube.Controllers
             }
             pm.SearchJson = JsonConvert.SerializeObject(value);
             pm.Budget = collection.Budget;
-            pm.Update(pm);
+            pm.Update();
 
             //儲存篩選條件
             return RedirectToAction("Edit_WorksList", new { id = pm.PackagesNo });
@@ -277,7 +277,7 @@ namespace EG_MagicCube.Controllers
             value.PackagesName = collection.PG_Name;
             value.EndDate = collection.EndDate;
             value.PackagesMemo = collection.Remark ?? "";
-            value.Update(value);
+            value.Update();
             return Json("儲存成功");
             //}
             //catch
