@@ -207,13 +207,13 @@ namespace EG_MagicCube.Models
                 //    _WorksModules.WorksNo = _Works.WorksNo;
                 //    _WorksModules.Material = _WorksModuleModel.Material.MenuID;
                 //    _WorksModules.Measure = _WorksModuleModel.Measure;
-                    
+
                 //    _WorksModules.Length = _WorksModuleModel.Length;
                 //    _WorksModules.Width = _WorksModuleModel.Width;
                 //    _WorksModules.High = _WorksModuleModel.Height;
                 //    _WorksModules.Deep = _WorksModuleModel.Deep;
                 //    _WorksModules.TimeLength = _WorksModuleModel.TimeLength.ToString();
-                    
+
                 //    _WorksModules.Amount = _WorksModuleModel.Amount;
                 //    _WorksModules.CountNoun = 1;
                 //    context.WorksModules.Add(_WorksModules);
@@ -301,27 +301,27 @@ namespace EG_MagicCube.Models
                     CreateDate = c.CreateDate,
                     ModifyUser = c.ModifyUser,
                     ModifyDate = (DateTime)c.ModifyDate,
-                    WorksPropGenreList = c.WorksPropGenre.Select(wpg => new MenuViewModel() { MenuID = wpg.Menu_Genre.GenreNo,MenuName= wpg.Menu_Genre.GenreName }).ToList(),
+                    WorksPropGenreList = c.WorksPropGenre.Select(wpg => new MenuViewModel() { MenuID = wpg.Menu_Genre.GenreNo, MenuName = wpg.Menu_Genre.GenreName }).ToList(),
                     WorksPropOwnerList = c.WorksPropOwner.Select(wpo => new MenuViewModel() { MenuID = wpo.OwnerNo, MenuName = wpo.Menu_Owner.OwnerName }).ToList(),
                     WorksPropStyleList = c.WorksPropStyle.Select(wps => new MenuViewModel() { MenuID = wps.Menu_Style.StyleNo, MenuName = wps.Menu_Style.StyleName }).ToList(),
-                    WorksPropWareTypeList = c.WorksPropWareType.Select(wpwt => new MenuViewModel() { MenuID = wpwt.Menu_WareType.WareTypeNo, MenuName = wpwt.Menu_WareType.WareTypeName}).ToList(),
+                    WorksPropWareTypeList = c.WorksPropWareType.Select(wpwt => new MenuViewModel() { MenuID = wpwt.Menu_WareType.WareTypeNo, MenuName = wpwt.Menu_WareType.WareTypeName }).ToList(),
                     ViewWorksFiles = c.WorksFiles.Select(wf => wf.FileBase64Str).ToList(),
                     WorksModuleList = c.WorksModules.Select(wm => new WorksModel.WorksModuleModel()
-                   {
-                       WorksModulesNo = wm.WorksModulesNo,
-                       WorksNo = wm.WorksNo.ToString(),
-                       Material = new MenuViewModel { MenuID = wm.Menu_Material.MaterialNo, MenuName = wm.Menu_Material.MaterialName },
-                       Measure = wm.Measure,
-                       Length = wm.Length,
-                       Width = wm.Width,
-                       Height = wm.High,
-                       Deep = wm.Deep,
-                       TimeLength = int.Parse(wm.TimeLength),
-                       Amount = wm.Amount,
-                       CountNoun = new MenuViewModel { MenuID = wm.Menu_CountNoun.CountNounNo, MenuName = wm.Menu_CountNoun.CountNounName }
-                   }).ToList()
+                    {
+                        WorksModulesNo = wm.WorksModulesNo,
+                        WorksNo = wm.WorksNo.ToString(),
+                        Material = new MenuViewModel { MenuID = wm.Menu_Material.MaterialNo, MenuName = wm.Menu_Material.MaterialName },
+                        Measure = wm.Measure,
+                        Length = wm.Length,
+                        Width = wm.Width,
+                        Height = wm.High,
+                        Deep = wm.Deep,
+                        TimeLength = int.Parse(wm.TimeLength),
+                        Amount = wm.Amount,
+                        CountNoun = new MenuViewModel { MenuID = wm.Menu_CountNoun.CountNounNo, MenuName = wm.Menu_CountNoun.CountNounName }
+                    }).ToList()
 
-               }
+                }
                ).FirstOrDefault();
             }
             return _WorksModel;
@@ -613,7 +613,7 @@ namespace EG_MagicCube.Models
                         {
                             works.WorksPropWareType.Remove(_WorksPropWareType);
                         }
-                    }                  
+                    }
                 }
                 context.Works.Remove(works);
                 if (context.SaveChanges() == 0)
@@ -644,7 +644,7 @@ namespace EG_MagicCube.Models
             /// <summary>
             /// 媒材
             /// </summary>
-            public MenuViewModel Material { get; set; } = new MenuViewModel() { MenuID=1 };
+            public MenuViewModel Material { get; set; } = new MenuViewModel() { MenuID = 1 };
             /// <summary>
             /// 不計算尺寸
             /// </summary>
@@ -694,7 +694,7 @@ namespace EG_MagicCube.Models
                 thePictureAsBytes = theReader.ReadBytes(_File.ContentLength);
                 MemoryStream ms_mini = new MemoryStream();
                 //將圖片轉成png8,壓縮率70，
-                MagickImage workimg=(new MagickImage(thePictureAsBytes) { Format = MagickFormat.Jpeg, Quality = 70,CompressionMethod= CompressionMethod.JPEG});
+                MagickImage workimg = (new MagickImage(thePictureAsBytes) { Format = MagickFormat.Jpeg, Quality = 70, CompressionMethod = CompressionMethod.JPEG });
                 if (workimg.Width > 600 || workimg.Height > 600)
                 {
                     workimg.Resize(new MagickGeometry(600));
@@ -706,7 +706,7 @@ namespace EG_MagicCube.Models
                 thePictureDataAsString = Convert.ToBase64String(ms_mini.ToArray());
                 ms_mini.Dispose();
             }
-            
+
             return thePictureDataAsString;
         }
     }

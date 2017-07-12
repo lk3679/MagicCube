@@ -1,0 +1,66 @@
+﻿@model IEnumerable<EG_MagicCubeEntity.WorksModules>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>       
+        <th>
+            @Html.DisplayNameFor(model => model.Material)
+        </th>
+     
+        <th>
+            @Html.DisplayNameFor(model => model.Length)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Width)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.High)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Deep)
+        </th>
+     
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+            @Html.DisplayNameFor(model => model.CountNoun)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Material)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Length)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Width)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.High)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Deep)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+            @Html.DisplayFor(modelItem => item.CountNoun)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id=item.WorksModulesNo  })
+        </td>
+    </tr>
+}
+
+</table>

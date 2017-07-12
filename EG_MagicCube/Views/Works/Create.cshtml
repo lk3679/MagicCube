@@ -14,26 +14,17 @@
         <h4>WorksModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
         <div class="form-group">
-            @Html.LabelFor(model => model.MaterialsID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaterialsID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaterialsID, "", new { @class = "text-danger" })
-            </div>
+            作品基本資訊
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.WorksAuthors, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("AuthorsNo", (IEnumerable<SelectListItem>)ViewBag.WorksAuthors, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-                @Html.ValidationMessageFor(model => model.WorksAuthors, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.WorksAuthors, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("AuthorsNo", (IEnumerable<SelectListItem>)ViewBag.WorksAuthors, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                    @Html.ValidationMessageFor(model => model.WorksAuthors, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
         <div class="form-group">
             @Html.LabelFor(model => model.WorksName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -41,7 +32,6 @@
                 @Html.ValidationMessageFor(model => model.WorksName, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.YearStart, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-5">
@@ -55,70 +45,132 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.WorksModuleList, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("GenreNoList", (IEnumerable<SelectListItem>)ViewBag.WorksModuleList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-                @Html.ValidationMessageFor(model => model.WorksModuleList, "", new { @class = "text-danger" })
-            </div>
+            材質大小及數量
         </div>
 
-
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.WorksName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AuthorsNo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.YearStart)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.YearEnd)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cost)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-
-            </tr>
-            @if (Model != null)
-            {
-                foreach (var item in Model.WorksModuleList)
-                {
+        <div class="form-group">
+            <label class="control-label col-md-2" for="MaterialsID">材質</label>
+            <div class="col-md-10">
+                @Html.DropDownList("MaterialsID", (IEnumerable<SelectListItem>)ViewBag.WorksModuleList, new { @class = "js-example-basic-multiple js-states form-control" })
+                <span class="field-validation-valid text-danger" data-valmsg-for="MaterialsID" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="height">高</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" data-val="true" data-val-number="The field 高 must be a number." data-val-required="高 欄位是必要項。"
+                       id="height" name="height" type="number" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="height" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="width">寬</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" data-val="true" data-val-number="The field 寬 must be a number." data-val-required="寬 欄位是必要項。"
+                       id="width" name="width" type="number" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="width" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="deep">深</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" data-val="true" data-val-number="The field 深 must be a number." data-val-required="深 欄位是必要項。"
+                       id="deep" name="deep" type="number" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="deep" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="times">影片長度</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line"
+                       id="times" name="times" type="number" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="nums">數量單位</label>
+            <div class="col-md-4">
+                <input class="form-control text-box single-line"
+                       id="nums" name="nums" type="number" value="" data-val="true" data-val-number="The field 數量 must be a number." data-val-required="數量 欄位是必要項。">
+                <span class="field-validation-valid text-danger" data-valmsg-for="nums" data-valmsg-replace="true"></span>
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownList("CountNoun", (IEnumerable<SelectListItem>)ViewBag.WorksCountNounList, new { @class = "js-example-basic-multiple js-states form-control" })
+                <span class="field-validation-valid text-danger" data-valmsg-for="CountNoun" data-valmsg-replace="true"></span>
+            </div>
+            <div class="col-md-2">
+                <input type="button" id="mateadd" name="mateadd" class="btn btn-default" value="Add" />
+            </div>
+        </div>
+        <div class="form-group">
+            <table class="Moduletable table" name="WorksModuleList">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Material.MenuName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.High)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Width)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Deep)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Amount) @Html.DisplayFor(modelItem => item.CountNoun.MenuName) 
-                        </td>
-                        <td>
-
-                        </td>
+                        <th hidden="hidden">
+                            材質編號
+                        </th>
+                        <th>
+                            材質
+                        </th>
+                        <th>
+                            高
+                        </th>
+                        <th>
+                            寬
+                        </th>
+                        <th>
+                            深
+                        </th>
+                        <th>
+                            影片長度
+                        </th>
+                        <th hidden="hidden">
+                            單位編號
+                        </th>
+                        <th>
+                            單位數量
+                        </th>
                     </tr>
-                }
-            }
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.WorksModuleList != null)
+                    {
+                        foreach (var item in Model.WorksModuleList)
+                        {
+                            <tr>
+                                <td hidden="hidden">
+                                    @Html.DisplayFor(modelItem => item.Material.MenuID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Material.MenuName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Height)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Width)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Deep)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TimeLength)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount) @Html.DisplayFor(modelItem => item.CountNoun.MenuName)
+                                </td>
+                            </tr>
+                        }
+                    }
 
-        </table>
+                </tbody>
 
+            </table>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control", rows = 5 } })
                 @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -242,4 +294,21 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(".js-example-basic-multiple").select2();
+        $('#mateadd').click(function () {
+            var index = $('.Moduletable tr').length - 1;
+            $('.Moduletable tr:last').after('<tr>< td hidden= "hidden" > <input type="hidden" name="WorksModuleList[' + index +'].Material.MenuID" value="' + $('#MaterialsID').val() + '"></input></td>' +
+                '<td><input type="hidden" name="WorksModuleList[' + index + '].Material.MenuName" value="' + $('#select2-MaterialsID-container').html() + '"></input>' + $('#select2-MaterialsID-container').html() + '</td>' +
+                '<td><input type="hidden" name="WorksModuleList[' + index + '].Height" value="' + $('#height').val() + '"></input>' + $('#height').val() + '</td>' +
+                '<td><input type="hidden" name="WorksModuleList[' + index + '].Width" value="' + $('#width').val() + '"></input>' + $('#width').val() + '</td > ' +
+                '<td><input type="hidden" name="WorksModuleList[' + index + '].Deep" value="' + $('#deep').val() + '"></input>' + $('#deep').val() + '</td > ' +
+                '<td><input type="hidden" name="WorksModuleList[' + index + '].TimeLength" value="' + $('#times').val() + '"></input>' + $('#times').val() + '</td > ' +
+                '<td hidden= "hidden" > <input type="hidden" name="WorksModuleList[' + index + '].CountNoun.MenuID" value="' + $('#CountNoun').val() + '"></input>' + $('#CountNoun').val() + '</td>'+
+                '<td><input type="hidden" name="WorksModuleList[' + index + '].Amount" value="' + $('#nums').val() + '"></input>' +
+                '<input type="hidden" name="WorksModuleList[' + index + '].CountNoun.MenuName" value="' + $('#select2-CountNoun-container').html() + '"></input>' +
+                $('#nums').val() + $('#select2-CountNoun-container').html() + '</td></tr >');
+
+        });
+    </script>
 }
