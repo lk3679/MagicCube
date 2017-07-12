@@ -27,13 +27,13 @@ namespace EG_MagicCube.Controllers
         {
             MenuModel mm = new MenuModel();
             List<SelectListItem> WorksAuthors = new List<SelectListItem>();
-            var _WorksAuthors = mm.GetMenu(MenuModel.MenuClassEnum.AuthorTag);
+            var _WorksAuthors = AuthorsModel.GetAuthorList();
             for (int i = 0; i < _WorksAuthors.Count; i++)
             {
                 WorksAuthors.Add(new SelectListItem()
                 {
-                    Text = _WorksAuthors[i].MenuName,
-                    Value = _WorksAuthors[i].MenuID.ToString()
+                    Text = _WorksAuthors[i].AuthorsCName,
+                    Value = _WorksAuthors[i].AuthorsNo.ToString()
                 });
             }
             ViewBag.WorksAuthors = WorksAuthors;
@@ -87,7 +87,7 @@ namespace EG_MagicCube.Controllers
             ViewBag.WorksPropStyleList = WorksPropStyleList;
 
             List<SelectListItem> WorksPropWareTypeList = new List<SelectListItem>();
-            var _WorksPropWareTypeList = mm.GetMenu(MenuModel.MenuClassEnum.Style);
+            var _WorksPropWareTypeList = mm.GetMenu(MenuModel.MenuClassEnum.WareType);
             for (int i = 0; i < _WorksPropWareTypeList.Count; i++)
             {
                 WorksPropWareTypeList.Add(new SelectListItem()
@@ -99,6 +99,18 @@ namespace EG_MagicCube.Controllers
             ViewBag.WorksPropWareTypeList = WorksPropWareTypeList;
 
             ViewBag.GradedNoList = new List<SelectListItem>();
+
+            List<SelectListItem> WorksCountNounList = new List<SelectListItem>();
+            var _WorksCountNounList = mm.GetMenu(MenuModel.MenuClassEnum.CountNoun);
+            for (int i = 0; i < _WorksCountNounList.Count; i++)
+            {
+                WorksCountNounList.Add(new SelectListItem()
+                {
+                    Text = _WorksCountNounList[i].MenuName,
+                    Value = _WorksCountNounList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.WorksCountNounList = WorksCountNounList;
 
             return View();
         }
@@ -125,8 +137,7 @@ namespace EG_MagicCube.Controllers
         // GET: Works/Edit/5
         public ActionResult Edit(string id)
         {
-            WorksModel model = new WorksModel();
-            model.GetWorksModelByWorksNo(id);
+            WorksModel model = WorksModel.GetWorksModelDetail(id); 
             return View(model);
         }
 
