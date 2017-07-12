@@ -120,21 +120,27 @@ namespace EG_MagicCube.Models
                 _Package.CreateUser = this.CreateUser;
                 _Package.ModifyDate = DateTime.Now;
                 _Package.ModifyUser = this.ModifyUser;
-
-                foreach (PackageItemModel _PackageItemModel in PackageItems)
-                {
-                    Guid Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
-                    _Package.PackageItems.Add(new PackageItems()
-                    {
-                        PackagesNo = _Package.PackagesNo,
-                        WorksNo = Guid_WorksNo,
-                        JoinDate = DateTime.Now,
-                        IsJoin = _PackageItemModel.IsJoin,
-                        DelDate =new Nullable<DateTime>()
-                    });
-                }
                 context.Packages.Add(_Package);
-                if (context.SaveChanges() == 0)
+                if (context.SaveChanges() > 0)
+                {
+                    foreach (PackageItemModel _PackageItemModel in PackageItems)
+                    {
+                        Guid Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
+                        context.PackageItems.Add(new PackageItems()
+                        {
+                            PackagesNo = _Package.PackagesNo,
+                            WorksNo = Guid_WorksNo,
+                            JoinDate = DateTime.Now,
+                            IsJoin = _PackageItemModel.IsJoin,
+                            DelDate = new Nullable<DateTime>()
+                        });
+                    }
+                    if (context.SaveChanges() == 0)
+                    {
+                        return false;
+                    }
+                }
+                else
                 {
                     return false;
                 }
@@ -402,7 +408,7 @@ namespace EG_MagicCube.Models
         /// </summary>
         /// <param name="newPackages">新包裝資料</param>
         /// <returns></returns>
-        public bool Update(PackagesModel newPackages)
+        public static bool Update(PackagesModel newPackages)
         {
             using (var context = new EG_MagicCubeEntities())
             {
@@ -453,47 +459,7 @@ namespace EG_MagicCube.Models
         /// <returns></returns>
         public bool Update()
         {
-            using (var context = new EG_MagicCubeEntities())
-            {
-                var Guid_PackagesNo = Guid.Parse(this.PackagesNo);
-                var oldPackages = context.Packages.AsEnumerable().First(x => x.PackagesNo == Guid_PackagesNo);
-                if (oldPackages != null)
-                {
-                    oldPackages.PackagesName = this.PackagesName;
-                    oldPackages.PackingDate = new Nullable<DateTime>();
-                    oldPackages.EndDate = this.EndDate;
-                    oldPackages.ModifyUser = this.ModifyUser;
-                    oldPackages.ModifyDate = this.ModifyDate;
-                    oldPackages.PackagesMemo = this.PackagesMemo;
-                    oldPackages.SearchJson = this.SearchJson;
-                    foreach (PackageItemModel _PackageItemModel in this.PackageItems)
-                    {
-                        var Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
-                        int PackageItemCount = context.PackageItems.AsEnumerable().Where(c => c.PackagesNo == oldPackages.PackagesNo && c.WorksNo == Guid_WorksNo).Count();
-                        if (PackageItemCount == 0)
-                        {
-                            oldPackages.PackageItems.Add(new PackageItems()
-                            {
-                                PackagesNo = oldPackages.PackagesNo,
-                                WorksNo = Guid_WorksNo,
-                                JoinDate = DateTime.Now,
-                                IsJoin = _PackageItemModel.IsJoin,
-                                DelDate = new Nullable<DateTime>()
-                            });
-                        }
-                    }
-                    if (context.SaveChanges() == 0)
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return Update(this);
         }
 
         /// <summary>
@@ -502,39 +468,40 @@ namespace EG_MagicCube.Models
         /// <returns></returns>
         public bool UpdatePackageItem()
         {
-            using (var context = new EG_MagicCubeEntities())
-            {
-                var Guid_PackagesNo = Guid.Parse(this.PackagesNo);
+            UpdatePackageItem(this.PackagesNo, this.PackageItems);
+            //using (var context = new EG_MagicCubeEntities())
+            //{
+            //    var Guid_PackagesNo = Guid.Parse(this.PackagesNo);
 
-                var oldPackages = context.Packages.AsEnumerable().First(x => x.PackagesNo == Guid_PackagesNo);
-                if (oldPackages != null)
-                {
-                    foreach (PackageItemModel _PackageItemModel in this.PackageItems)
-                    {
-                        var Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
-                        int PackageItemCount = context.PackageItems.AsEnumerable().Where(c => c.PackagesNo == oldPackages.PackagesNo && c.WorksNo == Guid_WorksNo).Count();
-                        if (PackageItemCount == 0)
-                        {
-                            oldPackages.PackageItems.Add(new PackageItems()
-                            {
-                                PackagesNo = oldPackages.PackagesNo,
-                                WorksNo = Guid_WorksNo,
-                                JoinDate = DateTime.Now,
-                                IsJoin = _PackageItemModel.IsJoin,
-                                DelDate = new Nullable<DateTime>()
-                            });
-                        }
-                    }
-                    if (context.SaveChanges() == 0)
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            //    var oldPackages = context.Packages.AsEnumerable().First(x => x.PackagesNo == Guid_PackagesNo);
+            //    if (oldPackages != null)
+            //    {
+            //        foreach (PackageItemModel _PackageItemModel in this.PackageItems)
+            //        {
+            //            var Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
+            //            int PackageItemCount = context.PackageItems.AsEnumerable().Where(c => c.PackagesNo == oldPackages.PackagesNo && c.WorksNo == Guid_WorksNo).Count();
+            //            if (PackageItemCount == 0)
+            //            {
+            //                oldPackages.PackageItems.Add(new PackageItems()
+            //                {
+            //                    PackagesNo = oldPackages.PackagesNo,
+            //                    WorksNo = Guid_WorksNo,
+            //                    JoinDate = DateTime.Now,
+            //                    IsJoin = _PackageItemModel.IsJoin,
+            //                    DelDate = new Nullable<DateTime>()
+            //                });
+            //            }
+            //        }
+            //        if (context.SaveChanges() == 0)
+            //        {
+            //            return false;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        return false;
+            //    }
+            //}
             return true;
         }
 
@@ -559,7 +526,7 @@ namespace EG_MagicCube.Models
                         int PackageItemCount = context.PackageItems.AsEnumerable().Where(c => c.PackagesNo == oldPackages.PackagesNo && c.WorksNo == Guid_WorksNo).Count();
                         if (PackageItemCount == 0)
                         {
-                            oldPackages.PackageItems.Add(new PackageItems()
+                            context.PackageItems.Add(new PackageItems()
                             {
                                 PackagesNo = oldPackages.PackagesNo,
                                 WorksNo = Guid_WorksNo,
