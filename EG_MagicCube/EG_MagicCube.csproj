@@ -361,14 +361,15 @@
     <Content Include="Views\Works\Index.cshtml" />
     <Content Include="Views\Works\Create.cshtml" />
     <Content Include="Views\Works\Edit.cshtml" />
+    <Content Include="Views\Author\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\App_Data\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Works\" />
-    <Folder Include="Views\Author\" />    
-	<Folder Include="Views\Module\" />
+    <Folder Include="Views\Author\" /> 
+    <Folder Include="Views\Module\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

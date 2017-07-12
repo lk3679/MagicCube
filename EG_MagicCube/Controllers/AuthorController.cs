@@ -11,35 +11,6 @@ namespace EG_MagicCube.Controllers
         // GET: Author
         public ActionResult Index()
         {
-            WorksModel _WorksModel = new WorksModel();
-            _WorksModel.WorksName = "作品A";
-
-            _WorksModel.AuthorsNo = 1;
-
-            _WorksModel.YearStart = 2017;
-            _WorksModel.YearEnd = 2017;
-            _WorksModel.Cost = 100;
-            _WorksModel.Price = 100;
-            _WorksModel.GrossMargin = 10;
-            _WorksModel.PricingDate = DateTime.Now;
-            _WorksModel.Artisticability = 5;
-            _WorksModel.Marketability = 5;
-            _WorksModel.Packageability =5;
-            _WorksModel.Valuability = 5;
-            _WorksModel.CreateUser = "";
-            _WorksModel.CreateDate = DateTime.Now;
-
-            _WorksModel.Remarks = "";
-            _WorksModel.WorksAuthors.Add(new MenuViewModel { MenuID = 1 });
-            _WorksModel.WorksModuleList.Add(new WorksModel.WorksModuleModel() {
-                Measure = "N",
-                CountNoun = new MenuViewModel() { MenuID = 1 },
-                Amount = 1,
-                Height = 100,
-                Material =new MenuViewModel() { MenuID=1 }
-                ,WorksNo= _WorksModel.WorksNo
-            });
-            _WorksModel.Create();
             return View();
         }
 
