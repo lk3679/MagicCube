@@ -6,7 +6,7 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm("Create", "Works", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "Works", FormMethod.Post, new { enctype = "multipart/form-data" , id="CreateForm" }))
 {
     @Html.AntiForgeryToken()
 
@@ -102,7 +102,8 @@
             </div>
         </div>
         <div class="form-group">
-            <table class="Moduletable table" name="WorksModuleList">
+            <label class="text-danger error" style="display:none;" >此項目必填</label>
+            <table class="Moduletable table" id="WorksModuleList" name="WorksModuleList">
                 <thead>
                     <tr>
                         <th hidden="hidden">
@@ -128,6 +129,8 @@
                         </th>
                         <th>
                             單位數量
+                        </th>
+                        <th>
                         </th>
                     </tr>
                 </thead>
@@ -158,12 +161,11 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Amount) @Html.DisplayFor(modelItem => item.CountNoun.MenuName)
                                 </td>
+                                <td><i class="fa fa-times fa-4" aria-hidden="true"></i></td>
                             </tr>
                         }
                     }
-
                 </tbody>
-
             </table>
         </div>
 
@@ -297,18 +299,33 @@
     <script>
         $(".js-example-basic-multiple").select2();
         $('#mateadd').click(function () {
+            $('label.error:visible').hide();
             var index = $('.Moduletable tr').length - 1;
-            $('.Moduletable tr:last').after('<tr>< td hidden= "hidden" > <input type="hidden" name="WorksModuleList[' + index +'].Material.MenuID" value="' + $('#MaterialsID').val() + '"></input></td>' +
+            $('.Moduletable tr:last').after('<tr>< td hidden= "hidden" > <input type="hidden" name="WorksModuleList[' + index + '].Material.MenuID" value="' + $('#MaterialsID').val() + '"></input></td>' +
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].Material.MenuName" value="' + $('#select2-MaterialsID-container').html() + '"></input>' + $('#select2-MaterialsID-container').html() + '</td>' +
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].Height" value="' + $('#height').val() + '"></input>' + $('#height').val() + '</td>' +
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].Width" value="' + $('#width').val() + '"></input>' + $('#width').val() + '</td > ' +
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].Deep" value="' + $('#deep').val() + '"></input>' + $('#deep').val() + '</td > ' +
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].TimeLength" value="' + $('#times').val() + '"></input>' + $('#times').val() + '</td > ' +
-                '<td hidden= "hidden" > <input type="hidden" name="WorksModuleList[' + index + '].CountNoun.MenuID" value="' + $('#CountNoun').val() + '"></input>' + $('#CountNoun').val() + '</td>'+
+                '<td hidden= "hidden" > <input type="hidden" name="WorksModuleList[' + index + '].CountNoun.MenuID" value="' + $('#CountNoun').val() + '"></input>' + $('#CountNoun').val() + '</td>' +
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].Amount" value="' + $('#nums').val() + '"></input>' +
                 '<input type="hidden" name="WorksModuleList[' + index + '].CountNoun.MenuName" value="' + $('#select2-CountNoun-container').html() + '"></input>' +
-                $('#nums').val() + $('#select2-CountNoun-container').html() + '</td></tr >');
+                $('#nums').val() + $('#select2-CountNoun-container').html() + '</td> <td><i class="fa fa-times fa-4" aria-hidden="true"></i></td></tr >');
+           
+        });
+        $(document).on('click', 'i.fa', function () {
+            var p = $(this).parent().parent();
+            $(p).hide();
+            $(p).find('input').attr('value', '-1');
+        });
+        $("form").submit(function (e) {
+            $('label.error').hide();
+            if ($('#WorksModuleList tr:visible').length == 1) {
+                $('label.error').show();
+                return false;
+            }
 
         });
+
     </script>
 }
