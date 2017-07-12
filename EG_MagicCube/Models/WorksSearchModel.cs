@@ -195,7 +195,7 @@ namespace EG_MagicCube.Models
                         //r = r.Where(f => f.WorksPropStyle.Any(wps => this.StyleNoList.Contains(wps.StyleNo)));
                     }
                     //以包裝序號查詢
-                    if (this.PackagesNo != null)
+                    if ( !string.IsNullOrEmpty( this.PackagesNo))
                     {
                         r = r.Where(f => f.PackageItems.Any(pkg => pkg.PackagesNo == Guid.Parse(this.PackagesNo)));
                     }
