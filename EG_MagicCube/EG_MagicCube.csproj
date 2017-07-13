@@ -361,6 +361,8 @@
     <Content Include="Views\Works\Create.cshtml" />
     <Content Include="Views\Works\Edit.cshtml" />
     <Content Include="Views\Author\Index.cshtml" />
+    <Content Include="Views\Author\Create.cshtml" />
+    <Content Include="Views\Author\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
