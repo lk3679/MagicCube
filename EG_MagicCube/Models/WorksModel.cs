@@ -43,6 +43,7 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 作品名稱
         /// </summary>
+        [Required]
         [DisplayName("作品名稱")]
         public string WorksName { get; set; } = "";
         /// <summary>

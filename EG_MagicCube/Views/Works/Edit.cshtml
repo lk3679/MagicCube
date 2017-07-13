@@ -4,9 +4,9 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Create</h2>
+<h2>Edit</h2>
 
-@using (Html.BeginForm("Edit", "Works", FormMethod.Post, new { enctype = "multipart/form-data", id = "CreateForm" }))
+@using (Html.BeginForm("Edit", "Works", FormMethod.Post, new { enctype = "multipart/form-data", id = "EditForm" }))
 {
     @Html.AntiForgeryToken()
 
@@ -53,30 +53,26 @@
             <label class="control-label col-md-2" for="MaterialsID">材質</label>
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.MaterialsID, (IEnumerable<SelectListItem>)ViewBag.WorksModuleList, new { @class = "js-example-basic-multiple js-states form-control" })
-                <span class="field-validation-valid text-danger" data-valmsg-for="MaterialsID" data-valmsg-replace="true"></span>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-2" for="height">高</label>
             <div class="col-md-10">
-                <input class="form-control text-box single-line" data-val="true" data-val-number="The field 高 must be a number." data-val-required="高 欄位是必要項。"
-                       id="height" name="height" type="number" value="">
+                <input class="form-control text-box single-line" id="height" name="height" type="number" value="">
                 <span class="field-validation-valid text-danger" data-valmsg-for="height" data-valmsg-replace="true"></span>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-2" for="width">寬</label>
             <div class="col-md-10">
-                <input class="form-control text-box single-line" data-val="true" data-val-number="The field 寬 must be a number." data-val-required="寬 欄位是必要項。"
-                       id="width" name="width" type="number" value="">
+                <input class="form-control text-box single-line" id="width" name="width" type="number" value="">
                 <span class="field-validation-valid text-danger" data-valmsg-for="width" data-valmsg-replace="true"></span>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-2" for="deep">深</label>
             <div class="col-md-10">
-                <input class="form-control text-box single-line" data-val="true" data-val-number="The field 深 must be a number." data-val-required="深 欄位是必要項。"
-                       id="deep" name="deep" type="number" value="">
+                <input class="form-control text-box single-line" id="deep" name="deep" type="number" value="">
                 <span class="field-validation-valid text-danger" data-valmsg-for="deep" data-valmsg-replace="true"></span>
             </div>
         </div>
@@ -90,13 +86,11 @@
         <div class="form-group">
             <label class="control-label col-md-2" for="nums">數量單位</label>
             <div class="col-md-4">
-                <input class="form-control text-box single-line"
-                       id="nums" name="nums" type="number" value="" data-val="true" data-val-number="The field 數量 must be a number." data-val-required="數量 欄位是必要項。">
+                <input class="form-control text-box single-line" id="nums" name="nums" type="number" value="" >
                 <span class="field-validation-valid text-danger" data-valmsg-for="nums" data-valmsg-replace="true"></span>
             </div>
             <div class="col-md-4">
                 @Html.DropDownList("CountNoun", (IEnumerable<SelectListItem>)ViewBag.WorksCountNounList, new { @class = "js-example-basic-multiple js-states form-control" })
-                <span class="field-validation-valid text-danger" data-valmsg-for="CountNoun" data-valmsg-replace="true"></span>
             </div>
             <div class="col-md-2">
                 <input type="button" id="mateadd" name="mateadd" class="btn btn-default" value="Add" />
@@ -340,7 +334,32 @@
             }
             $("#StyleNo_InputString").trigger("change");
         });
+
+        function CheckData() {
+            var obj = {};
+            if ($('input#height').val() == "") {
+                obj["height"] = "此項目必填";
+            }
+            if ($('input#width').val() == "") {
+                obj["width"] = "此項目必填";
+            }
+            if ($('input#deep').val() == "") {
+                obj["deep"] = "此項目必填";
+            }
+            if ($('input#nums').val() == "") {
+                obj["nums"] = "此項目必填";
+            }
+            if (!jQuery.isEmptyObject(obj)) {
+                $("#EditForm").validate().showErrors(obj)
+                return true;
+            }
+            return false;
+        }
+
         $('#mateadd').click(function () {
+            if (CheckData()) {
+                return;
+            }
             $('label.error:visible').hide();
             var index = $('.Moduletable tr').length - 1;
             $('.Moduletable tr:last').after('<tr>< td hidden= "hidden" > <input type="hidden" name="WorksModuleList[' + index + '].Material.MenuID" value="' + $('#MaterialsID').val() + '"></input></td>' +

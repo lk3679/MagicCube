@@ -1,0 +1,126 @@
+﻿@model EG_MagicCube.Models.ViewModel.WorksDetailViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WorksDetailViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @*<dt>
+                @Html.DisplayNameFor(model => model.WorksNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.WorksNo)
+            </dd>*@
+        <dt>
+            @Html.DisplayNameFor(model => model.AuthorsName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuthorsName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorksName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorksName)
+        </dd>
+
+        @if (Model.MaterialsName != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.MaterialsName)
+            </dt>
+            foreach (string m in Model.MaterialsName)
+            {
+                <dd>
+                    @Html.DisplayFor(item => m)
+                </dd>
+            }
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Owner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PropWare)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PropWare)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PricingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PricingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GrossMargin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GrossMargin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GenreNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GenreNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PropStyle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PropStyle)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WorksNo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
