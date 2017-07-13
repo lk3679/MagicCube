@@ -11,9 +11,111 @@ namespace EG_MagicCube.Controllers
     public class WorksController : Controller
     {
         // GET: Works
-        public ActionResult Index()
+        public ActionResult Index(int p = 1)
         {
-            return View();
+            int take = 10;
+            List<WorksViewModel> model = new List<WorksViewModel>();
+            try
+            {
+                WorksSearchModel value = new WorksSearchModel();
+                var _value = value.Search(p , take + 1);
+                //多取一，若有表示有下一頁
+                if (_value.Count == (take + 1))
+                {
+                    ViewBag.pn = p + 1;
+                    _value.RemoveAt(take);
+                }
+                else
+                {
+                    ViewBag.pn = 0;
+                }
+                ViewBag.pi = p;
+                for (int i = 0; i < _value.Count; i++)
+                {
+                    model.Add(new WorksViewModel()
+                    {
+                        WorksNo = _value[i].WorksNo,
+                        WorksName = _value[i].WorksName,
+                        AuthorsName = _value[i].AuthorsName,
+                        YearStart = _value[i].YearStart,
+                        YearEnd = _value[i].YearEnd,
+                        Cost = _value[i].Cost,
+                        Price = _value[i].Price
+                    });
+                }
+            }
+            catch (Exception e){
+
+             }
+            MenuModel mm = new MenuModel();
+            List<SelectListItem> WorksAuthors = new List<SelectListItem>();
+            var _WorksAuthors = AuthorsModel.GetAuthorList();
+            for (int i = 0; i < _WorksAuthors.Count; i++)
+            {
+                WorksAuthors.Add(new SelectListItem()
+                {
+                    Text = _WorksAuthors[i].AuthorsCName,
+                    Value = _WorksAuthors[i].AuthorsNo.ToString()
+                });
+            }
+            ViewBag.WorksAuthors = WorksAuthors;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Index(WorksViewModel collection, int p = 1)
+        {
+            int take = 10;
+            List<WorksViewModel> model = new List<WorksViewModel>();
+            try
+            {
+                WorksSearchModel value = new WorksSearchModel()
+                {
+                    WorksName = collection.WorksName,
+                    AuthorNoList = collection.AuthorNoList,
+                    MinePrice = collection.MinePrice,
+                    MaxPrice = collection.MaxPrice
+
+                };
+                var _value = value.Search(p , take + 1);
+                //多取一，若有表示有下一頁
+                if (_value.Count == (take + 1))
+                {
+                    ViewBag.pn = p + 1;
+                    _value.RemoveAt(take);
+                }
+                else
+                {
+                    ViewBag.pn = 0;
+                }
+                ViewBag.pi = p;
+                for (int i = 0; i < _value.Count; i++)
+                {
+                    model.Add(new WorksViewModel()
+                    {
+                        WorksNo = _value[i].WorksNo,
+                        WorksName = _value[i].WorksName,
+                        AuthorsName = _value[i].AuthorsName,
+                        YearStart = _value[i].YearStart,
+                        YearEnd = _value[i].YearEnd,
+                        Cost = _value[i].Cost,
+                        Price = _value[i].Price
+                    });
+                }
+            }
+            catch { }
+            MenuModel mm = new MenuModel();
+            List<SelectListItem> WorksAuthors = new List<SelectListItem>();
+            var _WorksAuthors = AuthorsModel.GetAuthorList();
+            for (int i = 0; i < _WorksAuthors.Count; i++)
+            {
+                WorksAuthors.Add(new SelectListItem()
+                {
+                    Text = _WorksAuthors[i].AuthorsCName,
+                    Value = _WorksAuthors[i].AuthorsNo.ToString()
+                });
+            }
+            ViewBag.WorksAuthors = WorksAuthors;
+            return View(model);
         }
 
         // GET: Works/Details/5
@@ -119,17 +221,104 @@ namespace EG_MagicCube.Controllers
         [HttpPost]
         public ActionResult Create(WorksModel collection, List<HttpPostedFileBase> Img)
         {
-
             // TODO: Add insert logic here
-            if (!ModelState.IsValid)
-            {
+           
                 collection.UploadWorksFiles = Img;
+                if (string.IsNullOrEmpty(collection.Remarks))
+                {
+                    collection.Remarks = "";
+                }
                 if (collection.Create())
                 {
                     return RedirectToAction("Index");
                 }
+            
+            MenuModel mm = new MenuModel();
+            List<SelectListItem> WorksAuthors = new List<SelectListItem>();
+            var _WorksAuthors = AuthorsModel.GetAuthorList();
+            for (int i = 0; i < _WorksAuthors.Count; i++)
+            {
+                WorksAuthors.Add(new SelectListItem()
+                {
+                    Text = _WorksAuthors[i].AuthorsCName,
+                    Value = _WorksAuthors[i].AuthorsNo.ToString()
+                });
             }
+            ViewBag.WorksAuthors = WorksAuthors;
 
+            List<SelectListItem> WorksModuleList = new List<SelectListItem>();
+            var _WorksModuleList = mm.GetMenu(MenuModel.MenuClassEnum.Material);
+            for (int i = 0; i < _WorksModuleList.Count; i++)
+            {
+                WorksModuleList.Add(new SelectListItem()
+                {
+                    Text = _WorksModuleList[i].MenuName,
+                    Value = _WorksModuleList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.WorksModuleList = WorksModuleList;
+
+            List<SelectListItem> WorksPropGenreList = new List<SelectListItem>();
+            var _WorksPropGenreList = mm.GetMenu(MenuModel.MenuClassEnum.Genre);
+            for (int i = 0; i < _WorksPropGenreList.Count; i++)
+            {
+                WorksPropGenreList.Add(new SelectListItem()
+                {
+                    Text = _WorksPropGenreList[i].MenuName,
+                    Value = _WorksPropGenreList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.WorksPropGenreList = WorksPropGenreList;
+
+            List<SelectListItem> WorksPropOwnerList = new List<SelectListItem>();
+            var _WorksPropOwnerList = mm.GetMenu(MenuModel.MenuClassEnum.Owner);
+            for (int i = 0; i < _WorksPropOwnerList.Count; i++)
+            {
+                WorksPropOwnerList.Add(new SelectListItem()
+                {
+                    Text = _WorksPropOwnerList[i].MenuName,
+                    Value = _WorksPropOwnerList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.WorksPropOwnerList = WorksPropOwnerList;
+
+            List<SelectListItem> WorksPropStyleList = new List<SelectListItem>();
+            var _WorksPropStyleList = mm.GetMenu(MenuModel.MenuClassEnum.Style);
+            for (int i = 0; i < _WorksPropStyleList.Count; i++)
+            {
+                WorksPropStyleList.Add(new SelectListItem()
+                {
+                    Text = _WorksPropStyleList[i].MenuName,
+                    Value = _WorksPropStyleList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.WorksPropStyleList = WorksPropStyleList;
+
+            List<SelectListItem> WorksPropWareTypeList = new List<SelectListItem>();
+            var _WorksPropWareTypeList = mm.GetMenu(MenuModel.MenuClassEnum.WareType);
+            for (int i = 0; i < _WorksPropWareTypeList.Count; i++)
+            {
+                WorksPropWareTypeList.Add(new SelectListItem()
+                {
+                    Text = _WorksPropWareTypeList[i].MenuName,
+                    Value = _WorksPropWareTypeList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.WorksPropWareTypeList = WorksPropWareTypeList;
+
+            ViewBag.GradedNoList = new List<SelectListItem>();
+
+            List<SelectListItem> WorksCountNounList = new List<SelectListItem>();
+            var _WorksCountNounList = mm.GetMenu(MenuModel.MenuClassEnum.CountNoun);
+            for (int i = 0; i < _WorksCountNounList.Count; i++)
+            {
+                WorksCountNounList.Add(new SelectListItem()
+                {
+                    Text = _WorksCountNounList[i].MenuName,
+                    Value = _WorksCountNounList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.WorksCountNounList = WorksCountNounList;
             return View();
 
         }
@@ -137,25 +326,204 @@ namespace EG_MagicCube.Controllers
         // GET: Works/Edit/5
         public ActionResult Edit(string id)
         {
-            WorksModel model = WorksModel.GetWorksModelDetail(id); 
+            MenuModel mm = new MenuModel();
+            List<SelectListItem> WorksAuthors = new List<SelectListItem>();
+            var _WorksAuthors = AuthorsModel.GetAuthorList();
+            for (int i = 0; i < _WorksAuthors.Count; i++)
+            {
+                WorksAuthors.Add(new SelectListItem()
+                {
+                    Text = _WorksAuthors[i].AuthorsCName,
+                    Value = _WorksAuthors[i].AuthorsNo.ToString()
+                });
+            }
+            ViewBag.WorksAuthors = WorksAuthors;
+
+            List<SelectListItem> WorksModuleList = new List<SelectListItem>();
+            var _WorksModuleList = mm.GetMenu(MenuModel.MenuClassEnum.Material);
+            for (int i = 0; i < _WorksModuleList.Count; i++)
+            {
+                WorksModuleList.Add(new SelectListItem()
+                {
+                    Text = _WorksModuleList[i].MenuName,
+                    Value = _WorksModuleList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.WorksModuleList = WorksModuleList;
+
+            List<SelectListItem> WorksPropGenreList = new List<SelectListItem>();
+            var _WorksPropGenreList = mm.GetMenu(MenuModel.MenuClassEnum.Genre);
+            for (int i = 0; i < _WorksPropGenreList.Count; i++)
+            {
+                WorksPropGenreList.Add(new SelectListItem()
+                {
+                    Text = _WorksPropGenreList[i].MenuName,
+                    Value = _WorksPropGenreList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.WorksPropGenreList = WorksPropGenreList;
+
+            List<SelectListItem> WorksPropOwnerList = new List<SelectListItem>();
+            var _WorksPropOwnerList = mm.GetMenu(MenuModel.MenuClassEnum.Owner);
+            for (int i = 0; i < _WorksPropOwnerList.Count; i++)
+            {
+                WorksPropOwnerList.Add(new SelectListItem()
+                {
+                    Text = _WorksPropOwnerList[i].MenuName,
+                    Value = _WorksPropOwnerList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.WorksPropOwnerList = WorksPropOwnerList;
+
+            List<SelectListItem> WorksPropStyleList = new List<SelectListItem>();
+            var _WorksPropStyleList = mm.GetMenu(MenuModel.MenuClassEnum.Style);
+            for (int i = 0; i < _WorksPropStyleList.Count; i++)
+            {
+                WorksPropStyleList.Add(new SelectListItem()
+                {
+                    Text = _WorksPropStyleList[i].MenuName,
+                    Value = _WorksPropStyleList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.WorksPropStyleList = WorksPropStyleList;
+
+            List<SelectListItem> WorksPropWareTypeList = new List<SelectListItem>();
+            var _WorksPropWareTypeList = mm.GetMenu(MenuModel.MenuClassEnum.WareType);
+            for (int i = 0; i < _WorksPropWareTypeList.Count; i++)
+            {
+                WorksPropWareTypeList.Add(new SelectListItem()
+                {
+                    Text = _WorksPropWareTypeList[i].MenuName,
+                    Value = _WorksPropWareTypeList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.WorksPropWareTypeList = WorksPropWareTypeList;
+
+            ViewBag.GradedNoList = new List<SelectListItem>();
+
+            List<SelectListItem> WorksCountNounList = new List<SelectListItem>();
+            var _WorksCountNounList = mm.GetMenu(MenuModel.MenuClassEnum.CountNoun);
+            for (int i = 0; i < _WorksCountNounList.Count; i++)
+            {
+                WorksCountNounList.Add(new SelectListItem()
+                {
+                    Text = _WorksCountNounList[i].MenuName,
+                    Value = _WorksCountNounList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.WorksCountNounList = WorksCountNounList;
+
+            WorksModel model = WorksModel.GetWorksModelDetail(id);
+            model.WareTypeNo_InputString.Add("2");
             return View(model);
         }
 
         // POST: Works/Edit/5
         [HttpPost]
-        public ActionResult Edit(string id, WorksModel collection)
+        public ActionResult Edit(string id, WorksModel collection, List<HttpPostedFileBase> Img)
         {
             try
             {
+                if (string.IsNullOrEmpty(collection.Remarks))
+                {
+                    collection.Remarks = "";
+                }
+                collection.UploadWorksFiles = Img;
                 collection.WorksNo = id;
-                collection.Update(collection);
+                collection.Update();
                 // TODO: Add update logic here
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ee)
             {
-                return View();
+                MenuModel mm = new MenuModel();
+                List<SelectListItem> WorksAuthors = new List<SelectListItem>();
+                var _WorksAuthors = AuthorsModel.GetAuthorList();
+                for (int i = 0; i < _WorksAuthors.Count; i++)
+                {
+                    WorksAuthors.Add(new SelectListItem()
+                    {
+                        Text = _WorksAuthors[i].AuthorsCName,
+                        Value = _WorksAuthors[i].AuthorsNo.ToString()
+                    });
+                }
+                ViewBag.WorksAuthors = WorksAuthors;
+
+                List<SelectListItem> WorksModuleList = new List<SelectListItem>();
+                var _WorksModuleList = mm.GetMenu(MenuModel.MenuClassEnum.Material);
+                for (int i = 0; i < _WorksModuleList.Count; i++)
+                {
+                    WorksModuleList.Add(new SelectListItem()
+                    {
+                        Text = _WorksModuleList[i].MenuName,
+                        Value = _WorksModuleList[i].MenuID.ToString()
+                    });
+                }
+                ViewBag.WorksModuleList = WorksModuleList;
+
+                List<SelectListItem> WorksPropGenreList = new List<SelectListItem>();
+                var _WorksPropGenreList = mm.GetMenu(MenuModel.MenuClassEnum.Genre);
+                for (int i = 0; i < _WorksPropGenreList.Count; i++)
+                {
+                    WorksPropGenreList.Add(new SelectListItem()
+                    {
+                        Text = _WorksPropGenreList[i].MenuName,
+                        Value = _WorksPropGenreList[i].MenuID.ToString()
+                    });
+                }
+                ViewBag.WorksPropGenreList = WorksPropGenreList;
+
+                List<SelectListItem> WorksPropOwnerList = new List<SelectListItem>();
+                var _WorksPropOwnerList = mm.GetMenu(MenuModel.MenuClassEnum.Owner);
+                for (int i = 0; i < _WorksPropOwnerList.Count; i++)
+                {
+                    WorksPropOwnerList.Add(new SelectListItem()
+                    {
+                        Text = _WorksPropOwnerList[i].MenuName,
+                        Value = _WorksPropOwnerList[i].MenuID.ToString()
+                    });
+                }
+                ViewBag.WorksPropOwnerList = WorksPropOwnerList;
+
+                List<SelectListItem> WorksPropStyleList = new List<SelectListItem>();
+                var _WorksPropStyleList = mm.GetMenu(MenuModel.MenuClassEnum.Style);
+                for (int i = 0; i < _WorksPropStyleList.Count; i++)
+                {
+                    WorksPropStyleList.Add(new SelectListItem()
+                    {
+                        Text = _WorksPropStyleList[i].MenuName,
+                        Value = _WorksPropStyleList[i].MenuID.ToString()
+                    });
+                }
+                ViewBag.WorksPropStyleList = WorksPropStyleList;
+
+                List<SelectListItem> WorksPropWareTypeList = new List<SelectListItem>();
+                var _WorksPropWareTypeList = mm.GetMenu(MenuModel.MenuClassEnum.WareType);
+                for (int i = 0; i < _WorksPropWareTypeList.Count; i++)
+                {
+                    WorksPropWareTypeList.Add(new SelectListItem()
+                    {
+                        Text = _WorksPropWareTypeList[i].MenuName,
+                        Value = _WorksPropWareTypeList[i].MenuID.ToString()
+                    });
+                }
+                ViewBag.WorksPropWareTypeList = WorksPropWareTypeList;
+
+                ViewBag.GradedNoList = new List<SelectListItem>();
+
+                List<SelectListItem> WorksCountNounList = new List<SelectListItem>();
+                var _WorksCountNounList = mm.GetMenu(MenuModel.MenuClassEnum.CountNoun);
+                for (int i = 0; i < _WorksCountNounList.Count; i++)
+                {
+                    WorksCountNounList.Add(new SelectListItem()
+                    {
+                        Text = _WorksCountNounList[i].MenuName,
+                        Value = _WorksCountNounList[i].MenuID.ToString()
+                    });
+                }
+                ViewBag.WorksCountNounList = WorksCountNounList;
+                return View(collection);
             }
         }
 
