@@ -4,49 +4,28 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Create</h2>
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Works", FormMethod.Post, new { enctype = "multipart/form-data", id = "CreateForm" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>WorksModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.WorksNo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.WorksNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.WorksNo, "", new { @class = "text-danger" })
-            </div>
+            作品基本資訊
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MaterialsID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.AuthorNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MaterialsID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaterialsID, "", new { @class = "text-danger" })
+                @Html.Hidden("AuthorNo_InputStringHide", string.Join("," , string.Join(",", Model.AuthorNo_InputString)))
+                @Html.DropDownListFor(model => model.AuthorNo_InputString, (IEnumerable<SelectListItem>)ViewBag.WorksAuthors, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.AuthorNo_InputString, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AuthorsNo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AuthorsNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AuthorsNo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AuthorsName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AuthorsName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AuthorsName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.WorksName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -54,28 +33,173 @@
                 @Html.ValidationMessageFor(model => model.WorksName, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.YearStart, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.YearStart, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.YearStart, new { htmlAttributes = new { @class = "form-control", type = "number" } })
                 @Html.ValidationMessageFor(model => model.YearStart, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.YearEnd, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.YearEnd, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.YearEnd, new { htmlAttributes = new { @class = "form-control", type = "number" } })
                 @Html.ValidationMessageFor(model => model.YearEnd, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
+            材質大小及數量
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="MaterialsID">材質</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.MaterialsID, (IEnumerable<SelectListItem>)ViewBag.WorksModuleList, new { @class = "js-example-basic-multiple js-states form-control" })
+                <span class="field-validation-valid text-danger" data-valmsg-for="MaterialsID" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="height">高</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" data-val="true" data-val-number="The field 高 must be a number." data-val-required="高 欄位是必要項。"
+                       id="height" name="height" type="number" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="height" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="width">寬</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" data-val="true" data-val-number="The field 寬 must be a number." data-val-required="寬 欄位是必要項。"
+                       id="width" name="width" type="number" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="width" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="deep">深</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" data-val="true" data-val-number="The field 深 must be a number." data-val-required="深 欄位是必要項。"
+                       id="deep" name="deep" type="number" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="deep" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="times">影片長度</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line"
+                       id="times" name="times" type="number" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="nums">數量單位</label>
+            <div class="col-md-4">
+                <input class="form-control text-box single-line"
+                       id="nums" name="nums" type="number" value="" data-val="true" data-val-number="The field 數量 must be a number." data-val-required="數量 欄位是必要項。">
+                <span class="field-validation-valid text-danger" data-valmsg-for="nums" data-valmsg-replace="true"></span>
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownList("CountNoun", (IEnumerable<SelectListItem>)ViewBag.WorksCountNounList, new { @class = "js-example-basic-multiple js-states form-control" })
+                <span class="field-validation-valid text-danger" data-valmsg-for="CountNoun" data-valmsg-replace="true"></span>
+            </div>
+            <div class="col-md-2">
+                <input type="button" id="mateadd" name="mateadd" class="btn btn-default" value="Add" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="text-danger error" style="display:none;">此項目必填</label>
+            <table class="Moduletable table" id="WorksModuleList" name="WorksModuleList">
+                <thead>
+                    <tr>
+                        <th hidden="hidden">
+                            材質編號
+                        </th>
+                        <th>
+                            材質
+                        </th>
+                        <th>
+                            高
+                        </th>
+                        <th>
+                            寬
+                        </th>
+                        <th>
+                            深
+                        </th>
+                        <th>
+                            影片長度
+                        </th>
+                        <th hidden="hidden">
+                            單位編號
+                        </th>
+                        <th>
+                            單位數量
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.WorksModuleList != null)
+                    {
+                        for (int i = 0; i < Model.WorksModuleList.Count; i++)
+                        {
+                            <tr>
+                                <td hidden="hidden">
+                                    @Html.HiddenFor(model => model.WorksModuleList[i].Material.MenuID)
+                                </td>
+                                <td>
+                                    @Html.HiddenFor(model => model.WorksModuleList[i].Material.MenuName)
+                                    @Html.DisplayFor(model => model.WorksModuleList[i].Material.MenuName)
+                                </td>
+                                <td>
+                                    @Html.HiddenFor(model => model.WorksModuleList[i].Height)
+                                    @Html.DisplayFor(model => model.WorksModuleList[i].Height)
+                                </td>
+                                <td>
+                                    @Html.HiddenFor(model => model.WorksModuleList[i].Width)
+                                    @Html.DisplayFor(model => model.WorksModuleList[i].Width)
+                                </td>
+                                <td>
+                                    @Html.HiddenFor(model => model.WorksModuleList[i].Deep)
+                                    @Html.DisplayFor(model => model.WorksModuleList[i].Deep)
+                                </td>
+                                <td>
+                                    @Html.HiddenFor(model => model.WorksModuleList[i].TimeLength)
+                                    @Html.DisplayFor(model => model.WorksModuleList[i].TimeLength)
+                                </td>
+                                <td>
+                                    @Html.HiddenFor(model => model.WorksModuleList[i].Amount)
+                                    @Html.HiddenFor(model => model.WorksModuleList[i].CountNoun.MenuName)
+                                    @Html.DisplayFor(model => model.WorksModuleList[i].Amount) @Html.DisplayFor(model => model.WorksModuleList[i].CountNoun.MenuName)
+                                </td>
+                                <td><i class="fa fa-times fa-4" aria-hidden="true"></i></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control", rows = 5 } })
                 @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OwnerNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Hidden("OwnerNo_InputStringHide", string.Join(",", string.Join(",", Model.OwnerNo_InputString)))
+                @Html.DropDownListFor(model => model.OwnerNo_InputString, (IEnumerable<SelectListItem>)ViewBag.WorksPropOwnerList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.OwnerNo_InputString, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.WareTypeNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Hidden("WareTypeNo_InputStringHide", string.Join(",", string.Join(",", Model.WareTypeNo_InputString)))
+                @Html.DropDownListFor(model => model.WareTypeNo_InputString, (IEnumerable<SelectListItem>)ViewBag.WorksPropWareTypeList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.WareTypeNo_InputString, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -98,7 +222,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PricingDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PricingDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.PricingDate, new { htmlAttributes = new { @class = "form-control", type = "date", Value = Model.PricingDate.ToString("yyyy-MM-dd") } })
                 @Html.ValidationMessageFor(model => model.PricingDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -108,6 +232,24 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.GrossMargin, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.GrossMargin, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GenreNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Hidden("GenreNo_InputStringHide", string.Join(",", string.Join(",", Model.GenreNo_InputString)))
+                @Html.DropDownListFor(model => model.GenreNo_InputString, (IEnumerable<SelectListItem>)ViewBag.WorksPropGenreList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.GenreNo_InputString, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StyleNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Hidden("StyleNo_InputStringHide", string.Join(",", string.Join(",", Model.StyleNo_InputString)))
+                @Html.DropDownListFor(model => model.StyleNo_InputString, (IEnumerable<SelectListItem>)ViewBag.WorksPropStyleList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.StyleNo_InputString, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -143,51 +285,18 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreateUser, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreateUser, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreateUser, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CreateDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.UploadWorksFiles, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreateDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ModifyUser, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ModifyUser, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ModifyUser, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ModifyDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ModifyDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ModifyDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsJoin, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsJoin)
-                    @Html.ValidationMessageFor(model => model.IsJoin, "", new { @class = "text-danger" })
-                </div>
+                <input type="file" name="Img" multiple accept="image/*" />
+                @*<img id="imgPreview" style="max-width: 150px;" />*@
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Edit" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -199,4 +308,66 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $.when($(".js-example-basic-multiple").select2()).then(function () {
+            var oAuthorNo = $('#AuthorNo_InputStringHide').val().split(',');
+            for (var i = 0; i < oAuthorNo.length; i++) {
+                $('#AuthorNo_InputString  option[value="' + oAuthorNo[i] + '"]').attr('selected', 'selected');
+            }
+            $("#AuthorNo_InputString").trigger("change");
+
+            var oOwnerNo = $('#OwnerNo_InputStringHide').val().split(',');
+            for (var i = 0; i < oOwnerNo.length; i++) {
+                $('#OwnerNo_InputString  option[value="' + oOwnerNo[i] + '"]').attr('selected', 'selected');
+            }
+            $("#OwnerNo_InputString").trigger("change");
+
+            var oWareTypeNo = $('#WareTypeNo_InputStringHide').val().split(',');
+            for (var i = 0; i < oWareTypeNo.length; i++) {
+                $('#WareTypeNo_InputString  option[value="' + oWareTypeNo[i] + '"]').attr('selected', 'selected');
+            }
+            $("#WareTypeNo_InputString").trigger("change");
+
+            var oGenreNo = $('#GenreNo_InputStringHide').val().split(',');
+            for (var i = 0; i < oGenreNo.length; i++) {
+                $('#GenreNo_InputString  option[value="' + oGenreNo[i] + '"]').attr('selected', 'selected');
+            }
+            $("#GenreNo_InputString").trigger("change");
+
+            var oStyleNo = $('#StyleNo_InputStringHide').val().split(',');
+            for (var i = 0; i < oStyleNo.length; i++) {
+                $('#StyleNo_InputString  option[value="' + oStyleNo[i] + '"]').attr('selected', 'selected');
+            }
+            $("#StyleNo_InputString").trigger("change");
+        });
+        $('#mateadd').click(function () {
+            $('label.error:visible').hide();
+            var index = $('.Moduletable tr').length - 1;
+            $('.Moduletable tr:last').after('<tr>< td hidden= "hidden" > <input type="hidden" name="WorksModuleList[' + index + '].Material.MenuID" value="' + $('#MaterialsID').val() + '"></input></td>' +
+                '<td><input type="hidden" name="WorksModuleList[' + index + '].Material.MenuName" value="' + $('#select2-MaterialsID-container').html() + '"></input>' + $('#select2-MaterialsID-container').html() + '</td>' +
+                '<td><input type="hidden" name="WorksModuleList[' + index + '].Height" value="' + $('#height').val() + '"></input>' + $('#height').val() + '</td>' +
+                '<td><input type="hidden" name="WorksModuleList[' + index + '].Width" value="' + $('#width').val() + '"></input>' + $('#width').val() + '</td > ' +
+                '<td><input type="hidden" name="WorksModuleList[' + index + '].Deep" value="' + $('#deep').val() + '"></input>' + $('#deep').val() + '</td > ' +
+                '<td><input type="hidden" name="WorksModuleList[' + index + '].TimeLength" value="' + $('#times').val() + '"></input>' + $('#times').val() + '</td > ' +
+                '<td hidden= "hidden" > <input type="hidden" name="WorksModuleList[' + index + '].CountNoun.MenuID" value="' + $('#CountNoun').val() + '"></input>' + $('#CountNoun').val() + '</td>' +
+                '<td><input type="hidden" name="WorksModuleList[' + index + '].Amount" value="' + $('#nums').val() + '"></input>' +
+                '<input type="hidden" name="WorksModuleList[' + index + '].CountNoun.MenuName" value="' + $('#select2-CountNoun-container').html() + '"></input>' +
+                $('#nums').val() + $('#select2-CountNoun-container').html() + '</td> <td><i class="fa fa-times fa-4" aria-hidden="true"></i></td></tr >');
+
+        });
+        $(document).on('click', 'i.fa', function () {
+            var p = $(this).parent().parent();
+            $(p).hide();
+            $(p).find('input').attr('value', '-1');
+        });
+        $("form").submit(function (e) {
+            $('label.error').hide();
+            if ($('#WorksModuleList tr:visible').length == 1) {
+                $('label.error').show();
+                return false;
+            }
+
+        });
+
+    </script>
 }

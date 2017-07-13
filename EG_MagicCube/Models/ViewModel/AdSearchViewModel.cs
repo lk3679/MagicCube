@@ -16,7 +16,7 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "預算(萬)")]
         public int Budget { get; set; }
         [Display(Name = "藝術家編號清單")]
-        public string AuthorNoList { get; set; }
+        public List<string> AuthorNoList { get; set; }
 
         [Display(Name = "定價上限")]
         public int Price_U { get; set; }
@@ -57,11 +57,11 @@ namespace EG_MagicCube.Models.ViewModel
         //[Display(Name = "風格編號清單")]
         //public List<int> StyleNoList { get; set; }
         [Display(Name = "作品類型")]
-        public string GenreNoList { get; set; }
+        public List<string> GenreNoList { get; set; }
         [Display(Name = "作品風格")]
-        public string StyleNoList { get; set; }
+        public List<string> StyleNoList { get; set; }
         [Display(Name = "分級")]
-        public string GradedNoList { get; set; }
+        public List<string> GradedNoList { get; set; }
 
     }
 }
