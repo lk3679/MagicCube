@@ -51,8 +51,8 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 新增修改藝術家區域清單字串，用,分隔
         /// </summary>
-        [DisplayName("新增修改庫別清單字串")]
-        public string AuthorsAreaNo_InputString { get; set; } = "";
+        [DisplayName("新增修改藝術家區域清單字串")]
+        public List<string> AuthorsAreaNo_InputString { get; set; } = new List<string>();
         /// <summary>
         /// 藝術家標籤
         /// </summary>
@@ -61,8 +61,8 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 新增修改藝術家標籤清單字串，用,分隔
         /// </summary>
-        [DisplayName("新增修改庫別清單字串")]
-        public string AuthorsTagNo_InputString { get; set; } = "";
+        [DisplayName("新增修改藝術家標籤清單字串")]
+        public List<string> AuthorsTagNo_InputString { get; set; } = new List<string>();
         #region Methods
         #region Create
 
@@ -86,16 +86,16 @@ namespace EG_MagicCube.Models
                 if (context.SaveChanges() > 0)
                 {
                     this.AuthorsNo = _Authors.AuthorsNo;
-                    if (!string.IsNullOrWhiteSpace(this.AuthorsAreaNo_InputString))
+                    if (this.AuthorsAreaNo_InputString.Count>0)
                     {
-                        foreach (int _AuthorsAreaNo in this.AuthorsAreaNo_InputString.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                        foreach (int _AuthorsAreaNo in this.AuthorsAreaNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                         {
                             context.AuthorsPropArea.Add(new AuthorsPropArea() { AuthorsNo = this.AuthorsNo, AuthorsAreaNo = _AuthorsAreaNo });
                         }
                     }
-                    if (!string.IsNullOrWhiteSpace(this.AuthorsTagNo_InputString))
+                    if (this.AuthorsTagNo_InputString.Count>0)
                     {
-                        foreach (int _AuthorsTagNo in this.AuthorsTagNo_InputString.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                        foreach (int _AuthorsTagNo in this.AuthorsTagNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                         {
                             context.AuthorsPropTag.Add(new AuthorsPropTag() { AuthorsNo = this.AuthorsNo, AuthorsTagNo = _AuthorsTagNo });
                         }
@@ -143,8 +143,8 @@ namespace EG_MagicCube.Models
                         AuthorsNo = c.AuthorsNo,
                         AuthorsCName = c.AuthorsCName,
                         AuthorsEName = c.AuthorsEName,
-                        AuthorsAreaNo_InputString = string.Join(",", c.AuthorsPropArea.Select(apa => apa.AuthorsAreaNo).ToArray()),
-                        AuthorsTagNo_InputString = string.Join(",", c.AuthorsPropTag.Select(apt => apt.AuthorsTagNo).ToArray()),
+                        AuthorsAreaNo_InputString = c.AuthorsPropArea.Select(apa => Convert.ToString(apa.AuthorsAreaNo)).ToList(),
+                        AuthorsTagNo_InputString = c.AuthorsPropTag.Select(apt => Convert.ToString(apt.AuthorsTagNo)).ToList(),
                         AuthorsPropArea = c.AuthorsPropArea.Select(apa => 
                         new MenuViewModel() { MenuID = apa.Menu_AuthorsArea.AuthorsAreaNo, MenuName = apa.Menu_AuthorsArea.AuthorsAreaName }).ToList(),
                         AuthorsPropTag= c.AuthorsPropTag.Select(apa =>
@@ -178,8 +178,8 @@ namespace EG_MagicCube.Models
                         AuthorsNo = c.AuthorsNo,
                         AuthorsCName = c.AuthorsCName,
                         AuthorsEName = c.AuthorsEName,
-                        AuthorsAreaNo_InputString = string.Join(",", c.AuthorsPropArea.Select(apa => apa.AuthorsAreaNo).ToArray()),
-                        AuthorsTagNo_InputString = string.Join(",", c.AuthorsPropTag.Select(apt => apt.AuthorsTagNo).ToArray()),
+                        AuthorsAreaNo_InputString = c.AuthorsPropArea.Select(apa => Convert.ToString(apa.AuthorsAreaNo)).ToList(),
+                        AuthorsTagNo_InputString = c.AuthorsPropTag.Select(apt => Convert.ToString(apt.AuthorsTagNo)).ToList(),
                         AuthorsPropArea = c.AuthorsPropArea.Select(apa =>
                         new MenuViewModel() { MenuID = apa.Menu_AuthorsArea.AuthorsAreaNo, MenuName = apa.Menu_AuthorsArea.AuthorsAreaName }).ToList(),
                         AuthorsPropTag = c.AuthorsPropTag.Select(apa =>
@@ -232,16 +232,16 @@ namespace EG_MagicCube.Models
                     oldAuthors.ModifyUser = newAuthors.ModifyUser;
                     oldAuthors.ModifyDate = DateTime.Now;
                 }
-                if (!string.IsNullOrWhiteSpace(newAuthors.AuthorsAreaNo_InputString))
+                if (newAuthors.AuthorsAreaNo_InputString.Count>0)
                 {
-                    foreach (int _AuthorsAreaNo in newAuthors.AuthorsAreaNo_InputString.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                    foreach (int _AuthorsAreaNo in newAuthors.AuthorsAreaNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                     {
                         context.AuthorsPropArea.Add(new AuthorsPropArea() { AuthorsNo = newAuthors.AuthorsNo, AuthorsAreaNo = _AuthorsAreaNo });
                     }
                 }
-                if (!string.IsNullOrWhiteSpace(newAuthors.AuthorsTagNo_InputString))
+                if (newAuthors.AuthorsTagNo_InputString.Count>0)
                 {
-                    foreach (int _AuthorsTagNo in newAuthors.AuthorsTagNo_InputString.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                    foreach (int _AuthorsTagNo in newAuthors.AuthorsTagNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                     {
                         context.AuthorsPropTag.Add(new AuthorsPropTag() { AuthorsNo = newAuthors.AuthorsNo, AuthorsTagNo = _AuthorsTagNo });
                     }

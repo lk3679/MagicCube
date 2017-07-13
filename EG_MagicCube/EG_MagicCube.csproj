@@ -179,6 +179,7 @@
     <Compile Include="Models\PackagesModel.cs" />
     <Compile Include="Models\ViewModel\WorksDetailViewModel.cs" />
     <Compile Include="Models\ViewModel\WorksViewModel.cs" />
+    <Compile Include="Models\WorksFilesModel.cs" />
     <Compile Include="Models\WorksModel.cs" />
     <Compile Include="Models\AuthorsModel.cs" />
     <Compile Include="Models\ViewModel\AdSearchViewModel.cs" />
@@ -362,6 +363,8 @@
     <Content Include="Views\Works\Create.cshtml" />
     <Content Include="Views\Works\Edit.cshtml" />
     <Content Include="Views\Author\Index.cshtml" />
+    <Content Include="Views\Author\Create.cshtml" />
+    <Content Include="Views\Author\Edit.cshtml" />
     <Content Include="Views\Works\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
