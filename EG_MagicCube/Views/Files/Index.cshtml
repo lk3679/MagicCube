@@ -1,0 +1,21 @@
+﻿@model Dictionary<long, string>
+
+<h2>圖片列表</h2>
+
+@if (Model != null && Model.Count > 0)
+{
+    foreach (var item in Model)
+    {
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  item">
+            <div>
+                <img src="data:image/png;base64,@Html.Raw(item.Value)" style="width:100%;" />
+            </div>
+        </div>
+    }
+    @*<div>
+        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+    </div>*@
+}
+

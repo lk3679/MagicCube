@@ -18,7 +18,7 @@ namespace EG_MagicCube.Controllers
             List<PackageViewModel> model = new List<PackageViewModel>();
             try
             {
-                var _value = PackagesModel.GetPackageList("", PackagesModel.OrderByTypeEnum.None, p , take + 1);
+                var _value = PackagesModel.GetPackageList("", PackagesModel.OrderByTypeEnum.None, p, take + 1);
                 //多取一，若有表示有下一頁
                 if (_value.Count == (take + 1))
                 {
@@ -54,7 +54,7 @@ namespace EG_MagicCube.Controllers
 
             List<PackageViewModel> model = new List<PackageViewModel>();
             var _value = PackagesModel.GetPackageList(collection["PG_Name"],
-                collection["Sort"] == "ASC" ? PackagesModel.OrderByTypeEnum.MineTime : PackagesModel.OrderByTypeEnum.MaxTime, p , take + 1);
+                collection["Sort"] == "ASC" ? PackagesModel.OrderByTypeEnum.MineTime : PackagesModel.OrderByTypeEnum.MaxTime, p, take + 1);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
@@ -83,26 +83,21 @@ namespace EG_MagicCube.Controllers
 
         public ActionResult Filter(string id = "")
         {
-            AdSearchViewModel model = new AdSearchViewModel()
-            {
-                Budget = 10000,
-                MaxDeep = 10,
-                MineDeep = 0,
-                MaxHeight = 20,
-                MaxLength = 30,
-                MineHeight = 0,
-                MineLength = 0,
-                MaxWidth = 40,
-                MineWidth = 0,
-                PG_Name = "test",
-                PG_No = "123",
-                Price_L = 10000,
-                Price_U = 10
-            };
+            AdSearchViewModel model = new AdSearchViewModel();
             if (!string.IsNullOrEmpty(id))
             {
                 var value = PackagesModel.GetPackageDetail(id);
-                model.Budget = value.Budget;
+                model = JsonConvert.DeserializeObject<AdSearchViewModel>(value.SearchJson);
+                if (model != null)
+                {
+                    model.Budget = value.Budget;
+                    model.PG_Name = value.PackagesName;
+                    model.PG_No = value.PackagesNo;
+                }
+                else
+                {
+                    model = new AdSearchViewModel();
+                }
             }
             MenuModel mm = new MenuModel();
             List<SelectListItem> Authorsitems = new List<SelectListItem>();
@@ -154,27 +149,26 @@ namespace EG_MagicCube.Controllers
         [HttpPost]
         public ActionResult Filter(AdSearchViewModel collection, string id = "")
         {
-
             WorksSearchModel value = new WorksSearchModel()
             {
                 Budget = collection.Budget,
                 MaxDeep = collection.MaxDeep,
                 MaxHeight = collection.MaxHeight,
                 MaxLength = collection.MaxLength,
-                MaxPrice = collection.MaxLength,
+                MaxPrice = collection.Price_U,
                 MaxTimeLength = collection.MaxTimeLength,
                 MaxWidth = collection.MaxWidth,
                 MineDeep = collection.MineDeep,
                 MineHeight = collection.MineHeight,
                 MineLength = collection.MineLength,
-                MinePrice = collection.MineLength,
+                MinePrice = collection.Price_L,
                 MineTimeLength = collection.MineTimeLength,
                 MineWidth = collection.MineWidth,
                 WorksName = collection.WorksName,
-                StyleNoList =  collection.StyleNoList,
-                AuthorNoList =  collection.AuthorNoList,
-                GenreNoList =  collection.GenreNoList,
-                GradedNoList =  collection.GradedNoList
+                StyleNoList = collection.StyleNoList,
+                AuthorNoList = collection.AuthorNoList,
+                GenreNoList = collection.GenreNoList,
+                GradedNoList = collection.GradedNoList
             };
             PackagesModel pm = new PackagesModel();
             if (string.IsNullOrEmpty(id))
@@ -214,6 +208,8 @@ namespace EG_MagicCube.Controllers
                 model.PG_No = id;
                 model.PG_Name = value.PackagesName;
                 model.Budget = value.Budget;
+                model.WorksAmount = value.ItemAmount;
+                model.EndDate = value.EndDate.HasValue ? value.EndDate.Value : DateTime.Now.AddDays(1);
                 model.WorksList = new List<WorksInfoViewModel>();
                 var valueistem = PackagesModel.ReturnPackageItemList(id, true);
                 for (int i = 0; i < valueistem.Count; i++)
@@ -258,8 +254,8 @@ namespace EG_MagicCube.Controllers
                 PG_Name = value.PackagesName,
                 CreateDate = value.CreateDate,
                 EndDate = value.EndDate ?? DateTime.Now.AddDays(1),
-                Url = this.Url.Action("Detail_Works", "Packages", new { id = id }, this.Request.Url.Scheme),
-                QRImg = PackagesModel.DrawQRcodeToImgBase64sting(this.Url.Action("Detail_Works", "Packages", new { id = id }, this.Request.Url.Scheme)),
+                Url = this.Url.Action("Detail_Works", "Package", new { id = id }, this.Request.Url.Scheme),
+                QRImg = PackagesModel.DrawQRcodeToImgBase64sting(this.Url.Action("Detail_Works", "Package", new { id = id }, this.Request.Url.Scheme)),
                 Remark = value.PackagesMemo,
                 WorksAmount = value.ItemAmount
             };

@@ -46,5 +46,14 @@ namespace EG_MagicCube.Models.ViewModel
 
         [Display(Name = "作品風格")]
         public string PropStyle { get; set; }
+
+        [Display(Name = "作品序號")]
+        public string PackagesNo { get; set; }
+
+        //[Display(Name = "列表圖")]
+        //public string FirstImg { get; set; }
+
+        //[Display(Name = "圖片列表")]
+        //public Dictionary<long, string> ProFileListpStyle { get; set; }
     }
 }
