@@ -429,7 +429,7 @@ namespace EG_MagicCube.Models
                         int PackageItemCount = context.PackageItems.AsEnumerable().Where(c => c.PackagesNo == oldPackages.PackagesNo && c.WorksNo == Guid_WorksNo).Count();
                         if (PackageItemCount == 0)
                         {
-                            oldPackages.PackageItems.Add(new PackageItems()
+                            context.PackageItems.Add(new PackageItems()
                             {
                                 PackagesNo = oldPackages.PackagesNo,
                                 WorksNo = Guid_WorksNo,

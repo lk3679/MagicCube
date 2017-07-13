@@ -7,7 +7,10 @@ using System.Web;
 namespace EG_MagicCube.Models.ViewModel
 {
     public class WorksInfoViewModel
-    {        
+    {
+        [Display(Name = "作品序號")]
+        public string ID { get; set; }
+
         [Display(Name = "作品序號")]
         public string No { get; set; }
 

@@ -498,11 +498,11 @@ namespace EG_MagicCube.Models
                     _WorksModules.CountNoun = _WorksModuleModel.CountNoun.MenuID;
                     context.WorksModules.Add(_WorksModules);
                 }
-                //foreach (HttpPostedFileBase _Files in newWorks.UploadWorksFiles)
-                //{
-                //    string base64_file = FileToBase64(_Files);
-                //    context.WorksFiles.Add(new WorksFiles() { WorksNo = oldWorks.WorksNo, FileBase64Str = base64_file });
-                //}
+                foreach (HttpPostedFileBase _Files in newWorks.UploadWorksFiles)
+                {
+                    string base64_file = FileToBase64(_Files);
+                    context.WorksFiles.Add(new WorksFiles() { WorksNo = oldWorks.WorksNo, FileBase64Str = base64_file });
+                }
                 //藝術家
                 if (newWorks.AuthorNo_InputString.Count != 0)
                 {

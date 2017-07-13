@@ -121,6 +121,16 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.WorksNo }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.WorksNo }) <span> | </span>
+        @Html.ActionLink("Back to List", "Index")
+    }
+    else
+    {
+        @Html.ActionLink("Back to List", "Detail_Works", "Package", new { id = Model.PackagesNo },new AllowHtmlAttribute { })
+    }
+
 </p>
+
+@Html.Action("Index", "Files", new { id = Model.WorksNo })

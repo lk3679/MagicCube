@@ -297,7 +297,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        $(".js-example-basic-multiple").select2();
+        $(".js-example-basic-multiple").select2({ width: '100%' });
         $('#mateadd').click(function () {
             $('label.error:visible').hide();
             var index = $('.Moduletable tr').length - 1;

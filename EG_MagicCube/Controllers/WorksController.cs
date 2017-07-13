@@ -8,7 +8,7 @@ using EG_MagicCube.Models.ViewModel;
 
 namespace EG_MagicCube.Controllers
 {
-    public class WorksController : Controller
+    public class WorksController : BaseController
     {
         // GET: Works
         public ActionResult Index(int p = 1)
@@ -115,8 +115,9 @@ namespace EG_MagicCube.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         // GET: Works/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(string id, string p = "")
         {
             WorksModel value = WorksModel.GetWorksModelDetail(id);
             if (value == null || string.IsNullOrEmpty(value.WorksNo))
@@ -125,6 +126,7 @@ namespace EG_MagicCube.Controllers
             }
             WorksDetailViewModel model = new WorksDetailViewModel()
             {
+                PackagesNo = p,
                 WorksNo = value.WorksNo,
                 WorksName = value.WorksName,
                 AuthorsName = string.Join(",", value.WorksAuthors.Select(a => a.MenuName)),

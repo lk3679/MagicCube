@@ -303,7 +303,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        $.when($(".js-example-basic-multiple").select2()).then(function () {
+        $.when($(".js-example-basic-multiple").select2({ width: '100%' })).then(function () {
             var oAuthorNo = $('#AuthorNo_InputStringHide').val().split(',');
             for (var i = 0; i < oAuthorNo.length; i++) {
                 $('#AuthorNo_InputString  option[value="' + oAuthorNo[i] + '"]').attr('selected', 'selected');
