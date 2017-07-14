@@ -106,7 +106,7 @@ namespace EG_MagicCube.Models
         /// <param name="PageIndex">頁碼</param>
         /// <param name="PageSize">每頁筆數</param>
         /// <returns></returns>
-        public List<WorksModel> Search(int PageIndex = 0, int PageSize = 0)
+        public List<WorksModel> Search(int PageIndex = 0, int PageSize = 10)
         {
             //if (PageIndex == 0) PageIndex = 0;
             List<WorksModel> _WorksModel = new List<WorksModel>();

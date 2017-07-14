@@ -71,14 +71,14 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 <script>
-    $(".js-example-basic-multiple").select2();
+    $(".js-example-basic-multiple").select2({ width: '100%' });
     $.when($(".js-example-basic-multiple").select2()).then(function () {
         var oAreaNo = $('#AuthorsAreaNo_InputStringHide').val().split(',');
         for (var i = 0; i < oAreaNo.length; i++) {
             $('#AuthorsAreaNo_InputString  option[value="' + oAreaNo[i] + '"]').attr('selected', 'selected');
         }
         $("#AuthorsAreaNo_InputString").trigger("change");
-
+    
         var oTagNo = $('#AuthorsTagNo_InputStringHide').val().split(',');
         for (var i = 0; i < oTagNo.length; i++) {
             $('#AuthorsTagNo_InputString  option[value="' + oTagNo[i] + '"]').attr('selected', 'selected');
