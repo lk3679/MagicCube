@@ -78,8 +78,12 @@
     @Html.ActionLink("推薦清單", "Edit_WorksList", new { id = Model.PG_No })
 </div>
 <div>
+    @Html.ActionLink("增加篩選", "Filter", new { id = Model.PG_No })
+</div>
+<div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
