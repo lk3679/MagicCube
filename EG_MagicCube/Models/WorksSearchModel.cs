@@ -231,7 +231,7 @@ namespace EG_MagicCube.Models
                              Measure = wm.Measure,
                              Length = wm.Length,
                              Width = wm.Width,
-                             Height = wm.High,
+                             Height = wm.Height,
                              Deep = wm.Deep,
                              TimeLength = int.Parse(wm.TimeLength),
                              Amount = wm.Amount,
