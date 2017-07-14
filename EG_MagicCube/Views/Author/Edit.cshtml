@@ -42,7 +42,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AuthorsPropArea, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-               
+               @Html.Hidden("AuthorsAreaNo_InputStringHide", string.Join(",", string.Join(",", Model.AuthorsAreaNo_InputString)))
                 @Html.DropDownList("AuthorsAreaNo_InputString", (IEnumerable<SelectListItem>)ViewBag.AuthorAreaList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
                 @Html.ValidationMessageFor(model => model.AuthorsPropArea, "", new { @class = "text-danger" })
             </div>
@@ -50,6 +50,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AuthorsPropTag, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @Html.Hidden("AuthorsTagNo_InputStringHide", string.Join(",", string.Join(",", Model.AuthorsTagNo_InputString)))
                 @Html.DropDownList("AuthorsTagNo_InputString", (IEnumerable<SelectListItem>)ViewBag.AuthorTagList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
                 @Html.ValidationMessageFor(model => model.AuthorsPropTag, "", new { @class = "text-danger" })
             </div>
@@ -71,7 +72,19 @@
     @Scripts.Render("~/bundles/jqueryval")
 <script>
     $(".js-example-basic-multiple").select2();
-    
+    $.when($(".js-example-basic-multiple").select2()).then(function () {
+        var oAreaNo = $('#AuthorsAreaNo_InputStringHide').val().split(',');
+        for (var i = 0; i < oAreaNo.length; i++) {
+            $('#AuthorsAreaNo_InputString  option[value="' + oAreaNo[i] + '"]').attr('selected', 'selected');
+        }
+        $("#AuthorsAreaNo_InputString").trigger("change");
+
+        var oTagNo = $('#AuthorsTagNo_InputStringHide').val().split(',');
+        for (var i = 0; i < oTagNo.length; i++) {
+            $('#AuthorsTagNo_InputString  option[value="' + oTagNo[i] + '"]').attr('selected', 'selected');
+        }
+        $("#AuthorsTagNo_InputString").trigger("change");
+    });
     $(function () {
         $('#my-best-friend').val('').trigger('change');
 
