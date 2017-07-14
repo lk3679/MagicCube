@@ -20,7 +20,7 @@ namespace EG_MagicCubeEntity
         public string Measure { get; set; }
         public double Length { get; set; }
         public double Width { get; set; }
-        public double High { get; set; }
+        public double Height { get; set; }
         public double Deep { get; set; }
         public string TimeLength { get; set; }
         public int Amount { get; set; }

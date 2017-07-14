@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="6c9cb115-5fdf-4893-bbc8-b26e82a5da22" ChangeDateTime="07/10/2017 02:22:07">
+    <Property Name="ElementName" Value="[dbo].[WorksModules].[High]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[WorksModules]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Height" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="020bd16c-414b-416d-a3c8-e100de34b37e" ChangeDateTime="07/14/2017 07:16:28">
+    <Property Name="ElementName" Value="[dbo].[SystemConfigure].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SystemConfigure]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ConfigureNo" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d962b61a-30d8-4fe7-b767-1acc77cbcc45" ChangeDateTime="07/14/2017 07:19:29">
+    <Property Name="ElementName" Value="[dbo].[WorksModules].[High]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[WorksModules]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Height" />
+  </Operation>
+</Operations>

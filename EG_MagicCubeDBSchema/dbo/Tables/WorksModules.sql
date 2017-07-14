@@ -5,7 +5,7 @@
 	[Measure] [nvarchar](50) NOT NULL,
 	[Length] [float] NOT NULL,
 	[Width] [float] NOT NULL,
-	[High] [float] NOT NULL,
+	[Height] [float] NOT NULL,
 	[Deep] [float] NOT NULL,
 	[TimeLength] [nvarchar](50) NOT NULL,
 	[Amount] [int] NOT NULL,
@@ -40,7 +40,7 @@ ALTER TABLE [dbo].[WorksModules] ADD  CONSTRAINT [DF_Works_Module_List_Length]  
 GO
 ALTER TABLE [dbo].[WorksModules] ADD  CONSTRAINT [DF_Works_Module_List_Width]  DEFAULT ((0.0)) FOR [Width]
 GO
-ALTER TABLE [dbo].[WorksModules] ADD  CONSTRAINT [DF_Works_Module_List_High]  DEFAULT ((0.0)) FOR [High]
+ALTER TABLE [dbo].[WorksModules] ADD  CONSTRAINT [DF_Works_Module_List_High]  DEFAULT ((0.0)) FOR [Height]
 GO
 ALTER TABLE [dbo].[WorksModules] ADD  CONSTRAINT [DF_Works_Module_List_Deep]  DEFAULT ((0.0)) FOR [Deep]
 GO
@@ -60,7 +60,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'長' , @level0
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'寬' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'WorksModules', @level2type=N'COLUMN',@level2name=N'Width'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'高' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'WorksModules', @level2type=N'COLUMN',@level2name=N'High'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'高' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'WorksModules', @level2type=N'COLUMN',@level2name='Height'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'深' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'WorksModules', @level2type=N'COLUMN',@level2name=N'Deep'
 GO

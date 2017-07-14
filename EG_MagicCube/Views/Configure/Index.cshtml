@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+        <tr>
+            <td>
+                @Html.ActionLink("錯誤頁內容維護", "Edit", new {  id= "ErrorContent" })
+                @Html.ActionLink("無清單頁內容維護", "Edit", new {  id= "EmptyContent" })
+                @Html.ActionLink("包裝預設開放天數", "Edit", new {  id= "OpenDays" })
+            </td>
+        </tr>
+
+
+</table>
+

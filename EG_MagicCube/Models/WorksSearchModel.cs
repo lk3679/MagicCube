@@ -145,11 +145,11 @@ namespace EG_MagicCube.Models
                     //高度
                     if (this.MineHeight > 0)
                     {
-                        r = r.Where(f => f.WorksModules.Any(wm => wm.High >= this.MineHeight));
+                        r = r.Where(f => f.WorksModules.Any(wm => wm.Height >= this.MineHeight));
                     }
                     if (this.MaxHeight > 0)
                     {
-                        r = r.Where(f => f.WorksModules.Any(wm => wm.High <= this.MaxHeight));
+                        r = r.Where(f => f.WorksModules.Any(wm => wm.Height <= this.MaxHeight));
                     }
                     //深度
                     if (this.MineDeep > 0)
