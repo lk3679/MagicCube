@@ -23,7 +23,6 @@
         <EntityTypeShape EntityType="EG_MagicCubeModel.Works" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.WorksAuthors" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.WorksFiles" Width="1.5" PointX="3" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EG_MagicCubeModel.WorksModules" Width="1.5" PointX="6" PointY="11.875" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.WorksPropGenre" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.WorksPropOwner" Width="1.5" PointX="6" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.WorksPropStyle" Width="1.5" PointX="6" PointY="16.75" IsExpanded="true" />
@@ -33,9 +32,7 @@
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Author_Author_List" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Author_Prop_Area_Menu_AuthorArea" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Author_Prop_Tag_Menu_AuthorTag" ManuallyRouted="false" />
-        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Module_List_Menu_CountNoun" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Genre_Menu_Genre" ManuallyRouted="false" />
-        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Module_List_Menu_Material" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Owner_Menu_Owner" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Style_Menu_Style" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_WareType_Menu_WareType" ManuallyRouted="false" />
@@ -44,11 +41,15 @@
         <AssociationConnector Association="EG_MagicCubeModel.FK_UserAccounts_UserAccountRoles" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Author_Works_List" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Files_Works_List" ManuallyRouted="false" />
-        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Module_List_Works_List" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Genre_Works_List" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Owner_Works_List" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Style_Works_List" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_WareType_Works_List" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.SystemConfigure" Width="1.5" PointX="6.375" PointY="5.75" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.WorksModules" Width="1.5" PointX="6" PointY="19.375" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Module_List_Menu_CountNoun" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Module_List_Menu_Material" />
+        <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Module_List_Works_List" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
