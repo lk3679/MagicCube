@@ -178,8 +178,9 @@
     </Compile>
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\PackagesModel.cs" />
-    <Compile Include="Models\ViewModel\WorksDetailViewModel.cs" />
-    <Compile Include="Models\ViewModel\WorksViewModel.cs" />
+	<Compile Include="Models\SystemGeneralModel.cs" />
+	<Compile Include="Models\ViewModel\WorksDetailViewModel.cs" />
+	<Compile Include="Models\ViewModel\WorksViewModel.cs" />
     <Compile Include="Models\WorksFilesModel.cs" />
     <Compile Include="Models\WorksModel.cs" />
     <Compile Include="Models\AuthorsModel.cs" />

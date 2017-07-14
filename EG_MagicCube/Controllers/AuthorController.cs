@@ -101,12 +101,12 @@ namespace EG_MagicCube.Controllers
 
         // POST: Author/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, AuthorsModel AuthorsModel_INPUT)
         {
             try
             {
                 // TODO: Add update logic here
-
+                AuthorsModel_INPUT.Update();
                 return RedirectToAction("Index");
             }
             catch
