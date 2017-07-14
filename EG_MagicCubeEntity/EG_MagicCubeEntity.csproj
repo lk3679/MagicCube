@@ -102,6 +102,9 @@
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemConfigure.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserAccountRoles.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>

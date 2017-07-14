@@ -12,6 +12,7 @@ namespace EG_MagicCube.Models
 {
     public class SystemGeneralModel
     {
+        public string ConfigureContent { set; get; }
         public enum ConfigureClass
         {
             /// <summary>
@@ -29,9 +30,13 @@ namespace EG_MagicCube.Models
         }
         public static Dictionary<ConfigureClass, string> ConfigureList = new Dictionary<ConfigureClass, string>();
 
-        public static string SetConfigure(ConfigureClass ConfigureClass)
+        public static string SetConfigure(string strConfigureClass)
         {
-            return  ConfigureList[ConfigureClass];
+            using (var context = new EG_MagicCubeEntities())
+            {
+
+            }
+            return  ConfigureList[(ConfigureClass)Enum.Parse(typeof(ConfigureClass), strConfigureClass, true)];
         }
     }
 }

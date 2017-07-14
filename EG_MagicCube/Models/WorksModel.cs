@@ -243,7 +243,7 @@ namespace EG_MagicCube.Models
 
                         _WorksModules.Length = _WorksModuleModel.Length;
                         _WorksModules.Width = _WorksModuleModel.Width;
-                        _WorksModules.High = _WorksModuleModel.Height;
+                        _WorksModules.Height = _WorksModuleModel.Height;
                         _WorksModules.Deep = _WorksModuleModel.Deep;
                         _WorksModules.TimeLength = _WorksModuleModel.TimeLength.ToString();
 
@@ -386,7 +386,7 @@ namespace EG_MagicCube.Models
                         Measure = wm.Measure,
                         Length = wm.Length,
                         Width = wm.Width,
-                        Height = wm.High,
+                        Height = wm.Height,
                         Deep = wm.Deep,
                         TimeLength = int.Parse(wm.TimeLength),
                         Amount = wm.Amount,
@@ -490,7 +490,7 @@ namespace EG_MagicCube.Models
 
                     _WorksModules.Length = _WorksModuleModel.Length;
                     _WorksModules.Width = _WorksModuleModel.Width;
-                    _WorksModules.High = _WorksModuleModel.Height;
+                    _WorksModules.Height = _WorksModuleModel.Height;
                     _WorksModules.Deep = _WorksModuleModel.Deep;
                     _WorksModules.TimeLength = _WorksModuleModel.TimeLength.ToString();
 
