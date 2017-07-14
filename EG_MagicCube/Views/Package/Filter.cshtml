@@ -21,9 +21,10 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group">           
             @Html.LabelFor(model => model.AuthorNoList, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @Html.Hidden("AuthorNo_InputStringHide", string.Join(",", string.Join(",", Model.AuthorNoList ?? new List<string>())))
                 @Html.DropDownListFor(model => model.AuthorNoList, (IEnumerable<SelectListItem>)ViewBag.Authors, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
             </div>
         </div>
@@ -121,7 +122,8 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.GenreNoList, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-10">                              
+                @Html.Hidden("GenreNo_InputStringHide", string.Join(",", string.Join(",", Model.GenreNoList ?? new List<string>())))
                 @Html.DropDownList("GenreNoList", (IEnumerable<SelectListItem>)ViewBag.GenreNoList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
             </div>
         </div>
@@ -129,6 +131,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StyleNoList, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @Html.Hidden("StyleNo_InputStringHide", string.Join(",", string.Join(",", Model.StyleNoList ?? new List<string>())))
                 @Html.DropDownList("StyleNoList", (IEnumerable<SelectListItem>)ViewBag.StyleNoList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
             </div>
         </div>
@@ -136,6 +139,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.GradedNoList, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @Html.Hidden("GradedNo_InputStringHide", string.Join(",", string.Join(",", Model.GradedNoList ?? new List<string>())))
                 @Html.DropDownList("GradedNoList", (IEnumerable<SelectListItem>)ViewBag.GradedNoList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
             </div>
         </div>
@@ -155,6 +159,29 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        $(".js-example-basic-multiple").select2({ width: '100%' });
+        $.when($(".js-example-basic-multiple").select2({ width: '100%' })).then(function () {
+            var oAuthorNo = $('#AuthorNo_InputStringHide').val().split(',');
+            for (var i = 0; i < oAuthorNo.length; i++) {
+                $('#AuthorNoList  option[value="' + oAuthorNo[i] + '"]').attr('selected', 'selected');
+            }
+            $("#AuthorNoList").trigger("change");
+
+            var oGradedNo = $('#GradedNo_InputStringHide').val().split(',');
+            for (var i = 0; i < oGradedNo.length; i++) {
+                $('#GradedNoList  option[value="' + oGradedNo[i] + '"]').attr('selected', 'selected');
+            }
+            $("#GradedNoList").trigger("change");
+
+            var oGenreNo = $('#GenreNo_InputStringHide').val().split(',');
+            for (var i = 0; i < oGenreNo.length; i++) {
+                $('#GenreNoList  option[value="' + oGenreNo[i] + '"]').attr('selected', 'selected');
+            }
+            $("#GenreNoList").trigger("change");
+
+            var oStyleNo = $('#StyleNo_InputStringHide').val().split(',');
+            for (var i = 0; i < oStyleNo.length; i++) {
+                $('#StyleNoList  option[value="' + oStyleNo[i] + '"]').attr('selected', 'selected');            }
+            $("#StyleNoList").trigger("change");
+        });        
     </script>
 }

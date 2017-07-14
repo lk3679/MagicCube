@@ -88,3 +88,7 @@ div.item {
     float: left;
     min-height: 500px;
 }
+
+img {
+    width: 100%;
+}
