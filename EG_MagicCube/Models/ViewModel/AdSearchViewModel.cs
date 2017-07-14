@@ -19,7 +19,7 @@ namespace EG_MagicCube.Models.ViewModel
         public int Budget { get; set; } = 0;
 
         [Display(Name = "藝術家編號清單")]
-        public List<string> AuthorNoList { get; set; }
+        public List<string> AuthorNoList { get; set; } = new List<string>();
 
         [Display(Name = "定價上限")]
         public int Price_U { get; set; } = 0;
@@ -61,13 +61,12 @@ namespace EG_MagicCube.Models.ViewModel
         public int MaxTimeLength { get; set; } = 0;
 
         [Display(Name = "作品類型")]
-        public List<string> GenreNoList { get; set; }
+        public List<string> GenreNoList { get; set; } = new List<string>();
 
         [Display(Name = "作品風格")]
-        public List<string> StyleNoList { get; set; }
+        public List<string> StyleNoList { get; set; } = new List<string>();
 
         [Display(Name = "分級")]
-        public List<string> GradedNoList { get; set; }
-
+        public List<string> GradedNoList { get; set; } = new List<string>();
     }
 }

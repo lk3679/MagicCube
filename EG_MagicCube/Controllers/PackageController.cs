@@ -92,7 +92,7 @@ namespace EG_MagicCube.Controllers
                 {
                     model.Budget = value.Budget;
                     model.PG_Name = value.PackagesName;
-                    model.PG_No = value.PackagesNo;
+                    model.PG_No = value.PackagesNo;                   
                 }
                 else
                 {
@@ -101,14 +101,14 @@ namespace EG_MagicCube.Controllers
             }
             MenuModel mm = new MenuModel();
             List<SelectListItem> Authorsitems = new List<SelectListItem>();
-            var _AuthorNoList = mm.GetMenu(MenuModel.MenuClassEnum.AuthorTag);
+            var _AuthorNoList = AuthorsModel.GetAuthorList();
 
             for (int i = 0; i < _AuthorNoList.Count; i++)
             {
                 Authorsitems.Add(new SelectListItem()
                 {
-                    Text = _AuthorNoList[i].MenuName,
-                    Value = _AuthorNoList[i].MenuID.ToString()
+                    Text = _AuthorNoList[i].AuthorsCName,
+                    Value = _AuthorNoList[i].AuthorsNo.ToString()
                 });
             }
 
@@ -342,6 +342,12 @@ namespace EG_MagicCube.Controllers
             //更改列表中，作品是否被勾選
             PackagesModel.SetPackageItemJoin(value.PackageNo, value.WorkNo, value.addtype);
             return Json(value);
+        }
+
+        [AllowAnonymous]
+        public ActionResult Expired()
+        {
+            return View();
         }
 
         public class PackageAddWorksJSONModel

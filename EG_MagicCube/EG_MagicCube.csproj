@@ -180,9 +180,9 @@
     </Compile>
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\PackagesModel.cs" />
-    <Compile Include="Models\SystemGeneralModel.cs" />
-    <Compile Include="Models\ViewModel\WorksDetailViewModel.cs" />
-    <Compile Include="Models\ViewModel\WorksViewModel.cs" />
+	<Compile Include="Models\SystemGeneralModel.cs" />
+	<Compile Include="Models\ViewModel\WorksDetailViewModel.cs" />
+	<Compile Include="Models\ViewModel\WorksViewModel.cs" />
     <Compile Include="Models\WorksFilesModel.cs" />
     <Compile Include="Models\WorksModel.cs" />
     <Compile Include="Models\AuthorsModel.cs" />
@@ -373,6 +373,7 @@
     <Content Include="Views\Files\Index.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\Configure\Index.cshtml" />
+    <Content Include="Views\Package\Expired.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

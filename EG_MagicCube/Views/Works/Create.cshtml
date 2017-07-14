@@ -6,7 +6,7 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm("Create", "Works", FormMethod.Post, new { enctype = "multipart/form-data" , id="CreateForm" }))
+@using (Html.BeginForm("Create", "Works", FormMethod.Post, new { enctype = "multipart/form-data", id = "CreateForm" }))
 {
     @Html.AntiForgeryToken()
 
@@ -19,12 +19,12 @@
         </div>
 
         <div class="form-group">
-                @Html.LabelFor(model => model.AuthorNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("AuthorNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksAuthors, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-                    @Html.ValidationMessageFor(model => model.AuthorNo_InputString, "", new { @class = "text-danger" })
-                </div>
+            @Html.LabelFor(model => model.AuthorNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("AuthorNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksAuthors, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.AuthorNo_InputString, "", new { @class = "text-danger" })
             </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.WorksName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -102,7 +102,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="text-danger error" style="display:none;" >此項目必填</label>
+            <label class="text-danger error" style="display:none;">此項目必填</label>
             <table class="Moduletable table" id="WorksModuleList" name="WorksModuleList">
                 <thead>
                     <tr>
@@ -299,6 +299,9 @@
     <script>
         $(".js-example-basic-multiple").select2({ width: '100%' });
         $('#mateadd').click(function () {
+            if (CheckData()) {
+                return;
+            }
             $('label.error:visible').hide();
             var index = $('.Moduletable tr').length - 1;
             $('.Moduletable tr:last').after('<tr>< td hidden= "hidden" > <input type="hidden" name="WorksModuleList[' + index + '].Material.MenuID" value="' + $('#MaterialsID').val() + '"></input></td>' +
@@ -311,20 +314,48 @@
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].Amount" value="' + $('#nums').val() + '"></input>' +
                 '<input type="hidden" name="WorksModuleList[' + index + '].CountNoun.MenuName" value="' + $('#select2-CountNoun-container').html() + '"></input>' +
                 $('#nums').val() + $('#select2-CountNoun-container').html() + '</td> <td><i class="fa fa-times fa-4" aria-hidden="true"></i></td></tr >');
-           
+
         });
+        function CheckData() {
+            var obj = {};
+            if ($('input#height').val() == "") {
+                obj["height"] = "此項目必填";
+            }
+            if ($('input#width').val() == "") {
+                obj["width"] = "此項目必填";
+            }
+            if ($('input#deep').val() == "") {
+                obj["deep"] = "此項目必填";
+            }
+            if ($('input#nums').val() == "") {
+                obj["nums"] = "此項目必填";
+            }
+            if (!jQuery.isEmptyObject(obj)) {
+                $("#CreateForm").validate().showErrors(obj)
+                return true;
+            }
+            return false;
+        }
         $(document).on('click', 'i.fa', function () {
             var p = $(this).parent().parent();
             $(p).hide();
             $(p).find('input').attr('value', '-1');
-        });
+        })
+            .on('change', 'input#YearStart', function () {
+                var s = +$('input#YearStart').val();
+                if (s != "") {
+                    var e = +$('input#YearEnd').val();
+                    if (e == "" || s >= e) {
+                        $('input#YearEnd').val(s + 1);
+                    }
+                }
+            });
         $("form").submit(function (e) {
             $('label.error').hide();
             if ($('#WorksModuleList tr:visible').length == 1) {
                 $('label.error').show();
                 return false;
             }
-
         });
 
     </script>
