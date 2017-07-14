@@ -70,7 +70,6 @@ namespace EG_MagicCube.Controllers
                 AuthorNoList = collection.AuthorNoList,
                 MinePrice = collection.MinePrice,
                 MaxPrice = collection.MaxPrice
-
             };
             var _value = value.Search(p, take + 1);
             //多取一，若有表示有下一頁

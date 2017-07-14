@@ -181,7 +181,7 @@ namespace EG_MagicCube.Models
                     //藝術家
                     if (this.AuthorNoList != null && this.AuthorNoList.Count > 0)
                     {
-                        r = r.Where(f => f.WorksAuthors.Any(wa => this.AuthorNoList.Contains(wa.Works_Author_No.ToString())));
+                        r = r.Where(f => f.WorksAuthors.Any(wa => this.AuthorNoList.Contains(wa.Author_No.ToString())));
                     }
                     //類型
                     if (this.GenreNoList != null && this.GenreNoList.Count > 0)

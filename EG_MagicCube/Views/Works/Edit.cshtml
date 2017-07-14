@@ -21,7 +21,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AuthorNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.Hidden("AuthorNo_InputStringHide", string.Join("," , string.Join(",", Model.AuthorNo_InputString)))
+                @Html.Hidden("AuthorNo_InputStringHide", string.Join(",", string.Join(",", Model.AuthorNo_InputString ?? new List<string>())))
                 @Html.DropDownListFor(model => model.AuthorNo_InputString, (IEnumerable<SelectListItem>)ViewBag.WorksAuthors, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
                 @Html.ValidationMessageFor(model => model.AuthorNo_InputString, "", new { @class = "text-danger" })
             </div>
@@ -86,7 +86,7 @@
         <div class="form-group">
             <label class="control-label col-md-2" for="nums">數量單位</label>
             <div class="col-md-4">
-                <input class="form-control text-box single-line" id="nums" name="nums" type="number" value="" >
+                <input class="form-control text-box single-line" id="nums" name="nums" type="number" value="">
                 <span class="field-validation-valid text-danger" data-valmsg-for="nums" data-valmsg-replace="true"></span>
             </div>
             <div class="col-md-4">
@@ -182,7 +182,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.OwnerNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.Hidden("OwnerNo_InputStringHide", string.Join(",", string.Join(",", Model.OwnerNo_InputString)))
+                @Html.Hidden("OwnerNo_InputStringHide", string.Join(",", string.Join(",", Model.OwnerNo_InputString ?? new List<string>())))
                 @Html.DropDownListFor(model => model.OwnerNo_InputString, (IEnumerable<SelectListItem>)ViewBag.WorksPropOwnerList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
                 @Html.ValidationMessageFor(model => model.OwnerNo_InputString, "", new { @class = "text-danger" })
             </div>
@@ -191,7 +191,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.WareTypeNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.Hidden("WareTypeNo_InputStringHide", string.Join(",", string.Join(",", Model.WareTypeNo_InputString)))
+                @Html.Hidden("WareTypeNo_InputStringHide", string.Join(",", string.Join(",", Model.WareTypeNo_InputString ?? new List<string>())))
                 @Html.DropDownListFor(model => model.WareTypeNo_InputString, (IEnumerable<SelectListItem>)ViewBag.WorksPropWareTypeList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
                 @Html.ValidationMessageFor(model => model.WareTypeNo_InputString, "", new { @class = "text-danger" })
             </div>
@@ -232,7 +232,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.GenreNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.Hidden("GenreNo_InputStringHide", string.Join(",", string.Join(",", Model.GenreNo_InputString)))
+                @Html.Hidden("GenreNo_InputStringHide", string.Join(",", string.Join(",", Model.GenreNo_InputString ?? new List<string>())))
                 @Html.DropDownListFor(model => model.GenreNo_InputString, (IEnumerable<SelectListItem>)ViewBag.WorksPropGenreList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
                 @Html.ValidationMessageFor(model => model.GenreNo_InputString, "", new { @class = "text-danger" })
             </div>
@@ -241,7 +241,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StyleNo_InputString, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.Hidden("StyleNo_InputStringHide", string.Join(",", string.Join(",", Model.StyleNo_InputString)))
+                @Html.Hidden("StyleNo_InputStringHide", string.Join(",", string.Join(",", Model.StyleNo_InputString ?? new List<string>())))
                 @Html.DropDownListFor(model => model.StyleNo_InputString, (IEnumerable<SelectListItem>)ViewBag.WorksPropStyleList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
                 @Html.ValidationMessageFor(model => model.StyleNo_InputString, "", new { @class = "text-danger" })
             </div>
@@ -378,6 +378,14 @@
             var p = $(this).parent().parent();
             $(p).hide();
             $(p).find('input').attr('value', '-1');
+        }).on('change', 'input#YearStart', function () {
+            var s = +$('input#YearStart').val();
+            if (s != "") {
+                var e = +$('input#YearEnd').val();
+                if (e == "" || s >= e) {
+                    $('input#YearEnd').val(s + 1);
+                }
+            }
         });
         $("form").submit(function (e) {
             $('label.error').hide();
