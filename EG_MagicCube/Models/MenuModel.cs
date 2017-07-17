@@ -19,36 +19,49 @@ namespace EG_MagicCube.Models
         public enum MenuClassEnum
         {
             /// <summary>
+            /// 全部
+            /// </summary>
+            [Display(Name = "全部")]
+            ALL,
+            /// <summary>
             /// 藝術家區域
             /// </summary>
+            [Display(Name = "藝術家區域")]
             AuthorArea,
             /// <summary>
             /// 藝術家標籤
             /// </summary>
+            [Display(Name = "藝術家標籤")]
             AuthorTag,
             /// <summary>
             /// 量詞
             /// </summary>
+            [Display(Name = "量詞")]
             CountNoun,
             /// <summary>
             /// 作品類型
             /// </summary>
+            [Display(Name = "作品類型")]
             Genre,
             /// <summary>
             /// 作品組件媒材
             /// </summary>
+            [Display(Name = "作品組件媒材")]
             Material,
             /// <summary>
             /// 作品所有人
             /// </summary>
+            [Display(Name = "作品所有人")]
             Owner,
             /// <summary>
             /// 作品風格
             /// </summary>
+            [Display(Name = "作品風格")]
             Style,
             /// <summary>
             /// 作品庫別
             /// </summary>
+            [Display(Name = "作品庫別")]
             WareType };
 
         /// <summary>
@@ -60,8 +73,11 @@ namespace EG_MagicCube.Models
         {
             List<MenuViewModel> _MenuViewModel = new List<MenuViewModel>();
             string MenuClassName = Enum.GetName(typeof(MenuClassEnum), _MenuClass);
+
             using (var context = new EG_MagicCubeEntities())
             {
+
+
                 switch (_MenuClass)
                 {
                     case MenuClassEnum.AuthorArea:
