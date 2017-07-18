@@ -6,65 +6,196 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
-using System.Drawing;
-using System.IO;
-using ImageMagick;
-using EG_MagicCube.Models;
 
 namespace EG_MagicCube.Models
 {
     public partial class AccountModel
     {
+        /// <summary>
+        /// 帳號序號
+        /// </summary>
+        public int UserAccountsNo { get; set; } = 0;
+
+        /// <summary>
+        /// 帳號
+        /// </summary>
+        [Required(ErrorMessage ="請輸入帳號")]
+        [Display(Name = "帳號", Prompt = "請輸入帳號")]
+        public string UserAccount { get; set; } = "";
+
+        /// <summary>
+        /// 密碼
+        /// </summary>
+        [Display(Name = "密碼", Prompt = "請輸入長度8 - 16的密碼")]
+        [Required(ErrorMessage = "請輸入密碼")]
+        [StringLength(16, MinimumLength = 8, ErrorMessage = "請輸入長度8-16的密碼")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = "";
+
+        /// <summary>
+        /// 密碼確認
+        /// </summary>
+        [Required(ErrorMessage = "請輸入密碼確認")]
+        [Display(Name ="密碼確認", Prompt = "請再次輸入密碼")]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "密碼與確認密碼不符")]
+        public string Password_Confirm { get; set; } = "";
+        /// <summary>
+        /// 密碼金鑰
+        /// </summary>
+        private string Pwdself { get; set; } = "";
+        /// <summary>
+        /// 名稱
+        /// </summary>
+        [Required(ErrorMessage = "請輸入名稱")]
+        [Display(Name = "名稱", Prompt = "請輸入名稱")]
+        public string Name { get; set; } = "";
+        /// <summary>
+        /// 權限
+        /// </summary>
+        [Required(ErrorMessage = "請選擇權限")]
+        [DisplayName("權限")]
+        public int RoleNo { get; set; } = 0;
+        /// <summary>
+        /// 帳號狀態
+        /// </summary>
+        public string AccountStatus { get; set; } = "";
+        /// <summary>
+        /// 備註
+        /// </summary>
+        public string AccountNote { get; set; } = "";
+        /// <summary>
+        /// 建立時間
+        /// </summary>
+        public DateTime CreateDate { get; set; } = DateTime.Now;
+        /// <summary>
+        /// 建立者
+        /// </summary>
+        public string CreateUser { get; set; } = "";
+        /// <summary>
+        /// 修改者
+        /// </summary>
+        public string ModifyUser { get; set; } = "";
+        /// <summary>
+        /// 修改時間
+        /// </summary>
+        public DateTime ModifyDate { get; set; } = DateTime.Now;
 
         #region Create
         /// <summary>
-        /// 新增包裝
+        /// 新增帳號
         /// </summary>
         /// <returns></returns>
         public bool Create()
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                //PasswordHandler _PasswordHandler = new PasswordHandler(this.Password);
-                //this.Password = _PasswordHandler.EnStrPw;
-                //this.Pwdself = _PasswordHandler.SaltKey;
-                //this.RoleNo = 1;
-                //context.UserAccounts.Add(this);
-                //if (context.SaveChanges() == 0)
-                //{
-                //    return false;
-                //}
+                UserAccounts _UserAccounts = new UserAccounts();
+                _UserAccounts.UserAccount = this.UserAccount;
+                _UserAccounts.Name = this.Name;
+                
+                PasswordHandler _PasswordHandler = new PasswordHandler(this.Password);
+
+                _UserAccounts.Password = this.Password = _PasswordHandler.EnStrPw;
+                _UserAccounts.Pwdself = this.Pwdself = _PasswordHandler.SaltKey;
+                _UserAccounts.RoleNo = this.RoleNo;
+                _UserAccounts.AccountStatus = this.AccountStatus;
+                _UserAccounts.AccountNote = this.AccountNote;
+                _UserAccounts.CreateDate = this.CreateDate;
+                _UserAccounts.CreateUser = this.CreateUser;
+                _UserAccounts.ModifyUser = this.ModifyUser;
+                _UserAccounts.ModifyDate = this.ModifyDate;
+                context.UserAccounts.Add(_UserAccounts);
+                if (context.SaveChanges() == 0)
+                {
+                    this.UserAccountsNo = _UserAccounts.UserAccountsNo;
+                    return false;
+                }
             }
             return true;
         }
-
+        public AccountModel CreateAndReturn()
+        {
+            AccountModel _AccountModel = new AccountModel();
+            if (this.Create())
+            {
+                _AccountModel = GetAccountModelDetail(this.UserAccountsNo.ToString());
+            }
+            return _AccountModel;
+        }
 
         #endregion
 
         #region Read
         /// <summary>
-        /// 取得包裝
+        /// 取得帳號明細
         /// </summary>
-        public IQueryable<UserAccounts> All()
+        /// <param name="UserAccountsNo"></param>
+        /// <returns></returns>
+        public static AccountModel GetAccountModelDetail(string UserAccountsNo)
         {
+            AccountModel _AccountModel = new AccountModel();
+            int int_UserAccountsNo = int.Parse(UserAccountsNo);
             using (var context = new EG_MagicCubeEntities())
             {
-                return context.UserAccounts;
+                if (context.UserAccounts.Count() > 0)
+                {
+                    _AccountModel = context.UserAccounts.AsEnumerable().Where(c => c.UserAccountsNo == int_UserAccountsNo).Select(c =>
+                    new AccountModel()
+                    {
+                        UserAccountsNo = c.UserAccountsNo,
+                        Name = c.Name,
+                        UserAccount = c.UserAccount,
+                        Password = c.Password,
+                        Password_Confirm = c.Password,
+                        Pwdself = c.Password,
+                        
+                        AccountStatus = c.AccountStatus,
+                        AccountNote = c.AccountNote,
+                        RoleNo = c.RoleNo,
+                        CreateDate = c.CreateDate,
+                        CreateUser = c.CreateUser,
+                        ModifyDate = c.ModifyDate.Value,
+                        ModifyUser = c.ModifyUser
+                    }).FirstOrDefault();
+                }
             }
+            return _AccountModel;
         }
 
         /// <summary>
-        /// 以包裝編號取得包裝品
+        /// 取得帳號清單
         /// </summary>
-        /// <param name="UserAccountsNo">包裝編號</param>
-        /// <returns></returns>
-        public UserAccounts GetUserAccountByUserAccountsNo(int UserAccountsNo)
+        public static List<AccountModel> GetAccountList(string KeyWords = "", int PageIndex = 1, int PageSize = 10)
         {
+            List<AccountModel> _AccountModelList = new List<AccountModel>();
             using (var context = new EG_MagicCubeEntities())
             {
-                return context.UserAccounts.FirstOrDefault(x => x.UserAccountsNo == UserAccountsNo);
+                if (context.UserAccounts.Count() > 0)
+                {
+                    _AccountModelList = context.UserAccounts.AsEnumerable().Where(c => c.Name.Contains(KeyWords)).Select(c =>
+                    new AccountModel()
+                    {
+                        UserAccountsNo = c.UserAccountsNo,
+                        UserAccount = c.UserAccount,
+                        Name = c.Name,
+                        Password = c.Password,
+                        Password_Confirm = c.Password,
+                        Pwdself = c.Password,
+                        AccountStatus = c.AccountStatus,
+                        AccountNote = c.AccountNote,
+                        RoleNo = c.RoleNo,
+                        CreateDate = c.CreateDate,
+                        CreateUser = c.CreateUser,
+                        ModifyDate = c.ModifyDate.Value,
+                        ModifyUser = c.ModifyUser
+                    }).ToList();
+                }
             }
+            return _AccountModelList;
         }
+
+
         #endregion
 
         #region Update
@@ -73,22 +204,27 @@ namespace EG_MagicCube.Models
         /// </summary>
         /// <param name="newPackages">新帳號資料</param>
         /// <returns></returns>
-        public bool Update(UserAccounts newUserAccount)
+        public static bool Update(AccountModel newAccountModel)
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var oldUserAccount = context.UserAccounts.First(x => x.UserAccountsNo == newUserAccount.UserAccountsNo);
-                if (oldUserAccount.Password != newUserAccount.Password)
+                var oldUserAccount = context.UserAccounts.First(x => x.UserAccountsNo == newAccountModel.UserAccountsNo);
+                if (newAccountModel.Password != "nopwdnopwd" && newAccountModel.Password_Confirm != "nopwdnopwd")
                 {
-                    PasswordHandler _PasswordHandler = new PasswordHandler(newUserAccount.Password);
-                    oldUserAccount.Password = _PasswordHandler.EnStrPw;
-                    oldUserAccount.Pwdself = _PasswordHandler.SaltKey;
+                    if (oldUserAccount.Password != newAccountModel.Password)
+                    {
+                        PasswordHandler _PasswordHandler = new PasswordHandler(newAccountModel.Password);
+                        oldUserAccount.Password = _PasswordHandler.EnStrPw;
+                        oldUserAccount.Pwdself = _PasswordHandler.SaltKey;
+                    }
                 }
-                oldUserAccount.Name = newUserAccount.Name;
-                oldUserAccount.RoleNo = newUserAccount.RoleNo;
-                oldUserAccount.AccountNote = newUserAccount.AccountNote;
-                oldUserAccount.AccountStatus = newUserAccount.AccountStatus;
-                oldUserAccount.ModifyUser = newUserAccount.ModifyUser;
+
+                oldUserAccount.UserAccount = newAccountModel.UserAccount;
+                oldUserAccount.Name = newAccountModel.Name;
+                oldUserAccount.RoleNo = newAccountModel.RoleNo;
+                oldUserAccount.AccountNote = newAccountModel.AccountNote;
+                oldUserAccount.AccountStatus = newAccountModel.AccountStatus;
+                oldUserAccount.ModifyUser = newAccountModel.ModifyUser;
                 oldUserAccount.ModifyDate = DateTime.Now;
 
                 if (context.SaveChanges() == 0)
@@ -99,10 +235,14 @@ namespace EG_MagicCube.Models
 
             return true;
         }
+        public bool Update()
+        {
+            return Update(this);
+        }
         #endregion
 
         #region Delete
-        public bool Delete(int UserAccountsNo)
+        public static bool Delete(int UserAccountsNo)
         {
             using (var context = new EG_MagicCubeEntities())
             {
@@ -123,67 +263,6 @@ namespace EG_MagicCube.Models
         }
         #endregion
 
-        //取得帳號清單
-        //取得帳號
-        //更新資料
-        //變更密碼
-
-        //public void chgpw()
-        //{
-
-        //    PasswordHandler _PasswordHandler = new PasswordHandler("23456789");
-
-        //}
-    }
-    public partial class AccountModelMetaData
-    {
-        #region Properties
-
-        [DisplayName("帳號序號")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public int UserAccountsNo { get; set; }
-
-        [Required(ErrorMessage = "請輸入姓名")]
-        [DisplayName("姓名")]
-        public string Name { get; set; }
-
-        [Required(ErrorMessage = "請輸入密碼")]
-        [DisplayName("密碼")]
-        public string Password { get; set; }
-
-        [Required(ErrorMessage = "請輸入密碼key")]
-        [DisplayName("密碼key")]
-        public string Pwdself { get; set; }
-
-        [Required(ErrorMessage = "請輸入帳號權限")]
-        [DisplayName("帳號權限")]
-        public int RoleNo { get; set; }
-
-        [DisplayName("帳號狀態")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public string AccountStatus { get; set; }
-
-        [DisplayName("帳號備註")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public string AccountNote { get; set; }
-
-        [DisplayName("建立時間")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public string CreateDate { get; set; }
-
-        [Required(ErrorMessage = "請輸入建立者")]
-        [DisplayName("建立者")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public string CreateUser { get; set; }
-
-        [DisplayName("修改者")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public string ModifyUser { get; set; }
-
-        [DisplayName("修改時間")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public string ModifyDate { get; set; }
-        #endregion
     }
     /// <summary>
     /// 密碼加密及比較
@@ -193,8 +272,8 @@ namespace EG_MagicCube.Models
         private static string HashType = "SHA1";
         private string _EnStrPw = "";
         private string _SaltKey = "";
-        
-        public string EnStrPw { get { return _EnStrPw;  } }
+
+        public string EnStrPw { get { return _EnStrPw; } }
         public string SaltKey { get { return _SaltKey; } }
         public PasswordHandler(string StrPwd)
         {
