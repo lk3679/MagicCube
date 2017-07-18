@@ -136,6 +136,7 @@
             <PropertyRef Name="UserAccountsNo" />
           </Key>
           <Property Name="UserAccountsNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserAccount" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Pwdself" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -754,6 +755,7 @@
           <Property Name="ModifyUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="UserAccountRoles" Relationship="Self.FK_UserAccounts_UserAccountRoles" FromRole="UserAccounts" ToRole="UserAccountRoles" />
+          <Property Name="UserAccount" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Works">
           <Key>
@@ -1376,6 +1378,7 @@
           <EntitySetMapping Name="UserAccounts">
             <EntityTypeMapping TypeName="EG_MagicCubeModel.UserAccounts">
               <MappingFragment StoreEntitySet="UserAccounts">
+                <ScalarProperty Name="UserAccount" ColumnName="UserAccount" />
                 <ScalarProperty Name="UserAccountsNo" ColumnName="UserAccountsNo" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Pwdself" ColumnName="Pwdself" />
