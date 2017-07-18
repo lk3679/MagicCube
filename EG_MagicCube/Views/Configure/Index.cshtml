@@ -1,22 +1,60 @@
-﻿
+﻿@model EG_MagicCube.Models.ViewModel.ConfigureViewModels
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<table class="table">
-    <tr>
-        <th></th>
-    </tr>
+<h2>Index</h2>
 
-        <tr>
-            <td>
-                @Html.ActionLink("錯誤頁內容維護", "Edit", new {  id= "ErrorContent" })
-                @Html.ActionLink("無清單頁內容維護", "Edit", new {  id= "EmptyContent" })
-                @Html.ActionLink("包裝預設開放天數", "Edit", new {  id= "OpenDays" })
-            </td>
-        </tr>
+@using (Html.BeginForm("Edit", "Configure"))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ConfigureViewModels</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            
+            <div class="col-md-12">
+                @Html.LabelFor(model => model.EmptyContent, htmlAttributes: new { @class = "" })<br />
+                @Html.TextAreaFor(model => model.EmptyContent, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmptyContent, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
+        <div class="form-group">
+            
+            <div class="col-md-12">
+                @Html.LabelFor(model => model.ErrorContent, htmlAttributes: new { @class = "" })<br />
+                @Html.TextAreaFor(model => model.ErrorContent, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ErrorContent, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-</table>
+        <div class="form-group">
+            
+            <div class="col-md-12">
+                @Html.LabelFor(model => model.OpenDays, htmlAttributes: new { @class = "" })<br />
+                @Html.EditorFor(model => model.OpenDays, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OpenDays, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/ckeditor")
+    <script>
+        CKEDITOR.replace('EmptyContent');
+        CKEDITOR.replace('ErrorContent');
+
+    </script>
+}

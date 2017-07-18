@@ -12,8 +12,9 @@ namespace EG_MagicCube.Models
 {
     public class SystemGeneralModel
     {
-        public string ConfigureContent { set; get; }
-        public enum ConfigureClass
+        public string ConfigureClass { set; get; } = "";
+        public string ConfigureContent { set; get; } = "";
+        public enum ConfigureClassEnum
         {
             /// <summary>
             /// 錯誤頁內容
@@ -28,15 +29,67 @@ namespace EG_MagicCube.Models
             /// </summary>
             OpenDays
         }
-        public static Dictionary<ConfigureClass, string> ConfigureList = new Dictionary<ConfigureClass, string>();
+        public SystemGeneralModel() {
 
-        public static string SetConfigure(string strConfigureClass)
+        }
+        public SystemGeneralModel(ConfigureClassEnum ConfigureClass)
+        {
+            string strConfigureClass = ConfigureClass.ToString();
+            SystemGeneralModel _SystemGeneralModel = GetConfigure(strConfigureClass);
+            this.ConfigureClass = _SystemGeneralModel.ConfigureClass;
+            this.ConfigureContent = _SystemGeneralModel.ConfigureContent;
+        }
+        public static SystemGeneralModel GetConfigure(string strConfigureClass)
+        {
+            SystemGeneralModel _SystemGeneralModel = new SystemGeneralModel();
+
+            using (var context = new EG_MagicCubeEntities())
+            {
+                if (context.SystemConfigure.Count() > 0)
+                {
+                    _SystemGeneralModel = context.SystemConfigure.AsEnumerable().Where(c => c.ConfigureName == strConfigureClass).Select(c => new SystemGeneralModel() { ConfigureClass = c.ConfigureName, ConfigureContent = c.ConfigureValue }).FirstOrDefault();
+                }
+                if (_SystemGeneralModel == null)
+                {
+                    _SystemGeneralModel = new SystemGeneralModel();
+                    _SystemGeneralModel.ConfigureClass = strConfigureClass;
+                }
+            }
+            return _SystemGeneralModel;
+
+        }
+        public  SystemGeneralModel ReturnConfigure(string strConfigureClass)
+        {
+            return GetConfigure(strConfigureClass);
+        }
+        public  bool Update()
+        {
+            return SetConfigure(this.ConfigureClass, this.ConfigureContent);
+        }
+
+        public static bool SetConfigure(string strConfigureClass, string strConfigureValue)
         {
             using (var context = new EG_MagicCubeEntities())
             {
+                var oSystemConfigure = context.SystemConfigure.AsEnumerable().First(x => x.ConfigureName == strConfigureClass);
 
+                if (oSystemConfigure != null)
+                {
+                    oSystemConfigure.ConfigureValue = strConfigureValue;
+                }
+                else
+                {
+                    SystemConfigure new_SystemConfigure = new SystemConfigure() { };
+                    new_SystemConfigure.ConfigureName = strConfigureClass;
+                    new_SystemConfigure.ConfigureValue = strConfigureValue;
+                    context.SystemConfigure.Add(new_SystemConfigure);
+                }
+                if (context.SaveChanges() == 0)
+                {
+                    return false;
+                }
             }
-            return  ConfigureList[(ConfigureClass)Enum.Parse(typeof(ConfigureClass), strConfigureClass, true)];
+            return true;
         }
     }
 }
