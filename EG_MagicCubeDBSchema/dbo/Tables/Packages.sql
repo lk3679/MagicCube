@@ -3,12 +3,12 @@
 	[PackagesName] [nvarchar](50) NOT NULL,
 	[EndDate] [datetime] NULL,
 	[PackingDate] [datetime] NULL,
-	[CreateDate] [datetime] NOT NULL,
-	[CreateUser] [nvarchar](50) NOT NULL,
-	[ModifyUser] [nvarchar](50) NOT NULL,
-	[ModifyDate] [datetime] NULL,
 	[SearchJson] [nvarchar](500) NOT NULL,
 	[PackagesMemo] [nvarchar](500) NOT NULL,
+	[CreateUser] [nvarchar](50) NOT NULL,
+	[CreateDate] [datetime] NOT NULL,
+	[ModifyUser] [nvarchar](50) NOT NULL,
+	[ModifyDate] [datetime] NULL,
  CONSTRAINT [PK_PackageList] PRIMARY KEY CLUSTERED 
 (
 	[PackagesNo] ASC

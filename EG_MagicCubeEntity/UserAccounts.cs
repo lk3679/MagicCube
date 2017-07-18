@@ -25,6 +25,7 @@ namespace EG_MagicCubeEntity
         public string CreateUser { get; set; }
         public string ModifyUser { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
+        public string UserAccount { get; set; }
     
         public virtual UserAccountRoles UserAccountRoles { get; set; }
     }
