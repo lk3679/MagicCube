@@ -33,7 +33,7 @@
 
         <dd>
             @Html.DisplayFor(model => model.EndDate)
-        </dd>       
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.WorksAmount)
@@ -65,8 +65,8 @@
         {
             foreach (var items in Model.WorksList)
             {
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  item">                  
-                    <a href="/EGMC/Works/Details/@items.No?p=@Model.PG_No">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  item">
+                    <a href="@Url.Action("Details","Works",new { id = items.No , p = Model.PG_No})">
                         <div>
                             <div>
                                 @Html.LabelFor(WorksListitem => items.MiniImg, htmlAttributes: new { @class = "control-label " })
@@ -86,12 +86,12 @@
                                     @Html.DisplayFor(WorksListitem => items.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 </div>
                             </div>
-                            <div>
+                            @*<div>
                                 <div>
                                     @Html.LabelFor(WorksListitem => items.Size, htmlAttributes: new { @class = "control-label " })
                                     @Html.DisplayFor(WorksListitem => items.Size, new { htmlAttributes = new { @class = "form-control" } })
                                 </div>
-                            </div>
+                            </div>*@
                             <div>
                                 <div>
                                     @Html.LabelFor(WorksListitem => items.Price, htmlAttributes: new { @class = "control-label " })
