@@ -16,34 +16,32 @@ namespace EG_MagicCube.Controllers
         {
             int take = 10;
             List<PackageViewModel> model = new List<PackageViewModel>();
-            try
+
+            var _value = PackagesModel.GetPackageList("", PackagesModel.OrderByTypeEnum.None, p, take + 1);
+            //多取一，若有表示有下一頁
+            if (_value.Count == (take + 1))
             {
-                var _value = PackagesModel.GetPackageList("", PackagesModel.OrderByTypeEnum.None, p, take + 1);
-                //多取一，若有表示有下一頁
-                if (_value.Count == (take + 1))
-                {
-                    ViewBag.pn = p + 1;
-                    _value.RemoveAt(take);
-                }
-                else
-                {
-                    ViewBag.pn = 0;
-                }
-                ViewBag.pi = p;
-                for (int i = 0; i < _value.Count; i++)
-                {
-                    model.Add(new PackageViewModel()
-                    {
-                        Budget = 0,
-                        CreateDate = _value[i].CreateDate,
-                        EndDate = _value[i].EndDate.HasValue ? _value[i].EndDate.Value : DateTime.Now.AddDays(-1),
-                        PG_Name = _value[i].PackagesName,
-                        PG_No = _value[i].PackagesNo.ToString(),
-                        WorksAmount = _value[i].ItemAmount
-                    });
-                }
+                ViewBag.pn = p + 1;
+                _value.RemoveAt(take);
             }
-            catch { }
+            else
+            {
+                ViewBag.pn = 0;
+            }
+            ViewBag.pi = p;
+            for (int i = 0; i < _value.Count; i++)
+            {
+                model.Add(new PackageViewModel()
+                {
+                    Budget = 0,
+                    CreateDate = _value[i].CreateDate,
+                    EndDate = _value[i].EndDate.HasValue ? _value[i].EndDate.Value : DateTime.Now.AddDays(-1),
+                    PG_Name = _value[i].PackagesName,
+                    PG_No = _value[i].PackagesNo.ToString(),
+                    WorksAmount = _value[i].ItemAmount
+                });
+            }
+
             return View(model);
         }
 
@@ -92,7 +90,7 @@ namespace EG_MagicCube.Controllers
                 {
                     model.Budget = value.Budget;
                     model.PG_Name = value.PackagesName;
-                    model.PG_No = value.PackagesNo;                   
+                    model.PG_No = value.PackagesNo;
                 }
                 else
                 {
@@ -219,7 +217,8 @@ namespace EG_MagicCube.Controllers
                         No = valueistem[i].WorksNo,
                         Author = valueistem[i].AuthorsName,
                         MiniImg = valueistem[i].WorksImg,
-                        Name = valueistem[i].WorksName
+                        Name = valueistem[i].WorksName,
+                        Price = valueistem[i].Price.ToString()
                     });
                     model.Summary += valueistem[i].Price;
                 }
@@ -307,6 +306,7 @@ namespace EG_MagicCube.Controllers
                     Author = value.PackageItems[i].AuthorsName,
                     MiniImg = value.PackageItems[i].WorksImg,
                     Name = value.PackageItems[i].WorksName,
+                    Price = value.PackageItems[i].Price.ToString()
                     Checked = value.PackageItems[i].IsJoin == "Y"
                 });
                 model.Summary += value.PackageItems[i].Price;

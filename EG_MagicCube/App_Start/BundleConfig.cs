@@ -29,6 +29,9 @@ namespace EG_MagicCube
                       "~/font-awesome/font-awesome.min.css",
                       "~/Content/site.css",
                       "~/Content/select2.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/ckeditor").Include(
+                      "~/Scripts/ckeditor/ckeditor.js"));
         }
     }
 }
