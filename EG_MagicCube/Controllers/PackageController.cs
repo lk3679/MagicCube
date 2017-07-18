@@ -306,7 +306,7 @@ namespace EG_MagicCube.Controllers
                     Author = value.PackageItems[i].AuthorsName,
                     MiniImg = value.PackageItems[i].WorksImg,
                     Name = value.PackageItems[i].WorksName,
-                    Price = value.PackageItems[i].Price.ToString()
+                    Price = value.PackageItems[i].Price.ToString(),
                     Checked = value.PackageItems[i].IsJoin == "Y"
                 });
                 model.Summary += value.PackageItems[i].Price;
