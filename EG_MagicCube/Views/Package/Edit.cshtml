@@ -3,8 +3,6 @@
 @{
     ViewBag.Title = "包裝詳細";
 }
-
-
 <div class="form-horizontal">
     @*<h4>PackageViewModel</h4>*@
     <hr />
@@ -74,13 +72,15 @@
 </div>
 
 <div>
-    @Html.ActionLink("推薦清單", "Edit_WorksList", new { id = Model.PG_No })
+    @Html.ActionLink("推薦清單", "Edit_WorksList", new { id = Model.PG_No }, new { @class = "btn btn-default" })
+    @Html.ActionLink("加入篩選", "Filter", new { id = Model.PG_No }, new { @class = "btn btn-default" })
+    @Html.ActionLink("返回包裝清單", "Index", new { @class = "btn btn-default" })
 </div>
 <div>
-    @Html.ActionLink("加入篩選", "Filter", new { id = Model.PG_No })
+    
 </div>
 <div>
-    @Html.ActionLink("檢視清單", "Index")
+    
 </div>
 
 

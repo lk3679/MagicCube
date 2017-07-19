@@ -18,7 +18,7 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "預算")]
         public int Budget { get; set; } = 0;
 
-        [Display(Name = "藝術家編號清單")]
+        [Display(Name = "藝術家")]
         public List<string> AuthorNoList { get; set; } = new List<string>();
 
         [Display(Name = "定價上限")]
