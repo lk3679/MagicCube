@@ -52,9 +52,21 @@ namespace EG_MagicCube.Controllers
         }
 
         // GET: Files/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            Dictionary<long, string> Model = new Dictionary<long, string>();
+            if (!string.IsNullOrEmpty(id))
+            {
+                Model = WorksFilesModel.GetFileList(id);
+            }
+            if (Model.Count > 0)
+            {
+                return View(Model);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Works");
+            }
         }
 
         // POST: Files/Edit/5
@@ -81,18 +93,17 @@ namespace EG_MagicCube.Controllers
 
         // POST: Files/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public JsonResult Delete(string[] id)
         {
-            try
+            // TODO: Add delete logic here
+            List<long> value = new List<long>();
+            for(int i = 0; i < id.Length; i++)
             {
-                // TODO: Add delete logic here
+                value.Add(Convert.ToInt16(id[i]));
+            }
+            WorksFilesModel.DelFile(value);
+            return Json(id);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
