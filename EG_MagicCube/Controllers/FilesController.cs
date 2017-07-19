@@ -86,9 +86,13 @@ namespace EG_MagicCube.Controllers
         [HttpPost]
         public JsonResult Delete(string[] id)
         {
-
             // TODO: Add delete logic here
-            WorksFilesModel.DelFile(Convert.ToInt16(id));
+            List<long> value = new List<long>();
+            for(int i = 0; i < id.Length; i++)
+            {
+                value.Add(Convert.ToInt16(id[i]));
+            }
+            WorksFilesModel.DelFile(value);
             return Json(id);
 
         }
