@@ -105,6 +105,7 @@ namespace EG_MagicCube.Controllers
         {
             try
             {
+                AuthorsModel_INPUT.AuthorsNo = id;
                 // TODO: Add update logic here
                 AuthorsModel_INPUT.Update();
                 return RedirectToAction("Index");
@@ -118,7 +119,8 @@ namespace EG_MagicCube.Controllers
         // GET: Author/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            AuthorsModel.Delete(id);
+            return RedirectToAction("Index");
         }
 
         // POST: Author/Delete/5

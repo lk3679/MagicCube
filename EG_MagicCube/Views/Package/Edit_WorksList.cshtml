@@ -11,7 +11,7 @@
     {
         @Html.AntiForgeryToken()*@
 
-<div class="form-horizontal">
+<div class="form-horizontal col-lg-10 col-md-10">
     @*<h4>PackageViewModel</h4>*@
     @*<hr />*@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -23,11 +23,11 @@
     </div>
 
     @*<div class="form-group">
-        @Html.LabelFor(model => model.PG_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10 modelcont">
-            @Html.DisplayFor(model => model.PG_Name)
-        </div>
-    </div>*@
+            @Html.LabelFor(model => model.PG_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 modelcont">
+                @Html.DisplayFor(model => model.PG_Name)
+            </div>
+        </div>*@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Budget, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -47,12 +47,12 @@
     {
         foreach (var items in Model.WorksList)
         {
-            <div class=" form-group">
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class=" form-group well ">
+                <div class="col-lg-6 col-md-4 col-sm-8 col-xs-12">
                     <div class="form-group">
                         @Html.LabelFor(WorksListitem => items.MiniImg, htmlAttributes: new { @class = "col-md-4 control-label" })
                     </div>
-                    <img src="data:image/png;base64,@Html.Raw(items.MiniImg)" alt="Red dot" />
+                    <img src="data:image/png;base64,@Html.Raw(items.MiniImg)" alt="Red dot" style="max-width:350px;" />
                 </div>
                 <div class="col-lg-4 col-md-5 col-sm-6 col-xs-9 ">
                     <div class="form-group">
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-3  col-sm-6 col-xs-3 " style="float:left;font-size:55px;">
+                <div class="col-lg-2 col-md-3  col-sm-6 col-xs-3 " style="float:left;font-size:55px;">
                     @if (items.Checked)
                     {
                         <i class="fa fa-check-square-o fa-6" aria-hidden="true" value="@Html.Raw(items.No)"></i>
