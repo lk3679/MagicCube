@@ -1,40 +1,35 @@
 ﻿@model EG_MagicCube.Models.ViewModel.PackageViewModel
 
 @{
-    ViewBag.Title = "Detail_Works";
+    ViewBag.Title = @Html.DisplayFor(model => model.PG_Name);
 }
 
-<h2>Detail_Works</h2>
+<h2>@Html.DisplayFor(model => model.PG_Name)</h2>
 
 <div class="form-horizontal">
-    <h4>PackageViewModel</h4>
-    <hr />
+    @*<h4>PackageViewModel</h4>*@
+    @*<hr />*@
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.PG_No)
-        </dt>
-
+        @*<dt>
+                @Html.DisplayNameFor(model => model.PG_No)
+            </dt>*@
         <dd>
             @Html.HiddenFor(model => model.PG_No, new { htmlAttributes = new { } })
         </dd>
+        @*<dt>
+                @Html.DisplayNameFor(model => model.PG_Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PG_Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PG_Name)
+            </dd>*@
+        @*<dt>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PG_Name)
-        </dd>
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-
+            <dd>
+                @Html.DisplayFor(model => model.EndDate)
+            </dd>*@
         <dt>
             @Html.DisplayNameFor(model => model.WorksAmount)
         </dt>
@@ -42,19 +37,16 @@
         <dd>
             @Html.DisplayFor(model => model.WorksAmount)
         </dd>
+        @*<dt>
+                @Html.DisplayNameFor(model => model.Budget)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Budget)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Budget)
-        </dd>
-
+            <dd>
+                @Html.DisplayFor(model => model.Budget)
+            </dd>*@
         <dt>
             @Html.DisplayNameFor(model => model.Summary)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Summary)
         </dd>
@@ -87,11 +79,11 @@
                                 </div>
                             </div>
                             @*<div>
-                                <div>
-                                    @Html.LabelFor(WorksListitem => items.Size, htmlAttributes: new { @class = "control-label " })
-                                    @Html.DisplayFor(WorksListitem => items.Size, new { htmlAttributes = new { @class = "form-control" } })
-                                </div>
-                            </div>*@
+                                    <div>
+                                        @Html.LabelFor(WorksListitem => items.Size, htmlAttributes: new { @class = "control-label " })
+                                        @Html.DisplayFor(WorksListitem => items.Size, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>*@
                             <div>
                                 <div>
                                     @Html.LabelFor(WorksListitem => items.Price, htmlAttributes: new { @class = "control-label " })

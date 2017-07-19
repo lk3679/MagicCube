@@ -199,7 +199,7 @@ namespace EG_MagicCube.Models
                     {
                         r = r.Where(f => f.PackageItems.Any(pkg => pkg.PackagesNo == Guid.Parse(this.PackagesNo)));
                     }
-                    _WorksModel = r.OrderBy(c => c.AuthorsNo).Skip((PageIndex * PageSize) - PageSize).Take(PageSize).Select(c =>
+                    _WorksModel = r.OrderBy(c => c.AuthorsNo).Skip((PageIndex * PageSize - PageSize)).Take(PageSize).Select(c =>
                      new WorksModel()
                      {
                          WorksNo = c.WorksNo.ToString(),

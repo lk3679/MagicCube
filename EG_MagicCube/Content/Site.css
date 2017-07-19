@@ -89,6 +89,12 @@ div.item {
     min-height: 500px;
 }
 
-img {
+img , textarea{
     width: 100%;
+}
+
+span.select2-container--default .select2-selection--multiple,
+span.select2-container--default .select2-selection--single,
+textarea {
+    border: 1px solid #ccc;
 }

@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<EG_MagicCube.Models.ViewModel.WorksViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "作品清單";
 }
 
-<h2>Index</h2>
+<h2>作品清單</h2>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("新增作品", "Create")
 </p>
 
 @using (Html.BeginForm())
@@ -23,7 +23,7 @@
                 <label class="control-label col-md-2">
                     @Html.DisplayNameFor(model => model.WorksName)
                 </label>
-                <div class="col-md-10">
+                <div class="col-md-5">
                     <input type="text" name="WorksName" class="form-control text-box single-line" />
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  text-right">
-                <input type="submit" name="search-btn" class="btn btn-default" />
+                <input type="submit" name="search-btn" class="btn btn-default" value="篩選" />
             </div>
         </div>
     </div>
@@ -99,8 +99,8 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.WorksNo }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.WorksNo })
+                    @Html.ActionLink("編輯", "Edit", new { id = item.WorksNo }) |
+                    @Html.ActionLink("介紹", "Details", new { id = item.WorksNo })
                 </td>
             </tr>
         }
