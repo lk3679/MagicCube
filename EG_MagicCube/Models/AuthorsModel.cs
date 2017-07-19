@@ -139,7 +139,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.Authors.Count() > 0)
                 {
-                    _AuthorsModel = context.Authors.AsEnumerable().Where(c=> c.AuthorsCName.Contains(KeyWords) || c.AuthorsCName.Contains(KeyWords)).Select(c =>
+                    _AuthorsModel = context.Authors.AsEnumerable().Where(c=> c.AuthorsCName.Contains(KeyWords) || c.AuthorsEName.Contains(KeyWords)).Select(c =>
                     new AuthorsModel
                     {
                         AuthorsNo = c.AuthorsNo,
@@ -209,7 +209,7 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var oldAuthors = context.Authors.AsEnumerable().First(x => x.AuthorsNo == newAuthors.AuthorsNo);
+                var oldAuthors = context.Authors.AsQueryable().First(x => x.AuthorsNo == newAuthors.AuthorsNo);
 
                 if (oldAuthors.AuthorsPropArea != null)
                 {
@@ -264,7 +264,7 @@ namespace EG_MagicCube.Models
         #endregion
 
         #region Delete
-        public bool Delete(int authorNo)
+        public static bool Delete(int authorNo)
         {
             using (var context = new EG_MagicCubeEntities())
             {
