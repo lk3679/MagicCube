@@ -1,20 +1,17 @@
 ﻿@model IEnumerable<EG_MagicCube.Models.AuthorsModel>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "藝術家清單";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>藝術家清單</h2>
 
 <p>
-    @Html.ActionLink("新增", "Create")
+    @Html.ActionLink("新增藝術家", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AuthorsNo)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.AuthorsCName)
         </th>
@@ -27,18 +24,14 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.AuthorsNo)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.AuthorsCName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.AuthorsEName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new {  id= item.AuthorsNo }) |
-            @Html.ActionLink("Details", "Details", new { id = item.AuthorsNo }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.AuthorsNo })
+            @Html.ActionLink("編輯", "Edit", new {  id= item.AuthorsNo }) 
+          
         </td>
     </tr>
 }

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<EG_MagicCube.Models.AccountModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2></h2>
+
+<p>
+    @Html.ActionLink("新增帳號", "Create")
+</p>
+<table class="table">
+    <tr>
+       
+
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserAccount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleNo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserAccount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoleNo)
+        </td>
+
+       
+        <td>
+            @Html.ActionLink("設定", "Edit", new {  id= item.UserAccountsNo }) |
+           
+            @Html.ActionLink("刪除", "Delete", new {  id= item.UserAccountsNo })
+        </td>
+    </tr>
+}
+
+</table>

@@ -171,14 +171,14 @@ namespace EG_MagicCube.Controllers
             PackagesModel pm = new PackagesModel();
             if (string.IsNullOrEmpty(id))
             {
-                id = new Guid().ToString();
                 pm.PackagesName = "未命名" + DateTime.Now.ToString("yyMMddHHmmss");
                 pm.Create();
+                id = pm.PackagesNo;
             }
             pm = PackagesModel.GetPackageDetail(id);
             pm.PackagesName = "";
             // 將搜尋結果加入PackagesModel 的WorksNos
-            var model = value.Search(0);
+            var model = value.Search(1, 100);
             for (int i = 0; i < model.Count; i++)
             {
                 pm.PackageItems.Add(new PackagesModel.PackageItemModel()

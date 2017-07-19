@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [dbo].[UserAccounts](
 	[UserAccountsNo] [int] IDENTITY(1,1) NOT NULL,
+	[UserAccount] [nvarchar](50) NOT NULL DEFAULT (''),
 	[Password] [nvarchar](500) NOT NULL,
 	[Pwdself] [nvarchar](500) NOT NULL,
 	[Name] [nvarchar](50) NOT NULL,
@@ -51,3 +52,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'帳號狀態' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'UserAccounts', @level2type=N'COLUMN',@level2name=N'AccountStatus'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'帳號備註' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'UserAccounts', @level2type=N'COLUMN',@level2name=N'AccountNote'
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'使用者帳號',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'UserAccounts',
+    @level2type = N'COLUMN',
+    @level2name = N'UserAccount'

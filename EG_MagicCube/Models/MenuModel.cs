@@ -62,7 +62,13 @@ namespace EG_MagicCube.Models
             /// 作品庫別
             /// </summary>
             [Display(Name = "作品庫別")]
-            WareType };
+            WareType,
+            /// <summary>
+            /// 帳號權限
+            /// </summary>
+            [Display(Name = "帳號權限")]
+            AccountRole
+        };
 
         /// <summary>
         /// 取得Menu
@@ -120,6 +126,11 @@ namespace EG_MagicCube.Models
                         _MenuViewModel.AddRange((from f in context.Menu_Owner
                                                  select new MenuViewModel()
                                                  { MenuClass = MenuClassName, MenuID = f.OwnerNo, MenuName = f.OwnerName }).ToList());
+                        break;
+                    case MenuClassEnum.AccountRole:
+                        _MenuViewModel.AddRange((from f in context.UserAccountRoles
+                                                 select new MenuViewModel()
+                                                 { MenuClass = MenuClassName, MenuID = f.RoleNo, MenuName = f.RoleName }).ToList());
                         break;
                 }
                 

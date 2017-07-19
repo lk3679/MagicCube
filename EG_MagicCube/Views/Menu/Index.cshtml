@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<EG_MagicCube.Models.ViewModel.MenuViewModels>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "選項維護";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
     .tags {
@@ -62,11 +62,8 @@
                 border-left-color: crimson;
             }
 </style>
-<h2>Index</h2>
+<h2>選項維護</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 @using (Html.BeginForm())
 {
     <div class="form-group">
@@ -96,16 +93,12 @@
         <span class="tag label label-default">@item.MenuName　<i class="fa fa-times fa-2x" aria-hidden="true"></i></span>
     }
 </div>
-@section Scripts {
-    
+@section Scripts {    
     <script>
         $(function () {
             $("#btnaddnew,#btnsearch").on("click", function () {
                 $("#whosubmit").val(this.id);
             });
         });
-
-
-
     </script>
 }

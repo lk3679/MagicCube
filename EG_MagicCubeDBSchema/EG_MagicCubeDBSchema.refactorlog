@@ -21,4 +21,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Height" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="e8006c3a-00d6-4e54-b2ee-470929729076" ChangeDateTime="07/18/2017 01:48:50">
+    <Property Name="ElementName" Value="[dbo].[Menu_AuthorsArea].[IsHidden]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Menu_AuthorsArea]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DelDateTime" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="48d9111f-8e19-4563-833d-8eff494f643f" ChangeDateTime="07/18/2017 01:48:51">
+    <Property Name="ElementName" Value="[dbo].[Menu_AuthorsArea].[DelDateTime]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Menu_AuthorsArea]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsHidden" />
+  </Operation>
 </Operations>

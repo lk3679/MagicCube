@@ -22,10 +22,12 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 藝術家中文名稱
         /// </summary>
+        [Display(Name = "藝術家中文名稱", Prompt = "藝術家中文名稱")]
         public string AuthorsCName { get; set; } = "";
         /// <summary>
         /// 藝術家外文名稱
         /// </summary>
+        [Display(Name = "藝術家外文名稱", Prompt = "藝術家外文名稱")]
         public string AuthorsEName { get; set; } = "";
         /// <summary>
         /// 建立者

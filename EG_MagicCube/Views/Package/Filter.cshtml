@@ -1,19 +1,15 @@
 ﻿@model EG_MagicCube.Models.ViewModel.AdSearchViewModel
 
 @{
-    ViewBag.Title = "Filter";
+    ViewBag.Title = "篩選";
 }
 
-<h2>Filter</h2>
+<h2>篩選條件</h2>
 
 
 @using (Html.BeginForm())
 {
-
     <div class="form-horizontal">
-        <h4>AdSearchViewModel</h4>
-        <hr />
-
         <div class="form-group">
             @Html.LabelFor(model => model.Budget, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -146,14 +142,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="搜尋" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("檢視包裝清單", "Index")
 </div>
 
 @section Scripts {

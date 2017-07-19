@@ -1,18 +1,18 @@
 ﻿@model EG_MagicCube.Models.ViewModel.ConfigureViewModels
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "系統參數維護";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>系統參數維護</h2>
 
 @using (Html.BeginForm("Edit", "Configure"))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>ConfigureViewModels</h4>
+        <h4></h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -51,10 +51,10 @@
 }
 
 @section Scripts {
-    @Scripts.Render("~/bundles/ckeditor")
+<script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
+<script src="@Url.Content("~/Scripts/ckeditor/adapters/jquery.js")"></script>
     <script>
         CKEDITOR.replace('EmptyContent');
         CKEDITOR.replace('ErrorContent');
-
     </script>
 }

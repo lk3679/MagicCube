@@ -20,6 +20,10 @@ namespace EG_MagicCube.Controllers
             {
                 MenuClass = Request.QueryString["MenuClass"] == null ? "" : Request.QueryString["MenuClass"];
             }
+            if (MenuClass == "ALL")
+            {
+                MenuClass = "";
+            }
             List<Models.ViewModel.MenuViewModels> _MenuViewModelList = new List<Models.ViewModel.MenuViewModels>();
             if (!string.IsNullOrEmpty(MenuClass))
             {
@@ -39,7 +43,7 @@ namespace EG_MagicCube.Controllers
             }
 
             List<SelectListItem> MenuClassList = new List<SelectListItem>();
-            MenuClassList.Add(new SelectListItem() { Value = "", Text = "全部", Selected = string.IsNullOrEmpty(MenuClass) });
+            MenuClassList.Add(new SelectListItem() { Value = "ALL", Text = "全部", Selected = string.IsNullOrEmpty(MenuClass) });
             MenuClassList.Add(new SelectListItem() { Value = "AuthorArea", Text = "藝術家區域",Selected= MenuClass.IndexOf("AuthorArea", StringComparison.OrdinalIgnoreCase)>=0 });
             MenuClassList.Add(new SelectListItem() { Value = "AuthorTag", Text = "藝術家標籤", Selected = MenuClass.IndexOf("AuthorTag", StringComparison.OrdinalIgnoreCase) >= 0 });
             MenuClassList.Add(new SelectListItem() { Value = "CountNoun", Text = "量詞", Selected = MenuClass.IndexOf("CountNoun", StringComparison.OrdinalIgnoreCase) >= 0 });
