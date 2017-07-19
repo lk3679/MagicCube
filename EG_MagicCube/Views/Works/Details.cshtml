@@ -9,7 +9,26 @@
 <div>
     @*<h4>WorksDetailViewModel</h4>*@
     <hr />
-    <dl class="dl-horizontal">
+    <p>
+        @if (Request.IsAuthenticated)
+        {
+            @Html.ActionLink("編輯作品", "Edit", new { id = Model.WorksNo }, new { @class = "btn btn-default" })
+            if (string.IsNullOrEmpty(Model.PackagesNo))
+            {
+                @Html.ActionLink("檢視清單", "Index", "Works", new { @class = "btn btn-default" })
+            }
+            else
+            {
+                @Html.ActionLink("包裝清單", "Detail_Works", "Package", new { id = Model.PackagesNo }, new { @class = "btn btn-default" })
+            }
+        }
+        else
+        {
+            @Html.ActionLink("包裝清單", "Detail_Works", "Package", new { id = Model.PackagesNo }, new { @class = "btn btn-default" })
+        }
+
+    </p>
+    <dl class="dl-horizontal"  style="columns: 240px 3;-moz-columns: 240px 3;-o-columns: 240px 3;-webkit-columns: 240px 3;">
         @*<dt>
                 @Html.DisplayNameFor(model => model.WorksNo)
             </dt>
@@ -119,24 +138,6 @@
 
     </dl>
 </div>
-<p>
-    @if (Request.IsAuthenticated)
-    {
-        @Html.ActionLink("編輯", "Edit", new { id = Model.WorksNo }) <span> | </span>
-        if (string.IsNullOrEmpty(Model.PackagesNo))
-        {
-            @Html.ActionLink("檢視清單", "Index")
-        }
-        else
-        {
-            @Html.ActionLink("包裝清單", "Detail_Works", "Package", new { id = Model.PackagesNo }, new AllowHtmlAttribute { })
-        }
-    }
-    else
-    {
-        @Html.ActionLink("包裝清單", "Detail_Works", "Package", new { id = Model.PackagesNo }, new AllowHtmlAttribute { })
-    }
 
-</p>
 
 @Html.Action("Index", "Files", new { id = Model.WorksNo })

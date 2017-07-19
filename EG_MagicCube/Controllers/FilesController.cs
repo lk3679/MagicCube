@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using System.IO;
 namespace EG_MagicCube.Controllers
 {
     public class FilesController : Controller
@@ -19,7 +19,16 @@ namespace EG_MagicCube.Controllers
             }
             return PartialView(Model);
         }
-
+        /// <summary>
+        /// 回傳圖片
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Img(int id)
+        {
+            MemoryStream ms = new MemoryStream(Convert.FromBase64String(WorksFilesModel.GetFile(id)));
+            return new FileStreamResult(ms, "image/png");
+        }
         // GET: Files/Create
         public ActionResult Create()
         {

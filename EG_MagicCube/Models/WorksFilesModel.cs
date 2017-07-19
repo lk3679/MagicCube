@@ -95,6 +95,20 @@ namespace EG_MagicCube.Models
             return InsFile(WorksNo, new List<HttpPostedFileBase>() { UploadWorksFile });
         }
 
+        public static string GetFile(int WorksFilesNo)
+        {
+            string strStream = "";
+            using (var context = new EG_MagicCubeEntities())
+            {
+                if (context.WorksFiles.Count() > 0)
+                {
+                    strStream = context.WorksFiles.AsQueryable().Where(c => c.WorksFilesNo == WorksFilesNo).Select(c => c.FileBase64Str).FirstOrDefault();
+                }
+            }
+            return strStream;
+        }
+
+
         /// <summary>
         /// 取得檔案清單
         /// </summary>

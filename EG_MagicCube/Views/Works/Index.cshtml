@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<EG_MagicCube.Models.ViewModel.WorksViewModel>
 
 @{
-    ViewBag.Title = "作品清單";
+    ViewBag.Title = "作品列表";
 }
 
-<h2>作品清單</h2>
+<h2>作品列表</h2>
 <p>
-    @Html.ActionLink("新增作品", "Create")
+    @Html.ActionLink("新增作品", "Create", "Works",new { @class = "btn btn-default" })
 </p>
 
 @using (Html.BeginForm())

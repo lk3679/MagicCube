@@ -54,12 +54,12 @@
         }
 
         .tag:hover {
-            background-color: crimson;
+            background-color: #999;
             color: white;
         }
 
             .tag:hover::after {
-                border-left-color: crimson;
+                border-left-color: #999;
             }
 </style>
 <h2>選項維護</h2>
@@ -75,29 +75,66 @@
     <div class="form-group">
 
         <div class="col-md-offset-1 col-md-10">
-            <label class="control-label">名稱</label><input class="form-control" id="MenuName"   name="MenuName"/>
+            <label class="control-label">名稱</label><input class="form-control" id="MenuName" name="MenuName"/>
         </div>
     </div>
+    <br /><br />
     <div class="form-group">
         <div class="col-md-offset-5 col-md-7">
             <input type="hidden" id="whosubmit" name="whosubmit" />
+            <input type="hidden" id="MenuNo" name="MenuNo" />
+            <input type="submit" value="儲存" class="btn btn-default" id="btnSave" />
+            <input type="submit" value="取消" class="btn btn-default" id="btnCancel" />
             <input type="submit" value="新增" class="btn btn-default" id="btnaddnew" />
             <input type="submit" value="查詢" class="btn btn-default" id="btnsearch" />
+            
         </div>
     </div>
 
 }
-<div class="col-md-offset-1 col-md-10" style="margin-top: 20px;">
+<div class="col-md-offset-1 col-md-10 MenuTags" style="margin-top: 20px;">
     @foreach (var item in Model)
     {
-        <span class="tag label label-default">@item.MenuName　<i class="fa fa-times fa-2x" aria-hidden="true"></i></span>
+        <span data-class="@item.MenuClass" data-no="@item.MenuNo" class="tag label label-default MenuName">@item.MenuName　<i class="fa fa-times fa-2x del" aria-hidden="true"></i></span>
     }
 </div>
 @section Scripts {    
     <script>
         $(function () {
-            $("#btnaddnew,#btnsearch").on("click", function () {
+            $("#btnSave").hide();
+            $("#btnCancel").hide();
+            $("#btnaddnew,#btnsearch,#btnCancel,#btnSave").on("click", function (e) {
                 $("#whosubmit").val(this.id);
+            });
+            $(".MenuTags .del").on("click", function (e) {
+                e.stopPropagation();
+                if (confirm("確定刪除?"))
+                {
+                    $("#whosubmit").val("btndel");
+                }
+                $("#MenuNo").val($($(this).parent()).data("no"));
+                $("form").submit();
+            });
+            $(".MenuTags .MenuName").on("click", function (e) {
+                e.stopPropagation();
+                $("#MenuName").val($(this).text().replace("　", ""));
+                $("#MenuNo").val($(this).data("no"));
+                $("#MenuClass").val($(this).data("class"));
+                $(".MenuTags").show();
+                $("#btnSave").show();
+                $("#btnCancel").show();
+                $("#btnaddnew").hide();
+                $("#btnsearch").hide();
+                //$(this).text().replace("　","")
+                //$(this).data("no")
+                //$(this).data("class")
+            });
+            $("#btnCancel").on("click", function () {
+                $(".MenuTags").show();
+                $("#btnSave").hide();
+                $("#btnCancel").hide();
+                $("#btnaddnew").show();
+                $("#btnsearch").show();
             });
         });
     </script>
