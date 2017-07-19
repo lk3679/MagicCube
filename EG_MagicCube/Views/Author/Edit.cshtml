@@ -1,11 +1,11 @@
 ﻿@model EG_MagicCube.Models.AuthorsModel
 
 @{
-    ViewBag.Title = "編輯藝術家";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "編輯";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>編輯藝術家</h2>
+<h2>編輯</h2>
 
 
 @using (Html.BeginForm())
@@ -58,7 +58,7 @@
 }
 
 <div>
-    @Html.ActionLink("回到列表", "Index")
+    @Html.ActionLink("檢視清單", "Index")
 </div>
 
 @section Scripts {

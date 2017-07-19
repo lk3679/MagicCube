@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "選項維護";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
     .tags {
@@ -93,16 +93,12 @@
         <span class="tag label label-default">@item.MenuName　<i class="fa fa-times fa-2x" aria-hidden="true"></i></span>
     }
 </div>
-@section Scripts {
-    
+@section Scripts {    
     <script>
         $(function () {
             $("#btnaddnew,#btnsearch").on("click", function () {
                 $("#whosubmit").val(this.id);
             });
         });
-
-
-
     </script>
 }
