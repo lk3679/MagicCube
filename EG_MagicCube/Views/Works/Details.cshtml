@@ -49,35 +49,51 @@
         <dt>
             @Html.DisplayNameFor(model => model.Remarks)
         </dt>
+        @if (Request.IsAuthenticated)
+        {
+            <dd>
+                @Html.DisplayFor(model => model.Remarks)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Remarks)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Owner)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Owner)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Owner)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Owner)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PropWare)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PropWare)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PropWare)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.PropWare)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Cost)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cost)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Cost)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PricingDate)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cost)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.PricingDate)
+            </dd>
 
+            <dt>
+                @Html.DisplayNameFor(model => model.GrossMargin)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.GrossMargin)
+            </dd>
+        }
         <dt>
             @Html.DisplayNameFor(model => model.Price)
         </dt>
@@ -86,21 +102,7 @@
             @Html.DisplayFor(model => model.Price)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PricingDate)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PricingDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GrossMargin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GrossMargin)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.GenreNo)
@@ -128,7 +130,7 @@
     }
     else
     {
-        @Html.ActionLink("Back to List", "Detail_Works", "Package", new { id = Model.PackagesNo },new AllowHtmlAttribute { })
+        @Html.ActionLink("Back to List", "Detail_Works", "Package", new { id = Model.PackagesNo }, new AllowHtmlAttribute { })
     }
 
 </p>
