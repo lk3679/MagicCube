@@ -1,13 +1,13 @@
 ﻿@model EG_MagicCube.Models.ViewModel.WorksDetailViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = @Html.DisplayFor(model => model.WorksName) + " - " + @Html.DisplayFor(model => model.AuthorsName);
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.WorksName)</h2>
 
 <div>
-    <h4>WorksDetailViewModel</h4>
+    @*<h4>WorksDetailViewModel</h4>*@
     <hr />
     <dl class="dl-horizontal">
         @*<dt>
@@ -101,9 +101,6 @@
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
-
-
-
         <dt>
             @Html.DisplayNameFor(model => model.GenreNo)
         </dt>
@@ -125,12 +122,19 @@
 <p>
     @if (Request.IsAuthenticated)
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.WorksNo }) <span> | </span>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("編輯", "Edit", new { id = Model.WorksNo }) <span> | </span>
+        if (string.IsNullOrEmpty(Model.PackagesNo))
+        {
+            @Html.ActionLink("檢視清單", "Index")
+        }
+        else
+        {
+            @Html.ActionLink("包裝清單", "Detail_Works", "Package", new { id = Model.PackagesNo }, new AllowHtmlAttribute { })
+        }
     }
     else
     {
-        @Html.ActionLink("Back to List", "Detail_Works", "Package", new { id = Model.PackagesNo }, new AllowHtmlAttribute { })
+        @Html.ActionLink("包裝清單", "Detail_Works", "Package", new { id = Model.PackagesNo }, new AllowHtmlAttribute { })
     }
 
 </p>
