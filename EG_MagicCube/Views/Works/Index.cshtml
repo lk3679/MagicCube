@@ -29,19 +29,19 @@
             </div>
 
             @*<div class="form-group">
-                <label class="control-label col-md-2">
-                    作品年代起
-                </label>
-                <div class="col-md-4">
-                    <input type="number" name="YearStart" class="form-control text-box single-line" />
-                </div>
-                <label class="control-label col-md-2">
-                    作品年代迄
-                </label>
-                <div class="col-md-4">
-                    <input type="number" name="YearEnd" class="form-control text-box single-line" />
-                </div>
-            </div>*@
+                    <label class="control-label col-md-2">
+                        作品年代起
+                    </label>
+                    <div class="col-md-4">
+                        <input type="number" name="YearStart" class="form-control text-box single-line" />
+                    </div>
+                    <label class="control-label col-md-2">
+                        作品年代迄
+                    </label>
+                    <div class="col-md-4">
+                        <input type="number" name="YearEnd" class="form-control text-box single-line" />
+                    </div>
+                </div>*@
             <div class="form-group">
                 <label class="control-label col-md-2">
                     @Html.DisplayNameFor(model => model.MinePrice)
@@ -100,7 +100,8 @@
                 </td>
                 <td>
                     @Html.ActionLink("編輯", "Edit", new { id = item.WorksNo }) |
-                    @Html.ActionLink("介紹", "Details", new { id = item.WorksNo })
+                    @Html.ActionLink("介紹", "Details", new { id = item.WorksNo }) |
+                    @Html.ActionLink("編輯圖片", "Edit", "Files", new { id = item.WorksNo }, new { })
                 </td>
             </tr>
         }
