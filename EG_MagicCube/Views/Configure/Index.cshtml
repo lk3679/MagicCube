@@ -51,10 +51,10 @@
 }
 
 @section Scripts {
-    @Scripts.Render("~/bundles/ckeditor")
+<script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
+<script src="@Url.Content("~/Scripts/ckeditor/adapters/jquery.js")"></script>
     <script>
         CKEDITOR.replace('EmptyContent');
         CKEDITOR.replace('ErrorContent');
-
     </script>
 }
