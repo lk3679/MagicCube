@@ -24,10 +24,10 @@ namespace EG_MagicCube.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult Img(int id)
+        public FileStreamResult Img(int id)
         {
             MemoryStream ms = new MemoryStream(Convert.FromBase64String(WorksFilesModel.GetFile(id)));
-            return new FileStreamResult(ms, "image/png");
+            return new FileStreamResult(ms, "image/jpg");
         }
         // GET: Files/Create
         public ActionResult Create()
@@ -59,14 +59,11 @@ namespace EG_MagicCube.Controllers
             {
                 Model = WorksFilesModel.GetFileList(id);
             }
-            if (Model.Count > 0)
-            {
-                return View(Model);
-            }
-            else
-            {
-                return RedirectToAction("Index", "Works");
-            }
+            return View(Model);
+            //else
+            //{
+            //    return RedirectToAction("Index", "Works");
+            //}
         }
 
         // POST: Files/Edit/5
