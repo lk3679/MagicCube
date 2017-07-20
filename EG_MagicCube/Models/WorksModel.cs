@@ -254,8 +254,12 @@ namespace EG_MagicCube.Models
                     //圖片
                     foreach (HttpPostedFileBase _Files in this.UploadWorksFiles)
                     {
-                        string base64_file = FileToBase64(_Files);
-                        context.WorksFiles.Add(new WorksFiles() { WorksNo = _Works.WorksNo, FileBase64Str = base64_file });
+                        if (_Files != null)
+                        {
+                            string base64_file = FileToBase64(_Files);
+                            context.WorksFiles.Add(new WorksFiles() { WorksNo = _Works.WorksNo, FileBase64Str = base64_file });
+                        }
+
                     }
                     //藝術家
                     foreach (int _AuthorNo in this.AuthorNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
@@ -500,8 +504,11 @@ namespace EG_MagicCube.Models
                 }
                 foreach (HttpPostedFileBase _Files in newWorks.UploadWorksFiles)
                 {
-                    string base64_file = FileToBase64(_Files);
-                    context.WorksFiles.Add(new WorksFiles() { WorksNo = oldWorks.WorksNo, FileBase64Str = base64_file });
+                    if (_Files != null)
+                    {
+                        string base64_file = FileToBase64(_Files);
+                        context.WorksFiles.Add(new WorksFiles() { WorksNo = oldWorks.WorksNo, FileBase64Str = base64_file });
+                    }
                 }
                 //藝術家
                 if (newWorks.AuthorNo_InputString.Count != 0)
