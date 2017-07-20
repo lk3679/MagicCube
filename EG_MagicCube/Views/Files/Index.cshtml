@@ -1,15 +1,23 @@
 ﻿@model Dictionary<long, string>
 
-<h2>圖片列表</h2>
-
+<h2>作品圖片列表</h2>
 @if (Model != null && Model.Count > 0)
 {
     foreach (var item in Model)
     {
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  item">
-            <div>
-                <img src="data:image/png;base64,@Html.Raw(item.Value)" />
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+
+            <div style="line-height:250px;">
+
+                <a href="@Url.Action("img", "Files", new { id=item.Key })" style="width:250px;max-height:250px;" data-type="image" data-toggle="lightbox" data-gallery="example-gallery" style="line-height:250px;">
+                    <img class=".img-responsive img-thumbnail img-fluid" style="max-width:800px;" src="@Url.Action("img", "Files", new { id=item.Key })" />
+                </a>
+
             </div>
+
+            @*<div>
+                <img class=".img-responsive" src="@Url.Action("img", "Files", new { id=item.Key })" />
+            </div>*@
         </div>
     }
     @*<div>
@@ -18,4 +26,3 @@
         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
     </div>*@
 }
-

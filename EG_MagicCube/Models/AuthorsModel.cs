@@ -77,8 +77,8 @@ namespace EG_MagicCube.Models
             using (var context = new EG_MagicCubeEntities())
             {
                 Authors _Authors = new Authors();
-                _Authors.AuthorsCName = this.AuthorsCName;
-                _Authors.AuthorsEName = this.AuthorsEName;
+                _Authors.AuthorsCName = this.AuthorsCName ?? "";
+                _Authors.AuthorsEName = this.AuthorsEName ?? "";
                 _Authors.CreateDate = DateTime.Now;
                 _Authors.CreateUser = "";
                 _Authors.ModifyDate = DateTime.Now;
@@ -228,9 +228,9 @@ namespace EG_MagicCube.Models
 
                 if (oldAuthors != null)
                 {
-                    oldAuthors.MaterialsID = newAuthors.MaterialsID;
-                    oldAuthors.AuthorsCName = newAuthors.AuthorsCName;
-                    oldAuthors.AuthorsEName = newAuthors.AuthorsEName;
+                    oldAuthors.MaterialsID = newAuthors.MaterialsID ?? "";
+                    oldAuthors.AuthorsCName = newAuthors.AuthorsCName ?? "";
+                    oldAuthors.AuthorsEName = newAuthors.AuthorsEName ?? "";
                     oldAuthors.ModifyUser = newAuthors.ModifyUser;
                     oldAuthors.ModifyDate = DateTime.Now;
                 }

@@ -208,13 +208,86 @@ namespace EG_MagicCube.Models
             }
             return true;
         }
+
+        public static bool UpdateMenu(MenuClassEnum _MenuClass,string MenuNo,string MenuName)
+        {
+            int _MenuNo = int.Parse(MenuNo);
+            using (var context = new EG_MagicCubeEntities())
+            {
+
+                string MenuClassName = Enum.GetName(typeof(MenuClassEnum), _MenuClass);
+                switch (_MenuClass)
+                {
+                    case MenuClassEnum.AuthorArea:
+                        
+                        break;
+                    case MenuClassEnum.AuthorTag:
+
+                        var AuthorTag = context.Menu_AuthorsTag.First(c => c.AuthorsTagNo == _MenuNo);
+                        if(AuthorTag!=null) AuthorTag.AuthorsTagName = MenuName;
+
+                        break;
+                    case MenuClassEnum.CountNoun:
+
+                        var CountNoun = context.Menu_CountNoun.First(c => c.CountNounNo == _MenuNo);
+                        if (CountNoun != null) CountNoun.CountNounName = MenuName;
+
+                        break;
+                    case MenuClassEnum.Genre:
+
+                        var Genre = context.Menu_Genre.First(c => c.GenreNo == _MenuNo);
+                        if (Genre != null) Genre.GenreName = MenuName;
+
+                        break;
+                    case MenuClassEnum.Material:
+
+                        var Material = context.Menu_Material.First(c => c.MaterialNo == _MenuNo);
+                        if (Material != null) Material.MaterialName = MenuName;
+
+                        break;
+                    case MenuClassEnum.Style:
+
+                        var Style = context.Menu_Style.First(c => c.StyleNo == _MenuNo);
+                        if (Style != null) Style.StyleName = MenuName;
+
+                        break;
+                    case MenuClassEnum.WareType:
+
+                        var WareType = context.Menu_WareType.First(c => c.WareTypeNo == _MenuNo);
+                        if (WareType != null) WareType.WareTypeName = MenuName;
+
+                        break;
+
+                    case MenuClassEnum.Owner:
+
+                        var Owner = context.Menu_Owner.First(c => c.OwnerNo == _MenuNo);
+                        if (Owner != null) Owner.OwnerName = MenuName;
+
+                        break;
+                    case MenuClassEnum.AccountRole:
+
+                        var AccountRole = context.UserAccountRoles.First(c => c.RoleNo == _MenuNo);
+                        if (AccountRole != null) AccountRole.RoleName = MenuName;
+
+                        break;
+                }
+                if (context.SaveChanges() == 0)
+                {
+                    return false;
+                }
+
+            }
+            return true;
+        }
+
+
         /// <summary>
         /// 刪除
         /// </summary>
         /// <param name="_MenuClass"></param>
         /// <param name="_MenuViewModelList"></param>
         /// <returns></returns>
-        public bool DeleteMenu(MenuClassEnum _MenuClass, List<MenuViewModel> _MenuViewModelList)
+        public static bool DeleteMenu(MenuClassEnum _MenuClass, List<MenuViewModel> _MenuViewModelList)
         {
 
             string MenuClassName = Enum.GetName(typeof(MenuClassEnum), _MenuClass);

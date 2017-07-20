@@ -10,7 +10,10 @@
 @*@using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()*@
-
+<h2>推薦作品清單</h2>
+<div>
+    @Html.ActionLink("返回包裝詳細資訊", "Edit", new { id = Model.PG_No }, new { @class = "btn btn-default" })
+</div>
 <div class="form-horizontal col-lg-10 col-md-10">
     @*<h4>PackageViewModel</h4>*@
     @*<hr />*@
@@ -34,65 +37,83 @@
         <div class="col-md-10 modelcont">
             @Html.DisplayFor(model => model.Budget)
         </div>
-    </div>
-
-    <div class="form-group">
         @Html.LabelFor(model => model.Summary, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10 modelcont">
             @Html.DisplayFor(model => model.Summary)
         </div>
     </div>
 
-    @if (Model.WorksList != null && Model.WorksList.Count > 0)
-    {
-        foreach (var items in Model.WorksList)
+
+    <div class="row">
+        @if (Model.WorksList != null && Model.WorksList.Count > 0)
         {
-            <div class=" form-group well ">
-                <div class="col-lg-6 col-md-4 col-sm-8 col-xs-12">
-                    <div class="form-group">
-                        @Html.LabelFor(WorksListitem => items.MiniImg, htmlAttributes: new { @class = "col-md-4 control-label" })
-                    </div>
-                    <img src="data:image/png;base64,@Html.Raw(items.MiniImg)" alt="Red dot" style="max-width:350px;" />
-                </div>
-                <div class="col-lg-4 col-md-5 col-sm-6 col-xs-9 ">
-                    <div class="form-group">
-                        @Html.LabelFor(WorksListitem => items.Author, htmlAttributes: new { @class = "col-md-4 control-label" })
-                        <div class="col-md-8 modelcont">
-                            @Html.DisplayFor(WorksListitem => items.Author)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(WorksListitem => items.Name, htmlAttributes: new { @class = "col-md-4 control-label" })
-                        <div class="col-md-8 modelcont">
-                            @Html.DisplayFor(WorksListitem => items.Name)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(WorksListitem => items.Size, htmlAttributes: new { @class = "col-md-4 control-label" })
-                        <div class="col-md-8 modelcont">
-                            @Html.DisplayFor(WorksListitem => items.Size)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(WorksListitem => items.Price, htmlAttributes: new { @class = "col-md-4 control-label" })
-                        <div class="col-md-8 modelcont">
-                            @Html.DisplayFor(WorksListitem => items.Price)
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3  col-sm-6 col-xs-3 " style="float:left;font-size:55px;">
-                    @if (items.Checked)
+            foreach (var items in Model.WorksList)
+            {
+
+
+                <div class="col-md-6 thumbnail">
+                    <div class="">
+                        
+                            <img class=".img-responsive" src="@Url.Action("img", "Files", new { id=items.MiniImgID })" alt="Red dot" style="max-width:350px;    float: left;" />
+                        <div class="col-lg-2 col-md-3  col-sm-6 col-xs-3 " style="float:left;font-size:55px;    float: left;">
+                            @if (items.Checked)
                     {
-                        <i class="fa fa-check-square-o fa-6" aria-hidden="true" value="@Html.Raw(items.No)"></i>
-                    }
-                    else
-                    {
-                        <i class="fa fa-square-o fa-6" aria-hidden="true" value="@Html.Raw(items.No)"></i>
-                    }
+                                <i class="fa fa-check-square-o fa-6" aria-hidden="true" value="@Html.Raw(items.No)"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-square-o fa-6" aria-hidden="true" value="@Html.Raw(items.No)"></i>
+                            }
+                        </div>    
+                        <div class="caption">
+                                @Html.LabelFor(WorksListitem => items.Author, htmlAttributes: new { @class = "col-md-4 control-label" })
+                                
+                                    @Html.DisplayFor(WorksListitem => items.Author)
+                                
+                            </div>
+                        
+                    </div>
                 </div>
-            </div>
+
+
+                @*<div class=" form-group well ">
+                    <div class="col-lg-6 col-md-4 col-sm-8 col-xs-12">
+                        <div class="form-group">
+                            @Html.LabelFor(WorksListitem => items.MiniImg, htmlAttributes: new { @class = "col-md-4 control-label" })
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-4 col-md-5 col-sm-6 col-xs-9 ">
+                        <div class="form-group">
+                            @Html.LabelFor(WorksListitem => items.Author, htmlAttributes: new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8 modelcont">
+                                @Html.DisplayFor(WorksListitem => items.Author)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(WorksListitem => items.Name, htmlAttributes: new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8 modelcont">
+                                @Html.DisplayFor(WorksListitem => items.Name)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(WorksListitem => items.Size, htmlAttributes: new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8 modelcont">
+                                @Html.DisplayFor(WorksListitem => items.Size)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(WorksListitem => items.Price, htmlAttributes: new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8 modelcont">
+                                @Html.DisplayFor(WorksListitem => items.Price)
+                            </div>
+                        </div>
+                    </div>
+
+                </div>*@
+            }
         }
-    }
+    </div>
     @*<div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -101,9 +122,7 @@
 </div>
 @*}*@
 
-<div>
-    @Html.ActionLink("包裝詳細", "Edit", new { id = Model.PG_No })
-</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

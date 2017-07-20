@@ -3,13 +3,37 @@
 @{
     ViewBag.Title = @Html.DisplayFor(model => model.WorksName) + " - " + @Html.DisplayFor(model => model.AuthorsName);
 }
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.css" rel="stylesheet" />
+<style>
+    .modal-dialog {
+        margin-top: 120px;
+    }
+</style>
 <h2>@Html.DisplayFor(model => model.WorksName)</h2>
 
 <div>
     @*<h4>WorksDetailViewModel</h4>*@
     <hr />
-    <dl class="dl-horizontal">
+    <p>
+        @if (Request.IsAuthenticated)
+        {
+            @Html.ActionLink("編輯作品", "Edit", new { id = Model.WorksNo }, new { @class = "btn btn-default" })
+            if (string.IsNullOrEmpty(Model.PackagesNo))
+            {
+                @Html.ActionLink("返回作品列表", "Index", "Works",null, new { @class = "btn btn-default" })
+            }
+            else
+            {
+                @*@Html.ActionLink("包裝清單", "Detail_Works", "Package",  new { id = Model.PackagesNo }, new { @class = "btn btn-default" })*@
+            }
+        }
+        else
+        {
+            @*@Html.ActionLink("包裝清單", "Detail_Works", "Package",  new { id = Model.PackagesNo }, new { @class = "btn btn-default" })*@
+        }
+
+    </p>
+    <dl class="dl-horizontal"  style="columns: 240px 3;-moz-columns: 240px 3;-o-columns: 240px 3;-webkit-columns: 240px 3;">
         @*<dt>
                 @Html.DisplayNameFor(model => model.WorksNo)
             </dt>
@@ -119,24 +143,19 @@
 
     </dl>
 </div>
-<p>
-    @if (Request.IsAuthenticated)
-    {
-        @Html.ActionLink("編輯", "Edit", new { id = Model.WorksNo }) <span> | </span>
-        if (string.IsNullOrEmpty(Model.PackagesNo))
-        {
-            @Html.ActionLink("檢視清單", "Index")
-        }
-        else
-        {
-            @Html.ActionLink("包裝清單", "Detail_Works", "Package", new { id = Model.PackagesNo }, new AllowHtmlAttribute { })
-        }
-    }
-    else
-    {
-        @Html.ActionLink("包裝清單", "Detail_Works", "Package", new { id = Model.PackagesNo }, new AllowHtmlAttribute { })
-    }
 
-</p>
 
 @Html.Action("Index", "Files", new { id = Model.WorksNo })
+
+@section Scripts {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js.map"></script>
+<script>
+ 
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+
+    </script>    
+}

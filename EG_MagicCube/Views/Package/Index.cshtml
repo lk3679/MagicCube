@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<EG_MagicCube.Models.ViewModel.PackageViewModel>
 
 @{
-    ViewBag.Title = "包裝清單";
+    ViewBag.Title = "包裝列表";
 }
 
 <h2>包裝清單</h2>
 
 <p>
-    @Html.ActionLink("新增包裝", "Create")
+    @Html.ActionLink("新增包裝", "Create", "Package", new { @class = "btn btn-default" })
 </p>
 @using (Html.BeginForm())
 {

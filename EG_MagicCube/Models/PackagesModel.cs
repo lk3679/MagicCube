@@ -275,26 +275,34 @@ namespace EG_MagicCube.Models
                 if (context.PackageItems.Count() > 0)
                 {
                     var Guid_PackagesNo = Guid.Parse(this.PackagesNo);
-                    var r = context.PackageItems.AsEnumerable().Where(f => f.PackagesNo == Guid_PackagesNo).Select(c =>
-                                                  new PackageItemModel()
-                                                  {
-                                                      WorksNo = c.WorksNo.ToString(),
-                                                      WorksImg = c.Works.WorksFiles.FirstOrDefault().FileBase64Str,
-                                                      AuthorsName = c.Works.WorksAuthors.FirstOrDefault().Authors.AuthorsCName,
-                                                      WorksName = c.Works.WorksName,
-                                                      IsJoin = c.IsJoin,
-                                                      Price = c.Works.Price
-                                                  }
-
-                                               );
+                    List<PackageItems> PackageItems = new List<PackageItems>() ;
                     if (ShowJoin)
                     {
-                        _PackageItemList = r.Where(f => f.IsJoin == "Y").ToList();
+                        PackageItems = context.PackageItems.AsQueryable().Where(f => f.PackagesNo == Guid_PackagesNo && f.IsJoin == "Y").Select(c=>c).ToList();
+                        //_PackageItemList = r.Where(f => f.IsJoin == "Y").ToList();
                     }
                     else
                     {
-                        _PackageItemList = r.ToList();
+                        PackageItems = context.PackageItems.AsQueryable().Where(f => f.PackagesNo == Guid_PackagesNo ).Select(c => c).ToList();
+                        // _PackageItemList = r.ToList();
                     }
+                    if (PackageItems != null)
+                    {
+                        _PackageItemList = PackageItems.Select(c =>
+                              new PackageItemModel()
+                              {
+                                  WorksNo = c.WorksNo.ToString(),
+                                                      //WorksImg = c.Works.WorksFiles.FirstOrDefault().FileBase64Str,
+                                                      WorksImgID = c.Works.WorksFiles?.FirstOrDefault()?.WorksFilesNo.ToString(),
+                                  AuthorsName = c.Works.WorksAuthors?.FirstOrDefault()?.Authors?.AuthorsCName,
+                                  WorksName = c.Works.WorksName,
+                                  IsJoin = c.IsJoin,
+                                  Price = c.Works.Price
+                              }
+
+                           ).ToList();
+                    }
+
                 }
                 else
                 {
@@ -375,13 +383,14 @@ namespace EG_MagicCube.Models
                 if (context.PackageItems.Count() > 0)
                 {
                     var Guid_PackagesNo = Guid.Parse(PackagesNo);
-                    var r = context.PackageItems.AsEnumerable().Where(f => f.PackagesNo == Guid_PackagesNo).Select(c =>
+                    var r = context.PackageItems?.AsEnumerable().Where(f => f.PackagesNo == Guid_PackagesNo).Select(c =>
                                   new PackageItemModel()
                                   {
                                       WorksNo = c.WorksNo.ToString(),
-                                      WorksImg = c.Works.WorksFiles.FirstOrDefault().FileBase64Str,
-                                      AuthorsName = c.Works.WorksAuthors.FirstOrDefault().Authors.AuthorsCName,
-                                      WorksName = c.Works.WorksName,
+                                      //WorksImg = c.Works.WorksFiles.FirstOrDefault().FileBase64Str,
+                                      WorksImgID = c.Works?.WorksFiles?.FirstOrDefault().WorksFilesNo.ToString(),
+                                      AuthorsName = c.Works?.WorksAuthors?.FirstOrDefault().Authors.AuthorsCName,
+                                      WorksName = c.Works?.WorksName,
                                       IsJoin = c.IsJoin,
                                       Price = c.Works.Price
                                   }
@@ -416,7 +425,10 @@ namespace EG_MagicCube.Models
                 var oldPackages = context.Packages.AsEnumerable().AsEnumerable().First(x => x.PackagesNo == Guid_PackagesNo);
                 if (oldPackages != null)
                 {
-                    oldPackages.PackagesName = newPackages.PackagesName;
+                    if (!string.IsNullOrEmpty(newPackages.PackagesName))
+                    {
+                        oldPackages.PackagesName = newPackages.PackagesName;
+                    }
                     oldPackages.PackingDate = newPackages.PackingDate;
                     oldPackages.EndDate = newPackages.EndDate;
                     oldPackages.ModifyUser = newPackages.ModifyUser;
@@ -721,6 +733,10 @@ namespace EG_MagicCube.Models
             /// 作品圖片
             /// </summary>
             public string WorksImg { set; get; } = "";
+            /// <summary>
+            /// 作品圖片ID
+            /// </summary>
+            public string WorksImgID { set; get; } = "";
             /// <summary>
             /// 是否加入包裝
             /// </summary>

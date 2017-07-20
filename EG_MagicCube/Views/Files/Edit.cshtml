@@ -1,36 +1,60 @@
 ﻿@model Dictionary<long, string>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.css" rel="stylesheet" />
+<style>
+    .modal-dialog {
+        margin-top: 120px;
+    }
 
+</style>
 <h2>圖片列表</h2>
 <div class="">
     <div>
-        @Html.ActionLink("作品清單", "Index", "Works")
+        @Html.ActionLink("返回作品列表", "Index", "Works",null, new { @class = "btn btn-default" })
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  text-right">
         <input type="button" id="delete-btn" class="btn btn-default" value="選取後刪除">
     </div>
 </div>
+<div class="row">
 
-@if (Model != null && Model.Count > 0)
-{
-    
-    foreach (var item in Model)
+
+
+    @if (Model != null && Model.Count > 0)
     {
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
-            <div>
-                <img src="data:image/png;base64,@Html.Raw(item.Value)" />
-            </div>
-            <div>
-                <div class="col-lg-2 col-md-3  col-sm-6 col-xs-3 " style="font-size:55px;">
-                    <i class="fa fa-square-o fa-6" aria-hidden="true" value="@Html.Raw(item.Key)"></i>
+
+        foreach (var item in Model)
+        {
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+                <div style="line-height:250px;">
+
+                    <a href="@Url.Action("img", "Files", new { id=item.Key })" style="width:250px;max-height:250px;" data-type="image" data-toggle="lightbox" data-gallery="example-gallery"  style="line-height:250px;">
+                        <img class=".img-responsive img-thumbnail img-fluid" style="max-width:800px;" src="@Url.Action("img", "Files", new { id=item.Key })" />
+                    </a>
+
+                </div>
+
+                <div>
+                    <div class="col-lg-2 col-md-3  col-sm-6 col-xs-3 " style="font-size:55px;">
+                        <i class="fa fa-square-o fa-6" aria-hidden="true" value="@Html.Raw(item.Key)"></i>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     }
-}
+</div>
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js.map"></script>
     <script>
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+
         $('i.fa').click(function () {
             $(this).toggleClass('fa-square-o');
             $(this).toggleClass('fa-check-square-o');
