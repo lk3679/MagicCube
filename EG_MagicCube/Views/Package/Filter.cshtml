@@ -1,10 +1,10 @@
 ﻿@model EG_MagicCube.Models.ViewModel.AdSearchViewModel
 
 @{
-    ViewBag.Title = "篩選";
+    ViewBag.Title = "作品篩選";
 }
 
-<h2>篩選條件</h2>
+<h2>作品篩選</h2>
 
 
 @using (Html.BeginForm())
@@ -149,7 +149,7 @@
 }
 
 <div>
-    @Html.ActionLink("返回包裝清單", "Index", "Package", new { @class = "btn btn-default" })
+    @Html.ActionLink("返回包裝列表", "Index", "Package", new { @class = "btn btn-default" })
 </div>
 
 @section Scripts {

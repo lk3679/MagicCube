@@ -8,93 +8,34 @@
 
 <div class="form-horizontal">
     @*<h4>PackageViewModel</h4>*@
-    @*<hr />*@
-    <dl class="dl-horizontal">
-        @*<dt>
-                @Html.DisplayNameFor(model => model.PG_No)
-            </dt>*@
-        <dd>
-            @Html.HiddenFor(model => model.PG_No, new { htmlAttributes = new { } })
-        </dd>
-        @*<dt>
-                @Html.DisplayNameFor(model => model.PG_Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.PG_Name)
-            </dd>*@
-        @*<dt>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EndDate)
-            </dd>*@
-        <dt>
-            @Html.DisplayNameFor(model => model.WorksAmount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.WorksAmount)
-        </dd>
-        @*<dt>
-                @Html.DisplayNameFor(model => model.Budget)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Budget)
-            </dd>*@
-        <dt>
-            @Html.DisplayNameFor(model => model.Summary)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Summary)
-        </dd>
-
-    </dl>
-    <div class="itemContainer">
-        @if (Model.WorksList != null && Model.WorksList.Count > 0)
-        {
-            foreach (var items in Model.WorksList)
-            {
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  item">
-                    <a href="@Url.Action("Details","Works",new { id = items.No , p = Model.PG_No})">
-                        <div>
-                            <div>
-                                @Html.LabelFor(WorksListitem => items.MiniImg, htmlAttributes: new { @class = "control-label " })
-                            </div>
-                            <img src="data:image/png;base64,@Html.Raw(items.MiniImg)" style="width:100%;" />
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    @Html.LabelFor(WorksListitem => items.Author, htmlAttributes: new { @class = "control-label " })
-                                    @Html.DisplayFor(WorksListitem => items.Author, new { htmlAttributes = new { @class = "form-control" } })
-                                </div>
-                            </div>
-                            <div>
-                                <div>
-                                    @Html.LabelFor(WorksListitem => items.Name, htmlAttributes: new { @class = "control-label " })
-                                    @Html.DisplayFor(WorksListitem => items.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                </div>
-                            </div>
-                            @*<div>
-                                    <div>
-                                        @Html.LabelFor(WorksListitem => items.Size, htmlAttributes: new { @class = "control-label " })
-                                        @Html.DisplayFor(WorksListitem => items.Size, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div>
-                                </div>*@
-                            <div>
-                                <div>
-                                    @Html.LabelFor(WorksListitem => items.Price, htmlAttributes: new { @class = "control-label " })
-                                    @Html.DisplayFor(WorksListitem => items.Price, new { htmlAttributes = new { @class = "form-control" } })
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            }
-        }
+    <hr />
+    @Html.DisplayNameFor(model => model.WorksAmount)：@Html.DisplayFor(model => model.WorksAmount)
+    @Html.DisplayNameFor(model => model.Summary)：@Html.DisplayFor(model => model.Summary)
+    <hr />
+    <div class="row">
+@if (Model.WorksList != null && Model.WorksList.Count > 0)
+{
+    foreach (var items in Model.WorksList)
+    {
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a href="@Url.Action("Details", "Works", new { id = items.No, p = Model.PG_No })">
+                    <img src="@Url.Action("img", "Files", new { id = items.MiniImgID })" alt="Lights" style="width:100%">
+                    <div class="caption">
+                        @*<p>Lorem ipsum...</p>*@
+                        @Html.LabelFor(WorksListitem => items.Author, htmlAttributes: new { @class = "control-label " })
+                        @Html.DisplayFor(WorksListitem => items.Author, new { htmlAttributes = new { @class = "form-control" } })
+                        <br/>
+                        @Html.LabelFor(WorksListitem => items.Name, htmlAttributes: new { @class = "control-label " })
+                        @Html.DisplayFor(WorksListitem => items.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+}
     </div>
+
+   
 </div>
 

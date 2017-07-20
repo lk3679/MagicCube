@@ -216,7 +216,8 @@ namespace EG_MagicCube.Controllers
                     {
                         No = valueistem[i].WorksNo,
                         Author = valueistem[i].AuthorsName,
-                        MiniImg = valueistem[i].WorksImg,
+                        //MiniImg = valueistem[i].WorksImg,
+                        MiniImgID = valueistem[i].WorksImgID,
                         Name = valueistem[i].WorksName,
                         Price = valueistem[i].Price.ToString()
                     });
@@ -304,7 +305,8 @@ namespace EG_MagicCube.Controllers
                 {
                     No = value.PackageItems[i].WorksNo,
                     Author = value.PackageItems[i].AuthorsName,
-                    MiniImg = value.PackageItems[i].WorksImg,
+                    //MiniImg = value.PackageItems[i].WorksImg,
+                    MiniImgID = value.PackageItems[i].WorksImgID,
                     Name = value.PackageItems[i].WorksName,
                     Price = value.PackageItems[i].Price.ToString(),
                     Checked = value.PackageItems[i].IsJoin == "Y"
