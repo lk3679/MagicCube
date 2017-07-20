@@ -122,6 +122,7 @@ namespace EG_MagicCube.Controllers
                         Selected = Input_AccountModel.RoleNo == _AccountRole.MenuID
                     });
                 }
+                Input_AccountModel.UserAccountsNo = id;
                 ViewBag.AccountRoleList = AccountRoleList;
                 Input_AccountModel.Update();
                 return RedirectToAction("Index");
