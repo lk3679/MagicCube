@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<EG_MagicCube.Models.AccountModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "帳號列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2></h2>
+<h2>帳號列表</h2>
 
 <p>
-    @Html.ActionLink("新增帳號", "Create")
+    @Html.ActionLink("新增帳號", "Create", null, new { @class = "btn btn-default" })
 </p>
 <table class="table">
     <tr>
@@ -42,9 +42,9 @@
 
        
         <td>
-            @Html.ActionLink("設定", "Edit", new {  id= item.UserAccountsNo }) |
+            @Html.ActionLink("編輯", "Edit", new {  id= item.UserAccountsNo }) @*|
            
-            @Html.ActionLink("刪除", "Delete", new {  id= item.UserAccountsNo })
+            @Html.ActionLink("刪除", "Delete", new {  id= item.UserAccountsNo })*@
         </td>
     </tr>
 }

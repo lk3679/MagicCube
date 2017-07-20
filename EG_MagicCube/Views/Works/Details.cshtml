@@ -3,7 +3,12 @@
 @{
     ViewBag.Title = @Html.DisplayFor(model => model.WorksName) + " - " + @Html.DisplayFor(model => model.AuthorsName);
 }
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.css" rel="stylesheet" />
+<style>
+    .modal-dialog {
+        margin-top: 120px;
+    }
+</style>
 <h2>@Html.DisplayFor(model => model.WorksName)</h2>
 
 <div>
@@ -15,16 +20,16 @@
             @Html.ActionLink("編輯作品", "Edit", new { id = Model.WorksNo }, new { @class = "btn btn-default" })
             if (string.IsNullOrEmpty(Model.PackagesNo))
             {
-                @Html.ActionLink("檢視清單", "Index", "Works", new { @class = "btn btn-default" })
+                @Html.ActionLink("返回作品列表", "Index", "Works",null, new { @class = "btn btn-default" })
             }
             else
             {
-                @Html.ActionLink("包裝清單", "Detail_Works", "Package", new { id = Model.PackagesNo }, new { @class = "btn btn-default" })
+                @*@Html.ActionLink("包裝清單", "Detail_Works", "Package",  new { id = Model.PackagesNo }, new { @class = "btn btn-default" })*@
             }
         }
         else
         {
-            @Html.ActionLink("包裝清單", "Detail_Works", "Package", new { id = Model.PackagesNo }, new { @class = "btn btn-default" })
+            @*@Html.ActionLink("包裝清單", "Detail_Works", "Package",  new { id = Model.PackagesNo }, new { @class = "btn btn-default" })*@
         }
 
     </p>
@@ -141,3 +146,16 @@
 
 
 @Html.Action("Index", "Files", new { id = Model.WorksNo })
+
+@section Scripts {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js.map"></script>
+<script>
+ 
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+
+    </script>    
+}

@@ -31,5 +31,8 @@ namespace EG_MagicCube.Models.ViewModel
 
         [Display(Name = "作品縮圖")]
         public string MiniImg { get; set; }
+
+        [Display(Name = "作品縮圖ID")]
+        public string MiniImgID { get; set; }
     }
 }
