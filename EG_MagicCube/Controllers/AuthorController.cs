@@ -58,6 +58,31 @@ namespace EG_MagicCube.Controllers
         {
             try
             {
+                MenuModel mm = new MenuModel();
+                List<SelectListItem> AuthorAreaList = new List<SelectListItem>();
+                var _AuthorAreaList = mm.GetMenu(MenuModel.MenuClassEnum.AuthorArea);
+                for (int i = 0; i < _AuthorAreaList.Count; i++)
+                {
+                    AuthorAreaList.Add(new SelectListItem()
+                    {
+                        Text = _AuthorAreaList[i].MenuName,
+                        Value = _AuthorAreaList[i].MenuID.ToString()
+                    });
+                }
+                ViewBag.AuthorAreaList = AuthorAreaList;
+                ViewBag.AuthorAreaList = AuthorAreaList;
+
+                List<SelectListItem> AuthorTagList = new List<SelectListItem>();
+                var _AuthorTagList = mm.GetMenu(MenuModel.MenuClassEnum.AuthorTag);
+                for (int i = 0; i < _AuthorTagList.Count; i++)
+                {
+                    AuthorTagList.Add(new SelectListItem()
+                    {
+                        Text = _AuthorTagList[i].MenuName,
+                        Value = _AuthorTagList[i].MenuID.ToString()
+                    });
+                }
+                ViewBag.AuthorTagList = AuthorTagList;
                 // TODO: Add insert logic here
                 AuthorsModel_INPUT.Create();
                 return RedirectToAction("Index");
@@ -105,6 +130,31 @@ namespace EG_MagicCube.Controllers
         {
             try
             {
+                MenuModel mm = new MenuModel();
+                List<SelectListItem> AuthorAreaList = new List<SelectListItem>();
+                var _AuthorAreaList = mm.GetMenu(MenuModel.MenuClassEnum.AuthorArea);
+                for (int i = 0; i < _AuthorAreaList.Count; i++)
+                {
+                    AuthorAreaList.Add(new SelectListItem()
+                    {
+                        Text = _AuthorAreaList[i].MenuName,
+                        Value = _AuthorAreaList[i].MenuID.ToString()
+                    });
+                }
+                ViewBag.AuthorAreaList = AuthorAreaList;
+                ViewBag.AuthorAreaList = AuthorAreaList;
+
+                List<SelectListItem> AuthorTagList = new List<SelectListItem>();
+                var _AuthorTagList = mm.GetMenu(MenuModel.MenuClassEnum.AuthorTag);
+                for (int i = 0; i < _AuthorTagList.Count; i++)
+                {
+                    AuthorTagList.Add(new SelectListItem()
+                    {
+                        Text = _AuthorTagList[i].MenuName,
+                        Value = _AuthorTagList[i].MenuID.ToString()
+                    });
+                }
+                ViewBag.AuthorTagList = AuthorTagList;
                 AuthorsModel_INPUT.AuthorsNo = id;
                 // TODO: Add update logic here
                 AuthorsModel_INPUT.Update();
