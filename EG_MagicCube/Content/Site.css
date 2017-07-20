@@ -89,7 +89,7 @@ div.item {
     min-height: 500px;
 }
 
-img , textarea{
+img, textarea {
     width: 100%;
 }
 
@@ -105,3 +105,31 @@ textarea {
         -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
         box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
     }
+
+.redFont {
+    color: red;
+}
+
+table tr:nth-child(even) {
+    background-color: #f7f7f7;
+}
+
+table tr:hover {
+    background-color: #cecece;
+}
+
+@media not screen {
+    table td:last-child div {
+        visibility: visible;
+    }
+}
+
+@media only screen {
+    table td:last-child div {
+        visibility: hidden;
+    }
+
+    table tr:hover td:last-child div {
+        visibility: visible;
+    }
+}

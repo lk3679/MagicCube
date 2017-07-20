@@ -92,16 +92,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.AuthorsName)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.YearStart)~@Html.DisplayFor(modelItem => item.YearEnd)
+                <td>                    
+                    @Html.DisplayFor(modelItem => item.YearStart) @( item.YearStart == item.YearEnd ? "" : "~" + item.YearEnd.ToString())  
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.ActionLink("編輯", "Edit", new { id = item.WorksNo }) |
-                    @Html.ActionLink("介紹", "Details", new { id = item.WorksNo }) |
-                    @Html.ActionLink("編輯圖片", "Edit", "Files", new { id = item.WorksNo }, new { })
+                    <div>
+                        @Html.ActionLink("編輯", "Edit", new { id = item.WorksNo }) |
+                        @Html.ActionLink("介紹", "Details", new { id = item.WorksNo }) |
+                        @Html.ActionLink("編輯圖片", "Edit", "Files", new { id = item.WorksNo }, new { })
+                    </div>
                 </td>
             </tr>
         }
