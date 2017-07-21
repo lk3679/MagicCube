@@ -10,7 +10,8 @@
 @*@using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()*@
-<h2>推薦作品清單</h2>
+<h2>包裝名稱：@Model.PG_Name</h2>
+<h3>推薦作品清單</h3>
 <div>
     @Html.ActionLink("返回包裝詳細資訊", "Edit", new { id = Model.PG_No }, new { @class = "btn btn-default" })
 </div>

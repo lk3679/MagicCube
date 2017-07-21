@@ -20,27 +20,19 @@ namespace EG_MagicCube.Controllers
             {
                 MenuClass = Request.QueryString["MenuClass"] == null ? "" : Request.QueryString["MenuClass"];
             }
+
             if (MenuClass == "ALL")
             {
                 MenuClass = "";
             }
             List<Models.ViewModel.MenuViewModels> _MenuViewModelList = new List<Models.ViewModel.MenuViewModels>();
-            if (!string.IsNullOrEmpty(MenuClass))
+            MenuModel.MenuClassEnum _MenuClassEnum = MenuModel.MenuClassEnum.AuthorArea;
+            if(!string.IsNullOrEmpty(MenuClass))
             {
-                MenuModel.MenuClassEnum _MenuClassEnum = (MenuModel.MenuClassEnum)Enum.Parse(typeof(MenuModel.MenuClassEnum), MenuClass, true);
-                MenuModel _MenuModel = new MenuModel();
-                _MenuViewModelList.AddRange(_MenuModel.GetMenu(_MenuClassEnum).AsQueryable().Select(c => new Models.ViewModel.MenuViewModels() { MenuClass = c.MenuClass, MenuNo = c.MenuID.ToString(), MenuName = c.MenuName }));
+                _MenuClassEnum = (MenuModel.MenuClassEnum)Enum.Parse(typeof(MenuModel.MenuClassEnum), MenuClass, true);
             }
-            else
-            {
-                foreach (string strMenuClass in Enum.GetNames(typeof(MenuModel.MenuClassEnum)))
-                {
-
-                    MenuModel.MenuClassEnum _MenuClassEnum = (MenuModel.MenuClassEnum)Enum.Parse(typeof(MenuModel.MenuClassEnum), strMenuClass, true);
-                    MenuModel _MenuModel = new MenuModel();
-                    _MenuViewModelList.AddRange(_MenuModel.GetMenu(_MenuClassEnum).AsQueryable().Select(c => new Models.ViewModel.MenuViewModels() { MenuClass = c.MenuClass, MenuNo = c.MenuID.ToString(), MenuName = c.MenuName }));
-                }
-            }
+            MenuModel _MenuModel = new MenuModel();
+            _MenuViewModelList.AddRange(_MenuModel.GetMenu(_MenuClassEnum).AsQueryable().Select(c => new Models.ViewModel.MenuViewModels() { MenuClass = c.MenuClass, MenuNo = c.MenuID.ToString(), MenuName = c.MenuName }));
 
             List<SelectListItem> MenuClassList = new List<SelectListItem>();
             //MenuClassList.Add(new SelectListItem() { Value = "ALL", Text = "全部", Selected = string.IsNullOrEmpty(MenuClass) });
