@@ -30,8 +30,9 @@
             @Html.DisplayFor(modelItem => item.AuthorsEName)
         </td>
         <td>
-            @Html.ActionLink("編輯", "Edit", new {  id= item.AuthorsNo }) 
-          
+            <div>
+                @Html.ActionLink("編輯", "Edit", new { id = item.AuthorsNo })
+            </div>
         </td>
     </tr>
 }

@@ -14,7 +14,7 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "包裝名稱")]
         string PGName { get; set; }
 
-        [Display(Name = "預算")]
+        [Display(Name = "預算(萬)")]
         int Budget { get; set; }
 
         [Display(Name = "總計")]

@@ -37,13 +37,13 @@ namespace EG_MagicCube.Controllers
 
         // POST: Files/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(string id ,List<HttpPostedFileBase> Img)
         {
             try
             {
-                // TODO: Add insert logic here
+                WorksFilesModel.InsFile(id, Img);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit" , new { id = id});
             }
             catch
             {
@@ -59,6 +59,7 @@ namespace EG_MagicCube.Controllers
             {
                 Model = WorksFilesModel.GetFileList(id);
             }
+            ViewBag.pn = id;
             return View(Model);
             //else
             //{

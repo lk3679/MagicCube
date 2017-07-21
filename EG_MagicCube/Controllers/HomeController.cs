@@ -12,8 +12,8 @@ namespace EG_MagicCube.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Filter", "Package");
-            return View();
+            HttpCookie cookie = HttpContext.Request.Cookies.Get("PID");
+            return RedirectToAction("Edit_WorksList", "Package" , new { id = cookie.Value});
         }
 
         public ActionResult About()

@@ -36,8 +36,8 @@
             @Html.DisplayNameFor(model => model.EndDate)
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </th>*@
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.WorksAmount)
         </th>
@@ -57,13 +57,15 @@
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
                 @*<td>
-                    @Html.DisplayFor(modelItem => item.CreateDate)
-                </td>*@
+                        @Html.DisplayFor(modelItem => item.CreateDate)
+                    </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.WorksAmount)
                 </td>
                 <td>
-                    @Html.ActionLink("編輯", "Edit", new { id = item.PG_No }) 
+                    <div>
+                        @Html.ActionLink("編輯", "Edit", new { id = item.PG_No })
+                    </div>
                 </td>
             </tr>
         }
@@ -74,7 +76,8 @@
     {
         @Html.ActionLink("前一頁 ", "Index", new { p = (ViewBag.pi - 1) })
     }
-    @if (ViewBag.pi > 0 && ViewBag.pn > 0) { <text> | </text> }
+    @if (ViewBag.pi > 0 && ViewBag.pn > 0)
+    { <text> | </text> }
     @if (ViewBag.pn > 0)
     {
         @Html.ActionLink("後一頁", "Index", new { p = (ViewBag.pn) })
