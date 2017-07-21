@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-
+using EG_MagicCube.Models;
 namespace EG_MagicCube.Controllers
 {
     public class HomeController : BaseController
@@ -37,6 +37,7 @@ namespace EG_MagicCube.Controllers
             {
                 ModelState.AddModelError(string.Empty, TempData["ModelState"].ToString());
             }
+            
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index");
@@ -53,6 +54,9 @@ namespace EG_MagicCube.Controllers
         {
             if (model != null && ModelState.IsValid)
             {
+                bool IsAccount = false;
+                bool IsPwd = false;
+                AccountModel _AccountModel = AccountModel.Login(model.LoginAccount, model.Password, out IsAccount, out IsPwd);
                 if (true)
                 {
                     //Login成功
