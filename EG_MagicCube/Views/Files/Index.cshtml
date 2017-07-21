@@ -9,8 +9,8 @@
 
             <div style="line-height:250px;">
 
-                <a href="@Url.Action("img", "Files", new { id=item.Key })" style="width:250px;max-height:250px;" data-type="image" data-toggle="lightbox" data-gallery="example-gallery" style="line-height:250px;">
-                    <img class=".img-responsive img-thumbnail img-fluid" style="max-width:800px;" src="@Url.Action("img", "Files", new { id=item.Key })" />
+                <a href="@Url.Action("img", "Files", new { id=item.Key })" style="width:250px;max-height:250px;line-height:250px;" data-type="image" data-toggle="lightbox" data-gallery="example-gallery" >
+                    <img class=".img-responsive img-thumbnail img-fluid" style="max-width:800px;" data-original="@Url.Action("img", "Files", new { id=item.Key })" />
                 </a>
 
             </div>
@@ -25,4 +25,23 @@
         @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
     </div>*@
+}
+
+
+@section Scripts {
+    <script src="@Url.Content("~/Scripts/jquery.lazyload.js")"></script>
+    <script>
+        $(function () {
+            $("img").lazyload({
+                event: "lazyload",
+                effect: "fadeIn",
+                effectspeed: 1000
+            });
+        });
+        $(window).load("load resize scroll", function () {
+            var timeout = setTimeout(function () {
+                $("img").trigger("lazyload")
+            }, 2000);
+        });
+</script>
 }
