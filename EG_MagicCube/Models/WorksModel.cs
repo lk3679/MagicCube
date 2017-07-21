@@ -64,12 +64,12 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 成本價
         /// </summary>
-        [DisplayName("成本價")]
+        [DisplayName("成本(萬)")]
         public int Cost { get; set; } = 0;
         /// <summary>
         /// 定價
         /// </summary>
-        [DisplayName("定價")]
+        [DisplayName("定價(萬)")]
         public int Price { get; set; } = 0;
         /// <summary>
         /// 定價時間

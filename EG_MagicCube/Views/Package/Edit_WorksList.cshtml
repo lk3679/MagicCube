@@ -20,28 +20,32 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
         @*@Html.LabelFor(model => model.PG_No, htmlAttributes: new { @class = "control-label col-md-2" })*@
-        <div class="col-md-10 modelcont">
+        <div class="col-md-10 modelDisplayFor">
             @Html.HiddenFor(model => model.PG_No, new { htmlAttributes = new { @class = "form-control " } })
         </div>
     </div>
 
     @*<div class="form-group">
             @Html.LabelFor(model => model.PG_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10 modelcont">
+            <div class="col-md-10 modelDisplayFor">
                 @Html.DisplayFor(model => model.PG_Name)
             </div>
         </div>*@
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Budget, htmlAttributes: new { @class = "control-label col-md-2"  })
-        <div class="col-md-10 divBudget" data-Budget="@Model.Budget">
+        @Html.LabelFor(model => model.Budget, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 divBudget modelDisplayFor" data-Budget="@Model.Budget">
             @Html.DisplayFor(model => model.Budget)
         </div>
-        @Html.LabelFor(model => model.Summary, htmlAttributes: new { @class = "control-label col-md-2"  })
-        <div class="col-md-10 modelcont divSummary @(Model.Summary > Model.Budget ? " redFont" : "")" data-Summary="@Model.Summary">
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Summary, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 modelDisplayFor divSummary @(Model.Summary > Model.Budget ? " redFont" : "")" data-Summary="@Model.Summary">
             @Html.DisplayFor(model => model.Summary)
         </div>
     </div>
+
 
 
     <div class="row">
@@ -65,13 +69,15 @@
                                 <i class="fa fa-square-o fa-6" aria-hidden="true" value="@Html.Raw(items.No)" data-price="@items.Price"></i>
                             }
                         </div>
-                        <div class="caption">
+                        <div class="form-group caption">
                             @Html.LabelFor(WorksListitem => items.Author, htmlAttributes: new { @class = "col-md-4 control-label" })
-                            @Html.DisplayFor(WorksListitem => items.Author)
+                            <div class="col-md-8 modelDisplayFor">
+                                @Html.DisplayFor(WorksListitem => items.Author)
+                            </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group caption">
                             @Html.LabelFor(WorksListitem => items.Price, htmlAttributes: new { @class = "col-md-4 control-label" })
-                            <div class="col-md-8">
+                            <div class="col-md-8 modelDisplayFor">
                                 @Html.DisplayFor(WorksListitem => items.Price)
                             </div>
                         </div>
@@ -89,25 +95,25 @@
                         <div class="col-lg-4 col-md-5 col-sm-6 col-xs-9 ">
                             <div class="form-group">
                                 @Html.LabelFor(WorksListitem => items.Author, htmlAttributes: new { @class = "col-md-4 control-label" })
-                                <div class="col-md-8 modelcont">
+                                <div class="col-md-8 modelDisplayFor">
                                     @Html.DisplayFor(WorksListitem => items.Author)
                                 </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(WorksListitem => items.Name, htmlAttributes: new { @class = "col-md-4 control-label" })
-                                <div class="col-md-8 modelcont">
+                                <div class="col-md-8 modelDisplayFor">
                                     @Html.DisplayFor(WorksListitem => items.Name)
                                 </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(WorksListitem => items.Size, htmlAttributes: new { @class = "col-md-4 control-label" })
-                                <div class="col-md-8 modelcont">
+                                <div class="col-md-8 modelDisplayFor">
                                     @Html.DisplayFor(WorksListitem => items.Size)
                                 </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(WorksListitem => items.Price, htmlAttributes: new { @class = "col-md-4 control-label" })
-                                <div class="col-md-8 modelcont">
+                                <div class="col-md-8 modelDisplayFor">
                                     @Html.DisplayFor(WorksListitem => items.Price)
                                 </div>
                             </div>
@@ -145,8 +151,8 @@
                 dataType: "json",
                 success: function (data) {
                     var s = 0;
-                    
-                    if (_addtype) {                        
+
+                    if (_addtype) {
                         s = $('.divSummary').data('summary') + p;
                     }
                     else {

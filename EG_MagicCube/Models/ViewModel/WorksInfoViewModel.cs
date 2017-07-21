@@ -23,7 +23,7 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "尺寸")]
         public string Size { get; set; }
 
-        [Display(Name = "定價")]
+        [Display(Name = "定價(萬)")]
         public string Price { get; set; }
 
         [Display(Name = "選取")]
