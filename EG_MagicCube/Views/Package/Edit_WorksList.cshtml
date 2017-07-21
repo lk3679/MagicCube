@@ -135,7 +135,9 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="@Url.Content("~/Scripts/jquery.lazyload.js")"></script>
     <script>
+        $("img").lazyload({ threshold: 2000 });
         $('i.fa').click(function () {
             $(this).toggleClass('fa-square-o');
             $(this).toggleClass('fa-check-square-o');
