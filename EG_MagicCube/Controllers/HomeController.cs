@@ -13,6 +13,10 @@ namespace EG_MagicCube.Controllers
         public ActionResult Index()
         {
             HttpCookie cookie = HttpContext.Request.Cookies.Get("PID");
+            if (cookie==null)
+            {
+                return RedirectToAction("Index", "Package");
+            }
             return RedirectToAction("Edit_WorksList", "Package" , new { id = cookie.Value});
         }
 
