@@ -30,8 +30,8 @@ namespace EG_MagicCube
                       "~/Content/site.css",
                       "~/Content/select2.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/ckeditor").Include(
-                      "~/Scripts/ckeditor/ckeditor.js"));
+            bundles.Add(new ScriptBundle("~/bundles/lazyload").Include(
+                      "~/Scripts/jquery.lazyload.js"));
         }
     }
 }
