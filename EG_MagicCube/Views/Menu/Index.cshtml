@@ -115,6 +115,7 @@
                 $("#MenuNo").val($($(this).parent()).data("no"));
                 $("form").submit();
             });
+
             $(".MenuTags .MenuName").on("click", function (e) {
                 e.stopPropagation();
                 $("#MenuName").val($(this).text().replace("　", ""));
@@ -129,6 +130,10 @@
                 //$(this).data("no")
                 //$(this).data("class")
             });
+            $("#MenuClass").on("change", function () {
+                $("form").submit();
+            });
+
             $("#btnCancel").on("click", function () {
                 $(".MenuTags").show();
                 $("#btnSave").hide();
