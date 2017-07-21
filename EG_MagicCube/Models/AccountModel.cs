@@ -128,6 +128,60 @@ namespace EG_MagicCube.Models
 
         #region Read
         /// <summary>
+        /// 登入
+        /// </summary>
+        /// <param name="strAccount">帳號</param>
+        /// <param name="strPwd">密碼</param>
+        /// <param name="IsAccount">帳號是否存在</param>
+        /// <param name="IsPwd">帳號是否正確</param>
+        /// <returns></returns>
+        public static AccountModel Login(string strAccount,string strPwd,out bool IsAccount, out bool IsPwd)
+        {
+            IsPwd = false;
+            IsAccount = true;
+            AccountModel _AccountModel = null;
+            using (var context = new EG_MagicCubeEntities())
+            {
+                var UserAccount = context.UserAccounts?.AsQueryable()?.FirstOrDefault(c => c.UserAccount == strAccount);
+
+                if (UserAccount != null)
+                {
+                    IsPwd = PasswordHandler.CompareEncryptHashString(strPwd, UserAccount.Pwdself, UserAccount.Password);
+                    if (IsPwd)
+                    {
+                        _AccountModel = new AccountModel()
+                        {
+                            UserAccountsNo = UserAccount.UserAccountsNo,
+                            Name = UserAccount.Name,
+                            UserAccount = UserAccount.UserAccount,
+                            Password = UserAccount.Password,
+                            Password_Confirm = UserAccount.Password,
+                            Pwdself = UserAccount.Pwdself,
+
+                            AccountStatus = UserAccount.AccountStatus,
+                            AccountNote = UserAccount.AccountNote,
+                            RoleNo = UserAccount.RoleNo,
+                            CreateDate = UserAccount.CreateDate,
+                            CreateUser = UserAccount.CreateUser,
+                            ModifyDate = UserAccount.ModifyDate.Value,
+                            ModifyUser = UserAccount.ModifyUser
+                        };
+                    }
+                    IsAccount = true;
+                }
+                else
+                {
+                    IsAccount = false;
+                }
+
+
+            }
+
+            return _AccountModel;
+        }
+
+
+        /// <summary>
         /// 取得帳號明細
         /// </summary>
         /// <param name="UserAccountsNo"></param>

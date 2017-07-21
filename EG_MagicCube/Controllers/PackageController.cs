@@ -311,8 +311,15 @@ namespace EG_MagicCube.Controllers
                     Price = value.PackageItems[i].Price.ToString(),
                     Checked = value.PackageItems[i].IsJoin == "Y"
                 });
-                model.Summary += value.PackageItems[i].Price;
+                if (model.WorksList[i].Checked)
+                {
+                    model.Summary += value.PackageItems[i].Price;
+                }
             }
+            HttpCookie cookie = new HttpCookie("PID");
+            cookie.Value = id;
+            HttpContext.Response.Cookies.Remove("PID");
+            HttpContext.Response.SetCookie(cookie);
             return View(model);
         }
 

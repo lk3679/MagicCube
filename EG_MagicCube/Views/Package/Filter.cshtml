@@ -17,25 +17,11 @@
             </div>
         </div>
 
-        <div class="form-group">           
-            @Html.LabelFor(model => model.AuthorNoList, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.AuthorNoList, htmlAttributes: new { @class = "control-label col-md-2 " })
             <div class="col-md-10">
                 @Html.Hidden("AuthorNo_InputStringHide", string.Join(",", string.Join(",", Model.AuthorNoList ?? new List<string>())))
                 @Html.DropDownListFor(model => model.AuthorNoList, (IEnumerable<SelectListItem>)ViewBag.Authors, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Price_U, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Price_U, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Price_L, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Price_L, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
@@ -47,78 +33,79 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MineLength, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MineLength, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.MineLength, htmlAttributes: new { @class = "control-label col-md-2 " })
+            <div>
+                <div class="col-md-5 col-xs-6">
+                    @Html.EditorFor(model => model.MineLength, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-5 col-xs-6">
+                    @Html.EditorFor(model => model.MaxLength, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MaxLength, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaxLength, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.MineWidth, htmlAttributes: new { @class = "control-label col-md-2 " })
+            <div>
+                <div class="col-md-5 col-xs-6">
+                    @Html.EditorFor(model => model.MineWidth, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-5 col-xs-6">
+                    @Html.EditorFor(model => model.MaxWidth, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MineWidth, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MineWidth, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.MineHeight, htmlAttributes: new { @class = "control-label col-md-2 " })
+            <div>
+                <div class="col-md-5 col-xs-6">
+                    @Html.EditorFor(model => model.MineHeight, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-5 col-xs-6">
+                    @Html.EditorFor(model => model.MaxHeight, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MaxWidth, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaxWidth, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MineHeight, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MineHeight, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaxHeight, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaxHeight, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MineDeep, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MineDeep, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaxDeep, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaxDeep, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.MineDeep, htmlAttributes: new { @class = "control-label col-md-2 " })
+            <div>
+                <div class="col-md-5 col-xs-6">
+                    @Html.EditorFor(model => model.MineDeep, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-5 col-xs-6">
+                    @Html.EditorFor(model => model.MaxDeep, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.MineTimeLength, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MineTimeLength, new { htmlAttributes = new { @class = "form-control" } })
+            <div>
+                <div class="col-md-5 col-xs-6">
+                    @Html.EditorFor(model => model.MineTimeLength, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-5 col-xs-6">
+                    @Html.EditorFor(model => model.MaxTimeLength, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MaxTimeLength, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaxTimeLength, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.Price_U, htmlAttributes: new { @class = "control-label col-md-2 " })
+            <div>
+                <div class="col-md-5 col-xs-6">
+                    @Html.EditorFor(model => model.Price_U, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-5 col-xs-6">
+                    @Html.EditorFor(model => model.Price_L, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.GenreNoList, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">                              
+            <div class="col-md-10">
                 @Html.Hidden("GenreNo_InputStringHide", string.Join(",", string.Join(",", Model.GenreNoList ?? new List<string>())))
                 @Html.DropDownList("GenreNoList", (IEnumerable<SelectListItem>)ViewBag.GenreNoList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
             </div>
@@ -176,8 +163,9 @@
 
             var oStyleNo = $('#StyleNo_InputStringHide').val().split(',');
             for (var i = 0; i < oStyleNo.length; i++) {
-                $('#StyleNoList  option[value="' + oStyleNo[i] + '"]').attr('selected', 'selected');            }
+                $('#StyleNoList  option[value="' + oStyleNo[i] + '"]').attr('selected', 'selected');
+            }
             $("#StyleNoList").trigger("change");
-        });        
+        });
     </script>
 }
