@@ -27,8 +27,12 @@ body {
 /* Set width on the form input elements since they're 100% wide by default */
 
 
-textarea {
-    /*max-width: 280px;*/
+textarea.form-control {
+    padding: 5px 10px;
+}
+
+input.form-control {
+    height: 32px;
 }
 
 .modelDisplayFor {
@@ -50,39 +54,6 @@ a.navbar-brand img {
 div.container {
     margin-top: 40px;
 }
-
-/*@media screen and (max-width: 576px) {
-    .itemContainer {
-        column-count: 1;
-        -moz-columns: 1;
-        -o-columns: 1;
-        -webkit-columns: 1;
-    }
-}
-@media screen and (min-width: 576px) and (max-width: 768px) {
-    .itemContainer {
-        column-count: 2;
-        -moz-columns: 2;
-        -o-columns: 2;
-        -webkit-columns: 2;
-    }
-}
-@media screen and (min-width: 768px) and (max-width: 992px) {
-    .itemContainer {
-        column-count: 3;
-        -moz-columns: 3;
-        -o-columns: 3;
-        -webkit-columns: 3;
-    }
-}
-@media screen and (min-width: 992px) {
-    .itemContainer {
-        column-count: 4;
-        -moz-columns: 4;
-        -o-columns: 4;
-        -webkit-columns: 4;
-    }
-}*/
 
 div.item {
     float: left;
@@ -117,6 +88,31 @@ table tr:nth-child(even) {
 table tr:hover {
     background-color: #cecece;
 }
+
+.nonpadding  label.control-label {
+    line-height: 20px;
+    overflow: hidden;
+    /*text-overflow: ellipsis;*/
+    white-space: nowrap;
+    display: block;
+    text-align: right;
+    padding-right: 0;
+}
+
+.nonpadding label {
+    padding: 0 0 0 5px;
+    margin-bottom: 5px;
+}
+
+.nonpadding div {
+    padding: 0 0 0 5px;
+    margin-bottom:5px;
+}
+
+span.select2-container .select2-selection--single {
+    height: 32px;
+}
+
 
 @media not screen {
     table td:last-child div {

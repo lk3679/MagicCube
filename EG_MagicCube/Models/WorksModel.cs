@@ -49,7 +49,7 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 作品起始年分
         /// </summary>
-        [DisplayName("作品起始年分")]
+        [DisplayName("起始年分")]
         public short YearStart { get; set; } = 0;
         /// <summary>
         /// 作品結束年分
@@ -140,7 +140,7 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 上傳作品檔案
         /// </summary>
-        [DisplayName("上傳作品檔案")]
+        [DisplayName("上傳作品")]
         public List<HttpPostedFileBase> UploadWorksFiles { get; set; } = new List<HttpPostedFileBase>();
         /// <summary>
         /// 作品組件
@@ -161,7 +161,7 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 作品所有人
         /// </summary>
-        [DisplayName("作品所有人")]
+        [DisplayName("所有人")]
         public List<MenuViewModel> WorksPropOwnerList { get; set; } = new List<MenuViewModel>();
         /// <summary>
         /// 新增修改作品所有人清單字串，用,分隔
