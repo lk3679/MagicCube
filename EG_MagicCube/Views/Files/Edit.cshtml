@@ -6,13 +6,13 @@
     }
 </style>
 <h2>圖片列表</h2>
-<div class="">
-    <div>
-        @Html.ActionLink("返回作品列表", "Index", "Works", null, new { @class = "btn btn-warning" })
-    </div>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  text-right">
-        <input type="button" id="delete-btn" class="btn btn-danger" value="刪除">
-    </div>
+<div class="col-xs-12" style="margin-bottom: 15px;">
+    @Html.ActionLink("返回作品列表", "Index", "Works", null, new { @class = "btn btn-warning pull-right" })
+</div>
+<div class="col-xs-12">
+    <input type="button" id="delete-btn" class="btn btn-danger pull-right fixed-top" value="刪除">
+</div>
+<div class="">    
     @using (Html.BeginForm("Create", "Files", FormMethod.Post, new { enctype = "multipart/form-data", id = "CreateFiles" }))
     {
         <div class="form-group">
@@ -23,72 +23,6 @@
             </div>
         </div>
     }
-
-    <div class="row fileupload-buttonbar">
-        <div class="col-lg-7">
-            <!-- The fileinput-button span is used to style the file input field as button -->
-            <span class="btn btn-success fileinput-button">
-                <i class="glyphicon glyphicon-plus"></i>
-                <span>Add files...</span>
-                <input type="file" name="files[]" multiple="">
-            </span>
-            <button type="submit" class="btn btn-primary start">
-                <i class="glyphicon glyphicon-upload"></i>
-                <span>Start upload</span>
-            </button>
-            <button type="reset" class="btn btn-warning cancel">
-                <i class="glyphicon glyphicon-ban-circle"></i>
-                <span>Cancel upload</span>
-            </button>
-            <button type="button" class="btn btn-danger delete">
-                <i class="glyphicon glyphicon-trash"></i>
-                <span>Delete</span>
-            </button>
-            <input type="checkbox" class="toggle">
-            <!-- The global file processing state -->
-            <span class="fileupload-process"></span>
-        </div>
-        <!-- The global progress state -->
-        <div class="col-lg-5 fileupload-progress fade">
-            <!-- The global progress bar -->
-            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-            </div>
-            <!-- The extended global progress state -->
-            <div class="progress-extended">&nbsp;</div>
-        </div>
-        <script id="template-upload" type="text/x-tmpl">
-            {% for (var i=0, file; file=o.files[i]; i++) { %}
-            <tr class="template-upload fade">
-                <td>
-                    <span class="preview"></span>
-                </td>
-                <td>
-                    <p class="name">{%=file.name%}</p>
-                    <strong class="error text-danger"></strong>
-                </td>
-                <td>
-                    <p class="size">Processing...</p>
-                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
-                </td>
-                <td>
-                    {% if (!i && !o.options.autoUpload) { %}
-                    <button class="btn btn-primary start" disabled>
-                        <i class="glyphicon glyphicon-upload"></i>
-                        <span>Start</span>
-                    </button>
-                    {% } %}
-                    {% if (!i) { %}
-                    <button class="btn btn-warning cancel">
-                        <i class="glyphicon glyphicon-ban-circle"></i>
-                        <span>Cancel</span>
-                    </button>
-                    {% } %}
-                </td>
-            </tr>
-            {% } %}
-        </script>
-    </div>
 </div>
 <div class="row">
     @if (Model != null && Model.Count > 0)
@@ -122,6 +56,7 @@
     }
 </div>
 
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js"></script>
@@ -137,11 +72,11 @@
             $(this).ekkoLightbox();
         });
 
-        //$('input[type="file"]').change(function () {
-        //    if (this.files.length > 0) {
-        //        $('#CreateFiles').submit();
-        //    }
-        //});
+        $('input[type="file"]').change(function () {
+            if (this.files.length > 0) {
+                $('#CreateFiles').submit();
+            }
+        });
 
         $('div.imgdiv').click(function () {
             $(this).parent().toggleClass('selected');
