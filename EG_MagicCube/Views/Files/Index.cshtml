@@ -9,8 +9,8 @@
 
             <div style="line-height:250px;">
 
-                <a href="@Url.Action("img", "Files", new { id=item.Key })" style="width:250px;max-height:250px;line-height:250px;" data-type="image" data-toggle="lightbox" data-gallery="example-gallery" >
-                    <img class=".img-responsive img-thumbnail img-fluid" style="max-width:800px;" data-original="@Url.Action("img", "Files", new { id=item.Key })" />
+                <a href="@item.Value" style="width:250px;max-height:250px;line-height:250px;" data-type="image" data-toggle="lightbox" data-gallery="example-gallery" >
+                    <img class=".img-responsive img-thumbnail img-fluid" style="max-width:800px;" data-original="@item.Value" />
                 </a>
 
             </div>

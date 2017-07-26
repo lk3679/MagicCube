@@ -20,7 +20,7 @@
         <div class="col-md-4">
             <div class="thumbnail">
                 <a href="@Url.Action("Details", "Works", new { id = items.No, p = Model.PG_No })">
-                    <img src="@Url.Action("img", "Files", new { id = items.MiniImgID })" alt="Lights" style="width:100%">
+                    <img src="@items.MiniImg" alt="Lights" style="width:100%">
                     <div class="caption">
                         @*<p>Lorem ipsum...</p>*@
                         @Html.LabelFor(WorksListitem => items.Author, htmlAttributes: new { @class = "control-label " })
