@@ -20,14 +20,14 @@ namespace EG_MagicCube.Models
         /// </summary>
         public string MaterialsID { get; set; } = "";
         /// <summary>
-        /// 藝術家中文名稱
+        /// 藝術家中文姓名
         /// </summary>
-        [Display(Name = "藝術家中文名稱", Prompt = "藝術家中文名稱")]
+        [Display(Name = "藝術家中文姓名", Prompt = "藝術家中文姓名")]
         public string AuthorsCName { get; set; } = "";
         /// <summary>
-        /// 藝術家外文名稱
+        /// 藝術家外文姓名
         /// </summary>
-        [Display(Name = "藝術家外文名稱", Prompt = "藝術家外文名稱")]
+        [Display(Name = "藝術家外文姓名", Prompt = "藝術家外文姓名")]
         public string AuthorsEName { get; set; } = "";
         /// <summary>
         /// 建立者
