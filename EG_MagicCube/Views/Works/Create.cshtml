@@ -5,14 +5,14 @@
 }
 
 <h2>新增作品</h2>
-
+<div class="col-xs-12">
+    @Html.ActionLink("返回作品列表", "Index", "Works", null, new { @class = "btn btn-warning pull-right" })
+</div>
 @using (Html.BeginForm("Create", "Works", FormMethod.Post, new { enctype = "multipart/form-data", id = "CreateForm" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4></h4>
-        <hr />
+    <div class="form-horizontal">       
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         
         <div class="nonpadding">
@@ -57,23 +57,20 @@
 
                 <label class="control-label col-md-2 col-xs-3" for="height">高</label>
                 <div class="col-md-4 col-xs-3">
-                    <input class="form-control text-box single-line" data-val="true" data-val-number="The field 高 must be a number." data-val-required="高 欄位是必要項。"
-                           id="height" name="height" type="number" value="">
+                    <input class="form-control text-box single-line" data-val="true" id="height" name="height" type="number" value="">
                     <span class="field-validation-valid text-danger" data-valmsg-for="height" data-valmsg-replace="true"></span>
                 </div>
             </div>
             <div class="col-md-6 col-xs-12">
                 <label class="control-label col-md-2 col-xs-3" for="width">寬</label>
                 <div class="col-md-4 col-xs-3">
-                    <input class="form-control text-box single-line" data-val="true" data-val-number="The field 寬 must be a number." data-val-required="寬 欄位是必要項。"
-                           id="width" name="width" type="number" value="">
+                    <input class="form-control text-box single-line" data-val="true" id="width" name="width" type="number" value="">
                     <span class="field-validation-valid text-danger" data-valmsg-for="width" data-valmsg-replace="true"></span>
                 </div>
 
                 <label class="control-label col-md-2 col-xs-3" for="deep">深</label>
                 <div class="col-md-4 col-xs-3">
-                    <input class="form-control text-box single-line" data-val="true" data-val-number="The field 深 must be a number." data-val-required="深 欄位是必要項。"
-                           id="deep" name="deep" type="number" value="">
+                    <input class="form-control text-box single-line" id="deep" name="deep" type="number" value="">
                     <span class="field-validation-valid text-danger" data-valmsg-for="deep" data-valmsg-replace="true"></span>
                 </div>
             </div>
@@ -86,8 +83,7 @@
 
                 <label class="control-label col-md-2 col-xs-3" for="nums">數量單位</label>
                 <div class="col-md-4 col-xs-3">
-                    <input class="form-control text-box single-line"
-                           id="nums" name="nums" type="number" value="" data-val="true" data-val-number="The field 數量 must be a number." data-val-required="數量 欄位是必要項。">
+                    <input class="form-control text-box single-line" id="nums" name="nums" type="number" value="" >
                     <span class="field-validation-valid text-danger" data-valmsg-for="nums" data-valmsg-replace="true"></span>
                 </div>
             </div>
@@ -251,16 +247,14 @@
                 @*<img id="imgPreview" style="max-width: 150px;" />*@
             </div>
 
-            <div class="col-md-offset-2 col-md-3 col-xs-9">
-                <input type="submit" value="儲存" class="btn btn-default" />
+            <div class="col-xs-4 pull-right text-right">
+                <input type="submit" value="儲存" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
-<div class="row col-xs-12">
-    @Html.ActionLink("返回作品列表", "Index", "Works", null, new { @class = "btn btn-default" })
-</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

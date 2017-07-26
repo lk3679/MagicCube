@@ -29,8 +29,8 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "建立時間")]
         public DateTime CreateDate { get; set; }
 
-        [Display(Name = "作品數量")]
-        public int WorksAmount { get; set; }
+        [Display(Name = "已選推薦")]
+        public string WorksAmount { get; set; }
 
         [Display(Name = "預算(萬)")]
         public int Budget { get; set; }
