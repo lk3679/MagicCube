@@ -9,10 +9,39 @@ namespace EG_MagicCube.Controllers
     public class AuthorController : Controller
     {
         // GET: Author
-        public ActionResult Index()
+        public ActionResult Index(int p = 1)
         {
+            int take = 10;
+            List<AuthorsModel> AuthorsModelList = AuthorsModel.GetAuthorList("",p, take + 1);
+            //多取一，若有表示有下一頁
+            if (AuthorsModelList.Count == (take + 1))
+            {
+                ViewBag.pn = p + 1;
+                AuthorsModelList.RemoveAt(take);
+            }
+            else
+            {
+                ViewBag.pn = 0;
+            }
+            ViewBag.pi = p;
+            return View(AuthorsModelList);
+        }
 
-           List<AuthorsModel> AuthorsModelList = AuthorsModel.GetAuthorList();
+        [HttpPost]
+        public ActionResult Index(AuthorsModel collection, int p = 1)
+        {
+            int take = 10;
+            List<AuthorsModel> AuthorsModelList = AuthorsModel.GetAuthorList(collection.AuthorsCName, p, take + 1);
+            if (AuthorsModelList.Count == (take + 1))
+            {
+                ViewBag.pn = p + 1;
+                AuthorsModelList.RemoveAt(take);
+            }
+            else
+            {
+                ViewBag.pn = 0;
+            }
+            ViewBag.pi = p;
             return View(AuthorsModelList);
         }
 

@@ -92,7 +92,7 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 包裝項目數量
         /// </summary>
-        public int ItemAmount { get; set; } = 0;
+        public string ItemAmount { get; set; } = "";
         /// <summary>
         /// 預算
         /// </summary>
@@ -197,7 +197,7 @@ namespace EG_MagicCube.Models
                                    ModifyDate = c.ModifyDate,
                                    SearchJson = c.SearchJson,
                                    PackagesMemo = c.PackagesMemo,
-                                   ItemAmount = c.PackageItems.Where(pi => pi.IsJoin == "Y").Count()
+                                   ItemAmount = c.PackageItems.Where(pi => pi.IsJoin == "Y").Count().ToString() + " (" + c.PackageItems.Count.ToString() + ")"
                                    //,PackageItems = c.PackageItems.Select(pi => new PackageItemModel()
                                    //{
                                    //    WorksNo = pi.WorksNo.ToString(),
@@ -241,17 +241,17 @@ namespace EG_MagicCube.Models
                                       ModifyDate = c.ModifyDate,
                                       SearchJson = c.SearchJson,
                                       PackagesMemo = c.PackagesMemo,
-                                      ItemAmount = c.PackageItems.Where(pi => pi.IsJoin == "Y").Count()
-                                                      //,PackageItems = c.PackageItems.Select(pi => new PackageItemModel()
-                                                      //{
-                                                      //    WorksNo = pi.WorksNo.ToString(),
-                                                      //    WorksName = pi.Works.WorksName,
-                                                      //    Price = pi.Works.Price,
-                                                      //    AuthorsName = pi.Works.WorksAuthors.FirstOrDefault().Authors.AuthorsCName,
-                                                      //    IsJoin = pi.IsJoin
-                                                      //}
-                                                      //).ToList()
-                                                  }
+                                      ItemAmount = c.PackageItems.Where(pi => pi.IsJoin == "Y").Count().ToString() + " (" + c.PackageItems.Count.ToString() + ")"
+                                      //,PackageItems = c.PackageItems.Select(pi => new PackageItemModel()
+                                      //{
+                                      //    WorksNo = pi.WorksNo.ToString(),
+                                      //    WorksName = pi.Works.WorksName,
+                                      //    Price = pi.Works.Price,
+                                      //    AuthorsName = pi.Works.WorksAuthors.FirstOrDefault().Authors.AuthorsCName,
+                                      //    IsJoin = pi.IsJoin
+                                      //}
+                                      //).ToList()
+                                  }
 
                                ).FirstOrDefault();
                 }
