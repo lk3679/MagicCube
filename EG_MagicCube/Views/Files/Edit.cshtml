@@ -114,7 +114,7 @@
                         <i class="fa fa-check fa-6" aria-hidden="true" value="@Html.Raw(item.Key)"></i>
                     </div>
                     <div class="imgdiv col-xs-12">
-                        <img class=".img-responsive" data-original="@Url.Action("img", "Files", new { id=item.Key })" />
+                        <img class=".img-responsive" data-original="@item.Value" />
                     </div>
                 </div>
             </div>

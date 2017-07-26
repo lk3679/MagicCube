@@ -45,7 +45,7 @@
                             <i class="fa fa-check fa-6" aria-hidden="true" value="@Html.Raw(items.No)" data-price="@items.Price"></i>
                         </div>
                         <div class="imgdiv col-xs-12 text-center">
-                            <img class=".img-responsive" data-original="@Url.Action("img", "Files", new { id=items.MiniImgID })" alt="Red dot" style="max-width:350px;" />
+                            <img class=".img-responsive" data-original="@items.MiniImg" alt="Red dot" style="max-width:350px;" />
                         </div>
                         <div class="col-xs-12 bf-caption">
                             <a target="_blank" href="@Url.Action("Details", "Works", new { id = items.No, p = Model.PG_No })">
