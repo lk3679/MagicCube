@@ -9,7 +9,10 @@ using System.Web;
 using System.Drawing;
 using System.IO;
 using ImageMagick;
-
+using Microsoft.Azure;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.File;
 namespace EG_MagicCube.Models
 {
     public class WorksFilesModel
@@ -71,15 +74,21 @@ namespace EG_MagicCube.Models
             Guid Guid_WorksNo = Guid.Parse(WorksNo);
             using (var context = new EG_MagicCubeEntities())
             {
-                foreach (HttpPostedFileBase _Files in UploadWorksFiles)
+                if (UploadWorksFiles != null)
                 {
-                    string base64_file = WorksModel.FileToBase64(_Files);
-                    context.WorksFiles.Add(new WorksFiles() { WorksNo = Guid_WorksNo, FileBase64Str = base64_file });
+                    foreach (HttpPostedFileBase _Files in UploadWorksFiles)
+                    {
+                        string s = SaveToAzure(_Files);
+                        context.WorksFiles.Add(new WorksFiles() { WorksNo = Guid_WorksNo, FileBase64Str = s });
+                        //string base64_file = WorksModel.FileToBase64(_Files);
+                        //context.WorksFiles.Add(new WorksFiles() { WorksNo = Guid_WorksNo, FileBase64Str = base64_file });
+                    }
+                    if (context.SaveChanges() == 0)
+                    {
+                        return false;
+                    }
                 }
-                if (context.SaveChanges() == 0)
-                {
-                    return false;
-                }
+
             }
             return true;
         }
@@ -136,7 +145,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.WorksFiles.Count() > 0)
                 {
-                    FileList = context.WorksFiles.AsEnumerable().Where(c => c.WorksNo == Guid_WorksNo).Select(c => new { Key = c.WorksFilesNo, Value = c.FileBase64Str }).AsEnumerable().ToDictionary(c => c.Key, c => c.Value);
+                    FileList = context.WorksFiles.AsQueryable().Where(c => c.WorksNo == Guid_WorksNo).Select(c => new { Key = c.WorksFilesNo, Value = c.FileBase64Str }).AsEnumerable().ToDictionary(c => c.Key, c => c.Value);
                 }
             }
             return FileList;
@@ -159,23 +168,63 @@ namespace EG_MagicCube.Models
         /// <returns></returns>
         public static bool DelFile(List<long> WorksFilesNoList)
         {
-            using (var context = new EG_MagicCubeEntities())
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+            CloudBlobClient _CloudBlobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = _CloudBlobClient.GetContainerReference("worksimg");
+
+            long[] WorksFilesNoArray = WorksFilesNoList.ToArray();
+            if (WorksFilesNoArray != null && WorksFilesNoArray.Length > 0)
             {
-                var WorksFilesList = context.WorksFiles.AsEnumerable().Where(c => WorksFilesNoList.Contains(c.WorksFilesNo)).Select(c => c);
-                if (WorksFilesList != null)
+                using (var context = new EG_MagicCubeEntities())
                 {
-                    foreach (WorksFiles _WorksFiles in WorksFilesList.ToList())
+                    var WorksFilesList = context.WorksFiles.AsQueryable().Where(c => WorksFilesNoArray.Contains(c.WorksFilesNo)).Select(c => c).ToList();
+                    if (WorksFilesList != null)
                     {
-                        context.WorksFiles.Remove(_WorksFiles);
+                        foreach (var _WorksFiles in WorksFilesList)
+                        {
+                            string filename = _WorksFiles.FileBase64Str.Substring(_WorksFiles.FileBase64Str.LastIndexOf("/")+1);
+                            CloudBlockBlob blockBlob = container.GetBlockBlobReference(filename);
+                            if (blockBlob.Exists())
+                            {
+                                blockBlob.Delete();
+                            }
+                            context.WorksFiles.Remove(_WorksFiles);
+                        }
+                    }
+                    if (context.SaveChanges() == 0)
+                    {
+                        return false;
                     }
                 }
-                if (context.SaveChanges() == 0)
-                {
-                    return false;
-                }
+            }
+            else
+            {
+                return false;
             }
 
             return true;
+        }
+
+        public bool DelAzure()
+        {
+            return true;
+        }
+        public static string SaveToAzure(HttpPostedFileBase UploadWorksFiles)
+        {
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+
+            CloudBlobClient _CloudBlobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = _CloudBlobClient.GetContainerReference("worksimg");
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(Guid.NewGuid().ToString() + ".jpg");
+
+            blockBlob.Properties.ContentType = "image/jpg";
+            blockBlob.UploadFromStream(new MemoryStream(Convert.FromBase64String(WorksModel.FileToBase64(UploadWorksFiles))));
+
+            var uriBuilder = new UriBuilder(blockBlob.Uri);
+
+            string imgurl = blockBlob.StorageUri.PrimaryUri.ToString();
+
+            return imgurl;
         }
     }
 

@@ -39,16 +39,16 @@ namespace EG_MagicCube.Controllers
         [HttpPost]
         public ActionResult Create(string id ,List<HttpPostedFileBase> Img)
         {
-            try
-            {
+            //try
+            //{
                 WorksFilesModel.InsFile(id, Img);
 
                 return RedirectToAction("Edit" , new { id = id});
-            }
-            catch
-            {
-                return View();
-            }
+            //}
+            //catch(Exception exp)
+            //{
+            //    return RedirectToAction("Edit", new { id = id });
+            //}
         }
 
         // GET: Files/Edit/5
@@ -97,7 +97,7 @@ namespace EG_MagicCube.Controllers
             List<long> value = new List<long>();
             for(int i = 0; i < id.Length; i++)
             {
-                value.Add(Convert.ToInt16(id[i]));
+                value.Add(Convert.ToInt64(id[i]));
             }
             WorksFilesModel.DelFile(value);
             return Json(id);
