@@ -17,10 +17,10 @@
     <p>
         @if (Request.IsAuthenticated)
         {
-            @Html.ActionLink("編輯作品", "Edit", new { id = Model.WorksNo }, new { @class = "btn btn-default" })
+            @Html.ActionLink("編輯作品", "Edit", new { id = Model.WorksNo }, new { @class = "btn btn-primary" })
             if (string.IsNullOrEmpty(Model.PackagesNo))
             {
-                @Html.ActionLink("返回作品列表", "Index", "Works",null, new { @class = "btn btn-default" })
+                @Html.ActionLink("返回作品列表", "Index", "Works", null, new { @class = "btn  btn-warning" })
             }
             else
             {
@@ -33,14 +33,7 @@
         }
 
     </p>
-    <dl class="dl-horizontal"  style="columns: 240px 3;-moz-columns: 240px 3;-o-columns: 240px 3;-webkit-columns: 240px 3;">
-        @*<dt>
-                @Html.DisplayNameFor(model => model.WorksNo)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.WorksNo)
-            </dd>*@
+    <dl class="dl-horizontal" style="columns:  3;-moz-columns:  3;-o-columns:  3;-webkit-columns:  3;">
         <dt>
             @Html.DisplayNameFor(model => model.AuthorsName)
         </dt>
@@ -68,13 +61,12 @@
                     @Html.DisplayFor(item => m)
                 </dd>
             }
-        }
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Remarks)
-        </dt>
+        }        
         @if (Request.IsAuthenticated)
         {
+            <dt>
+                @Html.DisplayNameFor(model => model.Remarks)
+            </dt>
             <dd>
                 @Html.DisplayFor(model => model.Remarks)
             </dd>
@@ -148,14 +140,25 @@
 @Html.Action("Index", "Files", new { id = Model.WorksNo })
 
 @section Scripts {
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js.map"></script>
-<script>
- 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js.map"></script>
+    <script src="@Url.Content("~/Scripts/jquery.lazyload.js")"></script>
+    <script>
+        $("img").lazyload({
+            effect: "fadeIn",
+            effectspeed: 1000
+        });
+        //$(document).load("load resize scroll", function () {            
+        //    $("img").lazyload({
+        //        event: "lazyload",
+        //        effect: "fadeIn",
+        //        effectspeed: 1000
+        //    });
+        //});
         $(document).on('click', '[data-toggle="lightbox"]', function (event) {
             event.preventDefault();
             $(this).ekkoLightbox();
         });
 
-    </script>    
+    </script>
 }

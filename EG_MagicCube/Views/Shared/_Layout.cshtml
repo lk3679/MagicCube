@@ -10,7 +10,7 @@
 </head>
 <body style="font-family:微軟正黑體;">
     <div class="container">
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
                     @if (Request.IsAuthenticated)
@@ -24,7 +24,6 @@
                     }
                     <a class="navbar-brand" href="@Url.Action("Index", "Home" , new { })">
                         <img src="http://www.eslitegallery.com/img/logo-welcome.png" alt="誠品畫廊" style="" />
-
                     </a>
                 </div>
                 @using (Html.BeginForm("LogOff", "Home", FormMethod.Post, new { id = "logoutForm" }))
@@ -41,15 +40,13 @@
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">系統管理<span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">@Html.ActionLink("藝術家管理", "Index", "Author")</a></li>
-                                        <li><a href="#">@Html.ActionLink("帳號管理", "Index", "Account")</a></li>
-                                        <li><a href="#">@Html.ActionLink("選項設定", "Index", "Menu")</a></li>
-                                        <li><a href="#">@Html.ActionLink("系統參數管理", "Index", "Configure")</a></li>
+                                        <li>@Html.ActionLink("藝術家管理", "Index", "Author")</li>
+                                        <li>@Html.ActionLink("帳號管理", "Index", "Account")</li>
+                                        <li>@Html.ActionLink("選項設定", "Index", "Menu")</li>
+                                        <li>@Html.ActionLink("系統參數管理", "Index", "Configure")</li>
                                     </ul>
                                 </li>
-
                                 <li><a href="javascript:document.getElementById('logoutForm').submit()">登出</a></li>
-
                             </ul>
                         }
                     </div><!--/.nav-collapse -->

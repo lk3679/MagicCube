@@ -8,8 +8,30 @@
 <h2>藝術家列表</h2>
 
 <p>
-    @Html.ActionLink("新增藝術家", "Create",null, new { @class = "btn btn-default" })
+    @Html.ActionLink("新增藝術家", "Create",null, new { @class = "btn btn-success" })
 </p>
+
+@using (Html.BeginForm())
+{
+    <div class="search wrapper">
+        <div class="row form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-3">
+                    藝術家姓名
+                </label>
+                <div class="col-md-5">
+                    <input type="text" name="AuthorsCName" class="form-control text-box single-line" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class=" col-md-8 text-right">
+                    <input type="submit" name="search-btn" class="btn btn-info" value="篩選" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -36,5 +58,16 @@
         </td>
     </tr>
 }
-
 </table>
+<div class="pull-right">
+    @if (ViewBag.pi > 0)
+    {
+        @Html.ActionLink("前一頁 ", "Index", new { p = (ViewBag.pi - 1) })
+    }
+    @if (ViewBag.pi > 0 && ViewBag.pn > 0)
+    { <text> | </text> }
+    @if (ViewBag.pn > 0)
+    {
+        @Html.ActionLink("後一頁", "Index", new { p = (ViewBag.pn) })
+    }
+</div>

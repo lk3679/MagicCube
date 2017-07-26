@@ -252,6 +252,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jquery.fileupload.css" />
     <Content Include="font-awesome\font-awesome.css" />
     <Content Include="font-awesome\font-awesome.min.css" />
     <Content Include="Content\select2.css" />
