@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[Menu_CountNoun](
 	[CountNounNo] [int] IDENTITY(1,1) NOT NULL,
 	[CountNounName] [nvarchar](50) NOT NULL,
+	[IsDel] VARCHAR(5) NOT NULL DEFAULT (''), 
  CONSTRAINT [PK_Menu_CountNoun] PRIMARY KEY CLUSTERED 
 (
 	[CountNounNo] ASC
@@ -12,3 +13,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'量詞編號' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Menu_CountNoun', @level2type=N'COLUMN',@level2name=N'CountNounNo'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'量詞名稱' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Menu_CountNoun', @level2type=N'COLUMN',@level2name=N'CountNounName'
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'是否刪除，Y:刪除',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'Menu_CountNoun',
+    @level2type = N'COLUMN',
+    @level2name = N'IsDel'

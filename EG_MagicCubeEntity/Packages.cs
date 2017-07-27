@@ -23,12 +23,14 @@ namespace EG_MagicCubeEntity
         public string PackagesName { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<System.DateTime> PackingDate { get; set; }
-        public System.DateTime CreateDate { get; set; }
-        public string CreateUser { get; set; }
-        public string ModifyUser { get; set; }
-        public Nullable<System.DateTime> ModifyDate { get; set; }
         public string SearchJson { get; set; }
         public string PackagesMemo { get; set; }
+        public string CreateUser { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public string ModifyUser { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
+        public int Budget { get; set; }
+        public string IsDel { get; set; }
     
         public virtual ICollection<PackageItems> PackageItems { get; set; }
     }

@@ -21,6 +21,7 @@ namespace EG_MagicCubeEntity
     
         public int CountNounNo { get; set; }
         public string CountNounName { get; set; }
+        public string IsDel { get; set; }
     
         public virtual ICollection<WorksModules> WorksModules { get; set; }
     }

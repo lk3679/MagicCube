@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[Menu_Style](
 	[StyleNo] [int] IDENTITY(1,1) NOT NULL,
 	[StyleName] [nvarchar](50) NOT NULL,
+	[IsDel] VARCHAR(5) NOT NULL DEFAULT (''), 
  CONSTRAINT [PK_Menu_Style] PRIMARY KEY CLUSTERED 
 (
 	[StyleNo] ASC
@@ -12,3 +13,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'風格編號' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Menu_Style', @level2type=N'COLUMN',@level2name=N'StyleNo'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'風格名稱' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Menu_Style', @level2type=N'COLUMN',@level2name=N'StyleName'
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'是否刪除，Y:刪除',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'Menu_Style',
+    @level2type = N'COLUMN',
+    @level2name = N'IsDel'

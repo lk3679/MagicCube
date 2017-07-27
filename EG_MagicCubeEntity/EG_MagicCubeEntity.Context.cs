@@ -38,16 +38,16 @@ namespace EG_MagicCubeEntity
         public DbSet<Menu_WareType> Menu_WareType { get; set; }
         public DbSet<PackageItems> PackageItems { get; set; }
         public DbSet<Packages> Packages { get; set; }
+        public DbSet<SystemConfigure> SystemConfigure { get; set; }
         public DbSet<UserAccountRoles> UserAccountRoles { get; set; }
         public DbSet<UserAccounts> UserAccounts { get; set; }
         public DbSet<Works> Works { get; set; }
         public DbSet<WorksAuthors> WorksAuthors { get; set; }
         public DbSet<WorksFiles> WorksFiles { get; set; }
+        public DbSet<WorksModules> WorksModules { get; set; }
         public DbSet<WorksPropGenre> WorksPropGenre { get; set; }
         public DbSet<WorksPropOwner> WorksPropOwner { get; set; }
         public DbSet<WorksPropStyle> WorksPropStyle { get; set; }
         public DbSet<WorksPropWareType> WorksPropWareType { get; set; }
-        public DbSet<SystemConfigure> SystemConfigure { get; set; }
-        public DbSet<WorksModules> WorksModules { get; set; }
     }
 }

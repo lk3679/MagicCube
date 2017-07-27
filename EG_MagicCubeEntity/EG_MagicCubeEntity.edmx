@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="EG_MagicCubeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="EG_MagicCubeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Authors">
           <Key>
             <PropertyRef Name="AuthorsNo" />
@@ -17,6 +17,9 @@
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUser" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="Rating" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="WorksAmount" Type="int" Nullable="false" />
+          <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="AuthorsPropArea">
           <Key>
@@ -40,6 +43,7 @@
           </Key>
           <Property Name="AuthorsAreaNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AuthorsAreaName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu_AuthorsTag">
           <Key>
@@ -47,6 +51,7 @@
           </Key>
           <Property Name="AuthorsTagNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AuthorsTagName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu_CountNoun">
           <Key>
@@ -54,6 +59,7 @@
           </Key>
           <Property Name="CountNounNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CountNounName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu_Genre">
           <Key>
@@ -61,6 +67,7 @@
           </Key>
           <Property Name="GenreNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GenreName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu_Material">
           <Key>
@@ -68,6 +75,7 @@
           </Key>
           <Property Name="MaterialNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaterialName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu_Owner">
           <Key>
@@ -75,6 +83,7 @@
           </Key>
           <Property Name="OwnerNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OwnerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu_Style">
           <Key>
@@ -82,6 +91,7 @@
           </Key>
           <Property Name="StyleNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StyleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu_WareType">
           <Key>
@@ -89,6 +99,7 @@
           </Key>
           <Property Name="WareTypeNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WareTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="PackageItems">
           <Key>
@@ -109,12 +120,14 @@
           <Property Name="PackagesName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="EndDate" Type="datetime" />
           <Property Name="PackingDate" Type="datetime" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="CreateUser" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ModifyUser" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ModifyDate" Type="datetime" />
           <Property Name="SearchJson" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="PackagesMemo" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CreateUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="Budget" Type="int" Nullable="false" />
+          <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="SystemConfigure">
           <Key>
@@ -147,6 +160,7 @@
           <Property Name="CreateUser" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ModifyUser" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="Works">
           <Key>
@@ -171,6 +185,8 @@
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUser" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="Rating" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="WorksAuthors">
           <Key>
@@ -598,7 +614,8 @@
             <End Role="WorksPropWareType" EntitySet="WorksPropWareType" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EG_MagicCubeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -614,6 +631,9 @@
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="Rating" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WorksAmount" Type="Int32" Nullable="false" />
+          <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="AuthorsPropArea" Relationship="Self.FK_Author_Prop_Area_Author_List" FromRole="Authors" ToRole="AuthorsPropArea" />
           <NavigationProperty Name="AuthorsPropTag" Relationship="Self.FK_Author_Prop_Tag_Author_List" FromRole="Authors" ToRole="AuthorsPropTag" />
           <NavigationProperty Name="WorksAuthors" Relationship="Self.FK_Works_Author_Author_List" FromRole="Authors" ToRole="WorksAuthors" />
@@ -644,6 +664,7 @@
           </Key>
           <Property Name="AuthorsAreaNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AuthorsAreaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="AuthorsPropArea" Relationship="Self.FK_Author_Prop_Area_Menu_AuthorArea" FromRole="Menu_AuthorsArea" ToRole="AuthorsPropArea" />
         </EntityType>
         <EntityType Name="Menu_AuthorsTag">
@@ -652,6 +673,7 @@
           </Key>
           <Property Name="AuthorsTagNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AuthorsTagName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="AuthorsPropTag" Relationship="Self.FK_Author_Prop_Tag_Menu_AuthorTag" FromRole="Menu_AuthorsTag" ToRole="AuthorsPropTag" />
         </EntityType>
         <EntityType Name="Menu_CountNoun">
@@ -660,7 +682,8 @@
           </Key>
           <Property Name="CountNounNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CountNounName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="WorksModules" Relationship="EG_MagicCubeModel.FK_Works_Module_List_Menu_CountNoun" FromRole="Menu_CountNoun" ToRole="WorksModules" />
+          <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="WorksModules" Relationship="Self.FK_Works_Module_List_Menu_CountNoun" FromRole="Menu_CountNoun" ToRole="WorksModules" />
         </EntityType>
         <EntityType Name="Menu_Genre">
           <Key>
@@ -668,6 +691,7 @@
           </Key>
           <Property Name="GenreNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GenreName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="WorksPropGenre" Relationship="Self.FK_Works_Prop_Genre_Menu_Genre" FromRole="Menu_Genre" ToRole="WorksPropGenre" />
         </EntityType>
         <EntityType Name="Menu_Material">
@@ -676,7 +700,8 @@
           </Key>
           <Property Name="MaterialNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaterialName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="WorksModules" Relationship="EG_MagicCubeModel.FK_Works_Module_List_Menu_Material" FromRole="Menu_Material" ToRole="WorksModules" />
+          <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="WorksModules" Relationship="Self.FK_Works_Module_List_Menu_Material" FromRole="Menu_Material" ToRole="WorksModules" />
         </EntityType>
         <EntityType Name="Menu_Owner">
           <Key>
@@ -684,6 +709,7 @@
           </Key>
           <Property Name="OwnerNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OwnerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="WorksPropOwner" Relationship="Self.FK_Works_Prop_Owner_Menu_Owner" FromRole="Menu_Owner" ToRole="WorksPropOwner" />
         </EntityType>
         <EntityType Name="Menu_Style">
@@ -692,6 +718,7 @@
           </Key>
           <Property Name="StyleNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StyleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="WorksPropStyle" Relationship="Self.FK_Works_Prop_Style_Menu_Style" FromRole="Menu_Style" ToRole="WorksPropStyle" />
         </EntityType>
         <EntityType Name="Menu_WareType">
@@ -700,6 +727,7 @@
           </Key>
           <Property Name="WareTypeNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="WareTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="WorksPropWareType" Relationship="Self.FK_Works_Prop_WareType_Menu_WareType" FromRole="Menu_WareType" ToRole="WorksPropWareType" />
         </EntityType>
         <EntityType Name="PackageItems">
@@ -723,13 +751,23 @@
           <Property Name="PackagesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EndDate" Type="DateTime" Precision="3" />
           <Property Name="PackingDate" Type="DateTime" Precision="3" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ModifyUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <Property Name="SearchJson" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PackagesMemo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="Budget" Type="Int32" Nullable="false" />
+          <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="PackageItems" Relationship="Self.FK_PackageItemList_Package_List" FromRole="Packages" ToRole="PackageItems" />
+        </EntityType>
+        <EntityType Name="SystemConfigure">
+          <Key>
+            <PropertyRef Name="ConfigureNo" />
+          </Key>
+          <Property Name="ConfigureNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConfigureName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConfigureValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserAccountRoles">
           <Key>
@@ -744,6 +782,7 @@
             <PropertyRef Name="UserAccountsNo" />
           </Key>
           <Property Name="UserAccountsNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Pwdself" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -754,8 +793,8 @@
           <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ModifyUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="UserAccountRoles" Relationship="Self.FK_UserAccounts_UserAccountRoles" FromRole="UserAccounts" ToRole="UserAccountRoles" />
-          <Property Name="UserAccount" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Works">
           <Key>
@@ -780,14 +819,16 @@
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="Rating" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="PackageItems" Relationship="Self.FK_PackageItemList_Works_List" FromRole="Works" ToRole="PackageItems" />
           <NavigationProperty Name="WorksAuthors" Relationship="Self.FK_Works_Author_Works_List" FromRole="Works" ToRole="WorksAuthors" />
           <NavigationProperty Name="WorksFiles" Relationship="Self.FK_Works_Files_Works_List" FromRole="Works" ToRole="WorksFiles" />
+          <NavigationProperty Name="WorksModules" Relationship="Self.FK_Works_Module_List_Works_List" FromRole="Works" ToRole="WorksModules" />
           <NavigationProperty Name="WorksPropGenre" Relationship="Self.FK_Works_Prop_Genre_Works_List" FromRole="Works" ToRole="WorksPropGenre" />
           <NavigationProperty Name="WorksPropOwner" Relationship="Self.FK_Works_Prop_Owner_Works_List" FromRole="Works" ToRole="WorksPropOwner" />
           <NavigationProperty Name="WorksPropStyle" Relationship="Self.FK_Works_Prop_Style_Works_List" FromRole="Works" ToRole="WorksPropStyle" />
           <NavigationProperty Name="WorksPropWareType" Relationship="Self.FK_Works_Prop_WareType_Works_List" FromRole="Works" ToRole="WorksPropWareType" />
-          <NavigationProperty Name="WorksModules" Relationship="EG_MagicCubeModel.FK_Works_Module_List_Works_List" FromRole="Works" ToRole="WorksModules" />
         </EntityType>
         <EntityType Name="WorksAuthors">
           <Key>
@@ -807,6 +848,25 @@
           <Property Name="WorksNo" Type="Guid" Nullable="false" />
           <Property Name="FileBase64Str" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Works" Relationship="Self.FK_Works_Files_Works_List" FromRole="WorksFiles" ToRole="Works" />
+        </EntityType>
+        <EntityType Name="WorksModules">
+          <Key>
+            <PropertyRef Name="WorksModulesNo" />
+          </Key>
+          <Property Name="WorksModulesNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorksNo" Type="Guid" Nullable="false" />
+          <Property Name="Material" Type="Int32" Nullable="false" />
+          <Property Name="Measure" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Length" Type="Double" Nullable="false" />
+          <Property Name="Width" Type="Double" Nullable="false" />
+          <Property Name="Height" Type="Double" Nullable="false" />
+          <Property Name="Deep" Type="Double" Nullable="false" />
+          <Property Name="TimeLength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="CountNoun" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Menu_CountNoun" Relationship="Self.FK_Works_Module_List_Menu_CountNoun" FromRole="WorksModules" ToRole="Menu_CountNoun" />
+          <NavigationProperty Name="Menu_Material" Relationship="Self.FK_Works_Module_List_Menu_Material" FromRole="WorksModules" ToRole="Menu_Material" />
+          <NavigationProperty Name="Works" Relationship="Self.FK_Works_Module_List_Works_List" FromRole="WorksModules" ToRole="Works" />
         </EntityType>
         <EntityType Name="WorksPropGenre">
           <Key>
@@ -908,6 +968,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Works_Module_List_Menu_CountNoun">
+          <End Role="Menu_CountNoun" Type="Self.Menu_CountNoun" Multiplicity="1" />
+          <End Role="WorksModules" Type="Self.WorksModules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu_CountNoun">
+              <PropertyRef Name="CountNounNo" />
+            </Principal>
+            <Dependent Role="WorksModules">
+              <PropertyRef Name="CountNoun" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Works_Prop_Genre_Menu_Genre">
           <End Role="Menu_Genre" Type="Self.Menu_Genre" Multiplicity="1" />
           <End Role="WorksPropGenre" Type="Self.WorksPropGenre" Multiplicity="*" />
@@ -917,6 +989,18 @@
             </Principal>
             <Dependent Role="WorksPropGenre">
               <PropertyRef Name="GenreNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Works_Module_List_Menu_Material">
+          <End Role="Menu_Material" Type="Self.Menu_Material" Multiplicity="1" />
+          <End Role="WorksModules" Type="Self.WorksModules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu_Material">
+              <PropertyRef Name="MaterialNo" />
+            </Principal>
+            <Dependent Role="WorksModules">
+              <PropertyRef Name="Material" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1016,6 +1100,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Works_Module_List_Works_List">
+          <End Role="Works" Type="Self.Works" Multiplicity="1" />
+          <End Role="WorksModules" Type="Self.WorksModules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Works">
+              <PropertyRef Name="WorksNo" />
+            </Principal>
+            <Dependent Role="WorksModules">
+              <PropertyRef Name="WorksNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Works_Prop_Genre_Works_List">
           <End Role="Works" Type="Self.Works" Multiplicity="1" />
           <End Role="WorksPropGenre" Type="Self.WorksPropGenre" Multiplicity="*" />
@@ -1078,11 +1174,13 @@
           <EntitySet Name="Menu_WareType" EntityType="Self.Menu_WareType" />
           <EntitySet Name="PackageItems" EntityType="Self.PackageItems" />
           <EntitySet Name="Packages" EntityType="Self.Packages" />
+          <EntitySet Name="SystemConfigure" EntityType="Self.SystemConfigure" />
           <EntitySet Name="UserAccountRoles" EntityType="Self.UserAccountRoles" />
           <EntitySet Name="UserAccounts" EntityType="Self.UserAccounts" />
           <EntitySet Name="Works" EntityType="Self.Works" />
           <EntitySet Name="WorksAuthors" EntityType="Self.WorksAuthors" />
           <EntitySet Name="WorksFiles" EntityType="Self.WorksFiles" />
+          <EntitySet Name="WorksModules" EntityType="Self.WorksModules" />
           <EntitySet Name="WorksPropGenre" EntityType="Self.WorksPropGenre" />
           <EntitySet Name="WorksPropOwner" EntityType="Self.WorksPropOwner" />
           <EntitySet Name="WorksPropStyle" EntityType="Self.WorksPropStyle" />
@@ -1107,9 +1205,17 @@
             <End Role="Menu_AuthorsTag" EntitySet="Menu_AuthorsTag" />
             <End Role="AuthorsPropTag" EntitySet="AuthorsPropTag" />
           </AssociationSet>
+          <AssociationSet Name="FK_Works_Module_List_Menu_CountNoun" Association="Self.FK_Works_Module_List_Menu_CountNoun">
+            <End Role="Menu_CountNoun" EntitySet="Menu_CountNoun" />
+            <End Role="WorksModules" EntitySet="WorksModules" />
+          </AssociationSet>
           <AssociationSet Name="FK_Works_Prop_Genre_Menu_Genre" Association="Self.FK_Works_Prop_Genre_Menu_Genre">
             <End Role="Menu_Genre" EntitySet="Menu_Genre" />
             <End Role="WorksPropGenre" EntitySet="WorksPropGenre" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Works_Module_List_Menu_Material" Association="Self.FK_Works_Module_List_Menu_Material">
+            <End Role="Menu_Material" EntitySet="Menu_Material" />
+            <End Role="WorksModules" EntitySet="WorksModules" />
           </AssociationSet>
           <AssociationSet Name="FK_Works_Prop_Owner_Menu_Owner" Association="Self.FK_Works_Prop_Owner_Menu_Owner">
             <End Role="Menu_Owner" EntitySet="Menu_Owner" />
@@ -1143,6 +1249,10 @@
             <End Role="Works" EntitySet="Works" />
             <End Role="WorksFiles" EntitySet="WorksFiles" />
           </AssociationSet>
+          <AssociationSet Name="FK_Works_Module_List_Works_List" Association="Self.FK_Works_Module_List_Works_List">
+            <End Role="Works" EntitySet="Works" />
+            <End Role="WorksModules" EntitySet="WorksModules" />
+          </AssociationSet>
           <AssociationSet Name="FK_Works_Prop_Genre_Works_List" Association="Self.FK_Works_Prop_Genre_Works_List">
             <End Role="Works" EntitySet="Works" />
             <End Role="WorksPropGenre" EntitySet="WorksPropGenre" />
@@ -1159,84 +1269,7 @@
             <End Role="Works" EntitySet="Works" />
             <End Role="WorksPropWareType" EntitySet="WorksPropWareType" />
           </AssociationSet>
-          <EntitySet Name="SystemConfigure" EntityType="EG_MagicCubeModel.SystemConfigure" />
-          <EntitySet Name="WorksModules" EntityType="EG_MagicCubeModel.WorksModules" />
-          <AssociationSet Name="FK_Works_Module_List_Menu_CountNoun" Association="EG_MagicCubeModel.FK_Works_Module_List_Menu_CountNoun">
-            <End Role="Menu_CountNoun" EntitySet="Menu_CountNoun" />
-            <End Role="WorksModules" EntitySet="WorksModules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Works_Module_List_Menu_Material" Association="EG_MagicCubeModel.FK_Works_Module_List_Menu_Material">
-            <End Role="Menu_Material" EntitySet="Menu_Material" />
-            <End Role="WorksModules" EntitySet="WorksModules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Works_Module_List_Works_List" Association="EG_MagicCubeModel.FK_Works_Module_List_Works_List">
-            <End Role="Works" EntitySet="Works" />
-            <End Role="WorksModules" EntitySet="WorksModules" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="SystemConfigure">
-          <Key>
-            <PropertyRef Name="ConfigureNo" />
-          </Key>
-          <Property Name="ConfigureNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ConfigureName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ConfigureValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="WorksModules">
-          <Key>
-            <PropertyRef Name="WorksModulesNo" />
-          </Key>
-          <Property Name="WorksModulesNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WorksNo" Type="Guid" Nullable="false" />
-          <Property Name="Material" Type="Int32" Nullable="false" />
-          <Property Name="Measure" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Length" Type="Double" Nullable="false" />
-          <Property Name="Width" Type="Double" Nullable="false" />
-          <Property Name="Height" Type="Double" Nullable="false" />
-          <Property Name="Deep" Type="Double" Nullable="false" />
-          <Property Name="TimeLength" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Amount" Type="Int32" Nullable="false" />
-          <Property Name="CountNoun" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Menu_CountNoun" Relationship="EG_MagicCubeModel.FK_Works_Module_List_Menu_CountNoun" FromRole="WorksModules" ToRole="Menu_CountNoun" />
-          <NavigationProperty Name="Menu_Material" Relationship="EG_MagicCubeModel.FK_Works_Module_List_Menu_Material" FromRole="WorksModules" ToRole="Menu_Material" />
-          <NavigationProperty Name="Works" Relationship="EG_MagicCubeModel.FK_Works_Module_List_Works_List" FromRole="WorksModules" ToRole="Works" />
-        </EntityType>
-        <Association Name="FK_Works_Module_List_Menu_CountNoun">
-          <End Type="EG_MagicCubeModel.Menu_CountNoun" Role="Menu_CountNoun" Multiplicity="1" />
-          <End Type="EG_MagicCubeModel.WorksModules" Role="WorksModules" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Menu_CountNoun">
-              <PropertyRef Name="CountNounNo" />
-            </Principal>
-            <Dependent Role="WorksModules">
-              <PropertyRef Name="CountNoun" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Works_Module_List_Menu_Material">
-          <End Type="EG_MagicCubeModel.Menu_Material" Role="Menu_Material" Multiplicity="1" />
-          <End Type="EG_MagicCubeModel.WorksModules" Role="WorksModules" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Menu_Material">
-              <PropertyRef Name="MaterialNo" />
-            </Principal>
-            <Dependent Role="WorksModules">
-              <PropertyRef Name="Material" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Works_Module_List_Works_List">
-          <End Type="EG_MagicCubeModel.Works" Role="Works" Multiplicity="1" />
-          <End Type="EG_MagicCubeModel.WorksModules" Role="WorksModules" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Works">
-              <PropertyRef Name="WorksNo" />
-            </Principal>
-            <Dependent Role="WorksModules">
-              <PropertyRef Name="WorksNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1254,6 +1287,9 @@
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="ModifyUser" ColumnName="ModifyUser" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="WorksAmount" ColumnName="WorksAmount" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1280,6 +1316,7 @@
               <MappingFragment StoreEntitySet="Menu_AuthorsArea">
                 <ScalarProperty Name="AuthorsAreaNo" ColumnName="AuthorsAreaNo" />
                 <ScalarProperty Name="AuthorsAreaName" ColumnName="AuthorsAreaName" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1288,6 +1325,7 @@
               <MappingFragment StoreEntitySet="Menu_AuthorsTag">
                 <ScalarProperty Name="AuthorsTagNo" ColumnName="AuthorsTagNo" />
                 <ScalarProperty Name="AuthorsTagName" ColumnName="AuthorsTagName" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1296,6 +1334,7 @@
               <MappingFragment StoreEntitySet="Menu_CountNoun">
                 <ScalarProperty Name="CountNounNo" ColumnName="CountNounNo" />
                 <ScalarProperty Name="CountNounName" ColumnName="CountNounName" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1304,6 +1343,7 @@
               <MappingFragment StoreEntitySet="Menu_Genre">
                 <ScalarProperty Name="GenreNo" ColumnName="GenreNo" />
                 <ScalarProperty Name="GenreName" ColumnName="GenreName" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1312,6 +1352,7 @@
               <MappingFragment StoreEntitySet="Menu_Material">
                 <ScalarProperty Name="MaterialNo" ColumnName="MaterialNo" />
                 <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1320,6 +1361,7 @@
               <MappingFragment StoreEntitySet="Menu_Owner">
                 <ScalarProperty Name="OwnerNo" ColumnName="OwnerNo" />
                 <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1328,6 +1370,7 @@
               <MappingFragment StoreEntitySet="Menu_Style">
                 <ScalarProperty Name="StyleNo" ColumnName="StyleNo" />
                 <ScalarProperty Name="StyleName" ColumnName="StyleName" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1336,6 +1379,7 @@
               <MappingFragment StoreEntitySet="Menu_WareType">
                 <ScalarProperty Name="WareTypeNo" ColumnName="WareTypeNo" />
                 <ScalarProperty Name="WareTypeName" ColumnName="WareTypeName" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1358,12 +1402,23 @@
                 <ScalarProperty Name="PackagesName" ColumnName="PackagesName" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="PackingDate" ColumnName="PackingDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
-                <ScalarProperty Name="ModifyUser" ColumnName="ModifyUser" />
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="SearchJson" ColumnName="SearchJson" />
                 <ScalarProperty Name="PackagesMemo" ColumnName="PackagesMemo" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ModifyUser" ColumnName="ModifyUser" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="Budget" ColumnName="Budget" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SystemConfigure">
+            <EntityTypeMapping TypeName="EG_MagicCubeModel.SystemConfigure">
+              <MappingFragment StoreEntitySet="SystemConfigure">
+                <ScalarProperty Name="ConfigureNo" ColumnName="ConfigureNo" />
+                <ScalarProperty Name="ConfigureName" ColumnName="ConfigureName" />
+                <ScalarProperty Name="ConfigureValue" ColumnName="ConfigureValue" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1378,8 +1433,8 @@
           <EntitySetMapping Name="UserAccounts">
             <EntityTypeMapping TypeName="EG_MagicCubeModel.UserAccounts">
               <MappingFragment StoreEntitySet="UserAccounts">
-                <ScalarProperty Name="UserAccount" ColumnName="UserAccount" />
                 <ScalarProperty Name="UserAccountsNo" ColumnName="UserAccountsNo" />
+                <ScalarProperty Name="UserAccount" ColumnName="UserAccount" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Pwdself" ColumnName="Pwdself" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1390,6 +1445,7 @@
                 <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
                 <ScalarProperty Name="ModifyUser" ColumnName="ModifyUser" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1415,6 +1471,8 @@
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="ModifyUser" ColumnName="ModifyUser" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1433,6 +1491,23 @@
                 <ScalarProperty Name="WorksFilesNo" ColumnName="WorksFilesNo" />
                 <ScalarProperty Name="WorksNo" ColumnName="WorksNo" />
                 <ScalarProperty Name="FileBase64Str" ColumnName="FileBase64Str" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorksModules">
+            <EntityTypeMapping TypeName="EG_MagicCubeModel.WorksModules">
+              <MappingFragment StoreEntitySet="WorksModules">
+                <ScalarProperty Name="WorksModulesNo" ColumnName="WorksModulesNo" />
+                <ScalarProperty Name="WorksNo" ColumnName="WorksNo" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Deep" ColumnName="Deep" />
+                <ScalarProperty Name="TimeLength" ColumnName="TimeLength" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CountNoun" ColumnName="CountNoun" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1469,32 +1544,6 @@
                 <ScalarProperty Name="WorksPropWareTypeNo" ColumnName="WorksPropWareTypeNo" />
                 <ScalarProperty Name="WorksNo" ColumnName="WorksNo" />
                 <ScalarProperty Name="WareTypeNo" ColumnName="WareTypeNo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SystemConfigure">
-            <EntityTypeMapping TypeName="EG_MagicCubeModel.SystemConfigure">
-              <MappingFragment StoreEntitySet="SystemConfigure">
-                <ScalarProperty Name="ConfigureValue" ColumnName="ConfigureValue" />
-                <ScalarProperty Name="ConfigureName" ColumnName="ConfigureName" />
-                <ScalarProperty Name="ConfigureNo" ColumnName="ConfigureNo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WorksModules">
-            <EntityTypeMapping TypeName="EG_MagicCubeModel.WorksModules">
-              <MappingFragment StoreEntitySet="WorksModules">
-                <ScalarProperty Name="CountNoun" ColumnName="CountNoun" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="TimeLength" ColumnName="TimeLength" />
-                <ScalarProperty Name="Deep" ColumnName="Deep" />
-                <ScalarProperty Name="Height" ColumnName="Height" />
-                <ScalarProperty Name="Width" ColumnName="Width" />
-                <ScalarProperty Name="Length" ColumnName="Length" />
-                <ScalarProperty Name="Measure" ColumnName="Measure" />
-                <ScalarProperty Name="Material" ColumnName="Material" />
-                <ScalarProperty Name="WorksNo" ColumnName="WorksNo" />
-                <ScalarProperty Name="WorksModulesNo" ColumnName="WorksModulesNo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

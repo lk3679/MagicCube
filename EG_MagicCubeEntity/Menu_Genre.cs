@@ -21,6 +21,7 @@ namespace EG_MagicCubeEntity
     
         public int GenreNo { get; set; }
         public string GenreName { get; set; }
+        public string IsDel { get; set; }
     
         public virtual ICollection<WorksPropGenre> WorksPropGenre { get; set; }
     }

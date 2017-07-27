@@ -21,6 +21,7 @@ namespace EG_MagicCubeEntity
     
         public int OwnerNo { get; set; }
         public string OwnerName { get; set; }
+        public string IsDel { get; set; }
     
         public virtual ICollection<WorksPropOwner> WorksPropOwner { get; set; }
     }

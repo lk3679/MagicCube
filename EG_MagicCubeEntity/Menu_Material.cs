@@ -21,6 +21,7 @@ namespace EG_MagicCubeEntity
     
         public int MaterialNo { get; set; }
         public string MaterialName { get; set; }
+        public string IsDel { get; set; }
     
         public virtual ICollection<WorksModules> WorksModules { get; set; }
     }
