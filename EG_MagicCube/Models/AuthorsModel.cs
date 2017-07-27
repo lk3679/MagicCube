@@ -88,14 +88,14 @@ namespace EG_MagicCube.Models
                 if (context.SaveChanges() > 0)
                 {
                     this.AuthorsNo = _Authors.AuthorsNo;
-                    if (this.AuthorsAreaNo_InputString.Count>0)
+                    if (this.AuthorsAreaNo_InputString.Count > 0)
                     {
                         foreach (int _AuthorsAreaNo in this.AuthorsAreaNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                         {
                             context.AuthorsPropArea.Add(new AuthorsPropArea() { AuthorsNo = this.AuthorsNo, AuthorsAreaNo = _AuthorsAreaNo });
                         }
                     }
-                    if (this.AuthorsTagNo_InputString.Count>0)
+                    if (this.AuthorsTagNo_InputString.Count > 0)
                     {
                         foreach (int _AuthorsTagNo in this.AuthorsTagNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                         {
@@ -120,7 +120,7 @@ namespace EG_MagicCube.Models
             AuthorsModel _AuthorsModel = new AuthorsModel();
             if (this.Create())
             {
-                _AuthorsModel =this;
+                _AuthorsModel = this;
             }
             return _AuthorsModel;
         }
@@ -130,7 +130,12 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 取得藝術家清單
         /// </summary>
-        public static List<AuthorsModel> GetAuthorList(string KeyWords = "", int PageIndex = 1, int PageSize = 10)
+        /// <param name="KeyWords">藝術家名稱關鍵字</param>
+        /// <param name="PageIndex">頁碼，從1開始0為不分頁</param>
+        /// <param name="PageSize">每頁筆數，0為不分頁</param>
+        /// <param name="OrderbyType">排序方式</param>
+        /// <returns></returns>
+        public static List<AuthorsModel> GetAuthorList(string KeyWords = "", int PageIndex = 0, int PageSize = 0, MenuModel.MeunOrderbyTypeEnum OrderbyType = MenuModel.MeunOrderbyTypeEnum.預設排序)
         {
             if (string.IsNullOrEmpty(KeyWords)) KeyWords = "";
 
@@ -139,24 +144,63 @@ namespace EG_MagicCube.Models
             {
                 if (context.Authors.Count() > 0)
                 {
-                    _AuthorsModel = context.Authors.AsEnumerable().Where(c=> c.AuthorsCName.Contains(KeyWords) || c.AuthorsEName.Contains(KeyWords)).Select(c =>
-                    new AuthorsModel
+                    var atrs = context.Authors.AsQueryable().Where(c => c.AuthorsCName.Contains(KeyWords) || c.AuthorsEName.Contains(KeyWords)).Select(c => c);
+                    if (MenuModel.MeunOrderbyTypeEnum.預設排序 == OrderbyType)
                     {
-                        AuthorsNo = c.AuthorsNo,
-                        AuthorsCName = c.AuthorsCName,
-                        AuthorsEName = c.AuthorsEName,
-                        AuthorsAreaNo_InputString = c.AuthorsPropArea.Select(apa => Convert.ToString(apa.AuthorsAreaNo)).ToList(),
-                        AuthorsTagNo_InputString = c.AuthorsPropTag.Select(apt => Convert.ToString(apt.AuthorsTagNo)).ToList(),
-                        AuthorsPropArea = c.AuthorsPropArea.Select(apa => 
-                        new MenuViewModel() { MenuID = apa.Menu_AuthorsArea.AuthorsAreaNo, MenuName = apa.Menu_AuthorsArea.AuthorsAreaName }).ToList(),
-                        AuthorsPropTag= c.AuthorsPropTag.Select(apa =>
-                        new MenuViewModel() { MenuID = apa.Menu_AuthorsTag.AuthorsTagNo, MenuName = apa.Menu_AuthorsTag.AuthorsTagName }).ToList(),
-                        CreateDate=c.CreateDate,
-                        MaterialsID =c.MaterialsID,
-                        CreateUser =c.CreateUser,
-                        ModifyDate =c.ModifyDate.Value,
-                        ModifyUser =c.ModifyUser
-                    }).ToList();
+                        atrs = atrs.OrderByDescending(c => c.AuthorsNo);
+                    }
+                    else if (MenuModel.MeunOrderbyTypeEnum.建立時間由舊至新 == OrderbyType)
+                    {
+                        atrs = atrs.OrderBy(c => c.CreateDate);
+                    }
+                    else if (MenuModel.MeunOrderbyTypeEnum.建立時間由新至舊 == OrderbyType)
+                    {
+                        atrs = atrs.OrderByDescending(c => c.CreateDate);
+                    }
+                    else if (MenuModel.MeunOrderbyTypeEnum.修改時間由舊至新 == OrderbyType)
+                    {
+                        atrs = atrs.OrderBy(c => c.ModifyDate);
+                    }
+                    else if (MenuModel.MeunOrderbyTypeEnum.修改時間由新至舊 == OrderbyType)
+                    {
+                        atrs = atrs.OrderByDescending(c => c.ModifyDate);
+                    }
+                    else if (MenuModel.MeunOrderbyTypeEnum.名稱姓名小至大 == OrderbyType)
+                    {
+                        atrs = atrs.OrderBy(c => c.AuthorsCName).ThenBy(c => c.AuthorsEName);
+                    }
+                    else if (MenuModel.MeunOrderbyTypeEnum.名稱姓名大至小 == OrderbyType)
+                    {
+                        atrs = atrs.OrderByDescending(c => c.AuthorsCName).ThenByDescending(c => c.AuthorsEName);
+                    }
+                    else
+                    {
+                        atrs = atrs.OrderByDescending(c => c.AuthorsNo);
+                    }
+                    if (PageIndex > 0 && PageIndex > 0)
+                    {
+                        atrs = atrs.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize);
+                    }
+                    var r_atrs = atrs.ToList();
+
+                    _AuthorsModel = r_atrs.AsEnumerable().Select(c =>
+                     new AuthorsModel
+                     {
+                         AuthorsNo = c.AuthorsNo,
+                         AuthorsCName = c.AuthorsCName,
+                         AuthorsEName = c.AuthorsEName,
+                         AuthorsAreaNo_InputString = c.AuthorsPropArea.Select(apa => Convert.ToString(apa.AuthorsAreaNo)).ToList(),
+                         AuthorsTagNo_InputString = c.AuthorsPropTag.Select(apt => Convert.ToString(apt.AuthorsTagNo)).ToList(),
+                         AuthorsPropArea = c.AuthorsPropArea.Select(apa =>
+                         new MenuViewModel() { MenuID = apa.Menu_AuthorsArea.AuthorsAreaNo, MenuName = apa.Menu_AuthorsArea.AuthorsAreaName }).ToList(),
+                         AuthorsPropTag = c.AuthorsPropTag.Select(apa =>
+                                             new MenuViewModel() { MenuID = apa.Menu_AuthorsTag.AuthorsTagNo, MenuName = apa.Menu_AuthorsTag.AuthorsTagName }).ToList(),
+                         CreateDate = c.CreateDate,
+                         MaterialsID = c.MaterialsID,
+                         CreateUser = c.CreateUser,
+                         ModifyDate = c.ModifyDate.Value,
+                         ModifyUser = c.ModifyUser
+                     }).ToList();
 
                 }
             }
@@ -189,7 +233,7 @@ namespace EG_MagicCube.Models
                         CreateDate = c.CreateDate,
                         MaterialsID = c.MaterialsID,
                         CreateUser = c.CreateUser,
-                        ModifyDate = c.ModifyDate.HasValue ? c.ModifyDate.Value:DateTime.MinValue,
+                        ModifyDate = c.ModifyDate.HasValue ? c.ModifyDate.Value : DateTime.MinValue,
                         ModifyUser = c.ModifyUser
                     }).FirstOrDefault();
                 }
@@ -234,14 +278,14 @@ namespace EG_MagicCube.Models
                     oldAuthors.ModifyUser = newAuthors.ModifyUser;
                     oldAuthors.ModifyDate = DateTime.Now;
                 }
-                if (newAuthors.AuthorsAreaNo_InputString.Count>0)
+                if (newAuthors.AuthorsAreaNo_InputString.Count > 0)
                 {
                     foreach (int _AuthorsAreaNo in newAuthors.AuthorsAreaNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                     {
                         context.AuthorsPropArea.Add(new AuthorsPropArea() { AuthorsNo = newAuthors.AuthorsNo, AuthorsAreaNo = _AuthorsAreaNo });
                     }
                 }
-                if (newAuthors.AuthorsTagNo_InputString.Count>0)
+                if (newAuthors.AuthorsTagNo_InputString.Count > 0)
                 {
                     foreach (int _AuthorsTagNo in newAuthors.AuthorsTagNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                     {

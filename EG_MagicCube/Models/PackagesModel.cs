@@ -97,6 +97,10 @@ namespace EG_MagicCube.Models
         /// 預算
         /// </summary>
         public int Budget { get; set; } = 0;
+        /// <summary>
+        /// 排序方式
+        /// </summary>
+        public MenuModel.MeunOrderbyTypeEnum OrderbyType = MenuModel.MeunOrderbyTypeEnum.預設排序;
         #region Methods
 
         #region Create
@@ -170,24 +174,69 @@ namespace EG_MagicCube.Models
         /// 取得包裝
         /// </summary>
         /// <param name="KeyWords">關鍵字,包裝名稱、包裝備註</param>
-        /// <param name="OrderByType">排序方式</param>
-        /// <param name="PageIndex">頁碼</param>
-        /// <param name="PageSize">每頁筆數</param>
+        /// <param name="PageIndex">頁碼，從1開始0為不分頁</param>
+        /// <param name="PageSize">每頁筆數，0為不分頁</param>
+        /// <param name="OrderbyType">排序方式</param>
         /// <returns></returns>
-        public static List<PackagesModel> GetPackageList(string KeyWords = "", OrderByTypeEnum OrderByType = OrderByTypeEnum.None, int PageIndex = 1, int PageSize = 10)
+        public static List<PackagesModel> GetPackageList(string KeyWords = "", int PageIndex = 0, int PageSize = 0, MenuModel.MeunOrderbyTypeEnum OrderbyType = MenuModel.MeunOrderbyTypeEnum.預設排序)
         {
             List<PackagesModel> _PackagesList = new List<PackagesModel>();
             using (var context = new EG_MagicCubeEntities())
             {
                 if (context.Packages.Count() > 0)
                 {
-                    _PackagesList = context.Packages.AsEnumerable().Where(f =>
+                    var pgl = context.Packages.AsQueryable().Where(f =>
                                 f.PackagesName.Contains(KeyWords)
-                               || f.PackagesMemo.Contains(KeyWords)).Select(c =>
+                               || f.PackagesMemo.Contains(KeyWords)).Select(c =>c);
+
+                    if (MenuModel.MeunOrderbyTypeEnum.預設排序 == OrderbyType)
+                    {
+                        pgl = pgl.OrderByDescending(c => c.PackagesNo);
+                    }
+                    else
+                     if (MenuModel.MeunOrderbyTypeEnum.建立時間由舊至新 == OrderbyType)
+                    {
+                        pgl = pgl.OrderBy(c => c.CreateDate);
+                    }
+                    else
+                     if (MenuModel.MeunOrderbyTypeEnum.建立時間由新至舊 == OrderbyType)
+                    {
+                        pgl = pgl.OrderByDescending(c => c.CreateDate);
+                    }
+                    else
+                     if (MenuModel.MeunOrderbyTypeEnum.修改時間由舊至新 == OrderbyType)
+                    {
+                        pgl = pgl.OrderBy(c => c.ModifyDate);
+                    }
+                    else
+                     if (MenuModel.MeunOrderbyTypeEnum.修改時間由新至舊 == OrderbyType)
+                    {
+                        pgl = pgl.OrderByDescending(c => c.ModifyDate);
+                    }
+                    else
+                     if (MenuModel.MeunOrderbyTypeEnum.名稱姓名小至大 == OrderbyType)
+                    {
+                        pgl = pgl.OrderBy(c => c.PackagesName);
+                    }
+                    else
+                     if (MenuModel.MeunOrderbyTypeEnum.名稱姓名大至小 == OrderbyType)
+                    {
+                        pgl = pgl.OrderByDescending(c => c.PackagesName);
+                    }
+                    else
+                    {
+                        pgl = pgl.OrderByDescending(c => c.PackagesNo);
+                    }
+                    if (PageIndex > 0 && PageIndex > 0)
+                    {
+                        pgl = pgl.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize);
+                    }
+                    var r_pgl = pgl.ToList();
+
+                    _PackagesList = r_pgl.AsEnumerable().Select(c =>
                                new PackagesModel()
                                {
                                    PackagesNo = c.PackagesNo.ToString(),
-                                   //QRImg= DrawQRcodeToImgBase64sting(c.PackagesNo.ToString()),
                                    PackagesName = c.PackagesName,
                                    EndDate = c.EndDate,
                                    PackingDate = c.PackingDate,
@@ -198,16 +247,8 @@ namespace EG_MagicCube.Models
                                    SearchJson = c.SearchJson,
                                    PackagesMemo = c.PackagesMemo,
                                    ItemAmount = c.PackageItems.Where(pi => pi.IsJoin == "Y").Count().ToString() + " (" + c.PackageItems.Count.ToString() + ")"
-                                   //,PackageItems = c.PackageItems.Select(pi => new PackageItemModel()
-                                   //{
-                                   //    WorksNo = pi.WorksNo.ToString(),
-                                   //    WorksName = pi.Works.WorksName,
-                                   //    Price = pi.Works.Price,
-                                   //    AuthorsName = pi.Works.WorksAuthors.FirstOrDefault().Authors.AuthorsCName,
-                                   //    IsJoin = pi.IsJoin
-                                   //}
-                                   //).ToList()
                                }).ToList();
+
                 }
 
             }
