@@ -121,9 +121,11 @@ namespace EG_MagicCube.Models
                 _Package.PackagesMemo = this.PackagesMemo;
                 _Package.SearchJson = this.SearchJson;
                 _Package.CreateDate = DateTime.Now;
-                _Package.CreateUser = this.CreateUser;
+                _Package.CreateUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                 _Package.ModifyDate = DateTime.Now;
-                _Package.ModifyUser = this.ModifyUser;
+                _Package.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
+                _Package.Budget = this.Budget;
+                _Package.IsDel = "";
                 context.Packages.Add(_Package);
                 if (context.SaveChanges() > 0)
                 {
@@ -186,8 +188,9 @@ namespace EG_MagicCube.Models
                 if (context.Packages.Count() > 0)
                 {
                     var pgl = context.Packages.AsQueryable().Where(f =>
-                                f.PackagesName.Contains(KeyWords)
-                               || f.PackagesMemo.Contains(KeyWords)).Select(c =>c);
+                                f.IsDel != "Y" &&
+                                (f.PackagesName.Contains(KeyWords)
+                               || f.PackagesMemo.Contains(KeyWords))).Select(c =>c);
 
                     if (MenuModel.MeunOrderbyTypeEnum.預設排序 == OrderbyType)
                     {
@@ -231,6 +234,7 @@ namespace EG_MagicCube.Models
                     {
                         pgl = pgl.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize);
                     }
+
                     var r_pgl = pgl.ToList();
 
                     _PackagesList = r_pgl.AsEnumerable().Select(c =>
@@ -246,7 +250,8 @@ namespace EG_MagicCube.Models
                                    ModifyDate = c.ModifyDate,
                                    SearchJson = c.SearchJson,
                                    PackagesMemo = c.PackagesMemo,
-                                   ItemAmount = c.PackageItems.Where(pi => pi.IsJoin == "Y").Count().ToString() + " (" + c.PackageItems.Count.ToString() + ")"
+                                   ItemAmount = c.PackageItems.Where(pi => pi.IsJoin == "Y").Count().ToString() + " (" + c.PackageItems.Count.ToString() + ")",
+                                   Budget=c.Budget
                                }).ToList();
 
                 }
@@ -268,7 +273,7 @@ namespace EG_MagicCube.Models
                 if (context.Packages.Count() > 0)
                 {
                     var Guid_PackagesNo = Guid.Parse(PackagesNo.ToString());
-                    _PackagesModel = context.Packages.AsEnumerable().Where(f => f.PackagesNo == Guid_PackagesNo).Select(c =>
+                    _PackagesModel = context.Packages.AsEnumerable().Where(f => f.IsDel !="Y" && f.PackagesNo == Guid_PackagesNo).Select(c =>
                                   new PackagesModel()
                                   {
                                       PackagesNo = c.PackagesNo.ToString(),
@@ -282,7 +287,8 @@ namespace EG_MagicCube.Models
                                       ModifyDate = c.ModifyDate,
                                       SearchJson = c.SearchJson,
                                       PackagesMemo = c.PackagesMemo,
-                                      ItemAmount = c.PackageItems.Where(pi => pi.IsJoin == "Y").Count().ToString() + " (" + c.PackageItems.Count.ToString() + ")"
+                                      ItemAmount = c.PackageItems.Where(pi => pi.IsJoin == "Y").Count().ToString() + " (" + c.PackageItems.Count.ToString() + ")",
+                                      Budget=c.Budget
                                       //,PackageItems = c.PackageItems.Select(pi => new PackageItemModel()
                                       //{
                                       //    WorksNo = pi.WorksNo.ToString(),
@@ -424,10 +430,11 @@ namespace EG_MagicCube.Models
                     }
                     oldPackages.PackingDate = newPackages.PackingDate;
                     oldPackages.EndDate = newPackages.EndDate;
-                    oldPackages.ModifyUser = newPackages.ModifyUser;
+                    oldPackages.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                     oldPackages.ModifyDate = newPackages.ModifyDate;
                     oldPackages.PackagesMemo = newPackages.PackagesMemo;
                     oldPackages.SearchJson = newPackages.SearchJson;
+                    oldPackages.Budget = newPackages.Budget;
                     foreach (PackageItemModel _PackageItemModel in newPackages.PackageItems)
                     {
                         var Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
@@ -571,23 +578,19 @@ namespace EG_MagicCube.Models
             using (var context = new EG_MagicCubeEntities())
             {
                 var Guid_PackagesNo = Guid.Parse(PackagesNo);
-                var package = context.Packages.AsEnumerable().FirstOrDefault(x => x.PackagesNo == Guid_PackagesNo);
-                if (package == null)
+                var package = context.Packages.AsQueryable().FirstOrDefault(x => x.PackagesNo == Guid_PackagesNo);
+
+                if (package != null)
                 {
-                    return false;
-                }
-                else
-                {
-                    if (package.PackageItems != null)
+                    package.IsDel = "Y";
+                    package.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
+                    package.ModifyDate = DateTime.Now;
+                    if (context.SaveChanges() == 0)
                     {
-                        foreach (PackageItems _PackageItems in package.PackageItems)
-                        {
-                            package.PackageItems.Remove(_PackageItems);
-                        }
+                        return false;
                     }
                 }
-                context.Packages.Remove(package);
-                if (context.SaveChanges() == 0)
+                else
                 {
                     return false;
                 }
@@ -601,41 +604,7 @@ namespace EG_MagicCube.Models
         /// <returns></returns>
         public bool Delete()
         {
-            if (!string.IsNullOrEmpty(this.PackagesNo))
-            {
-                using (var context = new EG_MagicCubeEntities())
-                {
-                    var Guid_PackagesNo = Guid.Parse(PackagesNo);
-
-                    var package = context.Packages.AsEnumerable().FirstOrDefault(x => x.PackagesNo == Guid_PackagesNo);
-                    if (package == null)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        if (package.PackageItems != null)
-                        {
-                            foreach (PackageItems _PackageItems in package.PackageItems)
-                            {
-                                package.PackageItems.Remove(_PackageItems);
-                            }
-                        }
-                    }
-                    context.Packages.Remove(package);
-                    if (context.SaveChanges() == 0)
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                return false;
-            }
-
-            return true;
-
+            return Delete(this.PackagesNo);
         }
 
         /// <summary>

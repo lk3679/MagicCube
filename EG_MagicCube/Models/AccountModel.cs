@@ -101,10 +101,11 @@ namespace EG_MagicCube.Models
                 _UserAccounts.RoleNo = this.RoleNo;
                 _UserAccounts.AccountStatus = this.AccountStatus;
                 _UserAccounts.AccountNote = this.AccountNote;
-                _UserAccounts.CreateDate = this.CreateDate;
-                _UserAccounts.CreateUser = this.CreateUser;
-                _UserAccounts.ModifyUser = this.ModifyUser;
-                _UserAccounts.ModifyDate = this.ModifyDate;
+                _UserAccounts.CreateDate = DateTime.Now;
+                _UserAccounts.CreateUser = HttpContext.Current?.User?.Identity?.Name ?? "";
+                _UserAccounts.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
+                _UserAccounts.ModifyDate = DateTime.Now;
+                _UserAccounts.IsDel = "";
                 context.UserAccounts.Add(_UserAccounts);
                 if (context.SaveChanges() == 0)
                 {
@@ -142,7 +143,7 @@ namespace EG_MagicCube.Models
             AccountModel _AccountModel = null;
             using (var context = new EG_MagicCubeEntities())
             {
-                var UserAccount = context.UserAccounts?.AsQueryable()?.FirstOrDefault(c => c.UserAccount == strAccount);
+                var UserAccount = context.UserAccounts?.AsQueryable()?.FirstOrDefault(c => c.IsDel!="Y" && c.UserAccount == strAccount);
 
                 if (UserAccount != null)
                 {
@@ -194,7 +195,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.UserAccounts.Count() > 0)
                 {
-                    _AccountModel = context.UserAccounts.AsEnumerable().Where(c => c.UserAccountsNo == int_UserAccountsNo).Select(c =>
+                    _AccountModel = context.UserAccounts.AsEnumerable().Where(c => c.IsDel!="Y" && c.UserAccountsNo == int_UserAccountsNo).Select(c =>
                     new AccountModel()
                     {
                         UserAccountsNo = c.UserAccountsNo,
@@ -232,7 +233,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.UserAccounts.Count() > 0)
                 {
-                    var uas = context.UserAccounts.AsQueryable().Where(c => c.Name.Contains(KeyWords) || c.UserAccount.Contains(KeyWords)).Select(c =>c);
+                    var uas = context.UserAccounts.AsQueryable().Where(c => c.IsDel != "Y" && (c.Name.Contains(KeyWords) || c.UserAccount.Contains(KeyWords))).Select(c =>c);
 
                     if (MenuModel.MeunOrderbyTypeEnum.預設排序 == OrderbyType)
                     {
@@ -329,7 +330,7 @@ namespace EG_MagicCube.Models
                 oldUserAccount.RoleNo = newAccountModel.RoleNo;
                 oldUserAccount.AccountNote = newAccountModel.AccountNote;
                 oldUserAccount.AccountStatus = newAccountModel.AccountStatus;
-                oldUserAccount.ModifyUser = newAccountModel.ModifyUser;
+                oldUserAccount.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                 oldUserAccount.ModifyDate = DateTime.Now;
 
                 if (context.SaveChanges() == 0)
@@ -352,19 +353,26 @@ namespace EG_MagicCube.Models
             using (var context = new EG_MagicCubeEntities())
             {
                 var UserAccount = context.UserAccounts.FirstOrDefault(x => x.UserAccountsNo == UserAccountsNo);
-                if (UserAccount == null)
+                if (UserAccount != null)
                 {
-                    return false;
+                    UserAccount.IsDel = "Y";
+                    UserAccount.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
+                    UserAccount.ModifyDate = DateTime.Now;
+                    if (context.SaveChanges() == 0)
+                    {
+                        return false;
+                    }
                 }
-
-                context.UserAccounts.Remove(UserAccount);
-                if (context.SaveChanges() == 0)
+                else
                 {
                     return false;
                 }
             }
-
             return true;
+        }
+        public bool Delete()
+        {
+            return Delete(this.UserAccountsNo);
         }
         #endregion
 
