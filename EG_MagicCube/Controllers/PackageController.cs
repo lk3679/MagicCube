@@ -17,7 +17,7 @@ namespace EG_MagicCube.Controllers
             int take = 10;
             List<PackageViewModel> model = new List<PackageViewModel>();
 
-            var _value = PackagesModel.GetPackageList("", PackagesModel.OrderByTypeEnum.None, p, take + 1);
+            var _value = PackagesModel.GetPackageList("", p, take + 1, MenuModel.MeunOrderbyTypeEnum.預設排序);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
@@ -41,7 +41,6 @@ namespace EG_MagicCube.Controllers
                     WorksAmount = _value[i].ItemAmount
                 });
             }
-
             return View(model);
         }
 
@@ -49,10 +48,9 @@ namespace EG_MagicCube.Controllers
         public ActionResult Index(FormCollection collection, int p = 0)
         {
             int take = 10;
-
+            MenuModel.MeunOrderbyTypeEnum _MeunOrderbyTypeEnum = (MenuModel.MeunOrderbyTypeEnum)Enum.Parse(typeof(MenuModel.MeunOrderbyTypeEnum), collection["Sort"], true);
             List<PackageViewModel> model = new List<PackageViewModel>();
-            var _value = PackagesModel.GetPackageList(collection["PG_Name"],
-                collection["Sort"] == "ASC" ? PackagesModel.OrderByTypeEnum.MineTime : PackagesModel.OrderByTypeEnum.MaxTime, p, take + 1);
+            var _value = PackagesModel.GetPackageList(collection["PG_Name"], p, take + 1, _MeunOrderbyTypeEnum);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
