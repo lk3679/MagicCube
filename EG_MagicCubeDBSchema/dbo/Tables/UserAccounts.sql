@@ -11,6 +11,7 @@
 	[CreateUser] [nvarchar](50) NOT NULL,
 	[ModifyUser] [nvarchar](50) NOT NULL,
 	[ModifyDate] [datetime] NULL,
+	[IsDel] VARCHAR(5) NOT NULL DEFAULT (''), 
  CONSTRAINT [PK_User_AccountList] PRIMARY KEY CLUSTERED 
 (
 	[UserAccountsNo] ASC
@@ -61,3 +62,12 @@ EXEC sp_addextendedproperty @name = N'MS_Description',
     @level1name = N'UserAccounts',
     @level2type = N'COLUMN',
     @level2name = N'UserAccount'
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'是否刪除，Y:刪除',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'UserAccounts',
+    @level2type = N'COLUMN',
+    @level2name = N'IsDel'

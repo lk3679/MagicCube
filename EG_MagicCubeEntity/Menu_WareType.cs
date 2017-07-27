@@ -21,6 +21,7 @@ namespace EG_MagicCubeEntity
     
         public int WareTypeNo { get; set; }
         public string WareTypeName { get; set; }
+        public string IsDel { get; set; }
     
         public virtual ICollection<WorksPropWareType> WorksPropWareType { get; set; }
     }

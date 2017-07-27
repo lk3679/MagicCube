@@ -21,6 +21,7 @@ namespace EG_MagicCubeEntity
     
         public int StyleNo { get; set; }
         public string StyleName { get; set; }
+        public string IsDel { get; set; }
     
         public virtual ICollection<WorksPropStyle> WorksPropStyle { get; set; }
     }
