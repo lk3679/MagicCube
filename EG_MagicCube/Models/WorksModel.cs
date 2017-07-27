@@ -224,11 +224,12 @@ namespace EG_MagicCube.Models
                 _Works.Marketability = this.Marketability;
                 _Works.Packageability = this.Packageability;
                 _Works.Valuability = this.Valuability;
-                _Works.CreateUser = this.CreateUser;
+                _Works.CreateUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                 _Works.CreateDate = DateTime.Now;
-                _Works.ModifyUser = this.ModifyUser;
+                _Works.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                 _Works.ModifyDate = DateTime.Now;
                 _Works.Remarks = this.Remarks;
+                _Works.IsDel = "";
                 context.Works.Add(_Works);
 
                 if (context.SaveChanges() > 0)
@@ -328,7 +329,7 @@ namespace EG_MagicCube.Models
             Guid Guid_WorksNo = Guid.Parse(WorksNo);
             using (var context = new EG_MagicCubeEntities())
             {
-                _WorksModel = context.Works.AsEnumerable().Where(c => c.WorksNo == Guid_WorksNo).Select(c =>
+                _WorksModel = context.Works.AsEnumerable().Where(c => c.IsDel!="Y" && c.WorksNo == Guid_WorksNo).Select(c =>
                 new WorksModel()
                 {
                     WorksNo = c.WorksNo.ToString(),
@@ -459,9 +460,7 @@ namespace EG_MagicCube.Models
                 oldWorks.Marketability = newWorks.Marketability;
                 oldWorks.Packageability = newWorks.Packageability;
                 oldWorks.Valuability = newWorks.Valuability;
-                oldWorks.CreateUser = newWorks.CreateUser;
-                oldWorks.CreateDate = newWorks.CreateDate;
-                oldWorks.ModifyUser = newWorks.ModifyUser;
+                oldWorks.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                 oldWorks.ModifyDate = System.DateTime.Now;
                 oldWorks.Remarks = newWorks.Remarks;
                 //組件
@@ -560,68 +559,83 @@ namespace EG_MagicCube.Models
             Guid Guid_WorksNo = Guid.Parse(WorksNo);
             using (var context = new EG_MagicCubeEntities())
             {
-                var works = context.Works.AsEnumerable().FirstOrDefault(x => x.WorksNo == Guid_WorksNo);
-                if (works == null)
+                var works = context.Works.AsQueryable().FirstOrDefault(x => x.WorksNo == Guid_WorksNo);
+                if (works != null)
                 {
-                    return false;
+                    works.IsDel = "Y";
+                    works.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
+                    works.ModifyDate = DateTime.Now;
+                    if (context.SaveChanges() == 0)
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
-                    if (works.WorksModules != null)
-                    {
-                        foreach (WorksModules _WorksModules in works.WorksModules)
-                        {
-                            context.WorksModules.Remove(_WorksModules);
-                        }
-                    }
-                    if (works.WorksAuthors != null)
-                    {
-                        foreach (WorksAuthors _WorksAuthors in works.WorksAuthors)
-                        {
-                            context.WorksAuthors.Remove(_WorksAuthors);
-                        }
-                    }
-                    if (works.WorksPropGenre != null)
-                    {
-                        foreach (WorksPropGenre _WorksPropGenre in works.WorksPropGenre)
-                        {
-                            context.WorksPropGenre.Remove(_WorksPropGenre);
-                        }
-                    }
-                    if (works.WorksPropStyle != null)
-                    {
-                        foreach (WorksPropStyle _WorksPropStyle in works.WorksPropStyle)
-                        {
-                            context.WorksPropStyle.Remove(_WorksPropStyle);
-                        }
-                    }
-                    if (works.WorksPropOwner != null)
-                    {
-                        foreach (WorksPropOwner _WorksPropOwner in works.WorksPropOwner)
-                        {
-                            context.WorksPropOwner.Remove(_WorksPropOwner);
-                        }
-                    }
-                    if (works.WorksPropWareType != null)
-                    {
-                        foreach (WorksPropWareType _WorksPropWareType in works.WorksPropWareType)
-                        {
-                            context.WorksPropWareType.Remove(_WorksPropWareType);
-                        }
-                    }
-                    if (works.WorksFiles != null)
-                    {
-                        foreach (WorksFiles _WorksFiles in works.WorksFiles)
-                        {
-                            context.WorksFiles.Remove(_WorksFiles);
-                        }
-                    }
-                }
-                context.Works.Remove(works);
-                if (context.SaveChanges() == 0)
-                {
                     return false;
                 }
+
+                //if (works == null)
+                //{
+                //    return false;
+                //}
+                //else
+                //{
+                //    if (works.WorksModules != null)
+                //    {
+                //        foreach (WorksModules _WorksModules in works.WorksModules)
+                //        {
+                //            context.WorksModules.Remove(_WorksModules);
+                //        }
+                //    }
+                //    if (works.WorksAuthors != null)
+                //    {
+                //        foreach (WorksAuthors _WorksAuthors in works.WorksAuthors)
+                //        {
+                //            context.WorksAuthors.Remove(_WorksAuthors);
+                //        }
+                //    }
+                //    if (works.WorksPropGenre != null)
+                //    {
+                //        foreach (WorksPropGenre _WorksPropGenre in works.WorksPropGenre)
+                //        {
+                //            context.WorksPropGenre.Remove(_WorksPropGenre);
+                //        }
+                //    }
+                //    if (works.WorksPropStyle != null)
+                //    {
+                //        foreach (WorksPropStyle _WorksPropStyle in works.WorksPropStyle)
+                //        {
+                //            context.WorksPropStyle.Remove(_WorksPropStyle);
+                //        }
+                //    }
+                //    if (works.WorksPropOwner != null)
+                //    {
+                //        foreach (WorksPropOwner _WorksPropOwner in works.WorksPropOwner)
+                //        {
+                //            context.WorksPropOwner.Remove(_WorksPropOwner);
+                //        }
+                //    }
+                //    if (works.WorksPropWareType != null)
+                //    {
+                //        foreach (WorksPropWareType _WorksPropWareType in works.WorksPropWareType)
+                //        {
+                //            context.WorksPropWareType.Remove(_WorksPropWareType);
+                //        }
+                //    }
+                //    if (works.WorksFiles != null)
+                //    {
+                //        foreach (WorksFiles _WorksFiles in works.WorksFiles)
+                //        {
+                //            context.WorksFiles.Remove(_WorksFiles);
+                //        }
+                //    }
+                //}
+                //context.Works.Remove(works);
+                //if (context.SaveChanges() == 0)
+                //{
+                //    return false;
+                //}
             }
 
             return true;

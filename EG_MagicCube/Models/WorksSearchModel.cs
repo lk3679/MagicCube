@@ -117,7 +117,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.Works.Count() > 0)
                 {
-                    var r = context.Works?.AsQueryable();
+                    var r = context.Works?.AsQueryable().Where(f=>f.IsDel != "Y");
 
                     if (!string.IsNullOrEmpty(this.WorksNo))
                     {

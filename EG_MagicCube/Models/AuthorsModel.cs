@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
-
+using System.Web.Security;
 namespace EG_MagicCube.Models
 {
     public partial class AuthorsModel
@@ -65,6 +65,17 @@ namespace EG_MagicCube.Models
         /// </summary>
         [DisplayName("新增修改藝術家標籤清單字串")]
         public List<string> AuthorsTagNo_InputString { get; set; } = new List<string>();
+        /// <summary>
+        /// 作品數量
+        /// </summary>
+        [DisplayName("作品數量")]
+        public int WorksAmount { get; set; } = 0;
+        /// <summary>
+        /// 作品分級
+        /// </summary>
+        [DisplayName("作品分級")]
+        public string Rating { get; set; } = "";
+
         #region Methods
         #region Create
 
@@ -80,10 +91,13 @@ namespace EG_MagicCube.Models
                 _Authors.AuthorsCName = this.AuthorsCName ?? "";
                 _Authors.AuthorsEName = this.AuthorsEName ?? "";
                 _Authors.CreateDate = DateTime.Now;
-                _Authors.CreateUser = "";
+                _Authors.CreateUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                 _Authors.ModifyDate = DateTime.Now;
-                _Authors.ModifyUser = "";
+                _Authors.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                 _Authors.MaterialsID = "";
+                _Authors.IsDel = "";
+                _Authors.Rating = this.Rating ?? "";
+                _Authors.WorksAmount = this.WorksAmount;
                 context.Authors.Add(_Authors);
                 if (context.SaveChanges() > 0)
                 {
@@ -144,7 +158,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.Authors.Count() > 0)
                 {
-                    var atrs = context.Authors.AsQueryable().Where(c => c.AuthorsCName.Contains(KeyWords) || c.AuthorsEName.Contains(KeyWords)).Select(c => c);
+                    var atrs = context.Authors.AsQueryable().Where(c => c.IsDel!="Y" && (c.AuthorsCName.Contains(KeyWords) || c.AuthorsEName.Contains(KeyWords))).Select(c => c);
                     if (MenuModel.MeunOrderbyTypeEnum.預設排序 == OrderbyType)
                     {
                         atrs = atrs.OrderByDescending(c => c.AuthorsNo);
@@ -219,7 +233,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.Authors.Count() > 0)
                 {
-                    _AuthorsModel = context.Authors.AsEnumerable().Where(c => c.AuthorsNo == authorsNo).Select(c => new AuthorsModel()
+                    _AuthorsModel = context.Authors.AsEnumerable().Where(c => c.IsDel != "Y" && c.AuthorsNo == authorsNo).Select(c => new AuthorsModel()
                     {
                         AuthorsNo = c.AuthorsNo,
                         AuthorsCName = c.AuthorsCName,
@@ -234,7 +248,9 @@ namespace EG_MagicCube.Models
                         MaterialsID = c.MaterialsID,
                         CreateUser = c.CreateUser,
                         ModifyDate = c.ModifyDate.HasValue ? c.ModifyDate.Value : DateTime.MinValue,
-                        ModifyUser = c.ModifyUser
+                        ModifyUser = c.ModifyUser,
+                        Rating = c.Rating,
+                        WorksAmount = c.WorksAmount
                     }).FirstOrDefault();
                 }
             }
@@ -275,8 +291,10 @@ namespace EG_MagicCube.Models
                     oldAuthors.MaterialsID = newAuthors.MaterialsID ?? "";
                     oldAuthors.AuthorsCName = newAuthors.AuthorsCName ?? "";
                     oldAuthors.AuthorsEName = newAuthors.AuthorsEName ?? "";
-                    oldAuthors.ModifyUser = newAuthors.ModifyUser;
+                    oldAuthors.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                     oldAuthors.ModifyDate = DateTime.Now;
+                    oldAuthors.Rating = newAuthors.Rating ?? "";
+                    oldAuthors.WorksAmount = newAuthors.WorksAmount;
                 }
                 if (newAuthors.AuthorsAreaNo_InputString.Count > 0)
                 {
@@ -313,32 +331,26 @@ namespace EG_MagicCube.Models
             using (var context = new EG_MagicCubeEntities())
             {
                 var author = context.Authors.FirstOrDefault(x => x.AuthorsNo == authorNo);
-                if (author == null)
+                if (author != null)
                 {
-                    return false;
-                }
-                if (author.AuthorsPropArea != null)
-                {
-                    foreach (AuthorsPropArea _AuthorsPropArea in author.AuthorsPropArea.ToList())
+                    author.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
+                    author.ModifyDate = DateTime.Now;
+                    author.IsDel = "Y";
+                    if (context.SaveChanges() == 0)
                     {
-                        context.AuthorsPropArea.Remove(_AuthorsPropArea);
+                        return false;
                     }
                 }
-                if (author.AuthorsPropTag != null)
-                {
-                    foreach (AuthorsPropTag _AuthorsPropTag in author.AuthorsPropTag.ToList())
-                    {
-                        context.AuthorsPropTag.Remove(_AuthorsPropTag);
-                    }
-                }
-                context.Authors.Remove(author);
-                if (context.SaveChanges() == 0)
+                else
                 {
                     return false;
                 }
             }
-
             return true;
+        }
+        public bool Delete()
+        {
+            return Delete(this.AuthorsNo);
         }
         #endregion
 
