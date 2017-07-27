@@ -14,54 +14,58 @@
     <div class="search wrapper">
         <div class="row form-horizontal">
             <div class="form-group">
-                <label class="control-label col-md-3">
+                <label class="control-label col-md-2">
                     @Html.DisplayNameFor(model => model.AuthorNoList)
                 </label>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     @Html.DropDownList("AuthorNoList", (IEnumerable<SelectListItem>)ViewBag.WorksAuthors, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
                 </div>
+                <label class="control-label col-md-1">
+                    @Html.DisplayNameFor(model => model.Price)
+                </label>
+                <div class="col-md-3" style="padding:0;">
+                    <div class="col-xs-6">
+                        <input type="number" name="MinePrice" class="form-control text-box single-line" />
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="number" name="MaxPrice" class="form-control text-box single-line" />
+                    </div>
+                </div>
+
             </div>
             <div class="form-group">
-                <label class="control-label col-md-3">
+                <label class="control-label col-md-2">
                     @Html.DisplayNameFor(model => model.WorksName)
                 </label>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <input type="text" name="WorksName" class="form-control text-box single-line" />
+                </div>
+                <label class="control-label col-md-1">
+                    排序
+                </label>
+                <div class="col-md-3">
+                    @Html.DropDownList("Sort", (SelectList)ViewBag.MeunOrderList, new { @class = "form-control" })
                 </div>
             </div>
 
             @*<div class="form-group">
-                    <label class="control-label col-md-2">
-                        作品年代起
+                    <label class="control-label col-md-3">
+                        @Html.DisplayNameFor(model => model.MinePrice)
                     </label>
-                    <div class="col-md-4">
-                        <input type="number" name="YearStart" class="form-control text-box single-line" />
+                    <div class="col-md-5">
+                        <input type="number" name="MinePrice" class="form-control text-box single-line" />
                     </div>
-                    <label class="control-label col-md-2">
-                        作品年代迄
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">
+                        @Html.DisplayNameFor(model => model.MaxPrice)
                     </label>
-                    <div class="col-md-4">
-                        <input type="number" name="YearEnd" class="form-control text-box single-line" />
+                    <div class="col-md-5">
+                        <input type="number" name="MaxPrice" class="form-control text-box single-line" />
                     </div>
                 </div>*@
             <div class="form-group">
-                <label class="control-label col-md-3">
-                    @Html.DisplayNameFor(model => model.MinePrice)
-                </label>
-                <div class="col-md-5">
-                    <input type="number" name="MinePrice" class="form-control text-box single-line" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-3">
-                    @Html.DisplayNameFor(model => model.MaxPrice)
-                </label>
-                <div class="col-md-5">
-                    <input type="number" name="MaxPrice" class="form-control text-box single-line" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class=" col-md-8 text-right">
+                <div class=" col-md-10 text-right">
                     <input type="submit" name="search-btn" class="btn btn-info" value="篩選" />
                 </div>
             </div>

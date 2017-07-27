@@ -7,7 +7,7 @@ using EG_MagicCube.Models;
 using EG_MagicCube.Models.ViewModel;
 namespace EG_MagicCube.Controllers
 {
-    public class MenuController : Controller
+    public class MenuController : BaseController
     {
         // GET: Menu
         public ActionResult Index(string submit,string MenuClass, FormCollection formcollection)

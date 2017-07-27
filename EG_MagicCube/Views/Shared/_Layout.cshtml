@@ -34,16 +34,16 @@
                         {
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="" style=" pointer-events: none;">@User.Identity.Name ，您好！</a></li>
-                                <li class="active">@Html.ActionLink("首頁", "Index", "Home")</li>
-                                <li>@Html.ActionLink("作品管理", "Index", "Works")</li>
-                                <li>@Html.ActionLink("包裝管理", "Index", "Package")</li>
-                                <li class="dropdown">
+                                <li class="@Html.IsActive(controllers: "Home")">@Html.ActionLink("首頁", "Index", "Home")</li>
+                                <li class="@Html.IsActive(controllers: "Works")">@Html.ActionLink("作品管理", "Index", "Works")</li>
+                                <li class="@Html.IsActive(controllers: "Package")">@Html.ActionLink("包裝管理", "Index", "Package")</li>
+                                <li class="dropdown @Html.IsActive(controllers: "Author,Account,Menu,Configure")">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">系統管理<span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li>@Html.ActionLink("藝術家管理", "Index", "Author")</li>
-                                        <li>@Html.ActionLink("帳號管理", "Index", "Account")</li>
-                                        <li>@Html.ActionLink("選項設定", "Index", "Menu")</li>
-                                        <li>@Html.ActionLink("系統參數管理", "Index", "Configure")</li>
+                                        <li class="@Html.IsActive(controllers: "Author")">@Html.ActionLink("藝術家管理", "Index", "Author")</li>
+                                        <li class="@Html.IsActive(controllers: "Account")">@Html.ActionLink("帳號管理", "Index", "Account")</li>
+                                        <li class="@Html.IsActive(controllers: "Menu")">@Html.ActionLink("選項設定", "Index", "Menu")</li>
+                                        <li class="@Html.IsActive(controllers: "Configure")">@Html.ActionLink("系統參數管理", "Index", "Configure")</li>
                                     </ul>
                                 </li>
                                 <li><a href="javascript:document.getElementById('logoutForm').submit()">登出</a></li>

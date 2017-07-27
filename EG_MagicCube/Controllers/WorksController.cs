@@ -11,13 +11,14 @@ namespace EG_MagicCube.Controllers
     public class WorksController : BaseController
     {
         // GET: Works
-        public ActionResult Index(int p = 1)
+        public ActionResult Index(int p = 0)
         {
             int take = 10;
             List<WorksViewModel> model = new List<WorksViewModel>();
 
             WorksSearchModel value = new WorksSearchModel();
-            var _value = value.Search(p, take + 1);
+            value.OrderbyType = MenuModel.MeunOrderbyTypeEnum.預設排序;
+            var _value = value.Search(p + 1, take + 1);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
@@ -43,7 +44,6 @@ namespace EG_MagicCube.Controllers
                 });
             }
 
-
             MenuModel mm = new MenuModel();
             List<SelectListItem> WorksAuthors = new List<SelectListItem>();
             var _WorksAuthors = AuthorsModel.GetAuthorList();
@@ -56,22 +56,34 @@ namespace EG_MagicCube.Controllers
                 });
             }
             ViewBag.WorksAuthors = WorksAuthors;
+            setSortDropDown();
             return View(model);
         }
         [HttpPost]
-        public ActionResult Index(WorksViewModel collection, int p = 1)
+        public ActionResult Index(FormCollection collection, int p = 0)
         {
             int take = 10;
             List<WorksViewModel> model = new List<WorksViewModel>();
-
+            MenuModel.MeunOrderbyTypeEnum _MeunOrderbyTypeEnum = (MenuModel.MeunOrderbyTypeEnum)Enum.Parse(typeof(MenuModel.MeunOrderbyTypeEnum), collection["Sort"], true);
             WorksSearchModel value = new WorksSearchModel()
             {
-                WorksName = collection.WorksName,
-                AuthorNoList = collection.AuthorNoList,
-                MinePrice = collection.MinePrice,
-                MaxPrice = collection.MaxPrice
+                WorksName = collection["WorksName"],
+                OrderbyType = _MeunOrderbyTypeEnum
             };
-            var _value = value.Search(p, take + 1);
+            if (!string.IsNullOrEmpty(collection["AuthorNoList"]))
+            {
+                value.AuthorNoList = collection["AuthorNoList"].Split(',').ToList();
+            }
+            if (!string.IsNullOrEmpty(collection["MinePrice"]))
+            {
+                value.MinePrice = Convert.ToInt16(collection["MinePrice"]);
+            }
+            if (!string.IsNullOrEmpty(collection["MaxPrice"]))
+            {
+                value.MaxPrice = Convert.ToInt16(collection["MaxPrice"]);
+            }
+
+            var _value = value.Search(p + 1, take + 1);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
@@ -110,7 +122,7 @@ namespace EG_MagicCube.Controllers
                 });
             }
             ViewBag.WorksAuthors = WorksAuthors;
-
+            setSortDropDown(_MeunOrderbyTypeEnum);
             return View(model);
         }
 

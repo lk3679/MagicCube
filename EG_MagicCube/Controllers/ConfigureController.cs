@@ -7,7 +7,7 @@ using EG_MagicCube.Models;
 using EG_MagicCube.Models.ViewModel;
 namespace EG_MagicCube.Controllers
 {
-    public class ConfigureController : Controller
+    public class ConfigureController : BaseController
     {
         // GET: Configure
         public ActionResult Index()

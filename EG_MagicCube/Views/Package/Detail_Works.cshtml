@@ -7,8 +7,9 @@
 <h2>@Html.DisplayFor(model => model.PG_Name)</h2>
 <div class="form-horizontal">
     <hr />
-    <p>@Html.DisplayNameFor(model => model.WorksAmount)：@Html.DisplayFor(model => model.WorksAmount)</p>
+    <p>推薦作品：@Html.DisplayFor(model => model.WorksAmount)</p>
     <p>@Html.DisplayNameFor(model => model.Summary)：@Html.DisplayFor(model => model.Summary)</p>
+    @*<p>@Model.EndDate</p>*@
     <hr />
     <div class="row">
         @if (Model.WorksList != null && Model.WorksList.Count > 0)

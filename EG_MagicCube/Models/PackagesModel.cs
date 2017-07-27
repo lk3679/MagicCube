@@ -227,7 +227,7 @@ namespace EG_MagicCube.Models
                     {
                         pgl = pgl.OrderByDescending(c => c.PackagesNo);
                     }
-                    if (PageIndex > 0 && PageIndex > 0)
+                    if (PageIndex > 0 )
                     {
                         pgl = pgl.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize);
                     }

@@ -40,11 +40,11 @@
             foreach (var items in Model.WorksList)
             {
                 <div class="col-md-4 ">
-                    <div class="col-xs-12 thumbnail @(items.Checked ? "selected": "") ">
-                        <div id="imgche">
-                            <i class="fa fa-check fa-6" aria-hidden="true" value="@Html.Raw(items.No)" data-price="@items.Price"></i>
-                        </div>
+                    <div class="col-xs-12 thumbnail @(items.Checked ? "selected": "") ">                       
                         <div class="imgdiv col-xs-12 text-center">
+                            <div id="imgche">
+                                <i class="fa fa-check fa-6" aria-hidden="true" value="@Html.Raw(items.No)" data-price="@items.Price"></i>
+                            </div>
                             <img class=".img-responsive" data-original="@items.MiniImg" alt="Red dot" style="max-width:350px;" />
                         </div>
                         <div class="col-xs-12 bf-caption">
@@ -74,9 +74,9 @@
         });
 
         function upadtepackage(_d) {
-            $(_d).parent().toggleClass('selected');
+            $(_d).parent().parent().toggleClass('selected');
             var wn = $(_d).parent().find('i.fa').attr('value');
-            var _addtype = $(_d).parent().hasClass('selected');
+            var _addtype = $(_d).parent().parent().hasClass('selected');
             var p = $(_d).parent().find('i.fa').data('price');
              $.ajax({
                 type: "Post",
@@ -111,7 +111,7 @@
             upadtepackage(this);
         });
 
-        $('div.imgdiv').click(function () {
+        $('img').click(function () {
             upadtepackage(this);
         });
     </script>
