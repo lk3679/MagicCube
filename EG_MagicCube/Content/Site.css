@@ -125,9 +125,11 @@ span.select2-container .select2-selection--single {
 .bf-caption {
     /*background-color: #f3f3f3;*/
 }
-    .bf-caption> a {
-        color:#3e3e3e;
+
+    .bf-caption > a {
+        color: #3e3e3e;
     }
+
     .bf-caption h4 {
         margin: 0;
         padding: 10px 0;
@@ -140,14 +142,18 @@ span.select2-container .select2-selection--single {
         margin: 5px 0;
     }
 
+div.thumbnail {
+}
+
 div#imgche {
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    /*z-index: 1;*/
+    z-index: 0;
     color: white;
+
 }
 
     div#imgche > i.fa {
@@ -159,29 +165,33 @@ div#imgche {
 div.imgdiv {
     padding: 5px;
     transition: padding 0.2s linear;
+    text-align: center;
 }
 
 div.selected {
-    border: 2px solid #30546d;
+    /*border: 2px solid #30546d;*/
     border-radius: 5px;
-    color : #333333;
+    color: #333333;
+    /*margin-bottom: 8px;*/
 }
 
     div.selected > #imgche {
-        background: linear-gradient(135deg, #30546d 38px, rgba(255, 255, 255, 0) 0);
-        
-        padding: 15px;
+        /*background: linear-gradient(135deg, #30546d 38px, rgba(255, 255, 255, 0) 0);*/
+        background: linear-gradient(135deg, #30546d 38px, rgba(48, 84, 109, 0.38) 0);
+        padding: 15px 15px 0 15px;
         font-size: 28px;
+        z-index: 1;
     }
 
-    div.selected > div.imgdiv {
+    /*div.selected > div.imgdiv {
         padding: 25px;
         transition: padding 0.2s linear;
-    }
+    }*/
 
 .dl-horizontal dt {
     width: 100px;
 }
+
 .dl-horizontal dd {
     margin-left: 115px;
 }

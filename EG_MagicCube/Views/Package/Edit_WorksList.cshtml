@@ -72,12 +72,13 @@
             effect: "fadeIn",
             effectspeed: 1000
         });
-        $('div.imgdiv').click(function () {
-            $(this).parent().toggleClass('selected');
-            var wn = $(this).parent().find('i.fa').attr('value');
-            var _addtype = $(this).parent().hasClass('selected');
-            var p = $(this).parent().find('i.fa').data('price');
-            $.ajax({
+
+        function upadtepackage(_d) {
+            $(_d).parent().toggleClass('selected');
+            var wn = $(_d).parent().find('i.fa').attr('value');
+            var _addtype = $(_d).parent().hasClass('selected');
+            var p = $(_d).parent().find('i.fa').data('price');
+             $.ajax({
                 type: "Post",
                 url: '@Url.Action("PackageAddWorks")',
                 data: { PackageNo: $('#PG_No').val(), WorkNo: wn, addtype: _addtype },
@@ -86,7 +87,6 @@
                 dataType: "json",
                 success: function (data) {
                     var s = 0;
-
                     if (_addtype) {
                         s = $('.divSummary').data('summary') + p;
                     }
@@ -100,13 +100,19 @@
                     } else {
                         $('.divSummary').removeClass('redFont');
                     }
-
                 },
                 error: function (viewHTML) {
                     alert("載入異常....");
                 }
             });
+        }
 
+        $('div#imgche').click(function () {
+            upadtepackage(this);
+        });
+
+        $('div.imgdiv').click(function () {
+            upadtepackage(this);
         });
     </script>
 }
