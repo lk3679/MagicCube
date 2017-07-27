@@ -17,7 +17,7 @@ namespace EG_MagicCube.Controllers
             int take = 10;
             List<PackageViewModel> model = new List<PackageViewModel>();
 
-            var _value = PackagesModel.GetPackageList("", p, take + 1, MenuModel.MeunOrderbyTypeEnum.預設排序);
+            var _value = PackagesModel.GetPackageList("", p + 1, take + 1, MenuModel.MeunOrderbyTypeEnum.預設排序);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
@@ -41,6 +41,7 @@ namespace EG_MagicCube.Controllers
                     WorksAmount = _value[i].ItemAmount
                 });
             }
+            setSortDropDown();
             return View(model);
         }
 
@@ -50,7 +51,7 @@ namespace EG_MagicCube.Controllers
             int take = 10;
             MenuModel.MeunOrderbyTypeEnum _MeunOrderbyTypeEnum = (MenuModel.MeunOrderbyTypeEnum)Enum.Parse(typeof(MenuModel.MeunOrderbyTypeEnum), collection["Sort"], true);
             List<PackageViewModel> model = new List<PackageViewModel>();
-            var _value = PackagesModel.GetPackageList(collection["PG_Name"], p, take + 1, _MeunOrderbyTypeEnum);
+            var _value = PackagesModel.GetPackageList(collection["PG_Name"], p + 1, take + 1, _MeunOrderbyTypeEnum);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
@@ -74,6 +75,7 @@ namespace EG_MagicCube.Controllers
                     WorksAmount = _value[i].ItemAmount
                 });
             }
+            setSortDropDown(_MeunOrderbyTypeEnum);
             return View(model);
         }
 
@@ -204,8 +206,8 @@ namespace EG_MagicCube.Controllers
                 model.PG_No = id;
                 model.PG_Name = value.PackagesName;
                 model.Budget = value.Budget;
-                model.WorksAmount = value.ItemAmount;
-                model.EndDate = value.EndDate.HasValue ? value.EndDate.Value : DateTime.Now.AddDays(1);
+                model.WorksAmount = value.ItemAmount.Substring(0, value.ItemAmount.IndexOf('('));
+                model.EndDate = value.EndDate.HasValue ? value.EndDate.Value : DateTime.Now.AddDays(-1);
                 model.WorksList = new List<WorksInfoViewModel>();
                 var valueistem = PackagesModel.ReturnPackageItemList(id, true);
                 for (int i = 0; i < valueistem.Count; i++)
@@ -221,6 +223,10 @@ namespace EG_MagicCube.Controllers
                     });
                     model.Summary += valueistem[i].Price;
                 }
+            }
+            if(model.EndDate < DateTime.Now)
+            {
+                return RedirectToAction("Expired");
             }
             return View(model);
         }
@@ -354,6 +360,7 @@ namespace EG_MagicCube.Controllers
         [AllowAnonymous]
         public ActionResult Expired()
         {
+            ViewData["Message"] = SystemGeneralModel.GetConfigure(SystemGeneralModel.ConfigureClassEnum.EmptyContent.ToString()).ConfigureContent;
             return View();
         }
 

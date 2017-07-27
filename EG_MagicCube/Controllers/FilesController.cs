@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.IO;
 namespace EG_MagicCube.Controllers
 {
-    public class FilesController : Controller
+    public class FilesController : BaseController
     {
         // GET: Files
         public ActionResult Index(string id)

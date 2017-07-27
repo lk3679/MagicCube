@@ -1,10 +1,8 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Expired";
 }
 
-<h2>Expired</h2>
-<div>
-    此包裝的展示期限已到。
-    請洽 xxxx 。
+<h2></h2>
+<div class="text-center">
+    @Html.Raw( @ViewData["Message"])
 </div>

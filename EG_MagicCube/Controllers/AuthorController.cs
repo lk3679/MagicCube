@@ -6,13 +6,13 @@ using System.Web.Mvc;
 using EG_MagicCube.Models;
 namespace EG_MagicCube.Controllers
 {
-    public class AuthorController : Controller
+    public class AuthorController : BaseController
     {
         // GET: Author
-        public ActionResult Index(int p = 1)
+        public ActionResult Index(int p = 0)
         {
             int take = 10;
-            List<AuthorsModel> AuthorsModelList = AuthorsModel.GetAuthorList("",p, take + 1);
+            List<AuthorsModel> AuthorsModelList = AuthorsModel.GetAuthorList("", p + 1, take );
             //多取一，若有表示有下一頁
             if (AuthorsModelList.Count == (take + 1))
             {
@@ -24,14 +24,16 @@ namespace EG_MagicCube.Controllers
                 ViewBag.pn = 0;
             }
             ViewBag.pi = p;
+            setSortDropDown();
             return View(AuthorsModelList);
         }
 
         [HttpPost]
-        public ActionResult Index(AuthorsModel collection, int p = 1)
+        public ActionResult Index(FormCollection collection, int p = 0)
         {
             int take = 10;
-            List<AuthorsModel> AuthorsModelList = AuthorsModel.GetAuthorList(collection.AuthorsCName, p, take + 1);
+            MenuModel.MeunOrderbyTypeEnum _MeunOrderbyTypeEnum = (MenuModel.MeunOrderbyTypeEnum)Enum.Parse(typeof(MenuModel.MeunOrderbyTypeEnum), collection["Sort"], true);
+            List<AuthorsModel> AuthorsModelList = AuthorsModel.GetAuthorList(collection["AuthorsCName"], p + 1, take , _MeunOrderbyTypeEnum);
             if (AuthorsModelList.Count == (take + 1))
             {
                 ViewBag.pn = p + 1;
@@ -42,6 +44,7 @@ namespace EG_MagicCube.Controllers
                 ViewBag.pn = 0;
             }
             ViewBag.pi = p;
+            setSortDropDown(_MeunOrderbyTypeEnum);
             return View(AuthorsModelList);
         }
 
@@ -54,7 +57,7 @@ namespace EG_MagicCube.Controllers
         // GET: Author/Create
         public ActionResult Create()
         {
-            MenuModel mm=new MenuModel();
+            MenuModel mm = new MenuModel();
             List<SelectListItem> AuthorAreaList = new List<SelectListItem>();
             var _AuthorAreaList = mm.GetMenu(MenuModel.MenuClassEnum.AuthorArea);
             for (int i = 0; i < _AuthorAreaList.Count; i++)
