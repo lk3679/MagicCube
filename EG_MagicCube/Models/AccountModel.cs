@@ -220,14 +220,65 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 取得帳號清單
         /// </summary>
-        public static List<AccountModel> GetAccountList(string KeyWords = "", int PageIndex = 1, int PageSize = 10)
+        /// <param name="KeyWords">帳號、名稱關鍵字</param>
+        /// <param name="PageIndex">頁碼，從1開始0為不分頁</param>
+        /// <param name="PageSize">每頁筆數，0為不分頁</param>
+        /// <param name="OrderbyType">排序方式</param>
+        /// <returns></returns>
+        public static List<AccountModel> GetAccountList(string KeyWords = "", int PageIndex = 0, int PageSize = 0, MenuModel.MeunOrderbyTypeEnum OrderbyType = MenuModel.MeunOrderbyTypeEnum.預設排序)
         {
             List<AccountModel> _AccountModelList = new List<AccountModel>();
             using (var context = new EG_MagicCubeEntities())
             {
                 if (context.UserAccounts.Count() > 0)
                 {
-                    _AccountModelList = context.UserAccounts.AsEnumerable().Where(c => c.Name.Contains(KeyWords)).Select(c =>
+                    var uas = context.UserAccounts.AsQueryable().Where(c => c.Name.Contains(KeyWords) || c.UserAccount.Contains(KeyWords)).Select(c =>c);
+
+                    if (MenuModel.MeunOrderbyTypeEnum.預設排序 == OrderbyType)
+                    {
+                        uas = uas.OrderByDescending(c => c.UserAccountsNo);
+                    }
+                    else
+                      if (MenuModel.MeunOrderbyTypeEnum.建立時間由舊至新 == OrderbyType)
+                    {
+                        uas = uas.OrderBy(c => c.CreateDate);
+                    }
+                    else
+                      if (MenuModel.MeunOrderbyTypeEnum.建立時間由新至舊 == OrderbyType)
+                    {
+                        uas = uas.OrderByDescending(c => c.CreateDate);
+                    }
+                    else
+                      if (MenuModel.MeunOrderbyTypeEnum.修改時間由舊至新 == OrderbyType)
+                    {
+                        uas = uas.OrderBy(c => c.ModifyDate);
+                    }
+                    else
+                      if (MenuModel.MeunOrderbyTypeEnum.修改時間由新至舊 == OrderbyType)
+                    {
+                        uas = uas.OrderByDescending(c => c.ModifyDate);
+                    }
+                    else
+                      if (MenuModel.MeunOrderbyTypeEnum.名稱姓名小至大 == OrderbyType)
+                    {
+                        uas = uas.OrderBy(c => c.UserAccount);
+                    }
+                    else
+                      if (MenuModel.MeunOrderbyTypeEnum.名稱姓名大至小 == OrderbyType)
+                    {
+                        uas = uas.OrderByDescending(c => c.UserAccount);
+                    }
+                    else
+                    {
+                        uas = uas.OrderByDescending(c => c.UserAccountsNo);
+                    }
+                    if (PageIndex > 0 && PageIndex > 0)
+                    {
+                        uas = uas.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize);
+                    }
+                    var r_uas = uas.ToList();
+
+                    _AccountModelList = r_uas.AsEnumerable().Select(c =>
                     new AccountModel()
                     {
                         UserAccountsNo = c.UserAccountsNo,

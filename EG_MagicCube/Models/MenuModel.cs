@@ -71,6 +71,20 @@ namespace EG_MagicCube.Models
         };
 
         /// <summary>
+        /// 排序方式
+        /// </summary>
+        public enum MeunOrderbyTypeEnum
+        {
+            預設排序,
+            名稱姓名大至小,
+            名稱姓名小至大,
+            建立時間由新至舊,
+            建立時間由舊至新,
+            修改時間由舊至新,
+            修改時間由新至舊
+        }
+
+        /// <summary>
         /// 取得Menu
         /// </summary>
         /// <param name="_MenuClass"></param>
