@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[Menu_AuthorsTag](
 	[AuthorsTagNo] [int] IDENTITY(1,1) NOT NULL,
 	[AuthorsTagName] [nvarchar](50) NOT NULL,
+	[IsDel] VARCHAR(5) NOT NULL DEFAULT (''), 
  CONSTRAINT [PK_Menu_AuthorTag] PRIMARY KEY CLUSTERED 
 (
 	[AuthorsTagNo] ASC
@@ -12,3 +13,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'藝術家標籤編號' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Menu_AuthorsTag', @level2type=N'COLUMN',@level2name=N'AuthorsTagNo'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'藝術家標籤名稱' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Menu_AuthorsTag', @level2type=N'COLUMN',@level2name=N'AuthorsTagName'
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'是否刪除，Y:刪除',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'Menu_AuthorsTag',
+    @level2type = N'COLUMN',
+    @level2name = N'IsDel'

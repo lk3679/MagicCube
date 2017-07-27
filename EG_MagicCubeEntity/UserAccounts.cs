@@ -15,6 +15,7 @@ namespace EG_MagicCubeEntity
     public partial class UserAccounts
     {
         public int UserAccountsNo { get; set; }
+        public string UserAccount { get; set; }
         public string Password { get; set; }
         public string Pwdself { get; set; }
         public string Name { get; set; }
@@ -25,7 +26,7 @@ namespace EG_MagicCubeEntity
         public string CreateUser { get; set; }
         public string ModifyUser { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
-        public string UserAccount { get; set; }
+        public string IsDel { get; set; }
     
         public virtual UserAccountRoles UserAccountRoles { get; set; }
     }

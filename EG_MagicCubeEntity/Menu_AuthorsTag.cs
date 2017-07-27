@@ -21,6 +21,7 @@ namespace EG_MagicCubeEntity
     
         public int AuthorsTagNo { get; set; }
         public string AuthorsTagName { get; set; }
+        public string IsDel { get; set; }
     
         public virtual ICollection<AuthorsPropTag> AuthorsPropTag { get; set; }
     }

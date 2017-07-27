@@ -21,6 +21,7 @@ namespace EG_MagicCubeEntity
     
         public int AuthorsAreaNo { get; set; }
         public string AuthorsAreaName { get; set; }
+        public string IsDel { get; set; }
     
         public virtual ICollection<AuthorsPropArea> AuthorsPropArea { get; set; }
     }

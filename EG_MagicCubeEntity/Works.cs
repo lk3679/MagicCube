@@ -19,11 +19,11 @@ namespace EG_MagicCubeEntity
             this.PackageItems = new HashSet<PackageItems>();
             this.WorksAuthors = new HashSet<WorksAuthors>();
             this.WorksFiles = new HashSet<WorksFiles>();
+            this.WorksModules = new HashSet<WorksModules>();
             this.WorksPropGenre = new HashSet<WorksPropGenre>();
             this.WorksPropOwner = new HashSet<WorksPropOwner>();
             this.WorksPropStyle = new HashSet<WorksPropStyle>();
             this.WorksPropWareType = new HashSet<WorksPropWareType>();
-            this.WorksModules = new HashSet<WorksModules>();
         }
     
         public System.Guid WorksNo { get; set; }
@@ -45,14 +45,16 @@ namespace EG_MagicCubeEntity
         public System.DateTime CreateDate { get; set; }
         public string ModifyUser { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
+        public string Rating { get; set; }
+        public string IsDel { get; set; }
     
         public virtual ICollection<PackageItems> PackageItems { get; set; }
         public virtual ICollection<WorksAuthors> WorksAuthors { get; set; }
         public virtual ICollection<WorksFiles> WorksFiles { get; set; }
+        public virtual ICollection<WorksModules> WorksModules { get; set; }
         public virtual ICollection<WorksPropGenre> WorksPropGenre { get; set; }
         public virtual ICollection<WorksPropOwner> WorksPropOwner { get; set; }
         public virtual ICollection<WorksPropStyle> WorksPropStyle { get; set; }
         public virtual ICollection<WorksPropWareType> WorksPropWareType { get; set; }
-        public virtual ICollection<WorksModules> WorksModules { get; set; }
     }
 }

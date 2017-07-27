@@ -29,6 +29,9 @@ namespace EG_MagicCubeEntity
         public System.DateTime CreateDate { get; set; }
         public string ModifyUser { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
+        public string Rating { get; set; }
+        public int WorksAmount { get; set; }
+        public string IsDel { get; set; }
     
         public virtual ICollection<AuthorsPropArea> AuthorsPropArea { get; set; }
         public virtual ICollection<AuthorsPropTag> AuthorsPropTag { get; set; }
