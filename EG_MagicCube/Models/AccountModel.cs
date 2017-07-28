@@ -275,7 +275,7 @@ namespace EG_MagicCube.Models
                     }
                     if (PageIndex > 0 && PageIndex > 0)
                     {
-                        uas = uas.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize);
+                        uas = uas.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize+1);
                     }
                     var r_uas = uas.ToList();
 

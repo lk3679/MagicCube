@@ -294,7 +294,7 @@ namespace EG_MagicCube.Models
                     }
                     if (PageIndex > 0 && PageIndex > 0)
                     {
-                        r = r.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize);
+                        r = r.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize+1);
                     }
 
                     var _rw = r.ToList();

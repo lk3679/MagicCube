@@ -232,7 +232,7 @@ namespace EG_MagicCube.Models
                     }
                     if (PageIndex > 0 )
                     {
-                        pgl = pgl.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize);
+                        pgl = pgl.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize+1);
                     }
 
                     var r_pgl = pgl.ToList();
