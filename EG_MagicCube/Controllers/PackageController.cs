@@ -302,6 +302,7 @@ namespace EG_MagicCube.Controllers
             PackageViewModel model = new PackageViewModel();
             model.PG_No = id;
             model.PG_Name = value.PackagesName;
+            model.Budget = value.Budget;
             model.WorksList = new List<WorksInfoViewModel>();
             for (int i = 0; i < value.PackageItems.Count; i++)
             {
