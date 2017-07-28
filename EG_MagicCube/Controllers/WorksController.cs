@@ -17,7 +17,7 @@ namespace EG_MagicCube.Controllers
 
             WorksSearchModel value = new WorksSearchModel();
             value.OrderbyType = MenuModel.MeunOrderbyTypeEnum.預設排序;
-            var _value = value.Search(p + 1, take + 1);
+            var _value = value.Search(p + 1, take);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
@@ -82,7 +82,7 @@ namespace EG_MagicCube.Controllers
                 value.MaxPrice = Convert.ToInt16(collection["MaxPrice"]);
             }
 
-            var _value = value.Search(p + 1, take + 1);
+            var _value = value.Search(p + 1, take);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {

@@ -180,11 +180,11 @@ namespace EG_MagicCube.Models
                     //時間長度
                     if (this.MineTimeLength > 0)
                     {
-                        rwm = rwm.Where(f => f.TimeLength == this.MineTimeLength.ToString());
+                        rwm = rwm.Where(f => Convert.ToInt16(f.TimeLength) >= this.MineTimeLength);
                     }
                     if (this.MaxTimeLength > 0)
                     {
-                        rwm = rwm.Where(f => f.TimeLength == this.MaxTimeLength.ToString());
+                        rwm = rwm.Where(f => Convert.ToInt16(f.TimeLength) <= this.MaxTimeLength);
                     }
 
                     var _wkno=rwm.Select(c => c.WorksNo).ToList();
@@ -193,12 +193,18 @@ namespace EG_MagicCube.Models
                         _WorksNoList.AddRange(_wkno);
                     }
 
+                    if (_WorksNoList != null && _WorksNoList.Count > 0)
+                    {
+                        _WorksNoList = _WorksNoList.Distinct().ToList();
+                    }
+                    //取得組件符合搜尋條件的作品列表
                     #endregion
+                    int FilterCount = 1;
 
-                    
                     //藝術家
                     if (this.AuthorNoList != null && this.AuthorNoList.Count > 0)
                     {
+                        FilterCount++;
                         int[] _AuthorNoArray = this.AuthorNoList.ConvertAll(s => int.Parse(s)).ToArray();
                         var _wawkno = context.WorksAuthors?.AsQueryable()?.Where(wa => _AuthorNoArray.Contains(wa.Author_No)).Select(c => c.Works_No).ToList();
                         if(_wawkno != null && _wawkno.Count > 0)
@@ -211,6 +217,7 @@ namespace EG_MagicCube.Models
                     //類型
                     if (this.GenreNoList != null && this.GenreNoList.Count > 0)
                     {
+                        FilterCount++;
                         int[] _GenreNoArray = this.GenreNoList.ConvertAll(s => int.Parse(s)).ToArray();
                         var wpgwkno = context.WorksPropGenre?.AsQueryable()?.Where(c => _GenreNoArray.Contains(c.GenreNo)).Select(c => c.WorksNo).ToList();
                         if (wpgwkno != null && wpgwkno.Count > 0)
@@ -223,6 +230,7 @@ namespace EG_MagicCube.Models
                     //風格
                     if (this.StyleNoList != null && this.StyleNoList.Count > 0)
                     {
+                        FilterCount++;
                         int[] _StyleNoList = this.StyleNoList.ConvertAll(s => int.Parse(s)).ToArray();
                         var wpswkno = context.WorksPropStyle?.AsQueryable()?.Where(c => _StyleNoList.Contains(c.StyleNo)).Select(c => c.WorksNo).ToList();
                         if (wpswkno != null && wpswkno.Count > 0)
@@ -235,6 +243,7 @@ namespace EG_MagicCube.Models
                     //以包裝序號查詢
                     if (!string.IsNullOrEmpty(this.PackagesNo))
                     {
+                        FilterCount++;
                         var pkgitmwkno= context.PackageItems?.AsQueryable()?.Where(c => c.PackagesNo== Guid.Parse(this.PackagesNo)).Select(c => c.WorksNo).ToList();
 
                         if (pkgitmwkno != null && pkgitmwkno.Count > 0)
@@ -245,9 +254,9 @@ namespace EG_MagicCube.Models
 
                     }
                     if (_WorksNoList != null && _WorksNoList.Count > 0)
-                    {
+                    {                        
                         var _WorksNoArray = _WorksNoList.GroupBy(i => i)
-                        .Where(g => g.Count() > 1)
+                        .Where(g => g.Count() == FilterCount)
                         .Select(g => g.ElementAt(0)).ToArray();
                         if (_WorksNoArray != null && _WorksNoArray.Length>0)
                         {
@@ -294,7 +303,7 @@ namespace EG_MagicCube.Models
                     }
                     if (PageIndex > 0 && PageIndex > 0)
                     {
-                        r = r.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize);
+                        r = r.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize+1);
                     }
 
                     var _rw = r.ToList();

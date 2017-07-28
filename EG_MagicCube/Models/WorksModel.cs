@@ -49,7 +49,7 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 作品起始年分
         /// </summary>
-        [DisplayName("起始年分")]
+        [DisplayName("起迄年分")]
         public short YearStart { get; set; } = 0;
         /// <summary>
         /// 作品結束年分
@@ -195,6 +195,12 @@ namespace EG_MagicCube.Models
         /// 
         /// </summary>
         public bool IsJoin { get; set; } = false;
+        /// <summary>
+        /// 作品等級
+        /// </summary>
+        [Required]
+        [DisplayName("作品等級")]
+        public string Rating { get; set; } = "";
         #endregion
 
         #region Methods
@@ -212,7 +218,7 @@ namespace EG_MagicCube.Models
                 _Works.WorksNo = Guid.NewGuid();
                 this.WorksNo = _Works.WorksNo.ToString();
                 _Works.MaterialsID = this.MaterialsID;
-                _Works.AuthorsNo = this.AuthorsNo;
+                _Works.AuthorsNo = this.AuthorNo_InputString.Select(n => Convert.ToInt32(n)).ToArray()[0];
                 _Works.WorksName = this.WorksName;
                 _Works.YearStart = this.YearStart;
                 _Works.YearEnd = this.YearEnd;
@@ -229,7 +235,9 @@ namespace EG_MagicCube.Models
                 _Works.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                 _Works.ModifyDate = DateTime.Now;
                 _Works.Remarks = this.Remarks;
+                _Works.Rating = this.Rating;
                 _Works.IsDel = "";
+
                 context.Works.Add(_Works);
 
                 if (context.SaveChanges() > 0)
@@ -257,8 +265,8 @@ namespace EG_MagicCube.Models
                     {
                         if (_Files != null)
                         {
-                            string base64_file = FileToBase64(_Files);
-                            context.WorksFiles.Add(new WorksFiles() { WorksNo = _Works.WorksNo, FileBase64Str = base64_file });
+                            string FileUrl = WorksFilesModel.SaveToAzure(_Files);
+                            context.WorksFiles.Add(new WorksFiles() { WorksNo = _Works.WorksNo, FileBase64Str = FileUrl });
                         }
 
                     }
@@ -351,6 +359,7 @@ namespace EG_MagicCube.Models
                     CreateUser = c.CreateUser,
                     CreateDate = c.CreateDate,
                     ModifyUser = c.ModifyUser,
+                    Rating = c.Rating,
                     ModifyDate = (DateTime)c.ModifyDate,
                     AuthorNo_InputString = c.WorksAuthors.Select(wa => wa.Authors.AuthorsNo.ToString()).ToList(),
                     GenreNo_InputString = c.WorksPropGenre.Select(wpg => wpg.Menu_Genre.GenreNo.ToString()).ToList(),
@@ -463,6 +472,7 @@ namespace EG_MagicCube.Models
                 oldWorks.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                 oldWorks.ModifyDate = System.DateTime.Now;
                 oldWorks.Remarks = newWorks.Remarks;
+                oldWorks.Rating = newWorks.Rating;
                 //組件
                 foreach (WorksModuleModel _WorksModuleModel in newWorks.WorksModuleList)
                 {
@@ -485,8 +495,8 @@ namespace EG_MagicCube.Models
                 {
                     if (_Files != null)
                     {
-                        string base64_file = FileToBase64(_Files);
-                        context.WorksFiles.Add(new WorksFiles() { WorksNo = oldWorks.WorksNo, FileBase64Str = base64_file });
+                        string FileUrl =WorksFilesModel.SaveToAzure(_Files);
+                        context.WorksFiles.Add(new WorksFiles() { WorksNo = oldWorks.WorksNo, FileBase64Str = FileUrl });
                     }
                 }
                 //藝術家
@@ -696,40 +706,7 @@ namespace EG_MagicCube.Models
 
         }
 
-        /// <summary>
-        /// 將檔案轉成Base64
-        /// </summary>
-        /// <param name="_File"></param>
-        /// <returns></returns>
-        public static string FileToBase64(HttpPostedFileBase _File, bool Resize = false)
-        {
-            string thePictureDataAsString = "";
-            byte[] thePictureAsBytes = new byte[_File.ContentLength];
-            using (BinaryReader theReader = new System.IO.BinaryReader(_File.InputStream))
-            {
-                thePictureAsBytes = theReader.ReadBytes(_File.ContentLength);
-                MemoryStream ms_mini = new MemoryStream();
-                //將圖片轉成png8,壓縮率70，
-                MagickImage workimg = (new MagickImage(thePictureAsBytes) { Format = MagickFormat.Jpeg, Quality = 70, CompressionMethod = CompressionMethod.JPEG });
-                if (Resize)
-                {
-                    if (workimg.Width > 600 || workimg.Height > 600)
-                    {
-                        workimg.Resize(new MagickGeometry(600));
-                    }
-                    workimg.Sharpen(0, 0.8);
-                }
-                
-                workimg.Strip();
 
-                workimg.Write(ms_mini);
-                thePictureDataAsString = Convert.ToBase64String(ms_mini.ToArray());
-                ms_mini.Dispose();
-                workimg.Dispose();
-            }
-
-            return thePictureDataAsString;
-        }
     }
 
     #endregion

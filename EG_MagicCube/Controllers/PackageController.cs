@@ -16,7 +16,7 @@ namespace EG_MagicCube.Controllers
         {
             List<PackageViewModel> model = new List<PackageViewModel>();
 
-            var _value = PackagesModel.GetPackageList("", p + 1, take + 1, MenuModel.MeunOrderbyTypeEnum.預設排序);
+            var _value = PackagesModel.GetPackageList("", p + 1, take, MenuModel.MeunOrderbyTypeEnum.預設排序);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
@@ -50,7 +50,7 @@ namespace EG_MagicCube.Controllers
         {
             MenuModel.MeunOrderbyTypeEnum _MeunOrderbyTypeEnum = (MenuModel.MeunOrderbyTypeEnum)Enum.Parse(typeof(MenuModel.MeunOrderbyTypeEnum), collection["Sort"], true);
             List<PackageViewModel> model = new List<PackageViewModel>();
-            var _value = PackagesModel.GetPackageList(collection["PG_Name"], p + 1, take + 1, _MeunOrderbyTypeEnum);
+            var _value = PackagesModel.GetPackageList(collection["PG_Name"], p + 1, take, _MeunOrderbyTypeEnum);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
@@ -243,6 +243,9 @@ namespace EG_MagicCube.Controllers
                 PackagesModel pm = new PackagesModel();
                 pm.PackagesName = "未命名" + DateTime.Now.ToString("yyMMddHHmmss");
                 pm.PackageItems = new List<PackagesModel.PackageItemModel>();
+                short d = 1;
+                Int16.TryParse(SystemGeneralModel.GetConfigure(SystemGeneralModel.ConfigureClassEnum.OpenDays.ToString()).ConfigureContent, out d);
+                pm.EndDate = DateTime.Now.AddDays(d);
                 pm.Create();
                 id = pm.PackagesNo;
             }
@@ -273,7 +276,7 @@ namespace EG_MagicCube.Controllers
 
         // POST: Package/Edit/5
         [HttpPost]
-        public JsonResult Edit(PackageViewModel collection)
+        public ActionResult Edit(string id, PackageViewModel collection)
         {
             //try
             //{
@@ -283,7 +286,11 @@ namespace EG_MagicCube.Controllers
             value.EndDate = collection.EndDate;
             value.PackagesMemo = collection.Remark ?? "";
             value.Update();
-            return Json("儲存成功");
+            ViewData["Message"] = "儲存成功";
+
+            collection.Url = this.Url.Action("Detail_Works", "Package", new { id = id }, this.Request.Url.Scheme);
+            collection.QRImg = PackagesModel.DrawQRcodeToImgBase64sting(this.Url.Action("Detail_Works", "Package", new { id = id }, this.Request.Url.Scheme));
+            return View(collection);
             //}
             //catch
             //{

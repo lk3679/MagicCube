@@ -211,20 +211,75 @@ namespace EG_MagicCube.Models
         }
         public static string SaveToAzure(HttpPostedFileBase UploadWorksFiles)
         {
+            byte[] thePictureAsBytes = new byte[UploadWorksFiles.ContentLength];
+            string filebase64 = "";
+            using (BinaryReader theReader = new BinaryReader(UploadWorksFiles.InputStream))
+            {
+                thePictureAsBytes = theReader.ReadBytes(UploadWorksFiles.ContentLength);
+                filebase64 = Convert.ToBase64String(thePictureAsBytes);
+            }
+            
+
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
 
             CloudBlobClient _CloudBlobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer container = _CloudBlobClient.GetContainerReference("worksimg");
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(Guid.NewGuid().ToString() + ".jpg");
 
-            blockBlob.Properties.ContentType = "image/jpg";
-            blockBlob.UploadFromStream(new MemoryStream(Convert.FromBase64String(WorksModel.FileToBase64(UploadWorksFiles))));
+            string FileName = Guid.NewGuid().GetHashCode().ToString();
+            string FileName_o = FileName+".jpg";
+            string FileName_m= FileName + "_m.jpg";
+            string FileName_s = FileName + "_s.jpg";
+            
+            string FileBase64_o = ImgFileToBase64(new MagickImage(Convert.FromBase64String(filebase64)));
+            string FileBase64_m = ImgFileToBase64(new MagickImage(Convert.FromBase64String(filebase64)), 600);
+            string FileBase64_s = ImgFileToBase64(new MagickImage(Convert.FromBase64String(filebase64)), 200);
 
-            var uriBuilder = new UriBuilder(blockBlob.Uri);
+            CloudBlockBlob blockBlob_o = container.GetBlockBlobReference(FileName_o);
+            blockBlob_o.Properties.ContentType = "image/jpg";
+            blockBlob_o.UploadFromStream(new MemoryStream(Convert.FromBase64String(FileBase64_o)));
+            var uriBuilder = new UriBuilder(blockBlob_o.Uri);
 
-            string imgurl = blockBlob.StorageUri.PrimaryUri.ToString();
+            CloudBlockBlob blockBlob_m = container.GetBlockBlobReference(FileName_m);
+            blockBlob_m.Properties.ContentType = "image/jpg";
+            blockBlob_m.UploadFromStream(new MemoryStream(Convert.FromBase64String(FileBase64_m)));
+
+            CloudBlockBlob blockBlob_s = container.GetBlockBlobReference(FileName_s);
+            blockBlob_s.Properties.ContentType = "image/jpg";
+            blockBlob_s.UploadFromStream(new MemoryStream(Convert.FromBase64String(FileBase64_s)));
+
+
+            string imgurl = blockBlob_o.StorageUri.PrimaryUri.ToString();
 
             return imgurl;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_File"></param>
+        /// <param name="maxedge"></param>
+        /// <returns></returns>
+        public static string ImgFileToBase64(MagickImage _ImgFile,int maxedge=0)
+        {
+            string thePictureDataAsString = "";
+            MemoryStream ms_mini = new MemoryStream();
+
+            _ImgFile.Format = MagickFormat.Jpeg;
+            _ImgFile.Quality = 70;
+            _ImgFile.CompressionMethod = CompressionMethod.JPEG;
+            if (maxedge > 0)
+            {
+                if (_ImgFile.Width > maxedge || _ImgFile.Height > maxedge)
+                {
+                    _ImgFile.Resize(new MagickGeometry(maxedge));
+                }
+                _ImgFile.Sharpen(0, 0.8, Channels.All);
+            }
+            _ImgFile.Strip();
+            _ImgFile.Write(ms_mini);
+            thePictureDataAsString = Convert.ToBase64String(ms_mini.ToArray());
+            ms_mini.Dispose();
+            _ImgFile.Dispose();
+            return thePictureDataAsString;
         }
     }
 

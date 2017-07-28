@@ -12,6 +12,8 @@
         @Html.AntiForgeryToken()*@
 <h2>包裝名稱：@Model.PG_Name</h2>
 <div class="col-xs-12">
+    @Html.ActionLink("加入作品", "Filter", new { id = Model.PG_No }, new { @class = "btn btn-success" })
+
     @Html.ActionLink("檢視包裝詳細資訊", "Edit", new { id = Model.PG_No }, new { @class = "btn btn-warning pull-right" })
 </div>
 <div class="form-horizontal">

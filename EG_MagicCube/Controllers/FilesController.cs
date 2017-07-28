@@ -9,6 +9,7 @@ namespace EG_MagicCube.Controllers
 {
     public class FilesController : BaseController
     {
+        [AllowAnonymous]
         // GET: Files
         public ActionResult Index(string id)
         {
