@@ -60,7 +60,7 @@
 
                 <label class="control-label col-md-2 col-xs-3" for="height">高</label>
                 <div class="col-md-4 col-xs-3">
-                    <input class="form-control text-box single-line"  id="height" name="height" type="number" value="">
+                    <input class="form-control text-box single-line" id="height" name="height" type="number" value="">
                     <span class="field-validation-valid text-danger" data-valmsg-for="height" data-valmsg-replace="true"></span>
                 </div>
             </div>
@@ -73,31 +73,32 @@
 
                 <label class="control-label col-md-2 col-xs-3" for="deep">深</label>
                 <div class="col-md-4 col-xs-3">
-                    <input class="form-control text-box single-line"  id="deep" name="deep" type="number" value="">
+                    <input class="form-control text-box single-line" id="deep" name="deep" type="number" value="">
                     <span class="field-validation-valid text-danger" data-valmsg-for="deep" data-valmsg-replace="true"></span>
                 </div>
             </div>
-            <div class="col-md-6 col-xs-12">
-                <label class="control-label col-md-2 col-xs-3" for="times">影片長度</label>
-                <div class="col-md-4 col-xs-3">
+            <div class="col-md-3 col-xs-12">
+                <label class="control-label col-md-4 col-xs-3" for="times">影片長度</label>
+                <div class="col-md-8 col-xs-6">
                     <input class="form-control text-box single-line"
                            id="times" name="times" type="number" value="">
                 </div>
-
-                <label class="control-label col-md-2 col-xs-3" for="nums">數量單位</label>
-                <div class="col-md-4 col-xs-3">
+            </div>
+            <div class="col-md-6 col-xs-9">
+                <label class="control-label col-md-2 col-xs-4" for="nums">數量單位</label>
+                <div class="col-xs-4">
                     <input class="form-control text-box single-line" id="nums" name="nums" type="number" value="" data-val="true">
                     <span class="field-validation-valid text-danger" data-valmsg-for="nums" data-valmsg-replace="true"></span>
                 </div>
-            </div>
-            <div class="col-md-6 col-xs-12 text-right">
-                <div class="col-xs-3 pull-right">
-                    <input type="button" id="mateadd" name="mateadd" class="btn btn-default" value="primary" />
-                </div>
-                <div class="col-xs-3 pull-right">
+                <div class="col-xs-4">
                     @Html.DropDownList("CountNoun", (IEnumerable<SelectListItem>)ViewBag.WorksCountNounList, new { @class = "js-example-basic-multiple js-states form-control" })
                     <span class="field-validation-valid text-danger" data-valmsg-for="CountNoun" data-valmsg-replace="true"></span>
                 </div>
+            </div>
+            <div class="col-xs-3 text-right">
+                <div class="col-xs-12">
+                    <input type="button" id="mateadd" name="mateadd" class="btn btn-success" value="加入" />
+                </div>               
             </div>
             <label class="text-danger error" style="display:none;">此項目必填</label>
             <table class="Moduletable table" id="WorksModuleList" name="WorksModuleList">
@@ -352,7 +353,7 @@
             if (s != "") {
                 var e = +$('input#YearEnd').val();
                 if (e == "" || s >= e) {
-                    $('input#YearEnd').val(s + 1);
+                    $('input#YearEnd').val(s);
                 }
             }
         });
