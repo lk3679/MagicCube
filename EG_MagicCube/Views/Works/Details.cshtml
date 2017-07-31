@@ -127,23 +127,21 @@
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js.map"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="@Url.Content("~/Scripts/jquery.lazyload.js")"></script>
     <script>
         $("img").lazyload({
             effect: "fadeIn",
-            effectspeed: 1000
+            effectspeed: 500
         });
-        //$(document).load("load resize scroll", function () {
-        //    $("img").lazyload({
-        //        event: "lazyload",
-        //        effect: "fadeIn",
-        //        effectspeed: 1000
-        //    });
-        //});
         $(document).on('click', '[data-toggle="lightbox"]', function (event) {
             event.preventDefault();
             $(this).ekkoLightbox();
         });
-
+        jQuery(window).on('load resize scroll', function () {
+            $('.grid').masonry({
+                itemSelector: '.grid-item'
+            });
+        });
     </script>
 }
