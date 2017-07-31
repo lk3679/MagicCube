@@ -227,10 +227,10 @@ namespace EG_MagicCube.Controllers
                     model.Summary += valueistem[i].Price;
                 }
             }
-            if (model.EndDate < DateTime.Now)
-            {
-                return RedirectToAction("Expired");
-            }
+            //if (model.EndDate < DateTime.Now)
+            //{
+            //    return RedirectToAction("Expired");
+            //}
             return View(model);
         }
 
@@ -377,7 +377,7 @@ namespace EG_MagicCube.Controllers
         public ActionResult Expired()
         {
             ViewData["Message"] = SystemGeneralModel.GetConfigure(SystemGeneralModel.ConfigureClassEnum.EmptyContent.ToString()).ConfigureContent;
-            return View();
+            return PartialView();
         }
 
         public class PackageAddWorksJSONModel
