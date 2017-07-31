@@ -158,50 +158,50 @@ namespace EG_MagicCube.Models
                     case MenuClassEnum.AuthorArea:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            context.Menu_AuthorsArea.Add(new Menu_AuthorsArea() { AuthorsAreaNo = _MenuViewModel.MenuID, AuthorsAreaName = _MenuViewModel.MenuName });
+                            context.Menu_AuthorsArea.Add(new Menu_AuthorsArea() { AuthorsAreaNo = _MenuViewModel.MenuID, AuthorsAreaName = _MenuViewModel.MenuName,IsDel="" });
                         }
                         break;
                     case MenuClassEnum.AuthorTag:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            context.Menu_AuthorsTag.Add(new Menu_AuthorsTag() { AuthorsTagNo = _MenuViewModel.MenuID, AuthorsTagName = _MenuViewModel.MenuName });
+                            context.Menu_AuthorsTag.Add(new Menu_AuthorsTag() { AuthorsTagNo = _MenuViewModel.MenuID, AuthorsTagName = _MenuViewModel.MenuName, IsDel = "" });
                         }
                         break;
                     case MenuClassEnum.CountNoun:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            context.Menu_CountNoun.Add(new Menu_CountNoun() { CountNounNo = _MenuViewModel.MenuID, CountNounName = _MenuViewModel.MenuName });
+                            context.Menu_CountNoun.Add(new Menu_CountNoun() { CountNounNo = _MenuViewModel.MenuID, CountNounName = _MenuViewModel.MenuName, IsDel = "" });
                         }
                         break;
                     case MenuClassEnum.Genre:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            context.Menu_Genre.Add(new Menu_Genre() { GenreNo = _MenuViewModel.MenuID, GenreName = _MenuViewModel.MenuName });
+                            context.Menu_Genre.Add(new Menu_Genre() { GenreNo = _MenuViewModel.MenuID, GenreName = _MenuViewModel.MenuName, IsDel = "" });
                         }
                         break;
                     case MenuClassEnum.Material:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            context.Menu_Material.Add(new Menu_Material() { MaterialNo = _MenuViewModel.MenuID, MaterialName = _MenuViewModel.MenuName });
+                            context.Menu_Material.Add(new Menu_Material() { MaterialNo = _MenuViewModel.MenuID, MaterialName = _MenuViewModel.MenuName, IsDel = "" });
                         }
                         break;
                     case MenuClassEnum.Style:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            context.Menu_Style.Add(new Menu_Style() { StyleNo = _MenuViewModel.MenuID, StyleName = _MenuViewModel.MenuName });
+                            context.Menu_Style.Add(new Menu_Style() { StyleNo = _MenuViewModel.MenuID, StyleName = _MenuViewModel.MenuName, IsDel = "" });
                         }
                         break;
                     case MenuClassEnum.WareType:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            context.Menu_WareType.Add(new Menu_WareType() { WareTypeNo = _MenuViewModel.MenuID, WareTypeName = _MenuViewModel.MenuName });
+                            context.Menu_WareType.Add(new Menu_WareType() { WareTypeNo = _MenuViewModel.MenuID, WareTypeName = _MenuViewModel.MenuName, IsDel = "" });
                         }
                         break;
 
                     case MenuClassEnum.Owner:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            context.Menu_Owner.Add(new Menu_Owner() { OwnerNo = _MenuViewModel.MenuID, OwnerName = _MenuViewModel.MenuName });
+                            context.Menu_Owner.Add(new Menu_Owner() { OwnerNo = _MenuViewModel.MenuID, OwnerName = _MenuViewModel.MenuName, IsDel = "" });
                         }
                         break;
                 }
