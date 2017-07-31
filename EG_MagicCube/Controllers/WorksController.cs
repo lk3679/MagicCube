@@ -126,7 +126,6 @@ namespace EG_MagicCube.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
         // GET: Works/Details/5
         public ActionResult Details(string id, string p = "")
         {
@@ -142,7 +141,37 @@ namespace EG_MagicCube.Controllers
                 WorksName = value.WorksName,
                 AuthorsName = string.Join(",", value.WorksAuthors.Select(a => a.MenuName)),
                 MaterialsName = value.WorksModuleList.Select(m => m.Length.ToString() + "x" + m.Height.ToString() + "x"
-                    + m.Width.ToString() + "x" + m.Deep.ToString() + " cm " + "\n影片長度 " + m.TimeLength.ToString() + " " + m.Amount.ToString() + " " + m.CountNoun.MenuName).ToList(),
+                    + m.Width.ToString() + "x" + m.Deep.ToString() + " cm " + "\n影片長度 " + m.TimeLength.ToString() + " ," + m.Amount.ToString() + " " + m.CountNoun.MenuName).ToList(),
+                Remarks = value.Remarks,
+                Owner = string.Join(",", value.WorksPropOwnerList.Select(o => o.MenuName)),
+                PropWare = string.Join(",", value.WorksPropWareTypeList.Select(o => o.MenuName)),
+                Cost = value.Cost.ToString(),
+                Price = value.Price.ToString(),
+                PricingDate = value.PricingDate.ToString("yyyy-MM-dd"),
+                GrossMargin = value.GrossMargin.ToString() + " %",
+                GenreNo = string.Join(",", value.WorksPropGenreList.Select(o => o.MenuName)),
+                PropStyle = string.Join(",", value.WorksPropStyleList.Select(o => o.MenuName))
+            };
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        // GET: Works/Details/5
+        public ActionResult DetailfoC(string id, string p = "")
+        {
+            WorksModel value = WorksModel.GetWorksModelDetail(id);
+            if (value == null || string.IsNullOrEmpty(value.WorksNo))
+            {
+                return RedirectToAction("Index");
+            }
+            WorksDetailViewModel model = new WorksDetailViewModel()
+            {
+                PackagesNo = p,
+                WorksNo = value.WorksNo,
+                WorksName = value.WorksName,
+                AuthorsName = string.Join(",", value.WorksAuthors.Select(a => a.MenuName)),
+                MaterialsName = value.WorksModuleList.Select(m => m.Length.ToString() + "x" + m.Height.ToString() + "x"
+                    + m.Width.ToString() + "x" + m.Deep.ToString() + " cm " + "\n影片長度 " + m.TimeLength.ToString() + " ," + m.Amount.ToString() + " " + m.CountNoun.MenuName).ToList(),
                 Remarks = value.Remarks,
                 Owner = string.Join(",", value.WorksPropOwnerList.Select(o => o.MenuName)),
                 PropWare = string.Join(",", value.WorksPropWareTypeList.Select(o => o.MenuName)),
