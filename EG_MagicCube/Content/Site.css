@@ -194,3 +194,6 @@ div.selected {
 .dl-horizontal dd {
     margin-left: 115px;
 }
+.table {
+    margin-bottom: 10px;
+}

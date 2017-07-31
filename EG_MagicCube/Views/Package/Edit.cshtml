@@ -9,102 +9,77 @@
     @Html.ActionLink("加入作品", "Filter", new { id = Model.PG_No }, new { @class = "btn btn-success" })
     @Html.ActionLink("返回包裝列表", "Index", null, new { @class = "btn btn-warning pull-right" })
 </div>
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        <div class="col-md-10 modelDisplayFor">
-            @Html.HiddenFor(model => model.PG_No, new { htmlAttributes = new { @class = "form-control " } })
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-10 modelDisplayFor">
+                @Html.HiddenFor(model => model.PG_No, new { htmlAttributes = new { @class = "form-control " } })
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <div>
+                @Html.LabelFor(model => model.QRImg, htmlAttributes: new { @class = "control-label " })
+            </div>
+            <img style="max-width:285px;" src="data:image/png;base64,@Html.Raw(Model.QRImg)" alt="Red dot" />
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 modelDisplayFor">
+                <a target="_blank" href="@Html.DisplayFor(model => model.Url)">
+                    @Html.DisplayFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
+                </a>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PG_Name, htmlAttributes: new { @class = "control-label col-sm-2" })
+            <div class="col-sm-4">
+                @Html.EditorFor(model => model.PG_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PG_Name, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-sm-2" })
+            <div class="col-sm-4">
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control datecontrol", type = "Date", Value = Model.EndDate.ToString("yyyy-MM-dd") } })
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-sm-2" })
+            <div class="col-sm-8  modelDisplayFor">
+                @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreateDate, htmlAttributes: new { @class = "control-label col-xs-2" })
+            <div class="col-xs-4 modelDisplayFor">
+                @Html.DisplayFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.LabelFor(model => model.WorksAmount, htmlAttributes: new { @class = "control-label col-xs-2" })
+            <div class="col-xs-4 modelDisplayFor">
+                @Html.DisplayFor(model => model.WorksAmount, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-xs-4 pull-right text-right">
+                <input type="submit" id="Save" value="儲存" class="btn btn-primary" />
+            </div>
         </div>
     </div>
-    <div class="form-group text-center">
-        <div>
-            @Html.LabelFor(model => model.QRImg, htmlAttributes: new { @class = "control-label " })
-        </div>
-        <img style="max-width:285px;" src="data:image/png;base64,@Html.Raw(Model.QRImg)" alt="Red dot" />
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10 modelDisplayFor">
-            <a target="_blank" href="@Html.DisplayFor(model => model.Url)">
-                @Html.DisplayFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
-            </a>
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.PG_Name, htmlAttributes: new { @class = "control-label col-sm-2" })
-        <div class="col-sm-4">
-            @Html.EditorFor(model => model.PG_Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PG_Name, "", new { @class = "text-danger" })
-        </div>
-        @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-sm-2" })
-        <div class="col-sm-4">
-            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control datecontrol", type = "Date", Value = Model.EndDate.ToString("yyyy-MM-dd") } })
-            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-sm-2" })
-        <div class="col-sm-8  modelDisplayFor">
-            @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.CreateDate, htmlAttributes: new { @class = "control-label col-xs-2" })
-        <div class="col-xs-4 modelDisplayFor">
-            @Html.DisplayFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control" } })
-        </div>
-        @Html.LabelFor(model => model.WorksAmount, htmlAttributes: new { @class = "control-label col-xs-2" })
-        <div class="col-xs-4 modelDisplayFor">
-            @Html.DisplayFor(model => model.WorksAmount, new { htmlAttributes = new { @class = "form-control" } })
-        </div>
-    </div>
-
-    
-
-    <div class="form-group">
-        <div class="col-xs-4 pull-right text-right">
-            <input type="button" id="Save" value="儲存" class="btn btn-primary" />
-        </div>
-    </div>
-</div>
-
-<div>
-
-
-</div>
-<div>
-
-</div>
-<div>
-
-</div>
-
-
+}
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        $('#Save').click(function () {
-            $(this).toggleClass('fa-square-o');
-            $(this).toggleClass('fa-check-square-o');
-            var wn = $(this).attr('value');
-            var _addtype = $(this).hasClass('fa-check-square-o');
-            $.ajax({
-                type: "Post",
-                url: '@Url.Action("Edit")',
-                data: {
-                    PG_No: $('#PG_No').val(), PG_Name: $('#PG_Name').val(),
-                    EndDate: $('#EndDate').val(), Remark: $('#Remark').val()
-                },
-                async: true,
-                cache: false,
-                dataType: "json",
-                success: function (data) {
-                    alert(data);
-                },
-                error: function (viewHTML) {
-                    alert("載入異常....");
-                }
-            });
+        $(document).ready(function () {
+            var data = @Html.Raw(Json.Encode(ViewData["Message"]));
+            if (data != undefined && data.length > 0) {
+                alert(data);
+            }s
         });
     </script>
 

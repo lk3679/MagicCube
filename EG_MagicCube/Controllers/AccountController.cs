@@ -7,7 +7,7 @@ using EG_MagicCube.Models;
 using EG_MagicCube.Models.ViewModel;
 namespace EG_MagicCube.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         // GET: Account
         public ActionResult Index()
@@ -141,18 +141,21 @@ namespace EG_MagicCube.Controllers
 
         // POST: Account/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public JsonResult Delete(string[] id)
         {
-            try
+            for (int i = 0; i < id.Length; i++)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                try
+                {   // TODO: Add delete logic here
+                    AccountModel.Delete(Convert.ToInt16(id[i]));
+                }
+                catch
+                {
+                    //return View();
+                    return Json(id[i]);
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return Json(id);
         }
     }
 }

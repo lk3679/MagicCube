@@ -49,7 +49,7 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 作品起始年分
         /// </summary>
-        [DisplayName("起始年分")]
+        [DisplayName("起迄年分")]
         public short YearStart { get; set; } = 0;
         /// <summary>
         /// 作品結束年分
@@ -235,7 +235,7 @@ namespace EG_MagicCube.Models
                 _Works.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                 _Works.ModifyDate = DateTime.Now;
                 _Works.Remarks = this.Remarks;
-                _Works.Rating = "";
+                _Works.Rating = this.Rating;
                 _Works.IsDel = "";
 
                 context.Works.Add(_Works);
