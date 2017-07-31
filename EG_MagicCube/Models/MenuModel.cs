@@ -96,50 +96,40 @@ namespace EG_MagicCube.Models
 
             using (var context = new EG_MagicCubeEntities())
             {
-
-
                 switch (_MenuClass)
                 {
                     case MenuClassEnum.AuthorArea:
-                        _MenuViewModel.AddRange((from f in context.Menu_AuthorsArea
-                                                 select new MenuViewModel()
-                                                 { MenuClass = MenuClassName, MenuID = f.AuthorsAreaNo, MenuName = f.AuthorsAreaName }).ToList());
+                        _MenuViewModel.AddRange(context.Menu_AuthorsArea.AsQueryable().Where(c => c.IsDel != "Y").Select(c => new MenuViewModel()
+                        { MenuClass = MenuClassName, MenuID = c.AuthorsAreaNo, MenuName = c.AuthorsAreaName }).ToList());
                         break;
                     case MenuClassEnum.AuthorTag:
-                        _MenuViewModel.AddRange((from f in context.Menu_AuthorsTag
-                                                 select new MenuViewModel()
-                                                 { MenuClass = MenuClassName, MenuID = f.AuthorsTagNo, MenuName = f.AuthorsTagName }).ToList());
+                        _MenuViewModel.AddRange(context.Menu_AuthorsTag.AsQueryable().Where(c => c.IsDel != "Y").Select(c => new MenuViewModel()
+                        { MenuClass = MenuClassName, MenuID = c.AuthorsTagNo, MenuName = c.AuthorsTagName }).ToList());
                         break;
                     case MenuClassEnum.CountNoun:
-                        _MenuViewModel.AddRange((from f in context.Menu_CountNoun
-                                                 select new MenuViewModel()
-                                                 { MenuClass = MenuClassName, MenuID = f.CountNounNo, MenuName = f.CountNounName }).ToList());
+                        _MenuViewModel.AddRange(context.Menu_CountNoun.AsQueryable().Where(c => c.IsDel != "Y").Select(c => new MenuViewModel()
+                        { MenuClass = MenuClassName, MenuID = c.CountNounNo, MenuName = c.CountNounName }).ToList());
                         break;
                     case MenuClassEnum.Genre:
-                        _MenuViewModel.AddRange((from f in context.Menu_Genre
-                                                 select new MenuViewModel()
-                                                 { MenuClass = MenuClassName, MenuID = f.GenreNo, MenuName = f.GenreName }).ToList());
+                        _MenuViewModel.AddRange(context.Menu_Genre.AsQueryable().Where(c => c.IsDel != "Y").Select(c => new MenuViewModel()
+                        { MenuClass = MenuClassName, MenuID = c.GenreNo, MenuName = c.GenreName }).ToList());
                         break;
                     case MenuClassEnum.Material:
-                        _MenuViewModel.AddRange((from f in context.Menu_Material
-                                                 select new MenuViewModel()
-                                                 { MenuClass = MenuClassName, MenuID = f.MaterialNo, MenuName = f.MaterialName }).ToList());
+                        _MenuViewModel.AddRange(context.Menu_Material.AsQueryable().Where(c => c.IsDel != "Y").Select(c => new MenuViewModel()
+                        { MenuClass = MenuClassName, MenuID = c.MaterialNo, MenuName = c.MaterialName }).ToList());
                         break;
                     case MenuClassEnum.Style:
-                        _MenuViewModel.AddRange((from f in context.Menu_Style
-                                                 select new MenuViewModel()
-                                                 { MenuClass = MenuClassName, MenuID = f.StyleNo, MenuName = f.StyleName }).ToList());
+                        _MenuViewModel.AddRange(context.Menu_Style.AsQueryable().Where(c => c.IsDel != "Y").Select(c => new MenuViewModel()
+                        { MenuClass = MenuClassName, MenuID = c.StyleNo, MenuName = c.StyleName }).ToList());
                         break;
                     case MenuClassEnum.WareType:
-                        _MenuViewModel.AddRange((from f in context.Menu_WareType
-                                                 select new MenuViewModel()
-                                                 { MenuClass = MenuClassName, MenuID = f.WareTypeNo, MenuName = f.WareTypeName }).ToList());
+                        _MenuViewModel.AddRange(context.Menu_WareType.AsQueryable().Where(c => c.IsDel != "Y").Select(c => new MenuViewModel()
+                        { MenuClass = MenuClassName, MenuID = c.WareTypeNo, MenuName = c.WareTypeName }).ToList());
                         break;
 
                     case MenuClassEnum.Owner:
-                        _MenuViewModel.AddRange((from f in context.Menu_Owner
-                                                 select new MenuViewModel()
-                                                 { MenuClass = MenuClassName, MenuID = f.OwnerNo, MenuName = f.OwnerName }).ToList());
+                        _MenuViewModel.AddRange(context.Menu_Owner.AsQueryable().Where(c => c.IsDel != "Y").Select(c => new MenuViewModel()
+                        { MenuClass = MenuClassName, MenuID = c.OwnerNo, MenuName = c.OwnerName }).ToList());
                         break;
                     case MenuClassEnum.AccountRole:
                         _MenuViewModel.AddRange((from f in context.UserAccountRoles
@@ -312,80 +302,88 @@ namespace EG_MagicCube.Models
                     case MenuClassEnum.AuthorArea:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            var delobj = context.Menu_AuthorsArea.FirstOrDefault(x => x.AuthorsAreaNo == _MenuViewModel.MenuID);
-                            if (delobj != null)
+                            var delobj_AuthorsArea = context.Menu_AuthorsArea.FirstOrDefault(x => x.AuthorsAreaNo == _MenuViewModel.MenuID);
+                            if (delobj_AuthorsArea != null)
                             {
-                                context.Menu_AuthorsArea.Remove(delobj);
+                                //context.Menu_AuthorsArea.Remove(delobj);
+                                delobj_AuthorsArea.IsDel = "Y";
                             }
                         }
                         break;
                     case MenuClassEnum.AuthorTag:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            var delobj = context.Menu_AuthorsTag.FirstOrDefault(x => x.AuthorsTagNo == _MenuViewModel.MenuID);
-                            if (delobj != null)
+                            var delobj_Menu_AuthorsTag = context.Menu_AuthorsTag.FirstOrDefault(x => x.AuthorsTagNo == _MenuViewModel.MenuID);
+                            if (delobj_Menu_AuthorsTag != null)
                             {
-                                context.Menu_AuthorsTag.Remove(delobj);
+                                //context.Menu_AuthorsTag.Remove(delobj);
+                                delobj_Menu_AuthorsTag.IsDel = "Y";
                             }
                         }
                         break;
                     case MenuClassEnum.CountNoun:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            var delobj = context.Menu_CountNoun.FirstOrDefault(x => x.CountNounNo == _MenuViewModel.MenuID);
-                            if (delobj != null)
+                            var delobj_Menu_CountNoun = context.Menu_CountNoun.FirstOrDefault(x => x.CountNounNo == _MenuViewModel.MenuID);
+                            if (delobj_Menu_CountNoun != null)
                             {
-                                context.Menu_CountNoun.Remove(delobj);
+                                //context.Menu_CountNoun.Remove(delobj);
+                                delobj_Menu_CountNoun.IsDel = "Y";
                             }
                         }
                         break;
                     case MenuClassEnum.Genre:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            var delobj = context.Menu_Genre.FirstOrDefault(x => x.GenreNo == _MenuViewModel.MenuID);
-                            if (delobj != null)
+                            var delobj_Menu_Genre = context.Menu_Genre.FirstOrDefault(x => x.GenreNo == _MenuViewModel.MenuID);
+                            if (delobj_Menu_Genre != null)
                             {
-                                context.Menu_Genre.Remove(delobj);
+                                //context.Menu_Genre.Remove(delobj);
+                                delobj_Menu_Genre.IsDel = "Y";
                             }
                         }
                         break;
                     case MenuClassEnum.Material:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            var delobj = context.Menu_Material.FirstOrDefault(x => x.MaterialNo == _MenuViewModel.MenuID);
-                            if (delobj != null)
+                            var delobj_Menu_Material = context.Menu_Material.FirstOrDefault(x => x.MaterialNo == _MenuViewModel.MenuID);
+                            if (delobj_Menu_Material != null)
                             {
-                                context.Menu_Material.Remove(delobj);
+                                //context.Menu_Material.Remove(delobj);
+                                delobj_Menu_Material.IsDel = "Y";
                             }
                         }
                         break;
                     case MenuClassEnum.Style:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            var delobj = context.Menu_Style.FirstOrDefault(x => x.StyleNo == _MenuViewModel.MenuID);
-                            if (delobj != null)
+                            var delobj_Menu_Style = context.Menu_Style.FirstOrDefault(x => x.StyleNo == _MenuViewModel.MenuID);
+                            if (delobj_Menu_Style != null)
                             {
-                                context.Menu_Style.Remove(delobj);
+                                //context.Menu_Style.Remove(delobj);
+                                delobj_Menu_Style.IsDel = "Y";
                             }
                         }
                         break;
                     case MenuClassEnum.WareType:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            var delobj = context.Menu_WareType.FirstOrDefault(x => x.WareTypeNo == _MenuViewModel.MenuID);
-                            if (delobj != null)
+                            var delobj_Menu_WareType = context.Menu_WareType.FirstOrDefault(x => x.WareTypeNo == _MenuViewModel.MenuID);
+                            if (delobj_Menu_WareType != null)
                             {
-                                context.Menu_WareType.Remove(delobj);
+                                //context.Menu_WareType.Remove(delobj);
+                                delobj_Menu_WareType.IsDel = "Y";
                             }
                         }
                         break;
                     case MenuClassEnum.Owner:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
-                            var delobj = context.Menu_Owner.FirstOrDefault(x => x.OwnerNo == _MenuViewModel.MenuID);
-                            if (delobj != null)
+                            var delobj_Menu_Owner = context.Menu_Owner.FirstOrDefault(x => x.OwnerNo == _MenuViewModel.MenuID);
+                            if (delobj_Menu_Owner!= null)
                             {
-                                context.Menu_Owner.Remove(delobj);
+                                //context.Menu_Owner.Remove(delobj);
+                                delobj_Menu_Owner.IsDel = "Y";
                             }
                         }
                         break;
