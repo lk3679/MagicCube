@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EG_MagicCubeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EG_MagicCubeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Authors">
           <Key>
             <PropertyRef Name="AuthorsNo" />
@@ -203,6 +203,9 @@
           <Property Name="WorksFilesNo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WorksNo" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FileBase64Str" Type="varchar(max)" Nullable="false" />
+          <Property Name="File_o_Url" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="File_m_Url" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="File_s_Url" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="WorksModules">
           <Key>
@@ -614,8 +617,7 @@
             <End Role="WorksPropWareType" EntitySet="WorksPropWareType" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EG_MagicCubeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -848,6 +850,9 @@
           <Property Name="WorksNo" Type="Guid" Nullable="false" />
           <Property Name="FileBase64Str" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Works" Relationship="Self.FK_Works_Files_Works_List" FromRole="WorksFiles" ToRole="Works" />
+          <Property Name="File_o_Url" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="File_m_Url" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="File_s_Url" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="WorksModules">
           <Key>
@@ -1488,6 +1493,9 @@
           <EntitySetMapping Name="WorksFiles">
             <EntityTypeMapping TypeName="EG_MagicCubeModel.WorksFiles">
               <MappingFragment StoreEntitySet="WorksFiles">
+                <ScalarProperty Name="File_s_Url" ColumnName="File_s_Url" />
+                <ScalarProperty Name="File_m_Url" ColumnName="File_m_Url" />
+                <ScalarProperty Name="File_o_Url" ColumnName="File_o_Url" />
                 <ScalarProperty Name="WorksFilesNo" ColumnName="WorksFilesNo" />
                 <ScalarProperty Name="WorksNo" ColumnName="WorksNo" />
                 <ScalarProperty Name="FileBase64Str" ColumnName="FileBase64Str" />
