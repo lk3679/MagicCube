@@ -218,61 +218,44 @@ namespace EG_MagicCube.Models
             int _MenuNo = int.Parse(MenuNo);
             using (var context = new EG_MagicCubeEntities())
             {
-
                 string MenuClassName = Enum.GetName(typeof(MenuClassEnum), _MenuClass);
                 switch (_MenuClass)
                 {
                     case MenuClassEnum.AuthorArea:
-                        
+                        var AuthorArea = context.Menu_AuthorsArea.First(c => c.AuthorsAreaNo == _MenuNo);
+                        if (AuthorArea != null) AuthorArea.AuthorsAreaName = MenuName;
                         break;
                     case MenuClassEnum.AuthorTag:
-
                         var AuthorTag = context.Menu_AuthorsTag.First(c => c.AuthorsTagNo == _MenuNo);
                         if(AuthorTag!=null) AuthorTag.AuthorsTagName = MenuName;
-
                         break;
                     case MenuClassEnum.CountNoun:
-
                         var CountNoun = context.Menu_CountNoun.First(c => c.CountNounNo == _MenuNo);
                         if (CountNoun != null) CountNoun.CountNounName = MenuName;
-
                         break;
                     case MenuClassEnum.Genre:
-
                         var Genre = context.Menu_Genre.First(c => c.GenreNo == _MenuNo);
                         if (Genre != null) Genre.GenreName = MenuName;
-
                         break;
                     case MenuClassEnum.Material:
-
                         var Material = context.Menu_Material.First(c => c.MaterialNo == _MenuNo);
                         if (Material != null) Material.MaterialName = MenuName;
-
                         break;
                     case MenuClassEnum.Style:
-
                         var Style = context.Menu_Style.First(c => c.StyleNo == _MenuNo);
                         if (Style != null) Style.StyleName = MenuName;
-
                         break;
                     case MenuClassEnum.WareType:
-
                         var WareType = context.Menu_WareType.First(c => c.WareTypeNo == _MenuNo);
                         if (WareType != null) WareType.WareTypeName = MenuName;
-
                         break;
-
                     case MenuClassEnum.Owner:
-
                         var Owner = context.Menu_Owner.First(c => c.OwnerNo == _MenuNo);
                         if (Owner != null) Owner.OwnerName = MenuName;
-
                         break;
                     case MenuClassEnum.AccountRole:
-
                         var AccountRole = context.UserAccountRoles.First(c => c.RoleNo == _MenuNo);
                         if (AccountRole != null) AccountRole.RoleName = MenuName;
-
                         break;
                 }
                 if (context.SaveChanges() == 0)
@@ -305,7 +288,6 @@ namespace EG_MagicCube.Models
                             var delobj_AuthorsArea = context.Menu_AuthorsArea.FirstOrDefault(x => x.AuthorsAreaNo == _MenuViewModel.MenuID);
                             if (delobj_AuthorsArea != null)
                             {
-                                //context.Menu_AuthorsArea.Remove(delobj);
                                 delobj_AuthorsArea.IsDel = "Y";
                             }
                         }
@@ -316,7 +298,6 @@ namespace EG_MagicCube.Models
                             var delobj_Menu_AuthorsTag = context.Menu_AuthorsTag.FirstOrDefault(x => x.AuthorsTagNo == _MenuViewModel.MenuID);
                             if (delobj_Menu_AuthorsTag != null)
                             {
-                                //context.Menu_AuthorsTag.Remove(delobj);
                                 delobj_Menu_AuthorsTag.IsDel = "Y";
                             }
                         }
@@ -327,7 +308,6 @@ namespace EG_MagicCube.Models
                             var delobj_Menu_CountNoun = context.Menu_CountNoun.FirstOrDefault(x => x.CountNounNo == _MenuViewModel.MenuID);
                             if (delobj_Menu_CountNoun != null)
                             {
-                                //context.Menu_CountNoun.Remove(delobj);
                                 delobj_Menu_CountNoun.IsDel = "Y";
                             }
                         }
@@ -338,7 +318,6 @@ namespace EG_MagicCube.Models
                             var delobj_Menu_Genre = context.Menu_Genre.FirstOrDefault(x => x.GenreNo == _MenuViewModel.MenuID);
                             if (delobj_Menu_Genre != null)
                             {
-                                //context.Menu_Genre.Remove(delobj);
                                 delobj_Menu_Genre.IsDel = "Y";
                             }
                         }
@@ -349,7 +328,6 @@ namespace EG_MagicCube.Models
                             var delobj_Menu_Material = context.Menu_Material.FirstOrDefault(x => x.MaterialNo == _MenuViewModel.MenuID);
                             if (delobj_Menu_Material != null)
                             {
-                                //context.Menu_Material.Remove(delobj);
                                 delobj_Menu_Material.IsDel = "Y";
                             }
                         }
@@ -360,7 +338,6 @@ namespace EG_MagicCube.Models
                             var delobj_Menu_Style = context.Menu_Style.FirstOrDefault(x => x.StyleNo == _MenuViewModel.MenuID);
                             if (delobj_Menu_Style != null)
                             {
-                                //context.Menu_Style.Remove(delobj);
                                 delobj_Menu_Style.IsDel = "Y";
                             }
                         }
@@ -371,7 +348,6 @@ namespace EG_MagicCube.Models
                             var delobj_Menu_WareType = context.Menu_WareType.FirstOrDefault(x => x.WareTypeNo == _MenuViewModel.MenuID);
                             if (delobj_Menu_WareType != null)
                             {
-                                //context.Menu_WareType.Remove(delobj);
                                 delobj_Menu_WareType.IsDel = "Y";
                             }
                         }
@@ -382,7 +358,6 @@ namespace EG_MagicCube.Models
                             var delobj_Menu_Owner = context.Menu_Owner.FirstOrDefault(x => x.OwnerNo == _MenuViewModel.MenuID);
                             if (delobj_Menu_Owner!= null)
                             {
-                                //context.Menu_Owner.Remove(delobj);
                                 delobj_Menu_Owner.IsDel = "Y";
                             }
                         }
