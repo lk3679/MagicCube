@@ -339,8 +339,9 @@ namespace EG_MagicCube.Models
                               new PackageItemModel()
                               {
                                   WorksNo = c.WorksNo.ToString(),
-                                                      WorksImg = c.Works.WorksFiles?.FirstOrDefault()?.FileBase64Str,
-                                                      //WorksImgID = c.Works.WorksFiles?.FirstOrDefault()?.WorksFilesNo.ToString(),
+                                  WorksImgBase64 = c.Works.WorksFiles?.FirstOrDefault()?.FileBase64Str,
+                                  WorksImg_m = c.Works.WorksFiles?.FirstOrDefault()?.File_m_Url,
+                                  //WorksImgID = c.Works.WorksFiles?.FirstOrDefault()?.WorksFilesNo.ToString(),
                                   AuthorsName = c.Works.WorksAuthors?.FirstOrDefault()?.Authors?.AuthorsCName,
                                   WorksName = c.Works.WorksName,
                                   IsJoin = c.IsJoin,
@@ -386,7 +387,8 @@ namespace EG_MagicCube.Models
                                   new PackageItemModel()
                                   {
                                       WorksNo = c.WorksNo.ToString(),
-                                      WorksImg = c.Works?.WorksFiles?.FirstOrDefault().FileBase64Str,
+                                      WorksImgBase64 = c.Works?.WorksFiles?.FirstOrDefault().FileBase64Str,
+                                      WorksImg_m = c.Works?.WorksFiles?.FirstOrDefault().File_m_Url,
                                       //WorksImgID = c.Works?.WorksFiles?.FirstOrDefault().WorksFilesNo.ToString(),
                                       AuthorsName = c.Works?.WorksAuthors?.FirstOrDefault().Authors.AuthorsCName,
                                       WorksName = c.Works?.WorksName,
@@ -659,9 +661,14 @@ namespace EG_MagicCube.Models
             /// </summary>
             public string AuthorsName { set; get; } = "";
             /// <summary>
-            /// 作品圖片
+            /// 作品圖片Base64
             /// </summary>
-            public string WorksImg { set; get; } = "";
+            public string WorksImgBase64 { set; get; } = "";
+            /// <summary>
+            /// 中尺寸作品圖片
+            /// </summary>
+            public string WorksImg_m { set; get; } = "";
+
             /// <summary>
             /// 作品圖片ID
             /// </summary>

@@ -219,7 +219,8 @@ namespace EG_MagicCube.Controllers
                     {
                         No = valueistem[i].WorksNo,
                         Author = valueistem[i].AuthorsName,
-                        MiniImg = valueistem[i].WorksImg,
+                        MiniImgBase64 = valueistem[i].WorksImgBase64,
+                        MedImg = valueistem[i].WorksImg_m,
                         //MiniImgID = valueistem[i].WorksImgID,
                         Name = valueistem[i].WorksName,
                         Price = valueistem[i].Price.ToString()
@@ -322,7 +323,8 @@ namespace EG_MagicCube.Controllers
                 {
                     No = value.PackageItems[i].WorksNo,
                     Author = value.PackageItems[i].AuthorsName,
-                    MiniImg = value.PackageItems[i].WorksImg,
+                    MedImg = value.PackageItems[i].WorksImgBase64,
+                    MiniImgBase64 = value.PackageItems[i].WorksImg_m,
                     //MiniImgID = value.PackageItems[i].WorksImgID,
                     Name = value.PackageItems[i].WorksName,
                     Price = value.PackageItems[i].Price.ToString(),

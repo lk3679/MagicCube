@@ -265,8 +265,8 @@ namespace EG_MagicCube.Models
                     {
                         if (_Files != null)
                         {
-                            string FileUrl = WorksFilesModel.SaveToAzure(_Files);
-                            context.WorksFiles.Add(new WorksFiles() { WorksNo = _Works.WorksNo, FileBase64Str = FileUrl });
+                            WorksFilesModel.InsFile(_Works.WorksNo.ToString(),_Files);
+                            //context.WorksFiles.Add(new WorksFiles() { WorksNo = _Works.WorksNo, FileBase64Str = FileUrl });
                         }
 
                     }
@@ -495,8 +495,8 @@ namespace EG_MagicCube.Models
                 {
                     if (_Files != null)
                     {
-                        string FileUrl =WorksFilesModel.SaveToAzure(_Files);
-                        context.WorksFiles.Add(new WorksFiles() { WorksNo = oldWorks.WorksNo, FileBase64Str = FileUrl });
+                        WorksFilesModel.InsFile(oldWorks.WorksNo.ToString(), _Files);
+                        //context.WorksFiles.Add(new WorksFiles() { WorksNo = oldWorks.WorksNo, FileBase64Str = FileUrl });
                     }
                 }
                 //藝術家

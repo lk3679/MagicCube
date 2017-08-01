@@ -1,4 +1,4 @@
-﻿@model Dictionary<long, string>
+﻿@model List<EG_MagicCube.Models.WorksFilesModel.FileGroup>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.css" rel="stylesheet" />
 <style>
     .modal-dialog {
@@ -26,7 +26,7 @@
 </div>
 
 <div class="row">
-    @if (Model != null && Model.Count > 0)
+    @if (Model != null && Model.Count() > 0)
     {
         foreach (var item in Model)
         {
@@ -46,10 +46,10 @@
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
                 <div class="col-xs-12 thumbnail">
                     <div id="imgche">
-                        <i class="fa fa-check fa-6" aria-hidden="true" value="@Html.Raw(item.Key)"></i>
+                        <i class="fa fa-check fa-6" aria-hidden="true" value="@Html.Raw(item.WorksFilesNo)"></i>
                     </div>
                     <div class="imgdiv col-xs-12">
-                        <img class=".img-responsive" data-original="@item.Value" />
+                        <img class=".img-responsive" data-original="@item.File_m_Url" />
                     </div>
                 </div>
             </div>

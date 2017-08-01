@@ -13,7 +13,7 @@ namespace EG_MagicCube.Controllers
         // GET: Files
         public ActionResult Index(string id)
         {
-            Dictionary<long, string> Model = new Dictionary<long, string>();
+            List<WorksFilesModel.FileGroup> Model = new List<WorksFilesModel.FileGroup>();
             if (!string.IsNullOrEmpty(id))
             {
                 Model = WorksFilesModel.GetFileList(id);
@@ -55,7 +55,8 @@ namespace EG_MagicCube.Controllers
         // GET: Files/Edit/5
         public ActionResult Edit(string id)
         {
-            Dictionary<long, string> Model = new Dictionary<long, string>();
+            
+            List<WorksFilesModel.FileGroup> Model = new List<WorksFilesModel.FileGroup>();
             if (!string.IsNullOrEmpty(id))
             {
                 Model = WorksFilesModel.GetFileList(id);
