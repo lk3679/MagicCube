@@ -12,6 +12,8 @@
         @Html.AntiForgeryToken()*@
 <h2>包裝名稱：@Model.PG_Name</h2>
 <div class="col-xs-12">
+    @Html.ActionLink("加入作品", "Filter", new { id = Model.PG_No }, new { @class = "btn btn-success" })
+
     @Html.ActionLink("檢視包裝詳細資訊", "Edit", new { id = Model.PG_No }, new { @class = "btn btn-warning pull-right" })
 </div>
 <div class="form-horizontal">
@@ -34,18 +36,18 @@
             @Html.DisplayFor(model => model.Summary)
         </div>
     </div>
-    <div class="row">
+    <div class="col-xs-12 grid" style="padding: 0px;">
         @if (Model.WorksList != null && Model.WorksList.Count > 0)
         {
             foreach (var items in Model.WorksList)
             {
-                <div class="col-md-4 ">
-                    <div class="col-xs-12 thumbnail @(items.Checked ? "selected": "") ">                       
+                <div class="grid-item col-md-4 col-sm-6 ">
+                    <div class="col-xs-12 thumbnail @(items.Checked ? "selected": "") ">
                         <div class="imgdiv col-xs-12 text-center">
                             <div id="imgche">
                                 <i class="fa fa-check fa-6" aria-hidden="true" value="@Html.Raw(items.No)" data-price="@items.Price"></i>
                             </div>
-                            <img class=".img-responsive" data-original="@items.MiniImg" alt="Red dot" style="max-width:350px;" />
+                            <img class=".img-responsive" data-original="@items.MedImg" alt="Red dot" @*style="max-width:350px;"*@ />
                         </div>
                         <div class="col-xs-12 bf-caption">
                             <a target="_blank" href="@Url.Action("Details", "Works", new { id = items.No, p = Model.PG_No })">
@@ -67,12 +69,17 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="@Url.Content("~/Scripts/jquery.lazyload.js")"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script>
         $("img").lazyload({
             effect: "fadeIn",
-            effectspeed: 1000
+            effectspeed: 500
         });
-
+        jQuery(window).on('load resize scroll', function () {
+            $('.grid').masonry({
+                itemSelector: '.grid-item'
+            });
+        });
         function upadtepackage(_d) {
             $(_d).parent().parent().toggleClass('selected');
             var wn = $(_d).parent().find('i.fa').attr('value');
@@ -111,7 +118,7 @@
             upadtepackage(this);
         });
 
-        $('img').click(function () {
+        $('.imgdiv img').click(function () {
             upadtepackage(this);
         });
     </script>

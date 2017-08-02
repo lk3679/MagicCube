@@ -156,58 +156,62 @@ namespace EG_MagicCube.Models
             List<AuthorsModel> _AuthorsModel = new List<AuthorsModel>();
             using (var context = new EG_MagicCubeEntities())
             {
-                if (context.Authors.Count() > 0)
-                {
-                    var atrs = context.Authors.AsQueryable().Where(c => c.IsDel!="Y" && (c.AuthorsCName.Contains(KeyWords) || c.AuthorsEName.Contains(KeyWords))).Select(c => c);
-                    if (MenuModel.MeunOrderbyTypeEnum.預設排序 == OrderbyType)
-                    {
-                        atrs = atrs.OrderByDescending(c => c.AuthorsNo);
-                    }
-                    else if (MenuModel.MeunOrderbyTypeEnum.建立時間由舊至新 == OrderbyType)
-                    {
-                        atrs = atrs.OrderBy(c => c.CreateDate);
-                    }
-                    else if (MenuModel.MeunOrderbyTypeEnum.建立時間由新至舊 == OrderbyType)
-                    {
-                        atrs = atrs.OrderByDescending(c => c.CreateDate);
-                    }
-                    else if (MenuModel.MeunOrderbyTypeEnum.修改時間由舊至新 == OrderbyType)
-                    {
-                        atrs = atrs.OrderBy(c => c.ModifyDate);
-                    }
-                    else if (MenuModel.MeunOrderbyTypeEnum.修改時間由新至舊 == OrderbyType)
-                    {
-                        atrs = atrs.OrderByDescending(c => c.ModifyDate);
-                    }
-                    else if (MenuModel.MeunOrderbyTypeEnum.名稱姓名小至大 == OrderbyType)
-                    {
-                        atrs = atrs.OrderBy(c => c.AuthorsCName).ThenBy(c => c.AuthorsEName);
-                    }
-                    else if (MenuModel.MeunOrderbyTypeEnum.名稱姓名大至小 == OrderbyType)
-                    {
-                        atrs = atrs.OrderByDescending(c => c.AuthorsCName).ThenByDescending(c => c.AuthorsEName);
-                    }
-                    else
-                    {
-                        atrs = atrs.OrderByDescending(c => c.AuthorsNo);
-                    }
-                    if (PageIndex > 0 && PageIndex > 0)
-                    {
-                        atrs = atrs.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize+1);
-                    }
-                    var r_atrs = atrs.ToList();
+                var atrs = context?.Authors?.AsQueryable()?.Where(c => c.IsDel != "Y");
 
-                    _AuthorsModel = r_atrs.AsEnumerable().Select(c =>
+                if (MenuModel.MeunOrderbyTypeEnum.預設排序 == OrderbyType)
+                {
+                    atrs = atrs.OrderByDescending(c => c.AuthorsNo);
+                }
+                else if (MenuModel.MeunOrderbyTypeEnum.建立時間由舊至新 == OrderbyType)
+                {
+                    atrs = atrs.OrderBy(c => c.CreateDate);
+                }
+                else if (MenuModel.MeunOrderbyTypeEnum.建立時間由新至舊 == OrderbyType)
+                {
+                    atrs = atrs.OrderByDescending(c => c.CreateDate);
+                }
+                else if (MenuModel.MeunOrderbyTypeEnum.修改時間由舊至新 == OrderbyType)
+                {
+                    atrs = atrs.OrderBy(c => c.ModifyDate);
+                }
+                else if (MenuModel.MeunOrderbyTypeEnum.修改時間由新至舊 == OrderbyType)
+                {
+                    atrs = atrs.OrderByDescending(c => c.ModifyDate);
+                }
+                else if (MenuModel.MeunOrderbyTypeEnum.名稱姓名小至大 == OrderbyType)
+                {
+                    atrs = atrs.OrderBy(c => c.AuthorsCName).ThenBy(c => c.AuthorsEName);
+                }
+                else if (MenuModel.MeunOrderbyTypeEnum.名稱姓名大至小 == OrderbyType)
+                {
+                    atrs = atrs.OrderByDescending(c => c.AuthorsCName).ThenByDescending(c => c.AuthorsEName);
+                }
+                else
+                {
+                    atrs = atrs.OrderByDescending(c => c.AuthorsNo);
+                }
+                if (PageIndex > 0 && PageIndex > 0)
+                {
+                    atrs = atrs.Skip(((PageIndex * PageSize) - PageSize)).Take(PageSize + 1);
+                }
+                var r_atrs = atrs.Select(c => c).ToList();
+                if (r_atrs != null && r_atrs.Count > 0)
+                {
+                    int[] AuthorArray = r_atrs.Select(c => c.AuthorsNo).ToArray();
+                    var r_AuthorsPropArea = context?.AuthorsPropArea?.AsQueryable()?.Where(apa => AuthorArray.Contains(apa.AuthorsNo)).ToList();
+                    var r_AuthorsPropTag = context?.AuthorsPropTag?.AsQueryable()?.Where(apt => AuthorArray.Contains(apt.AuthorsNo)).ToList();
+
+                    _AuthorsModel = r_atrs?.AsEnumerable().Select(c =>
                      new AuthorsModel
                      {
                          AuthorsNo = c.AuthorsNo,
                          AuthorsCName = c.AuthorsCName,
                          AuthorsEName = c.AuthorsEName,
-                         AuthorsAreaNo_InputString = c.AuthorsPropArea.Select(apa => Convert.ToString(apa.AuthorsAreaNo)).ToList(),
-                         AuthorsTagNo_InputString = c.AuthorsPropTag.Select(apt => Convert.ToString(apt.AuthorsTagNo)).ToList(),
-                         AuthorsPropArea = c.AuthorsPropArea.Select(apa =>
+                         AuthorsAreaNo_InputString = r_AuthorsPropArea?.Where(apa => apa.AuthorsNo == c.AuthorsNo).Select(apa => Convert.ToString(apa.AuthorsAreaNo)).ToList(),
+                         AuthorsTagNo_InputString = r_AuthorsPropTag?.Where(apt => apt.AuthorsNo == c.AuthorsNo).Select(apt => Convert.ToString(apt.AuthorsTagNo)).ToList(),
+                         AuthorsPropArea = r_AuthorsPropArea?.Where(apa => apa.AuthorsNo == c.AuthorsNo).Select(apa =>
                          new MenuViewModel() { MenuID = apa.Menu_AuthorsArea.AuthorsAreaNo, MenuName = apa.Menu_AuthorsArea.AuthorsAreaName }).ToList(),
-                         AuthorsPropTag = c.AuthorsPropTag.Select(apa =>
+                         AuthorsPropTag = r_AuthorsPropTag?.Where(apt => apt.AuthorsNo == c.AuthorsNo).Select(apa =>
                                              new MenuViewModel() { MenuID = apa.Menu_AuthorsTag.AuthorsTagNo, MenuName = apa.Menu_AuthorsTag.AuthorsTagName }).ToList(),
                          CreateDate = c.CreateDate,
                          MaterialsID = c.MaterialsID,
@@ -215,8 +219,8 @@ namespace EG_MagicCube.Models
                          ModifyDate = c.ModifyDate.Value,
                          ModifyUser = c.ModifyUser
                      }).ToList();
-
                 }
+
             }
             return _AuthorsModel;
         }
@@ -233,25 +237,39 @@ namespace EG_MagicCube.Models
             {
                 if (context.Authors.Count() > 0)
                 {
-                    _AuthorsModel = context.Authors.AsEnumerable().Where(c => c.IsDel != "Y" && c.AuthorsNo == authorsNo).Select(c => new AuthorsModel()
+                    var r_Authors = context?.Authors?.AsQueryable()?.Where(c => c.IsDel != "Y" && c.AuthorsNo == authorsNo).Select(c => c).FirstOrDefault();
+
+
+                    if (r_Authors != null)
                     {
-                        AuthorsNo = c.AuthorsNo,
-                        AuthorsCName = c.AuthorsCName,
-                        AuthorsEName = c.AuthorsEName,
-                        AuthorsAreaNo_InputString = c.AuthorsPropArea.Select(apa => Convert.ToString(apa.AuthorsAreaNo)).ToList(),
-                        AuthorsTagNo_InputString = c.AuthorsPropTag.Select(apt => Convert.ToString(apt.AuthorsTagNo)).ToList(),
-                        AuthorsPropArea = c.AuthorsPropArea.Select(apa =>
-                        new MenuViewModel() { MenuID = apa.Menu_AuthorsArea.AuthorsAreaNo, MenuName = apa.Menu_AuthorsArea.AuthorsAreaName }).ToList(),
-                        AuthorsPropTag = c.AuthorsPropTag.Select(apa =>
-                         new MenuViewModel() { MenuID = apa.Menu_AuthorsTag.AuthorsTagNo, MenuName = apa.Menu_AuthorsTag.AuthorsTagName }).ToList(),
-                        CreateDate = c.CreateDate,
-                        MaterialsID = c.MaterialsID,
-                        CreateUser = c.CreateUser,
-                        ModifyDate = c.ModifyDate.HasValue ? c.ModifyDate.Value : DateTime.MinValue,
-                        ModifyUser = c.ModifyUser,
-                        Rating = c.Rating,
-                        WorksAmount = c.WorksAmount
-                    }).FirstOrDefault();
+                        var r_AuthorsPropArea = context?.AuthorsPropArea?.AsQueryable()?.Where(c => c.AuthorsNo == r_Authors.AuthorsNo).ToList();
+                        var r_AuthorsPropTag = context?.AuthorsPropTag?.AsQueryable()?.Where(c => c.AuthorsNo == r_Authors.AuthorsNo).ToList();
+
+                        _AuthorsModel.AuthorsNo = r_Authors.AuthorsNo;
+                        _AuthorsModel.AuthorsCName = r_Authors.AuthorsCName;
+                        _AuthorsModel.AuthorsEName = r_Authors.AuthorsEName;
+
+                        if (r_AuthorsPropArea != null && r_AuthorsPropArea.Count > 0)
+                        {
+                            _AuthorsModel.AuthorsAreaNo_InputString = r_AuthorsPropArea.Select(apa => Convert.ToString(apa.AuthorsAreaNo)).ToList();
+                            _AuthorsModel.AuthorsPropArea = r_AuthorsPropArea.Select(apa =>
+                        new MenuViewModel() { MenuID = apa.Menu_AuthorsArea.AuthorsAreaNo, MenuName = apa.Menu_AuthorsArea.AuthorsAreaName }).ToList();
+                        }
+                        if (r_AuthorsPropTag != null && r_AuthorsPropTag.Count > 0)
+                        {
+                            _AuthorsModel.AuthorsTagNo_InputString = r_AuthorsPropTag.Select(apt => Convert.ToString(apt.AuthorsTagNo)).ToList();
+                            _AuthorsModel.AuthorsPropTag = r_AuthorsPropTag.Select(apa =>
+                         new MenuViewModel() { MenuID = apa.Menu_AuthorsTag.AuthorsTagNo, MenuName = apa.Menu_AuthorsTag.AuthorsTagName }).ToList();
+                        }
+                        _AuthorsModel.CreateDate = r_Authors.CreateDate;
+                        _AuthorsModel.MaterialsID = r_Authors.MaterialsID;
+                        _AuthorsModel.CreateUser = r_Authors.CreateUser;
+                        _AuthorsModel.ModifyDate = r_Authors.ModifyDate.Value;
+                        _AuthorsModel.ModifyUser = r_Authors.ModifyUser;
+                        _AuthorsModel.Rating = r_Authors.Rating;
+                        _AuthorsModel.WorksAmount = r_Authors.WorksAmount;
+
+                    }
                 }
             }
 

@@ -29,7 +29,8 @@ namespace EG_MagicCube.Models
             /// </summary>
             OpenDays
         }
-        public SystemGeneralModel() {
+        public SystemGeneralModel()
+        {
 
         }
         public SystemGeneralModel(ConfigureClassEnum ConfigureClass)
@@ -47,7 +48,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.SystemConfigure.Count() > 0)
                 {
-                    _SystemGeneralModel = context.SystemConfigure.AsEnumerable().Where(c => c.ConfigureName == strConfigureClass).Select(c => new SystemGeneralModel() { ConfigureClass = c.ConfigureName, ConfigureContent = c.ConfigureValue }).FirstOrDefault();
+                    _SystemGeneralModel = context.SystemConfigure.AsQueryable().Where(c => c.ConfigureName == strConfigureClass).Select(c => new SystemGeneralModel() { ConfigureClass = c.ConfigureName, ConfigureContent = c.ConfigureValue }).FirstOrDefault();
                 }
                 if (_SystemGeneralModel == null)
                 {
@@ -58,11 +59,11 @@ namespace EG_MagicCube.Models
             return _SystemGeneralModel;
 
         }
-        public  SystemGeneralModel ReturnConfigure(string strConfigureClass)
+        public SystemGeneralModel ReturnConfigure(string strConfigureClass)
         {
             return GetConfigure(strConfigureClass);
         }
-        public  bool Update()
+        public bool Update()
         {
             return SetConfigure(this.ConfigureClass, this.ConfigureContent);
         }
@@ -71,7 +72,7 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var oSystemConfigure = context.SystemConfigure.AsEnumerable().First(x => x.ConfigureName == strConfigureClass);
+                var oSystemConfigure = context.SystemConfigure.AsQueryable().First(x => x.ConfigureName == strConfigureClass);
 
                 if (oSystemConfigure != null)
                 {

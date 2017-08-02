@@ -11,8 +11,7 @@ namespace EG_MagicCube.Controllers
         // GET: Author
         public ActionResult Index(int p = 0)
         {
-            int take = 10;
-            List<AuthorsModel> AuthorsModelList = AuthorsModel.GetAuthorList("", p + 1, take );
+            List<AuthorsModel> AuthorsModelList = AuthorsModel.GetAuthorList("", p + 1, take);
             //多取一，若有表示有下一頁
             if (AuthorsModelList.Count == (take + 1))
             {
@@ -24,6 +23,7 @@ namespace EG_MagicCube.Controllers
                 ViewBag.pn = 0;
             }
             ViewBag.pi = p;
+            ViewBag.pt = take.ToString();
             setSortDropDown();
             return View(AuthorsModelList);
         }
@@ -31,9 +31,8 @@ namespace EG_MagicCube.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection collection, int p = 0)
         {
-            int take = 10;
             MenuModel.MeunOrderbyTypeEnum _MeunOrderbyTypeEnum = (MenuModel.MeunOrderbyTypeEnum)Enum.Parse(typeof(MenuModel.MeunOrderbyTypeEnum), collection["Sort"], true);
-            List<AuthorsModel> AuthorsModelList = AuthorsModel.GetAuthorList(collection["AuthorsCName"], p + 1, take , _MeunOrderbyTypeEnum);
+            List<AuthorsModel> AuthorsModelList = AuthorsModel.GetAuthorList(collection["AuthorsCName"], p + 1, take, _MeunOrderbyTypeEnum);
             if (AuthorsModelList.Count == (take + 1))
             {
                 ViewBag.pn = p + 1;
@@ -44,6 +43,7 @@ namespace EG_MagicCube.Controllers
                 ViewBag.pn = 0;
             }
             ViewBag.pi = p;
+            ViewBag.pt = take.ToString();
             setSortDropDown(_MeunOrderbyTypeEnum);
             return View(AuthorsModelList);
         }
@@ -207,18 +207,21 @@ namespace EG_MagicCube.Controllers
 
         // POST: Author/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public JsonResult Delete(string[] id)
         {
-            try
+            for (int i = 0; i < id.Length; i++)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                try
+                {   // TODO: Add delete logic here
+                    AuthorsModel.Delete(Convert.ToInt16(id[i]));
+                }
+                catch
+                {
+                    //return View();
+                    return Json(id[i]);
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return Json(id);
         }
     }
 }

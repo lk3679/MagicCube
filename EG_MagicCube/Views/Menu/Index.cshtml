@@ -62,20 +62,20 @@
                 border-left-color: #999;
             }
 </style>
-<h2>選項維護</h2>
+<h2>標籤設定</h2>
 
 @using (Html.BeginForm())
 {
     <div class="form-group">
 
         <div class="col-md-offset-1 col-md-10">
-            <label class="control-label">選項類別</label>@Html.DropDownList("MenuClass", (IEnumerable<SelectListItem>)ViewBag.MenuClassList, new { @class = "form-control" })
+            <label class="control-label">標籤類別</label>@Html.DropDownList("MenuClass", (IEnumerable<SelectListItem>)ViewBag.MenuClassList, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
 
         <div class="col-md-offset-1 col-md-10">
-            <label class="control-label">名稱</label><input class="form-control" id="MenuName" name="MenuName"/>
+            <label class="control-label">標籤名稱</label><input class="form-control" id="MenuName" name="MenuName"/>
         </div>
     </div>
     <br /><br />
@@ -83,13 +83,14 @@
         <div class="col-md-offset-5 col-md-7">
             <input type="hidden" id="whosubmit" name="whosubmit" />
             <input type="hidden" id="MenuNo" name="MenuNo" />
+            <br/>
             <input type="submit" value="儲存" class="btn btn-primary" id="btnSave" />
             <input type="submit" value="取消" class="btn btn-warning" id="btnCancel" />
             <input type="submit" value="新增" class="btn btn-success" id="btnaddnew" />
             <input type="submit" value="查詢" class="btn btn-info" id="btnsearch" />
             
         </div>
-    </div>
+    </div><br />
 
 }
 <div class="col-md-offset-1 col-md-10 MenuTags" style="margin-top: 20px;">

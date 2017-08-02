@@ -14,10 +14,9 @@ namespace EG_MagicCube.Controllers
         // GET: Package
         public ActionResult Index(int p = 0)
         {
-            int take = 10;
             List<PackageViewModel> model = new List<PackageViewModel>();
 
-            var _value = PackagesModel.GetPackageList("", p + 1, take + 1, MenuModel.MeunOrderbyTypeEnum.預設排序);
+            var _value = PackagesModel.GetPackageList("", p + 1, take, MenuModel.MeunOrderbyTypeEnum.預設排序);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
@@ -42,16 +41,16 @@ namespace EG_MagicCube.Controllers
                 });
             }
             setSortDropDown();
+            ViewBag.pt = take.ToString();
             return View(model);
         }
 
         [HttpPost]
         public ActionResult Index(FormCollection collection, int p = 0)
         {
-            int take = 10;
             MenuModel.MeunOrderbyTypeEnum _MeunOrderbyTypeEnum = (MenuModel.MeunOrderbyTypeEnum)Enum.Parse(typeof(MenuModel.MeunOrderbyTypeEnum), collection["Sort"], true);
             List<PackageViewModel> model = new List<PackageViewModel>();
-            var _value = PackagesModel.GetPackageList(collection["PG_Name"], p + 1, take + 1, _MeunOrderbyTypeEnum);
+            var _value = PackagesModel.GetPackageList(collection["PG_Name"], p + 1, take, _MeunOrderbyTypeEnum);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
@@ -76,6 +75,7 @@ namespace EG_MagicCube.Controllers
                 });
             }
             setSortDropDown(_MeunOrderbyTypeEnum);
+            ViewBag.pt = take.ToString();
             return View(model);
         }
 
@@ -172,13 +172,16 @@ namespace EG_MagicCube.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 pm.PackagesName = "未命名" + DateTime.Now.ToString("yyMMddHHmmss");
+                short d = 1;
+                Int16.TryParse(SystemGeneralModel.GetConfigure(SystemGeneralModel.ConfigureClassEnum.OpenDays.ToString()).ConfigureContent, out d);
+                pm.EndDate = DateTime.Now.AddDays(d);
                 pm.Create();
                 id = pm.PackagesNo;
             }
             pm = PackagesModel.GetPackageDetail(id);
             pm.PackagesName = "";
             // 將搜尋結果加入PackagesModel 的WorksNos
-            var model = value.Search(1, 100);
+            var model = value.Search();
             for (int i = 0; i < model.Count; i++)
             {
                 pm.PackageItems.Add(new PackagesModel.PackageItemModel()
@@ -203,7 +206,7 @@ namespace EG_MagicCube.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                 var value = PackagesModel.GetPackageDetail(id);
-                model.PG_No = id;
+                model.PG_No = value.PackagesNo;
                 model.PG_Name = value.PackagesName;
                 model.Budget = value.Budget;
                 model.WorksAmount = value.ItemAmount.Substring(0, value.ItemAmount.IndexOf('('));
@@ -216,7 +219,8 @@ namespace EG_MagicCube.Controllers
                     {
                         No = valueistem[i].WorksNo,
                         Author = valueistem[i].AuthorsName,
-                        MiniImg = valueistem[i].WorksImg,
+                        MiniImgBase64 = valueistem[i].WorksImgBase64,
+                        MedImg = valueistem[i].WorksImg_m,
                         //MiniImgID = valueistem[i].WorksImgID,
                         Name = valueistem[i].WorksName,
                         Price = valueistem[i].Price.ToString()
@@ -224,10 +228,10 @@ namespace EG_MagicCube.Controllers
                     model.Summary += valueistem[i].Price;
                 }
             }
-            if(model.EndDate < DateTime.Now)
-            {
-                return RedirectToAction("Expired");
-            }
+            //if (model.EndDate < DateTime.Now)
+            //{
+            //    return RedirectToAction("Expired");
+            //}
             return View(model);
         }
 
@@ -240,6 +244,9 @@ namespace EG_MagicCube.Controllers
                 PackagesModel pm = new PackagesModel();
                 pm.PackagesName = "未命名" + DateTime.Now.ToString("yyMMddHHmmss");
                 pm.PackageItems = new List<PackagesModel.PackageItemModel>();
+                short d = 1;
+                Int16.TryParse(SystemGeneralModel.GetConfigure(SystemGeneralModel.ConfigureClassEnum.OpenDays.ToString()).ConfigureContent, out d);
+                pm.EndDate = DateTime.Now.AddDays(d);
                 pm.Create();
                 id = pm.PackagesNo;
             }
@@ -252,12 +259,14 @@ namespace EG_MagicCube.Controllers
         {
             PackagesModel value = new PackagesModel();
             value = PackagesModel.GetPackageDetail(id);
+            short d = 1;
+            Int16.TryParse(SystemGeneralModel.GetConfigure(SystemGeneralModel.ConfigureClassEnum.OpenDays.ToString()).ConfigureContent, out d);
             PackageViewModel model = new PackageViewModel()
             {
                 PG_No = value.PackagesNo,
                 PG_Name = value.PackagesName,
                 CreateDate = value.CreateDate,
-                EndDate = value.EndDate ?? DateTime.Now.AddDays(1),
+                EndDate = value.EndDate ?? DateTime.Now.AddDays(d),
                 Url = this.Url.Action("Detail_Works", "Package", new { id = id }, this.Request.Url.Scheme),
                 QRImg = PackagesModel.DrawQRcodeToImgBase64sting(this.Url.Action("Detail_Works", "Package", new { id = id }, this.Request.Url.Scheme)),
                 Remark = value.PackagesMemo,
@@ -268,7 +277,7 @@ namespace EG_MagicCube.Controllers
 
         // POST: Package/Edit/5
         [HttpPost]
-        public JsonResult Edit(PackageViewModel collection)
+        public ActionResult Edit(string id, PackageViewModel collection)
         {
             //try
             //{
@@ -278,7 +287,11 @@ namespace EG_MagicCube.Controllers
             value.EndDate = collection.EndDate;
             value.PackagesMemo = collection.Remark ?? "";
             value.Update();
-            return Json("儲存成功");
+            ViewData["Message"] = "儲存成功";
+
+            collection.Url = this.Url.Action("Detail_Works", "Package", new { id = id }, this.Request.Url.Scheme);
+            collection.QRImg = PackagesModel.DrawQRcodeToImgBase64sting(this.Url.Action("Detail_Works", "Package", new { id = id }, this.Request.Url.Scheme));
+            return View(collection);
             //}
             //catch
             //{
@@ -310,7 +323,8 @@ namespace EG_MagicCube.Controllers
                 {
                     No = value.PackageItems[i].WorksNo,
                     Author = value.PackageItems[i].AuthorsName,
-                    MiniImg = value.PackageItems[i].WorksImg,
+                    MedImg = value.PackageItems[i].WorksImgBase64,
+                    MiniImgBase64 = value.PackageItems[i].WorksImg_m,
                     //MiniImgID = value.PackageItems[i].WorksImgID,
                     Name = value.PackageItems[i].WorksName,
                     Price = value.PackageItems[i].Price.ToString(),
@@ -336,18 +350,21 @@ namespace EG_MagicCube.Controllers
 
         // POST: Package/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public JsonResult Delete(string[] id)
         {
-            try
+            for (int i = 0; i < id.Length; i++)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                try
+                {   // TODO: Add delete logic here
+                    PackagesModel.Delete(id[i]);
+                }
+                catch
+                {
+                    //return View();
+                    return Json(id[i]);
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return Json(id);
         }
 
         [HttpPost]
@@ -362,7 +379,7 @@ namespace EG_MagicCube.Controllers
         public ActionResult Expired()
         {
             ViewData["Message"] = SystemGeneralModel.GetConfigure(SystemGeneralModel.ConfigureClassEnum.EmptyContent.ToString()).ConfigureContent;
-            return View();
+            return PartialView();
         }
 
         public class PackageAddWorksJSONModel

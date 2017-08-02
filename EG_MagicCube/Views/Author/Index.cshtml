@@ -31,7 +31,10 @@
 
             </div>
             <div class="form-group">
-                <div class=" col-md-10 text-right">
+                <div class="col-md-2 col-xs-3 text-right">
+                    <input type="button" id="delete-btn" data-url="@Url.Action("Delete")" class="btn btn-danger pull-right fixed-top" value="刪除" style="visibility:hidden;">
+                </div>
+                <div class=" col-md-8 text-right">
                     <input type="submit" name="search-btn" class="btn btn-info" value="篩選" />
                 </div>
             </div>
@@ -41,6 +44,9 @@
 
 <table class="table">
     <tr>
+        <th>
+            <input type="checkbox" id="checkall" class="" />
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.AuthorsCName)
         </th>
@@ -52,6 +58,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            <input type="checkbox" id="@item.AuthorsNo" class="delcheck" />
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.AuthorsCName)
         </td>
@@ -69,12 +78,15 @@
 <div class="pull-right">
     @if (ViewBag.pi > 0)
     {
-        @Html.ActionLink("前一頁 ", "Index", new { p = (ViewBag.pi - 1) })
+        @Html.ActionLink("前"+ (string)ViewBag.pt + "筆 ", "Index", new { p = (ViewBag.pi - 1) })
     }
     @if (ViewBag.pi > 0 && ViewBag.pn > 0)
     { <text> | </text> }
     @if (ViewBag.pn > 0)
     {
-        @Html.ActionLink("後一頁", "Index", new { p = (ViewBag.pn) })
+        @Html.ActionLink("後" + (string)ViewBag.pt + "筆 ", "Index", new { p = (ViewBag.pn) })
     }
 </div>
+@section Scripts {
+    <script src="@Url.Content("~/Scripts/deleteforlist.js")"></script>
+}

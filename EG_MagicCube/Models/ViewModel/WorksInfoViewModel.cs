@@ -29,8 +29,11 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "選取")]
         public bool Checked { get; set; }
 
-        [Display(Name = "作品縮圖")]
-        public string MiniImg { get; set; }
+        [Display(Name = "小此吋作品縮圖base64")]
+        public string MiniImgBase64 { get; set; }
+
+        [Display(Name = "中尺寸作品縮圖")]
+        public string MedImg { get; set; }
 
         [Display(Name = "作品縮圖ID")]
         public string MiniImgID { get; set; }

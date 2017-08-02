@@ -13,12 +13,11 @@ namespace EG_MagicCube.Controllers
         // GET: Works
         public ActionResult Index(int p = 0)
         {
-            int take = 10;
             List<WorksViewModel> model = new List<WorksViewModel>();
 
             WorksSearchModel value = new WorksSearchModel();
             value.OrderbyType = MenuModel.MeunOrderbyTypeEnum.預設排序;
-            var _value = value.Search(p + 1, take + 1);
+            var _value = value.Search(p + 1, take);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
@@ -57,12 +56,12 @@ namespace EG_MagicCube.Controllers
             }
             ViewBag.WorksAuthors = WorksAuthors;
             setSortDropDown();
+            ViewBag.pt = take.ToString();
             return View(model);
         }
         [HttpPost]
         public ActionResult Index(FormCollection collection, int p = 0)
         {
-            int take = 10;
             List<WorksViewModel> model = new List<WorksViewModel>();
             MenuModel.MeunOrderbyTypeEnum _MeunOrderbyTypeEnum = (MenuModel.MeunOrderbyTypeEnum)Enum.Parse(typeof(MenuModel.MeunOrderbyTypeEnum), collection["Sort"], true);
             WorksSearchModel value = new WorksSearchModel()
@@ -83,7 +82,7 @@ namespace EG_MagicCube.Controllers
                 value.MaxPrice = Convert.ToInt16(collection["MaxPrice"]);
             }
 
-            var _value = value.Search(p + 1, take + 1);
+            var _value = value.Search(p + 1, take);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
             {
@@ -123,10 +122,10 @@ namespace EG_MagicCube.Controllers
             }
             ViewBag.WorksAuthors = WorksAuthors;
             setSortDropDown(_MeunOrderbyTypeEnum);
+            ViewBag.pt = take.ToString();
             return View(model);
         }
 
-        [AllowAnonymous]
         // GET: Works/Details/5
         public ActionResult Details(string id, string p = "")
         {
@@ -142,7 +141,37 @@ namespace EG_MagicCube.Controllers
                 WorksName = value.WorksName,
                 AuthorsName = string.Join(",", value.WorksAuthors.Select(a => a.MenuName)),
                 MaterialsName = value.WorksModuleList.Select(m => m.Length.ToString() + "x" + m.Height.ToString() + "x"
-                    + m.Width.ToString() + "x" + m.Deep.ToString() + " cm " + "\n影片長度 " + m.TimeLength.ToString() + " " + m.Amount.ToString() + " " + m.CountNoun.MenuName).ToList(),
+                    + m.Width.ToString() + "x" + m.Deep.ToString() + " cm " + "\n影片長度 " + m.TimeLength.ToString() + " ," + m.Amount.ToString() + " " + m.CountNoun.MenuName).ToList(),
+                Remarks = value.Remarks,
+                Owner = string.Join(",", value.WorksPropOwnerList.Select(o => o.MenuName)),
+                PropWare = string.Join(",", value.WorksPropWareTypeList.Select(o => o.MenuName)),
+                Cost = value.Cost.ToString(),
+                Price = value.Price.ToString(),
+                PricingDate = value.PricingDate.ToString("yyyy-MM-dd"),
+                GrossMargin = value.GrossMargin.ToString() + " %",
+                GenreNo = string.Join(",", value.WorksPropGenreList.Select(o => o.MenuName)),
+                PropStyle = string.Join(",", value.WorksPropStyleList.Select(o => o.MenuName))
+            };
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        // GET: Works/Details/5
+        public ActionResult DetailfoC(string id, string p = "")
+        {
+            WorksModel value = WorksModel.GetWorksModelDetail(id);
+            if (value == null || string.IsNullOrEmpty(value.WorksNo))
+            {
+                return RedirectToAction("Index");
+            }
+            WorksDetailViewModel model = new WorksDetailViewModel()
+            {
+                PackagesNo = p,
+                WorksNo = value.WorksNo,
+                WorksName = value.WorksName,
+                AuthorsName = string.Join(",", value.WorksAuthors.Select(a => a.MenuName)),
+                MaterialsName = value.WorksModuleList.Select(m => m.Length.ToString() + "x" + m.Height.ToString() + "x"
+                    + m.Width.ToString() + "x" + m.Deep.ToString() + " cm " + "\n影片長度 " + m.TimeLength.ToString() + " ," + m.Amount.ToString() + " " + m.CountNoun.MenuName).ToList(),
                 Remarks = value.Remarks,
                 Owner = string.Join(",", value.WorksPropOwnerList.Select(o => o.MenuName)),
                 PropWare = string.Join(",", value.WorksPropWareTypeList.Select(o => o.MenuName)),
@@ -228,17 +257,21 @@ namespace EG_MagicCube.Controllers
 
         // POST: Works/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public JsonResult Delete(string[] id)
         {
-            try
-            {                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
+            for (int i = 0; i < id.Length; i++)
             {
-                return View();
-            }
+                try
+                {   // TODO: Add delete logic here
+                    //WorksModel.Delete(id[i]);
+                }
+                catch
+                {
+                    //return View();
+                    return Json(id[i]);
+                }
+            }            
+            return Json(id);
         }
 
         private void CreateSelect()

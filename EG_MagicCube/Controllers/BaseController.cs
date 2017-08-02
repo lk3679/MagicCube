@@ -15,7 +15,7 @@ namespace EG_MagicCube.Controllers
         //{
         //    return View();
         //}
-
+        public int take = 9;
         public void setSortDropDown(MeunOrderbyTypeEnum _MeunOrderbyTypeEnum = MeunOrderbyTypeEnum.預設排序)
         {
             var MeunOrderList = new Dictionary<string, string>();

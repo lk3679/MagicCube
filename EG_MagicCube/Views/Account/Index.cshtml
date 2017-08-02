@@ -9,9 +9,16 @@
 <p>
     @Html.ActionLink("新增帳號", "Create", null, new { @class = "btn btn-success" })
 </p>
-
+<div class="form-group">
+    <div class="col-md-2 col-xs-3 text-right">
+        <input type="button" id="delete-btn" data-url="@Url.Action("Delete")" class="btn btn-danger pull-right fixed-top" value="刪除" style="visibility:hidden;">
+    </div>
+</div>
 <table class="table">
     <tr>
+        <th>
+            <input type="checkbox" id="checkall" class="" />
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -28,7 +35,9 @@
     {
         <tr>
 
-
+            <td>
+                <input type="checkbox" id="@item.UserAccountsNo" class="delcheck" />
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -44,9 +53,12 @@
                 <div>
                     @Html.ActionLink("編輯", "Edit", new { id = item.UserAccountsNo })
                 </div>
-                @*|@Html.ActionLink("刪除", "Delete", new {  id= item.UserAccountsNo })*@
             </td>
         </tr>
     }
 
 </table>
+
+@section Scripts {
+    <script src="@Url.Content("~/Scripts/deleteforlist.js")"></script>
+}

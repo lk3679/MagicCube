@@ -1,6 +1,7 @@
 ﻿@model EG_MagicCube.Models.ViewModel.WorksDetailViewModel
 
 @{
+    Layout = "~/Views/Shared/_LayoutNonli.cshtml";
     ViewBag.Title = @Html.DisplayFor(model => model.WorksName) + " - " + @Html.DisplayFor(model => model.AuthorsName);
 }
 <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.css" rel="stylesheet" />
@@ -11,14 +12,7 @@
 </style>
 <h2>@Html.DisplayFor(model => model.WorksName)</h2>
 <div class="col-xs-12">
-    @Html.ActionLink("編輯作品", "Edit", new { id = Model.WorksNo }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("返回作品列表", "Index", "Works", null, new { @class = "btn  btn-warning pull-right" })
-</div>
-<p></p>
-<div class="col-xs-12">
-    @*<h4>WorksDetailViewModel</h4>*@
     <hr />
-
     <dl class="dl-horizontal" style="">
         <dt>
             @Html.DisplayNameFor(model => model.AuthorsName)
@@ -48,53 +42,6 @@
                 </dd>
             }
         }
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Remarks)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Remarks)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Owner)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Owner)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PropWare)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PropWare)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Cost)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cost)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PricingDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PricingDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GrossMargin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GrossMargin)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Price)
         </dt>
@@ -134,14 +81,15 @@
             effect: "fadeIn",
             effectspeed: 500
         });
-        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
-            event.preventDefault();
-            $(this).ekkoLightbox();
-        });
         jQuery(window).on('load resize scroll', function () {
             $('.grid').masonry({
                 itemSelector: '.grid-item'
             });
         });
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+
     </script>
 }

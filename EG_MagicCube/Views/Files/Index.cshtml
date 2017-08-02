@@ -1,18 +1,19 @@
-﻿@model Dictionary<long, string>
+﻿@model List<EG_MagicCube.Models.WorksFilesModel.FileGroup>
 
-<h2>作品圖片列表</h2>
-@if (Model != null && Model.Count > 0)
+<h2>圖片集</h2>
+@if (Model != null && Model.Count() > 0)
 {
-    foreach (var item in Model)
-    {
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-
-            <div style="line-height:250px;">
-                <a href="@item.Value" style="width:250px;max-height:250px;line-height:250px;" data-type="image" data-toggle="lightbox" data-gallery="example-gallery">
-                    <img class=".img-responsive img-thumbnail img-fluid" style="max-width:800px;" data-original="@item.Value" />
-                </a>
+    <div class="grid">
+        @foreach (var item in Model)
+        {
+            <div class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div @*style="line-height:250px;"*@>
+                    <a href="@item.File_m_Url" data-type="image" data-toggle="lightbox" data-gallery="example-gallery">
+                        <img class=".img-responsive img-thumbnail img-fluid" style="max-width:800px;" data-original="@item.File_m_Url" />
+                    </a>
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 }
 
