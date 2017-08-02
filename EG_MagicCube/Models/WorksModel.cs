@@ -265,7 +265,7 @@ namespace EG_MagicCube.Models
                     {
                         if (_Files != null)
                         {
-                            WorksFilesModel.InsFile(_Works.WorksNo.ToString(),_Files);
+                            WorksFilesModel.InsFile(_Works.WorksNo.ToString(), _Files);
                             //context.WorksFiles.Add(new WorksFiles() { WorksNo = _Works.WorksNo, FileBase64Str = FileUrl });
                         }
 
@@ -337,42 +337,53 @@ namespace EG_MagicCube.Models
             Guid Guid_WorksNo = Guid.Parse(WorksNo);
             using (var context = new EG_MagicCubeEntities())
             {
-                _WorksModel = context.Works.AsEnumerable().Where(c => c.IsDel!="Y" && c.WorksNo == Guid_WorksNo).Select(c =>
-                new WorksModel()
+                var _Works = context.Works.AsQueryable().Where(c => c.IsDel != "Y" && c.WorksNo == Guid_WorksNo).Select(c => c).FirstOrDefault();
+                if (_Works != null)
                 {
-                    WorksNo = c.WorksNo.ToString(),
-                    MaterialsID = c.MaterialsID,
-                    AuthorsNo = c.AuthorsNo,
-                    AuthorsName = c.WorksAuthors.FirstOrDefault().Authors.AuthorsCName,
-                    WorksName = c.WorksName,
-                    YearStart = c.YearStart,
-                    YearEnd = c.YearEnd,
-                    Remarks = c.Remarks,
-                    Cost = c.Cost,
-                    Price = c.Price,
-                    PricingDate = c.PricingDate,
-                    GrossMargin = c.GrossMargin,
-                    Marketability = c.Marketability,
-                    Packageability = c.Packageability,
-                    Valuability = c.Valuability,
-                    Artisticability = c.Artisticability,
-                    CreateUser = c.CreateUser,
-                    CreateDate = c.CreateDate,
-                    ModifyUser = c.ModifyUser,
-                    Rating = c.Rating,
-                    ModifyDate = (DateTime)c.ModifyDate,
-                    AuthorNo_InputString = c.WorksAuthors.Select(wa => wa.Authors.AuthorsNo.ToString()).ToList(),
-                    GenreNo_InputString = c.WorksPropGenre.Select(wpg => wpg.Menu_Genre.GenreNo.ToString()).ToList(),
-                    StyleNo_InputString = c.WorksPropStyle.Select(wpo => wpo.Menu_Style.StyleNo.ToString()).ToList(),
-                    OwnerNo_InputString = c.WorksPropOwner.Select(wps => wps.Menu_Owner.OwnerNo.ToString()).ToList(),
-                    WareTypeNo_InputString = c.WorksPropWareType.Select(wpwt => wpwt.Menu_WareType.WareTypeNo.ToString()).ToList(),
-                    WorksAuthors = c.WorksAuthors.Select(wa => new MenuViewModel() { MenuID = wa.Authors.AuthorsNo, MenuName = wa.Authors.AuthorsCName }).ToList(),
-                    WorksPropGenreList = c.WorksPropGenre.Select(wpg => new MenuViewModel() { MenuID = wpg.Menu_Genre.GenreNo, MenuName = wpg.Menu_Genre.GenreName }).ToList(),
-                    WorksPropOwnerList = c.WorksPropOwner.Select(wpo => new MenuViewModel() { MenuID = wpo.OwnerNo, MenuName = wpo.Menu_Owner.OwnerName }).ToList(),
-                    WorksPropStyleList = c.WorksPropStyle.Select(wps => new MenuViewModel() { MenuID = wps.Menu_Style.StyleNo, MenuName = wps.Menu_Style.StyleName }).ToList(),
-                    WorksPropWareTypeList = c.WorksPropWareType.Select(wpwt => new MenuViewModel() { MenuID = wpwt.Menu_WareType.WareTypeNo, MenuName = wpwt.Menu_WareType.WareTypeName }).ToList(),
-                    ViewWorksFiles = c.WorksFiles.Select(wf => wf.FileBase64Str).ToList(),
-                    WorksModuleList = c.WorksModules.Select(wm => new WorksModel.WorksModuleModel()
+                    var _WorksAuthorsist = context?.WorksAuthors?.AsQueryable()?.Where(c => c.Works_No == Guid_WorksNo).Select(wa => wa).ToList();
+                    var _WorksPropGenreList = context?.WorksPropGenre?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wpg => wpg).ToList();
+                    var _WorksPropOwnerList = context?.WorksPropOwner?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wpo => wpo).ToList();
+                    var _WorksPropStyleList = context?.WorksPropStyle?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wps => wps).ToList();
+                    var _WorksPropWareTypeList = context?.WorksPropWareType?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wpwt => wpwt).ToList();
+                    var _WorksWorksFilesList = context?.WorksFiles?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wf => wf).ToList();
+                    var _WorksWorksModulesList = context?.WorksModules?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wm => wm).ToList();
+
+                    _WorksModel.WorksNo = _Works.WorksNo.ToString();
+                    _WorksModel.MaterialsID = "";
+                    _WorksModel.AuthorsNo = _Works.AuthorsNo;
+                    _WorksModel.AuthorsName = _Works.WorksAuthors.FirstOrDefault().Authors.AuthorsCName;
+                    _WorksModel.WorksName = _Works.WorksName;
+                    _WorksModel.YearStart = _Works.YearStart;
+                    _WorksModel.YearEnd = _Works.YearEnd;
+                    _WorksModel.Remarks = _Works.Remarks;
+                    _WorksModel.Cost = _Works.Cost;
+                    _WorksModel.Price = _Works.Price;
+                    _WorksModel.PricingDate = _Works.PricingDate;
+                    _WorksModel.GrossMargin = _Works.GrossMargin;
+                    _WorksModel.Marketability = _Works.Marketability;
+                    _WorksModel.Packageability = _Works.Packageability;
+                    _WorksModel.Valuability = _Works.Valuability;
+                    _WorksModel.Artisticability = _Works.Artisticability;
+                    _WorksModel.CreateUser = _Works.CreateUser;
+                    _WorksModel.CreateDate = _Works.CreateDate;
+                    _WorksModel.ModifyUser = _Works.ModifyUser;
+                    _WorksModel.Rating = _Works.Rating;
+                    _WorksModel.ModifyDate = (DateTime)_Works.ModifyDate;
+
+                    _WorksModel.AuthorNo_InputString = _WorksAuthorsist?.Select(wa => wa.Author_No.ToString()).ToList();
+                    _WorksModel.GenreNo_InputString = _WorksPropGenreList?.Select(wpg => wpg.GenreNo.ToString()).ToList();
+                    _WorksModel.StyleNo_InputString = _WorksPropStyleList?.Select(wpo => wpo.StyleNo.ToString()).ToList();
+                    _WorksModel.OwnerNo_InputString = _WorksPropOwnerList?.Select(wps => wps.OwnerNo.ToString()).ToList();
+                    _WorksModel.WareTypeNo_InputString = _WorksPropWareTypeList?.Select(wpwt => wpwt.WareTypeNo.ToString()).ToList();
+
+                    _WorksModel.WorksAuthors = _WorksAuthorsist?.Select(wa => new MenuViewModel() { MenuID = wa.Author_No, MenuName = wa.Authors.AuthorsCName }).ToList();
+                    _WorksModel.WorksPropGenreList = _WorksPropGenreList?.Select(wpg => new MenuViewModel() { MenuID = wpg.GenreNo, MenuName = wpg.Menu_Genre.GenreName }).ToList();
+                    _WorksModel.WorksPropOwnerList = _WorksPropOwnerList?.Select(wpo => new MenuViewModel() { MenuID = wpo.OwnerNo, MenuName = wpo.Menu_Owner.OwnerName }).ToList();
+                    _WorksModel.WorksPropStyleList = _WorksPropStyleList?.Select(wps => new MenuViewModel() { MenuID = wps.StyleNo, MenuName = wps.Menu_Style.StyleName }).ToList();
+                    _WorksModel.WorksPropWareTypeList = _WorksPropWareTypeList?.Select(wpwt => new MenuViewModel() { MenuID = wpwt.WareTypeNo, MenuName = wpwt.Menu_WareType.WareTypeName }).ToList();
+                    //_WorksModel.ViewWorksFiles = _Works.WorksFiles.Select(wf => wf.FileBase64Str).ToList();
+
+                    _WorksModel.WorksModuleList = _WorksWorksModulesList?.Select(wm => new WorksModel.WorksModuleModel()
                     {
                         WorksModulesNo = wm.WorksModulesNo,
                         WorksNo = wm.WorksNo.ToString(),
@@ -385,10 +396,11 @@ namespace EG_MagicCube.Models
                         TimeLength = int.Parse(wm.TimeLength),
                         Amount = wm.Amount,
                         CountNoun = new MenuViewModel { MenuID = wm.Menu_CountNoun.CountNounNo, MenuName = wm.Menu_CountNoun.CountNounName }
-                    }).ToList()
+                    }).ToList();
 
                 }
-               ).FirstOrDefault();
+
+
             }
             return _WorksModel;
         }
@@ -404,7 +416,7 @@ namespace EG_MagicCube.Models
             Guid Guid_WorksNo = Guid.Parse(newWorks.WorksNo);
             using (var context = new EG_MagicCubeEntities())
             {
-                var oldWorks = context.Works.AsEnumerable().First(x => x.WorksNo == Guid_WorksNo);
+                var oldWorks = context.Works.AsQueryable().First(x => x.WorksNo == Guid_WorksNo);
                 if (oldWorks != null)
                 {
                     if (oldWorks.WorksModules != null)

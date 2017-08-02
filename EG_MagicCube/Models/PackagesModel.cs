@@ -190,7 +190,7 @@ namespace EG_MagicCube.Models
                     var pgl = context.Packages.AsQueryable().Where(f =>
                                 f.IsDel != "Y" &&
                                 (f.PackagesName.Contains(KeyWords)
-                               || f.PackagesMemo.Contains(KeyWords))).Select(c =>c);
+                               || f.PackagesMemo.Contains(KeyWords))).Select(c => c);
 
                     if (MenuModel.MeunOrderbyTypeEnum.預設排序 == OrderbyType)
                     {
@@ -230,36 +230,39 @@ namespace EG_MagicCube.Models
                     {
                         pgl = pgl.OrderByDescending(c => c.PackagesNo);
                     }
-                    if (PageIndex > 0 )
+                    if (PageIndex > 0)
                     {
-                        pgl = pgl.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize+1);
+                        pgl = pgl.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize + 1);
                     }
 
                     var r_pgl = pgl.ToList();
-
-                    _PackagesList = r_pgl.AsEnumerable().Select(c =>
-                               new PackagesModel()
-                               {
-                                   PackagesNo = c.PackagesNo.ToString(),
-                                   PackagesName = c.PackagesName,
-                                   EndDate = c.EndDate,
-                                   PackingDate = c.PackingDate,
-                                   CreateDate = c.CreateDate,
-                                   CreateUser = c.CreateUser,
-                                   ModifyUser = c.ModifyUser,
-                                   ModifyDate = c.ModifyDate,
-                                   SearchJson = c.SearchJson,
-                                   PackagesMemo = c.PackagesMemo,
-                                   ItemAmount = c.PackageItems.Where(pi => pi.IsJoin == "Y").Count().ToString() + " (" + c.PackageItems.Count.ToString() + ")",
-                                   Budget=c.Budget
-                               }).ToList();
-
+                    if (r_pgl != null && r_pgl.Count > 0)
+                    {
+                        Guid[] PackagesNoArray = r_pgl.Select(c => c.PackagesNo).ToArray();
+                        var _PackageItems = context?.PackageItems?.AsQueryable()?.Where(pi => PackagesNoArray.Contains(pi.PackagesNo)).Select(c => c).ToList();
+                        _PackagesList = r_pgl.Select(c =>
+                                   new PackagesModel()
+                                   {
+                                       PackagesNo = c.PackagesNo.ToString(),
+                                       PackagesName = c.PackagesName,
+                                       EndDate = c.EndDate,
+                                       PackingDate = c.PackingDate,
+                                       CreateDate = c.CreateDate,
+                                       CreateUser = c.CreateUser,
+                                       ModifyUser = c.ModifyUser,
+                                       ModifyDate = c.ModifyDate,
+                                       SearchJson = c.SearchJson,
+                                       PackagesMemo = c.PackagesMemo,
+                                       ItemAmount = (_PackageItems?.Where(pi => pi.PackagesNo == c.PackagesNo && pi.IsJoin == "Y").Count()).Value.ToString() ?? "0" + " (" + (_PackageItems?.Count).Value.ToString() ?? "0" + ")",
+                                       Budget = c.Budget
+                                   }).ToList();
+                    }
                 }
 
             }
             return _PackagesList;
         }
-       
+
         /// <summary>
         /// 取得包裝明細
         /// </summary>
@@ -273,34 +276,39 @@ namespace EG_MagicCube.Models
                 if (context.Packages.Count() > 0)
                 {
                     var Guid_PackagesNo = Guid.Parse(PackagesNo.ToString());
-                    _PackagesModel = context.Packages.AsEnumerable().Where(f => f.IsDel !="Y" && f.PackagesNo == Guid_PackagesNo).Select(c =>
-                                  new PackagesModel()
-                                  {
-                                      PackagesNo = c.PackagesNo.ToString(),
-                                      QRImg = "",
-                                      PackagesName = c.PackagesName,
-                                      EndDate = c.EndDate,
-                                      PackingDate = c.PackingDate,
-                                      CreateDate = c.CreateDate,
-                                      CreateUser = c.CreateUser,
-                                      ModifyUser = c.ModifyUser,
-                                      ModifyDate = c.ModifyDate,
-                                      SearchJson = c.SearchJson,
-                                      PackagesMemo = c.PackagesMemo,
-                                      ItemAmount = c.PackageItems.Where(pi => pi.IsJoin == "Y").Count().ToString() + " (" + c.PackageItems.Count.ToString() + ")",
-                                      Budget=c.Budget
-                                      //,PackageItems = c.PackageItems.Select(pi => new PackageItemModel()
-                                      //{
-                                      //    WorksNo = pi.WorksNo.ToString(),
-                                      //    WorksName = pi.Works.WorksName,
-                                      //    Price = pi.Works.Price,
-                                      //    AuthorsName = pi.Works.WorksAuthors.FirstOrDefault().Authors.AuthorsCName,
-                                      //    IsJoin = pi.IsJoin
-                                      //}
-                                      //).ToList()
-                                  }
+                    var r_Packages = context?.Packages?.AsQueryable()?.Where(f => f.IsDel != "Y" && f.PackagesNo == Guid_PackagesNo).Select(c => c).FirstOrDefault();
 
-                               ).FirstOrDefault();
+                    if (r_Packages != null)
+                    {
+                        var _PackageItems = context?.PackageItems?.AsQueryable()?.Where(pi => pi.PackagesNo == r_Packages.PackagesNo).Select(c => c).ToList();
+                        int _ItemAmount = 0;
+                        int _JoinItemAmount = 0;
+                        _ItemAmount = (_PackageItems?.Count()).Value;
+                        _JoinItemAmount = (_PackageItems?.Where(pi => pi.IsJoin == "Y").Count()).Value;
+                        
+                        _PackagesModel.PackagesNo = r_Packages.PackagesNo.ToString();
+                        _PackagesModel.QRImg = "";
+                        _PackagesModel.PackagesName = r_Packages.PackagesName;
+                        _PackagesModel.EndDate = r_Packages.EndDate;
+                        _PackagesModel.PackingDate = r_Packages.PackingDate;
+                        _PackagesModel.CreateDate = r_Packages.CreateDate;
+                        _PackagesModel.CreateUser = r_Packages.CreateUser;
+                        _PackagesModel.ModifyUser = r_Packages.ModifyUser;
+                        _PackagesModel.ModifyDate = r_Packages.ModifyDate;
+                        _PackagesModel.SearchJson = r_Packages.SearchJson;
+                        _PackagesModel.PackagesMemo = r_Packages.PackagesMemo;
+                        _PackagesModel.ItemAmount = _JoinItemAmount.ToString() + " (" + _ItemAmount.ToString() + ")";
+                        _PackagesModel.Budget = r_Packages.Budget;
+                        //PackageItems = c.PackageItems.Select(pi => new PackageItemModel()
+                        //{
+                        //    WorksNo = pi.WorksNo.ToString(),
+                        //    WorksName = pi.Works.WorksName,
+                        //    Price = pi.Works.Price,
+                        //    AuthorsName = pi.Works.WorksAuthors.FirstOrDefault().Authors.AuthorsCName,
+                        //    IsJoin = pi.IsJoin
+                        //}
+                        //).ToList()
+                    }
                 }
 
             }
@@ -315,57 +323,16 @@ namespace EG_MagicCube.Models
         /// <returns></returns>
         public bool GetPackageItemList(bool ShowJoin = false)
         {
-            List<PackageItemModel> _PackageItemList = new List<PackageItemModel>();
-            
-            using (var context = new EG_MagicCubeEntities())
+            List<PackageItemModel> _PackageItemList = ReturnPackageItemList(this.PackagesNo, ShowJoin);
+            if (_PackageItemList != null && _PackageItemList.Count > 0)
             {
-                if (context.PackageItems.Count() > 0)
-                {
-                    var Guid_PackagesNo = Guid.Parse(this.PackagesNo);
-                    List<PackageItems> PackageItems = new List<PackageItems>() ;
-                    if (ShowJoin)
-                    {
-                        PackageItems = context.PackageItems.AsQueryable().Where(f => f.PackagesNo == Guid_PackagesNo && f.IsJoin == "Y").Select(c=>c).ToList();
-                        //_PackageItemList = r.Where(f => f.IsJoin == "Y").ToList();
-                    }
-                    else
-                    {
-                        PackageItems = context.PackageItems.AsQueryable().Where(f => f.PackagesNo == Guid_PackagesNo ).Select(c => c).ToList();
-                        // _PackageItemList = r.ToList();
-                    }
-                    if (PackageItems != null)
-                    {
-                        _PackageItemList = PackageItems.Select(c =>
-                              new PackageItemModel()
-                              {
-                                  WorksNo = c.WorksNo.ToString(),
-                                  WorksImgBase64 = c.Works.WorksFiles?.FirstOrDefault()?.FileBase64Str,
-                                  WorksImg_m = c.Works.WorksFiles?.FirstOrDefault()?.File_m_Url,
-                                  //WorksImgID = c.Works.WorksFiles?.FirstOrDefault()?.WorksFilesNo.ToString(),
-                                  AuthorsName = c.Works.WorksAuthors?.FirstOrDefault()?.Authors?.AuthorsCName,
-                                  WorksName = c.Works.WorksName,
-                                  IsJoin = c.IsJoin,
-                                  Price = c.Works.Price
-                              }
-
-                           ).ToList();
-                    }
-
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            this.PackageItems = _PackageItemList;
-            if (_PackageItemList.Count > 0)
-            {
-                return true;
+                this.PackageItems = _PackageItemList;
             }
             else
             {
                 return false;
             }
+            return true;
         }
 
 
@@ -383,29 +350,59 @@ namespace EG_MagicCube.Models
                 if (context.PackageItems.Count() > 0)
                 {
                     var Guid_PackagesNo = Guid.Parse(PackagesNo);
-                    var r = context.PackageItems?.AsEnumerable().Where(f => f.PackagesNo == Guid_PackagesNo).Select(c =>
-                                  new PackageItemModel()
-                                  {
-                                      WorksNo = c.WorksNo.ToString(),
-                                      WorksImgBase64 = c.Works?.WorksFiles?.FirstOrDefault().FileBase64Str,
-                                      WorksImg_m = c.Works?.WorksFiles?.FirstOrDefault().File_m_Url,
-                                      //WorksImgID = c.Works?.WorksFiles?.FirstOrDefault().WorksFilesNo.ToString(),
-                                      AuthorsName = c.Works?.WorksAuthors?.FirstOrDefault().Authors.AuthorsCName,
-                                      WorksName = c.Works?.WorksName,
-                                      IsJoin = c.IsJoin,
-                                      Price = c.Works.Price
-                                  }
-                               );
+                    var r_PackageItems = context.PackageItems?.AsQueryable().Where(f => f.PackagesNo == Guid_PackagesNo);
                     if (ShowJoin)
                     {
-                        _PackageItemList = r.Where(f => f.IsJoin == "Y").ToList();
+                        r_PackageItems.Where(f => f.IsJoin == "Y");
                     }
-                    else
+                    var r = r_PackageItems.Select(c => c).ToList();
+                    if (r != null && r.Count > 0)
                     {
-                        _PackageItemList = r.ToList();
+                        Guid[] WorksNoArray = r.Select(c => c.WorksNo).ToArray();
+                        
+                        var _Works = context?.Works?.AsQueryable().Where(c => WorksNoArray.Contains(c.WorksNo)).Select(c => c).ToList();
+                        var _WorksFiles = context?.WorksFiles?.AsQueryable().Where(c => WorksNoArray.Contains(c.WorksNo)).Select(c => c).ToList();
+                        var _WorksAuthors = context?.WorksAuthors?.AsQueryable().Where(c => WorksNoArray.Contains(c.Works_No)).Select(c => c).ToList();
+                        int[] AuthorsNoArray = _WorksAuthors.Select(c=>c.Author_No).ToArray();
+                        var _AuthorsList = context?.Authors?.AsQueryable().Where(c => AuthorsNoArray.Contains(c.AuthorsNo)).Select(c => c).ToList();
+                        foreach (PackageItems _PackageItems in r)
+                        {
+                            PackageItemModel _PackageItemModel = new PackageItemModel();
+                            _PackageItemModel.WorksNo = _PackageItems.WorksNo.ToString();
+                            _PackageItemModel.WorksImgBase64 = _WorksFiles.Where(wf => wf.WorksNo == _PackageItems.WorksNo).Select(wf => wf.FileBase64Str).FirstOrDefault();
+                            _PackageItemModel.WorksImg_m = _WorksFiles.Where(wf => wf.WorksNo == _PackageItems.WorksNo).Select(wf => wf.File_m_Url).FirstOrDefault();
+                            _PackageItemModel.WorksName = _Works?.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().WorksName;
+                            _PackageItemModel.IsJoin = _PackageItems.IsJoin;
+                            _PackageItemModel.Price = (_Works?.Where(w => w.WorksNo == _PackageItems.WorksNo)?.FirstOrDefault()?.Price).Value;
+                            string YearStart = _Works?.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().YearStart.ToString();
+                            string YearEnd = _Works?.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().YearEnd.ToString();
+                            _PackageItemModel.Year = YearStart == YearEnd ? YearEnd : YearStart + "~" + YearEnd;
+                            int[] ItemAuthorsNoArray = _WorksAuthors.Where(c => c.Works_No == _PackageItems.WorksNo).Select(c => c.Author_No).ToArray();
+                            var ItemAuthors = _AuthorsList.Where(c => ItemAuthorsNoArray.Contains(c.AuthorsNo)).Select(c=>c).ToList();
+                            List<string> AuthorsNameList = new List<string>();
+                            foreach (Authors _Authors in ItemAuthors)
+                            {
+                                string _AuthorsName = "";
+                                if ((!string.IsNullOrEmpty(_Authors.AuthorsCName)) && (!string.IsNullOrEmpty(_Authors.AuthorsEName)))
+                                {
+                                    _AuthorsName = _Authors.AuthorsCName + "(" + _Authors.AuthorsEName + ")";
+                                }
+                                else if ((!string.IsNullOrEmpty(_Authors.AuthorsCName)) && (string.IsNullOrEmpty(_Authors.AuthorsEName)))
+                                {
+                                    _AuthorsName = _Authors.AuthorsCName;
+                                }
+                                else if ((string.IsNullOrEmpty(_Authors.AuthorsCName)) && (!string.IsNullOrEmpty(_Authors.AuthorsEName)))
+                                {
+                                    _AuthorsName = _Authors.AuthorsEName;
+                                }
+                                AuthorsNameList.Add(_AuthorsName);
+                            }
+                            _PackageItemModel.AuthorsName = AuthorsNameList.Count == 0 ? "": string.Join(",", AuthorsNameList.ToArray());
+                            _PackageItemList.Add(_PackageItemModel);
+                        }
+
                     }
                 }
-
             }
             return _PackageItemList;
         }
@@ -423,7 +420,7 @@ namespace EG_MagicCube.Models
             using (var context = new EG_MagicCubeEntities())
             {
                 var Guid_PackagesNo = Guid.Parse(newPackages.PackagesNo);
-                var oldPackages = context.Packages.AsEnumerable().AsEnumerable().First(x => x.PackagesNo == Guid_PackagesNo);
+                var oldPackages = context.Packages.AsQueryable().First(x => x.PackagesNo == Guid_PackagesNo);
                 if (oldPackages != null)
                 {
                     if (!string.IsNullOrEmpty(newPackages.PackagesName))
@@ -437,10 +434,11 @@ namespace EG_MagicCube.Models
                     oldPackages.PackagesMemo = newPackages.PackagesMemo;
                     oldPackages.SearchJson = newPackages.SearchJson;
                     oldPackages.Budget = newPackages.Budget;
+                    var _PackageItems = context.PackageItems.AsQueryable().Where(c => c.PackagesNo == oldPackages.PackagesNo).ToList();
                     foreach (PackageItemModel _PackageItemModel in newPackages.PackageItems)
                     {
                         var Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
-                        int PackageItemCount = context.PackageItems.AsEnumerable().Where(c => c.PackagesNo == oldPackages.PackagesNo && c.WorksNo == Guid_WorksNo).Count();
+                        int PackageItemCount = _PackageItems.Where(c => c.WorksNo == Guid_WorksNo).Count();
                         if (PackageItemCount == 0)
                         {
                             context.PackageItems.Add(new PackageItems()
@@ -498,13 +496,14 @@ namespace EG_MagicCube.Models
             {
                 var Guid_PackagesNo = Guid.Parse(PackagesNo);
 
-                var oldPackages = context.Packages.AsEnumerable().First(x => x.PackagesNo == Guid_PackagesNo);
+                var oldPackages = context.Packages.AsQueryable().First(x => x.PackagesNo == Guid_PackagesNo);
+                var _PackageItems = context.PackageItems.AsQueryable().Where(c => c.PackagesNo == oldPackages.PackagesNo).ToList();
                 if (oldPackages != null)
                 {
                     foreach (PackageItemModel _PackageItemModel in PackageItemModelList)
                     {
                         var Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
-                        int PackageItemCount = context.PackageItems.AsEnumerable().Where(c => c.PackagesNo == oldPackages.PackagesNo && c.WorksNo == Guid_WorksNo).Count();
+                        int PackageItemCount = _PackageItems.Where(c => c.WorksNo == Guid_WorksNo).Count();
                         if (PackageItemCount == 0)
                         {
                             context.PackageItems.Add(new PackageItems()
@@ -545,7 +544,7 @@ namespace EG_MagicCube.Models
             {
                 var Guid_PackagesNo = Guid.Parse(PackagesNo);
                 var Guid_WorksNo = Guid.Parse(WorksNo);
-                var PackageItemList = context.PackageItems.AsEnumerable().Where(x => x.PackagesNo == Guid_PackagesNo && x.WorksNo == Guid_WorksNo).Select(c => c).ToList();
+                var PackageItemList = context.PackageItems.AsQueryable().Where(x => x.PackagesNo == Guid_PackagesNo && x.WorksNo == Guid_WorksNo).Select(c => c).ToList();
 
                 if (PackageItemList != null | PackageItemList.Count > 0)
                 {
@@ -621,7 +620,7 @@ namespace EG_MagicCube.Models
             {
                 var Guid_PackagesNo = Guid.Parse(PackagesNo);
                 var Guid_WorksNo = Guid.Parse(WorksNo);
-                var PackageItemList = context.PackageItems.AsEnumerable().Where(x => x.PackagesNo == Guid_PackagesNo && x.WorksNo == Guid_WorksNo).Select(c => c).ToList();
+                var PackageItemList = context.PackageItems.AsQueryable().Where(x => x.PackagesNo == Guid_PackagesNo && x.WorksNo == Guid_WorksNo).Select(c => c).ToList();
 
                 if (PackageItemList != null | PackageItemList.Count > 0)
                 {
@@ -656,6 +655,10 @@ namespace EG_MagicCube.Models
             /// 作品名稱
             /// </summary>
             public string WorksName { set; get; } = "";
+            /// <summary>
+            /// 年份
+            /// </summary>
+            public string Year { set; get; } = "";
             /// <summary>
             /// 藝術家名稱
             /// </summary>

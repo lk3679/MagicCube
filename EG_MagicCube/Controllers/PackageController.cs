@@ -206,7 +206,7 @@ namespace EG_MagicCube.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                 var value = PackagesModel.GetPackageDetail(id);
-                model.PG_No = id;
+                model.PG_No = value.PackagesNo;
                 model.PG_Name = value.PackagesName;
                 model.Budget = value.Budget;
                 model.WorksAmount = value.ItemAmount.Substring(0, value.ItemAmount.IndexOf('('));
