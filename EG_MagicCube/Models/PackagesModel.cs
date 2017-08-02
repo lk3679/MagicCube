@@ -115,7 +115,16 @@ namespace EG_MagicCube.Models
                 Packages _Package = new Packages();
                 _Package.PackagesNo = Guid.NewGuid();
                 this.PackagesNo = _Package.PackagesNo.ToString();
-                _Package.PackagesName = this.PackagesName;
+
+                string BeforeName = "誠品畫廊推薦";
+                string strNowDate = DateTime.Now.ToString("yyyyMMdd");
+                var oldName = context.Packages.AsQueryable().Where(c => (BeforeName + strNowDate).Contains(c.PackagesName)).Select(c => c.PackagesName).FirstOrDefault();
+                var NameCount = context.Packages.AsQueryable().Where(c => c.CreateDate>=System.DateTime.Today).Count();
+                string NewPackagesName = "";
+                NewPackagesName = BeforeName + strNowDate + (NameCount + 1).ToString().PadLeft(2, '0');
+                
+                
+                _Package.PackagesName = NewPackagesName;
                 _Package.EndDate = this.EndDate;
                 _Package.PackingDate = this.PackingDate;
                 _Package.PackagesMemo = this.PackagesMemo;
@@ -285,7 +294,7 @@ namespace EG_MagicCube.Models
                         int _JoinItemAmount = 0;
                         _ItemAmount = (_PackageItems?.Count()).Value;
                         _JoinItemAmount = (_PackageItems?.Where(pi => pi.IsJoin == "Y").Count()).Value;
-                        
+
                         _PackagesModel.PackagesNo = r_Packages.PackagesNo.ToString();
                         _PackagesModel.QRImg = "";
                         _PackagesModel.PackagesName = r_Packages.PackagesName;
@@ -359,11 +368,11 @@ namespace EG_MagicCube.Models
                     if (r != null && r.Count > 0)
                     {
                         Guid[] WorksNoArray = r.Select(c => c.WorksNo).ToArray();
-                        
+
                         var _Works = context?.Works?.AsQueryable().Where(c => WorksNoArray.Contains(c.WorksNo)).Select(c => c).ToList();
                         var _WorksFiles = context?.WorksFiles?.AsQueryable().Where(c => WorksNoArray.Contains(c.WorksNo)).Select(c => c).ToList();
                         var _WorksAuthors = context?.WorksAuthors?.AsQueryable().Where(c => WorksNoArray.Contains(c.Works_No)).Select(c => c).ToList();
-                        int[] AuthorsNoArray = _WorksAuthors.Select(c=>c.Author_No).ToArray();
+                        int[] AuthorsNoArray = _WorksAuthors.Select(c => c.Author_No).ToArray();
                         var _AuthorsList = context?.Authors?.AsQueryable().Where(c => AuthorsNoArray.Contains(c.AuthorsNo)).Select(c => c).ToList();
                         foreach (PackageItems _PackageItems in r)
                         {
@@ -378,7 +387,7 @@ namespace EG_MagicCube.Models
                             string YearEnd = _Works?.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().YearEnd.ToString();
                             _PackageItemModel.Year = YearStart == YearEnd ? YearEnd : YearStart + "~" + YearEnd;
                             int[] ItemAuthorsNoArray = _WorksAuthors.Where(c => c.Works_No == _PackageItems.WorksNo).Select(c => c.Author_No).ToArray();
-                            var ItemAuthors = _AuthorsList.Where(c => ItemAuthorsNoArray.Contains(c.AuthorsNo)).Select(c=>c).ToList();
+                            var ItemAuthors = _AuthorsList.Where(c => ItemAuthorsNoArray.Contains(c.AuthorsNo)).Select(c => c).ToList();
                             List<string> AuthorsNameList = new List<string>();
                             foreach (Authors _Authors in ItemAuthors)
                             {
@@ -397,7 +406,7 @@ namespace EG_MagicCube.Models
                                 }
                                 AuthorsNameList.Add(_AuthorsName);
                             }
-                            _PackageItemModel.AuthorsName = AuthorsNameList.Count == 0 ? "": string.Join(",", AuthorsNameList.ToArray());
+                            _PackageItemModel.AuthorsName = AuthorsNameList.Count == 0 ? "" : string.Join(",", AuthorsNameList.ToArray());
                             _PackageItemList.Add(_PackageItemModel);
                         }
 
