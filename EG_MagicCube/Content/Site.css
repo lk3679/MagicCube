@@ -126,6 +126,7 @@ span.select2-container .select2-selection--single {
     }
 
 div.thumbnail {
+    margin-bottom: 0;
 }
 
 div#imgche {
@@ -136,7 +137,6 @@ div#imgche {
     left: 0;
     z-index: -1;
     color: white;
-
 }
 
     div#imgche > i.fa {
@@ -165,20 +165,12 @@ div.selected {
         z-index: 1;
     }
 
-    /*div.selected > div.imgdiv {
-        padding: 25px;
-        transition: padding 0.2s linear;
-    }*/
-
-/*.dl-horizontal dt {
-    width: 100px;
-}
-
-.dl-horizontal dd {
-    margin-left: 115px;
-}*/
 .table {
     margin-bottom: 10px;
+}
+
+.grid-item {
+    padding: 4px;
 }
 
 @media not screen {
@@ -218,12 +210,11 @@ div.selected {
         -moz-columns: 3;
         -o-columns: 3;
         -webkit-columns: 3;
-    }   
+    }
 }
 
 /* Large Devices, Wide Screens */
 @media only screen and (min-width : 1200px) {
-    
 }
 
 /*==========  Non-Mobile First Method  ==========*/
@@ -238,7 +229,6 @@ div.selected {
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
-    
 }
 
 /* Extra Small Devices, Phones */
@@ -247,5 +237,4 @@ div.selected {
 
 /* Custom, iPhone Retina */
 @media only screen and (max-width : 320px) {
-    
 }

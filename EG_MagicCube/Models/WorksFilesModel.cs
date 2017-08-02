@@ -106,25 +106,25 @@ namespace EG_MagicCube.Models
                         if (_Files != null)
                         {
                             byte[] thePictureAsBytes = new byte[_Files.ContentLength];
-                            string filebase64 = "";
+                            //string filebase64 = "";
                             using (BinaryReader theReader = new BinaryReader(_Files.InputStream))
                             {
                                 thePictureAsBytes = theReader.ReadBytes(_Files.ContentLength);
-                                filebase64 = Convert.ToBase64String(thePictureAsBytes);
+                                //filebase64 = Convert.ToBase64String(thePictureAsBytes);
                             }
                             string FileName_o = Math.Abs(Guid.NewGuid().GetHashCode()).ToString() + ".jpg";
                             string FileName_m = Math.Abs(Guid.NewGuid().GetHashCode()).ToString() + ".jpg";
                             string FileName_s = Math.Abs(Guid.NewGuid().GetHashCode()).ToString() + ".jpg";
 
-                            string FileBase64_o = ImgFileToBase64(new MagickImage(Convert.FromBase64String(filebase64)), 70);
-                            string FileBase64_m = ImgFileToBase64(new MagickImage(Convert.FromBase64String(filebase64)), 800, 70);
-                            string FileBase64_s = ImgFileToBase64(new MagickImage(Convert.FromBase64String(filebase64)), 200, 40);
-
-                            string img_o_url = SaveToAzure(FileName_o, FileBase64_o);
-                            string img_m_url = SaveToAzure(FileName_m, FileBase64_m);
-                            string img_s_url = SaveToAzure(FileName_s, FileBase64_s);
+                            byte[] FileBinary_o = ImgFileToFileBinary(new MagickImage(thePictureAsBytes), 70);
+                            byte[] FileBinary_m = ImgFileToFileBinary(new MagickImage(thePictureAsBytes), 800, 70);
+                            byte[] FileBinary_s = ImgFileToFileBinary(new MagickImage(thePictureAsBytes), 200, 40);
                             
-                            context.WorksFiles.Add(new WorksFiles() {WorksNo = Guid_WorksNo, FileBase64Str = FileBase64_s, File_o_Url = img_o_url, File_m_Url = img_m_url, File_s_Url = img_s_url });
+                            string img_o_url = SaveToAzure(FileName_o, FileBinary_o);
+                            string img_m_url = SaveToAzure(FileName_m, FileBinary_m);
+                            string img_s_url = SaveToAzure(FileName_s, FileBinary_s);
+                            
+                            context.WorksFiles.Add(new WorksFiles() {WorksNo = Guid_WorksNo, FileBase64Str = Convert.ToBase64String(FileBinary_s), File_o_Url = img_o_url, File_m_Url = img_m_url, File_s_Url = img_s_url });
                         }
                     }
                     if (context.SaveChanges() == 0)
@@ -270,14 +270,14 @@ namespace EG_MagicCube.Models
         {
             return true;
         }
-        public static string SaveToAzure(string FileName, string Filebase64)
+        public static string SaveToAzure(string FileName, byte[] FileBinary)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
             CloudBlobClient _CloudBlobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer container = _CloudBlobClient.GetContainerReference("worksimg");      
             CloudBlockBlob blockBlob_o = container.GetBlockBlobReference(FileName);
             blockBlob_o.Properties.ContentType = "image/jpg";
-            blockBlob_o.UploadFromStream(new MemoryStream(Convert.FromBase64String(Filebase64)));
+            blockBlob_o.UploadFromStream(new MemoryStream(FileBinary));
             var uriBuilder = new UriBuilder(blockBlob_o.Uri);
             string imgurl = blockBlob_o.StorageUri.PrimaryUri.ToString();
             return imgurl;
@@ -288,7 +288,30 @@ namespace EG_MagicCube.Models
         /// <param name="_File"></param>
         /// <param name="maxedge"></param>
         /// <returns></returns>
-        public static string ImgFileToBase64(MagickImage _ImgFile,int maxedge=0,int CompressionQuality=70)
+        public static byte[] ImgFileToFileBinary(MagickImage _ImgFile,int maxedge=0,int CompressionQuality=70)
+        {
+            string thePictureDataAsString = "";
+            MemoryStream ms_mini = new MemoryStream();
+            _ImgFile.Format = MagickFormat.Jpeg;
+            if (CompressionQuality <= 0)
+            {
+                _ImgFile.Quality = 70;
+            }
+            _ImgFile.CompressionMethod = CompressionMethod.JPEG;
+            if (maxedge > 0)
+            {
+                if (_ImgFile.Width > maxedge || _ImgFile.Height > maxedge)
+                {
+                    _ImgFile.Resize(new MagickGeometry(maxedge));
+                }
+                _ImgFile.Sharpen(0, 0.8, Channels.All);
+            }
+            _ImgFile.Strip();
+            _ImgFile.Write(ms_mini);
+            _ImgFile.Dispose();
+            return ms_mini.ToArray();
+        }
+        public static string ImgFileToBase64(MagickImage _ImgFile, int maxedge = 0, int CompressionQuality = 70)
         {
             string thePictureDataAsString = "";
             MemoryStream ms_mini = new MemoryStream();
