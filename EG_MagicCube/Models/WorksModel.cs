@@ -133,6 +133,11 @@ namespace EG_MagicCube.Models
         [DisplayName("藝術家")]
         public List<string> AuthorNo_InputString { get; set; } = new List<string>();
         /// <summary>
+        /// 作品圖片數量
+        /// </summary>
+        [DisplayName("作品圖片數量")]
+        public int ImageCount { get; set; } = 0;
+        /// <summary>
         /// 檢視作品檔案Base64
         /// </summary>
         [DisplayName("作品檔案")]
@@ -381,6 +386,7 @@ namespace EG_MagicCube.Models
                     _WorksModel.WorksPropOwnerList = _WorksPropOwnerList?.Select(wpo => new MenuViewModel() { MenuID = wpo.OwnerNo, MenuName = wpo.Menu_Owner.OwnerName }).ToList();
                     _WorksModel.WorksPropStyleList = _WorksPropStyleList?.Select(wps => new MenuViewModel() { MenuID = wps.StyleNo, MenuName = wps.Menu_Style.StyleName }).ToList();
                     _WorksModel.WorksPropWareTypeList = _WorksPropWareTypeList?.Select(wpwt => new MenuViewModel() { MenuID = wpwt.WareTypeNo, MenuName = wpwt.Menu_WareType.WareTypeName }).ToList();
+                    _WorksModel.ImageCount = _WorksWorksFilesList.Count;
                     //_WorksModel.ViewWorksFiles = _Works.WorksFiles.Select(wf => wf.FileBase64Str).ToList();
 
                     _WorksModel.WorksModuleList = _WorksWorksModulesList?.Select(wm => new WorksModel.WorksModuleModel()
