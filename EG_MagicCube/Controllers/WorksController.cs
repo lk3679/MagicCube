@@ -75,11 +75,11 @@ namespace EG_MagicCube.Controllers
             }
             if (!string.IsNullOrEmpty(collection["MinePrice"]))
             {
-                value.MinePrice = Convert.ToInt16(collection["MinePrice"]);
+                value.MinePrice = Convert.ToInt32(collection["MinePrice"]);
             }
             if (!string.IsNullOrEmpty(collection["MaxPrice"]))
             {
-                value.MaxPrice = Convert.ToInt16(collection["MaxPrice"]);
+                value.MaxPrice = Convert.ToInt32(collection["MaxPrice"]);
             }
 
             var _value = value.Search(p + 1, take);

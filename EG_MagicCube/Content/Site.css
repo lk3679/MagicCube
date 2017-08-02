@@ -173,6 +173,52 @@ div.selected {
     padding: 4px;
 }
 
+.numberprice {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+}
+
+    .numberprice input[type=number] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        /*cursor: pointer;*/
+    }
+
+.copy {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #138200;
+    margin-left: 10px;
+}
+
+.glyphicon-copy {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    cursor: pointer;
+}
+
+    .glyphicon-copy + .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: #8c8c8c;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+    }
+
+    .glyphicon-copy:hover + .tooltiptext {
+        visibility: visible;
+    }
+
 @media not screen {
     table td:last-child div {
         visibility: visible;

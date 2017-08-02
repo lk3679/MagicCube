@@ -26,14 +26,16 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Budget, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10 divBudget modelDisplayFor" data-Budget="@Model.Budget">
-            @Html.DisplayFor(model => model.Budget)
+            @*@Html.DisplayFor(model => model.Budget)*@
+            @Model.Budget.ToString("#,#")
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Summary, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10 modelDisplayFor divSummary @(Model.Summary > Model.Budget ? " redFont" : "")" data-Summary="@Model.Summary">
-            @Html.DisplayFor(model => model.Summary)
+            @*@Html.DisplayFor(model => model.Summary)*@
+            @Model.Summary.ToString("#,#")
         </div>
     </div>
     <div class="col-xs-12 grid" style="padding: 0px;">
@@ -52,7 +54,7 @@
                         <div class="col-xs-12 bf-caption">
                             <a target="_blank" href="@Url.Action("Details", "Works", new { id = items.No, p = Model.PG_No })">
                                 <h4>@items.Name</h4>
-                                <p>@items.Author - @items.Price (萬)</p>
+                                <p>@items.Author - @items.Price </p>
                             </a>
                         </div>
 

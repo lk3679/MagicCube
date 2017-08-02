@@ -29,10 +29,10 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "庫別")]
         public string PropWare { get; set; }
 
-        [Display(Name = "成本(萬)")]
+        [Display(Name = "成本")]
         public string Cost { get; set; }
 
-        [Display(Name = "定價(萬)")]
+        [Display(Name = "定價")]
         public string Price { get; set; }
 
         [Display(Name = "定價日期")]

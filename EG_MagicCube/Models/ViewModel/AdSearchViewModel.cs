@@ -15,13 +15,13 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "包裝名稱")]
         public string PG_Name { get; set; }
 
-        [Display(Name = "預算(萬)")]
+        [Display(Name = "預算")]
         public int Budget { get; set; } = 0;
 
         [Display(Name = "藝術家")]
         public List<string> AuthorNoList { get; set; } = new List<string>();
 
-        [Display(Name = "定價(萬)")]
+        [Display(Name = "定價")]
         public int Price_U { get; set; } = 0;
 
         [Display(Name = "定價下限")]

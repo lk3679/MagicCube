@@ -32,10 +32,10 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "已選推薦")]
         public string WorksAmount { get; set; }
 
-        [Display(Name = "預算(萬)")]
+        [Display(Name = "預算")]
         public int Budget { get; set; }
 
-        [Display(Name = "金額總計(萬)")]
+        [Display(Name = "金額總計")]
         public int Summary { get; set; }
 
         [Display(Name = "作品清單")]
