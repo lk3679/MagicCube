@@ -7,7 +7,7 @@
 <h2>作品編輯</h2>
 
 <div class="col-xs-12">
-    @Html.ActionLink("編輯圖片", "Edit", "Files", new { id = Model.WorksNo }, new { @class = "btn btn-info" })
+    @Html.ActionLink("編輯圖片 ("+ Model.ImageCount.ToString() + ")", "Edit", "Files", new { id = Model.WorksNo }, new { @class = "btn btn-info" })
     @Html.ActionLink("返回作品列表", "Index", "Works", new { @class = "btn btn-warning pull-right" })
 </div>
 
