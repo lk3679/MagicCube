@@ -93,6 +93,10 @@
             try {
                 var successful = document.execCommand("copy");
                 var msg = successful ? "successful" : "unsuccessful";
+                if (successful) {
+                    $(this).toggleClass('b5276e');
+                }
+                
                 console.log("Copy email command was " + msg);
             } catch (err) {
                 console.log("Oops, unable to copy");
