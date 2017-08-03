@@ -39,9 +39,26 @@ namespace EG_MagicCube.Models
             /// 小尺吋檔案Base64
             /// </summary>
             public string File_s_Url { get; set; } = "";
+            /// <summary>
+            /// 排序號碼
+            /// </summary>
+            public short Sorting { get; set; } = 0;
 
         }
-
+        /// <summary>
+        /// 檔案排序項目
+        /// </summary>
+        public class FileSortingItem
+        {
+            /// <summary>
+            /// 檔案序號
+            /// </summary>
+            public long WorksFilesNo { get; set; } = 0;
+            /// <summary>
+            /// 排序號碼
+            /// </summary>
+            public short Sorting { get; set; } = 0;
+        }
         #region Properties
         /// <summary>
         /// 作品序號
@@ -123,8 +140,8 @@ namespace EG_MagicCube.Models
                             string img_o_url = SaveToAzure(FileName_o, FileBinary_o);
                             string img_m_url = SaveToAzure(FileName_m, FileBinary_m);
                             string img_s_url = SaveToAzure(FileName_s, FileBinary_s);
-                            
-                            context.WorksFiles.Add(new WorksFiles() {WorksNo = Guid_WorksNo, FileBase64Str = Convert.ToBase64String(FileBinary_s), File_o_Url = img_o_url, File_m_Url = img_m_url, File_s_Url = img_s_url });
+
+                            context.WorksFiles.Add(new WorksFiles() { WorksNo = Guid_WorksNo, Sorting = 0, FileBase64Str = Convert.ToBase64String(FileBinary_s), File_o_Url = img_o_url, File_m_Url = img_m_url, File_s_Url = img_s_url });
                         }
                     }
                     if (context.SaveChanges() == 0)
@@ -139,7 +156,38 @@ namespace EG_MagicCube.Models
             }
             return true;
         }
+        /// <summary>
+        /// 更新排序
+        /// </summary>
+        /// <param name="_FileSortingItemList"></param>
+        /// <returns></returns>
+        public static bool UpdateSortint(List<FileSortingItem> _FileSortingItemList)
+        {
+            if (_FileSortingItemList != null)
+            {
+                using (var context = new EG_MagicCubeEntities())
+                {
 
+                    foreach (FileSortingItem _FileSortingItem in _FileSortingItemList)
+                    {
+                        var _File = context.WorksFiles.AsQueryable().FirstOrDefault(c => c.WorksFilesNo == _FileSortingItem.WorksFilesNo);
+                        if (_File != null)
+                        {
+                            _File.Sorting = _FileSortingItem.Sorting;
+                        }
+                    }
+                    if (context.SaveChanges() == 0)
+                    {
+                        return false;
+                    }
+                }
+
+
+
+            }
+
+            return true;
+        }
         /// <summary>
         /// 新增檔案
         /// </summary>
@@ -194,7 +242,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.WorksFiles.Count() > 0)
                 {
-                    _FileList = context.WorksFiles.AsQueryable().Where(c => c.WorksNo == Guid_WorksNo).Select(c => new FileGroup() { WorksFilesNo=c.WorksFilesNo,FileBase64=c.FileBase64Str,File_o_Url=c.File_o_Url,File_m_Url=c.File_m_Url, File_s_Url=c.File_s_Url}).ToList();
+                    _FileList = context.WorksFiles.AsQueryable().Where(c => c.WorksNo == Guid_WorksNo).OrderBy(c=>c.Sorting).Select(c => new FileGroup() { WorksFilesNo=c.WorksFilesNo,FileBase64=c.FileBase64Str,File_o_Url=c.File_o_Url,File_m_Url=c.File_m_Url, File_s_Url=c.File_s_Url,Sorting=c.Sorting}).ToList();
                 }
             }
             return _FileList;
