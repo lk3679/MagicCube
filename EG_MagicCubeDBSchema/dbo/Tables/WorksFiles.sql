@@ -5,6 +5,7 @@
  [File_o_Url] VARCHAR(500) NOT NULL DEFAULT (''), 
     [File_m_Url] VARCHAR(500) NOT NULL DEFAULT (''), 
     [File_s_Url] VARCHAR(500) NOT NULL DEFAULT (''), 
+    [Sorting] SMALLINT NOT NULL DEFAULT 0, 
     CONSTRAINT [PK_Works_Files] PRIMARY KEY CLUSTERED 
 (
 	[WorksFilesNo] ASC
@@ -49,3 +50,12 @@ EXEC sp_addextendedproperty @name = N'MS_Description',
     @level1name = N'WorksFiles',
     @level2type = N'COLUMN',
     @level2name = N'File_m_Url'
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'排序數字',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'WorksFiles',
+    @level2type = N'COLUMN',
+    @level2name = N'Sorting'
