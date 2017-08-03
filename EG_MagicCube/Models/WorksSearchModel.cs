@@ -375,7 +375,7 @@ namespace EG_MagicCube.Models
                             _WorksModule.Width = wm.Width;
                             _WorksModule.Height = wm.Height;
                             _WorksModule.Deep = wm.Deep;
-                            _WorksModule.TimeLength = int.Parse(wm.TimeLength);
+                            _WorksModule.TimeLength = wm.TimeLength;
                             _WorksModule.Amount = wm.Amount;
                             _WorksModule.CountNoun = new MenuViewModel { MenuID = wm.Menu_CountNoun.CountNounNo, MenuName = wm.Menu_CountNoun.CountNounName };
                         }
