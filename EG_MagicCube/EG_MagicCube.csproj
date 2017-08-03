@@ -259,6 +259,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\imageviewer.css" />
     <Content Include="Content\jquery.fileupload.css" />
     <Content Include="font-awesome\font-awesome.css" />
     <Content Include="font-awesome\font-awesome.min.css" />
@@ -707,6 +708,7 @@
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\ckeditor\styles.js" />
     <Content Include="Scripts\deleteforlist.js" />
+    <Content Include="Scripts\imageviewer.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />

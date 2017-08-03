@@ -79,7 +79,7 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 毛利率
         /// </summary>
-        [DisplayName("毛利率")]
+        [DisplayName("毛利率(%)")]
         public double GrossMargin { get; set; } = 0.0;
         /// <summary>
         /// 市場性

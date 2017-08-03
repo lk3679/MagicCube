@@ -180,7 +180,8 @@ namespace EG_MagicCube.Controllers
                 PricingDate = value.PricingDate.ToString("yyyy-MM-dd"),
                 GrossMargin = value.GrossMargin.ToString() + " %",
                 GenreNo = string.Join(",", value.WorksPropGenreList.Select(o => o.MenuName)),
-                PropStyle = string.Join(",", value.WorksPropStyleList.Select(o => o.MenuName))
+                PropStyle = string.Join(",", value.WorksPropStyleList.Select(o => o.MenuName)),
+                Years = value.YearStart.ToString() + (value.YearStart == value.YearEnd ? "" : " ~ " + value.YearEnd.ToString())
             };
             return View(model);
         }
@@ -270,7 +271,7 @@ namespace EG_MagicCube.Controllers
                     //return View();
                     return Json(id[i]);
                 }
-            }            
+            }
             return Json(id);
         }
 

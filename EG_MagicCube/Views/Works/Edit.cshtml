@@ -275,7 +275,8 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-6">
-                @Html.LabelFor(model => model.UploadWorksFiles, htmlAttributes: new { @class = "control-label col-md-4 col-xs-6" })
+                @*@Html.LabelFor(model => model.UploadWorksFiles, htmlAttributes: new { @class = "control-label col-md-4 col-xs-6" })*@
+                <label class="control-label col-md-4 col-xs-6" for="UploadWorksFiles">作品(@Model.ImageCount.ToString())</label>
                 <div class="col-md-8 col-sm-6 col-xs-3">
                     <span class="btn btn-success fileinput-button">
                         <i class="glyphicon glyphicon-plus"></i>
