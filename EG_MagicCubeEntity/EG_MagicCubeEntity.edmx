@@ -206,6 +206,7 @@
           <Property Name="File_o_Url" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="File_m_Url" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="File_s_Url" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Sorting" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="WorksModules">
           <Key>
@@ -853,6 +854,7 @@
           <Property Name="File_o_Url" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="File_m_Url" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="File_s_Url" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Sorting" Type="Int16" Nullable="false" />
         </EntityType>
         <EntityType Name="WorksModules">
           <Key>
@@ -1493,6 +1495,7 @@
           <EntitySetMapping Name="WorksFiles">
             <EntityTypeMapping TypeName="EG_MagicCubeModel.WorksFiles">
               <MappingFragment StoreEntitySet="WorksFiles">
+                <ScalarProperty Name="Sorting" ColumnName="Sorting" />
                 <ScalarProperty Name="File_s_Url" ColumnName="File_s_Url" />
                 <ScalarProperty Name="File_m_Url" ColumnName="File_m_Url" />
                 <ScalarProperty Name="File_o_Url" ColumnName="File_o_Url" />

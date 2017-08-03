@@ -20,7 +20,7 @@ namespace EG_MagicCube.Controllers
             {
                 MenuClass = Request.QueryString["MenuClass"] == null ? "" : Request.QueryString["MenuClass"];
             }
-
+            string MenuName = Request.QueryString["name"] == null ? "" : Request.QueryString["name"];
             if (MenuClass == "ALL")
             {
                 MenuClass = "";
@@ -32,7 +32,7 @@ namespace EG_MagicCube.Controllers
                 _MenuClassEnum = (MenuModel.MenuClassEnum)Enum.Parse(typeof(MenuModel.MenuClassEnum), MenuClass, true);
             }
             MenuModel _MenuModel = new MenuModel();
-            _MenuViewModelList.AddRange(_MenuModel.GetMenu(_MenuClassEnum).AsQueryable().Select(c => new Models.ViewModel.MenuViewModels() { MenuClass = c.MenuClass, MenuNo = c.MenuID.ToString(), MenuName = c.MenuName }));
+            _MenuViewModelList.AddRange(_MenuModel.GetMenu(_MenuClassEnum).AsQueryable().Where(c=> c.MenuName.Contains(MenuName)).Select(c => new Models.ViewModel.MenuViewModels() { MenuClass = c.MenuClass, MenuNo = c.MenuID.ToString(), MenuName = c.MenuName }));
 
             List<SelectListItem> MenuClassList = new List<SelectListItem>();
             //MenuClassList.Add(new SelectListItem() { Value = "ALL", Text = "全部", Selected = string.IsNullOrEmpty(MenuClass) });
@@ -64,18 +64,22 @@ namespace EG_MagicCube.Controllers
             {
                 MenuModel _MenuModel = new MenuModel();
                 _MenuModel.InsertMenu((MenuModel.MenuClassEnum)Enum.Parse(typeof(MenuModel.MenuClassEnum), _strMenuClass, true), new List<MenuViewModel>(){ new MenuViewModel() { MenuClass= _strMenuClass, MenuName= _strMenuName } });
+                _strMenuName = "";
             }
             //修改
             if (_strwhosubmit.IndexOf("btnSave", StringComparison.OrdinalIgnoreCase) >= 0 && (!string.IsNullOrEmpty(_strMenuName)))
             {
                 MenuModel.UpdateMenu((MenuModel.MenuClassEnum)Enum.Parse(typeof(MenuModel.MenuClassEnum), _strMenuClass, true), _MenuNo, _strMenuName);
+                _strMenuName = "";
             }
-            //修改
+            //刪除
             if (_strwhosubmit.IndexOf("btndel", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 MenuModel.DeleteMenu((MenuModel.MenuClassEnum)Enum.Parse(typeof(MenuModel.MenuClassEnum), _strMenuClass, true), new List<MenuViewModel>() { new MenuViewModel() { MenuID = int.Parse(_MenuNo) } });
             }
-            return RedirectToAction("Index",new { MenuClass = _strMenuClass });
+
+            
+            return RedirectToAction("Index",new { MenuClass = _strMenuClass , name = _strMenuName });
         }
     }
 }

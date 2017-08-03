@@ -20,6 +20,7 @@ namespace EG_MagicCubeEntity
         public string File_o_Url { get; set; }
         public string File_m_Url { get; set; }
         public string File_s_Url { get; set; }
+        public short Sorting { get; set; }
     
         public virtual Works Works { get; set; }
     }

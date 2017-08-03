@@ -259,7 +259,7 @@ namespace EG_MagicCube.Models
                         _WorksModules.Width = _WorksModuleModel.Width;
                         _WorksModules.Height = _WorksModuleModel.Height;
                         _WorksModules.Deep = _WorksModuleModel.Deep;
-                        _WorksModules.TimeLength = _WorksModuleModel.TimeLength.ToString();
+                        _WorksModules.TimeLength = _WorksModuleModel.TimeLength ?? "";
 
                         _WorksModules.Amount = _WorksModuleModel.Amount;
                         _WorksModules.CountNoun = 1;
@@ -350,7 +350,7 @@ namespace EG_MagicCube.Models
                     var _WorksPropOwnerList = context?.WorksPropOwner?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wpo => wpo).ToList();
                     var _WorksPropStyleList = context?.WorksPropStyle?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wps => wps).ToList();
                     var _WorksPropWareTypeList = context?.WorksPropWareType?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wpwt => wpwt).ToList();
-                    var _WorksWorksFilesList = context?.WorksFiles?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wf => wf).ToList();
+                    var _WorksWorksFilesList = context?.WorksFiles?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).OrderBy(c=>c.Sorting).Select(wf => wf).ToList();
                     var _WorksWorksModulesList = context?.WorksModules?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wm => wm).ToList();
 
                     _WorksModel.WorksNo = _Works.WorksNo.ToString();
@@ -399,7 +399,7 @@ namespace EG_MagicCube.Models
                         Width = wm.Width,
                         Height = wm.Height,
                         Deep = wm.Deep,
-                        TimeLength = int.Parse(wm.TimeLength),
+                        TimeLength = wm.TimeLength,
                         Amount = wm.Amount,
                         CountNoun = new MenuViewModel { MenuID = wm.Menu_CountNoun.CountNounNo, MenuName = wm.Menu_CountNoun.CountNounName }
                     }).ToList();
@@ -503,7 +503,7 @@ namespace EG_MagicCube.Models
                     _WorksModules.Width = _WorksModuleModel.Width;
                     _WorksModules.Height = _WorksModuleModel.Height;
                     _WorksModules.Deep = _WorksModuleModel.Deep;
-                    _WorksModules.TimeLength = _WorksModuleModel.TimeLength.ToString();
+                    _WorksModules.TimeLength = _WorksModuleModel.TimeLength ?? "";
 
                     _WorksModules.Amount = _WorksModuleModel.Amount;
                     _WorksModules.CountNoun = _WorksModuleModel.CountNoun.MenuID;
@@ -712,7 +712,7 @@ namespace EG_MagicCube.Models
             /// <summary>
             /// 時間長度
             /// </summary>
-            public int TimeLength { get; set; } = 0;
+            public string TimeLength { get; set; } = "";
             /// <summary>
             /// 數量
             /// </summary>
