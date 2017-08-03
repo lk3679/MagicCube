@@ -25,10 +25,16 @@
                 </label>
                 <div class="col-md-3" style="padding:0;">
                     <div class="col-xs-6">
-                        <input type="number" name="MinePrice" class="form-control text-box single-line" />
+                        <span class="numberprice">
+                            <input type="text" class="form-control text-box single-line" />
+                            <input type="number" name="MinePrice" class="form-control text-box single-line" />
+                        </span>
                     </div>
                     <div class="col-xs-6">
-                        <input type="number" name="MaxPrice" class="form-control text-box single-line" />
+                        <span class="numberprice">
+                            <input type="text" class="form-control text-box single-line" />
+                            <input type="number" name="MaxPrice" class="form-control text-box single-line" />
+                        </span>
                     </div>
                 </div>
             </div>
@@ -113,7 +119,8 @@
                     @Html.DisplayFor(modelItem => item.YearStart) @( item.YearStart == item.YearEnd ? "" : "~" + item.YearEnd.ToString())
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    @*@Html.DisplayFor(modelItem => item.Price)*@
+                    @item.Price.ToString("#,#")
                 </td>
                 <td>
                     <div>
@@ -142,6 +149,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="@Url.Content("~/Scripts/deleteforlist.js")"></script>
+    <script src="@Url.Content("~/Scripts/numberprice.js")"></script>
     <script>
         $(".js-example-basic-multiple").select2({ width: '100%' });
     </script>

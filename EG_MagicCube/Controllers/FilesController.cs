@@ -60,13 +60,13 @@ namespace EG_MagicCube.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                 Model = WorksFilesModel.GetFileList(id);
+                //ViewBag.pn = id;
+                return View(Model);
             }
-            ViewBag.pn = id;
-            return View(Model);
-            //else
-            //{
-            //    return RedirectToAction("Index", "Works");
-            //}
+            else
+            {
+                return RedirectToAction("Index", "Works");
+            }
         }
 
         // POST: Files/Edit/5
@@ -101,8 +101,8 @@ namespace EG_MagicCube.Controllers
             {
                 value.Add(Convert.ToInt64(id[i]));
             }
-            WorksFilesModel.DelFile(value);
-            return Json(id);
+            var _r = WorksFilesModel.DelFile(value);
+            return Json(_r);
 
         }
 

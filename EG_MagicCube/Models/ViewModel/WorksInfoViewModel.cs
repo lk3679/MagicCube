@@ -23,7 +23,7 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "尺寸")]
         public string Size { get; set; }
 
-        [Display(Name = "定價(萬)")]
+        [Display(Name = "定價")]
         public string Price { get; set; }
 
         [Display(Name = "選取")]
@@ -37,5 +37,8 @@ namespace EG_MagicCube.Models.ViewModel
 
         [Display(Name = "作品縮圖ID")]
         public string MiniImgID { get; set; }
+
+        [Display(Name = "年份")]
+        public string Years { get; set; }
     }
 }

@@ -125,8 +125,7 @@
 @Html.Action("Index", "Files", new { id = Model.WorksNo })
 
 @section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js.map"></script>
+    <script src="@Url.Content("~/Scripts/imageviewer.min.js")"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="@Url.Content("~/Scripts/jquery.lazyload.js")"></script>
     <script>
@@ -134,9 +133,12 @@
             effect: "fadeIn",
             effectspeed: 500
         });
-        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
-            event.preventDefault();
-            $(this).ekkoLightbox();
+
+        $('.gallery-items').click(function () {
+            var viewer = ImageViewer();
+            var imgSrc = this.src,
+                highResolutionImage = $(this).data('high-res-img');
+            viewer.show(imgSrc, highResolutionImage);
         });
         jQuery(window).on('load resize scroll', function () {
             $('.grid').masonry({

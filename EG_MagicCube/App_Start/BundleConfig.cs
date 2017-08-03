@@ -29,6 +29,7 @@ namespace EG_MagicCube
                       "~/font-awesome/font-awesome.min.css",
                       "~/Content/site.css", 
                       "~/Content/jquery.fileupload.css",
+                      "~/Content/imageviewer.css",
                       "~/Content/select2.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/lazyload").Include(

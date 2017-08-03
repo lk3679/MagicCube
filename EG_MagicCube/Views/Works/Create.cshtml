@@ -74,15 +74,20 @@
                         <span class="field-validation-valid text-danger" data-valmsg-for="deep" data-valmsg-replace="true"></span>
                     </div>
                 </div>
-                <div class="col-md-3 col-xs-12">
-                    <label class="control-label col-md-4 col-xs-3" for="times">影片長度</label>
-                    <div class="col-md-8 col-xs-6">
+                <div class="col-md-6 col-xs-12">
+                    <label class="control-label col-md-2 col-xs-3" for="width">長</label>
+                    <div class="col-md-4 col-xs-3">
+                        <input class="form-control text-box single-line" data-val="true" id="length" name="length" type="number" value="">
+                        <span class="field-validation-valid text-danger" data-valmsg-for="length" data-valmsg-replace="true"></span>
+                    </div>
+                    <label class="control-label col-md-2 col-xs-3" for="times">影片長度</label>
+                    <div class="col-md-4 col-xs-3">
                         <input class="form-control text-box single-line"
                                id="times" name="times" type="text" value="">
                     </div>
                 </div>
-                <div class="col-md-6 col-xs-9">
-                    <label class="control-label col-md-2 col-xs-4" for="nums">數量單位</label>
+                <div class="col-md-4 col-xs-9">
+                    <label class="control-label col-md-3 col-xs-4" for="nums">數量單位</label>
                     <div class="col-xs-4">
                         <input class="form-control text-box single-line" id="nums" name="nums" type="number" value="">
                         <span class="field-validation-valid text-danger" data-valmsg-for="nums" data-valmsg-replace="true"></span>
@@ -92,7 +97,7 @@
                         <span class="field-validation-valid text-danger" data-valmsg-for="CountNoun" data-valmsg-replace="true"></span>
                     </div>
                 </div>
-                <div class="col-xs-3 text-right">
+                <div class="col-md-2 col-xs-3 text-right">
                     <div class="col-xs-12">
                         <input type="button" id="mateadd" name="mateadd" class="btn btn-success" value="加入" />
                     </div>
@@ -117,6 +122,9 @@
                                 </th>
                                 <th>
                                     深
+                                </th>
+                                <th>
+                                    長
                                 </th>
                                 <th>
                                     影片長度
@@ -153,6 +161,9 @@
                                             @Html.DisplayFor(modelItem => item.Deep)
                                         </td>
                                         <td>
+                                            @Html.DisplayFor(modelItem => item.Length)
+                                        </td>
+                                        <td>
                                             @Html.DisplayFor(modelItem => item.TimeLength)
                                         </td>
                                         <td>
@@ -185,14 +196,20 @@
             </div>
 
             @Html.LabelFor(model => model.Cost, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9">
-                @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-3 col-xs-3" style="margin-bottom:0;">
+                <span class="numberprice">
+                    <input type="text" class="form-control text-box single-line" />
+                    @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
+                </span>
                 @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
             </div>
 
             @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-3 col-xs-3" style="margin-bottom:0;">
+                <span class="numberprice">
+                    <input type="text" class="form-control text-box single-line" />
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                </span>
                 @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
             </div>
 
@@ -254,6 +271,7 @@
             </div>
             <div class="col-md-3 col-sm-6 col-xs-6">
                 @Html.LabelFor(model => model.UploadWorksFiles, htmlAttributes: new { @class = "control-label col-md-4 col-xs-6" })
+                @*<label class="control-label col-md-4 col-xs-6" for="UploadWorksFiles">作品</label>*@
                 <div class="col-md-8 col-sm-6 col-xs-3">
                     <span class="btn btn-success fileinput-button">
                         <i class="glyphicon glyphicon-plus"></i>
@@ -274,6 +292,7 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="@Url.Content("~/Scripts/numberprice.js")"></script>
     <script>
         $(".js-example-basic-multiple").select2({ width: '100%' });
         $('#mateadd').click(function () {
@@ -287,6 +306,7 @@
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].Height" value="' + $('#height').val() + '"></input>' + $('#height').val() + '</td>' +
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].Width" value="' + $('#width').val() + '"></input>' + $('#width').val() + '</td > ' +
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].Deep" value="' + $('#deep').val() + '"></input>' + $('#deep').val() + '</td > ' +
+                '<td><input type="hidden" name="WorksModuleList[' + index + '].Length" value="' + $('#length').val() + '"></input>' + $('#length').val() + '</td > ' +
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].TimeLength" value="' + $('#times').val() + '"></input>' + $('#times').val() + '</td > ' +
                 '<td hidden= "hidden" > <input type="hidden" name="WorksModuleList[' + index + '].CountNoun.MenuID" value="' + $('#CountNoun').val() + '"></input>' + $('#CountNoun').val() + '</td>' +
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].Amount" value="' + $('#nums').val() + '"></input>' +
@@ -305,9 +325,12 @@
             if ($('input#deep').val() == "") {
                 obj["deep"] = "此項目必填";
             }
+            if ($('input#length').val() == "") {
+                obj["length"] = "此項目必填";
+            }
             if ($('input#nums').val() == "") {
                 obj["nums"] = "此項目必填";
-            }
+            }            
             if (!jQuery.isEmptyObject(obj)) {
                 $("#CreateForm").validate().showErrors(obj)
                 return true;
@@ -334,6 +357,11 @@
                 $('label.error').show();
                 return false;
             }
+        });
+        $('input[type=file]').change(function () {
+            var l = this.files.length;
+            if (l > 0) { $('span#filespan').html("已選 " + l + " 個檔案"); }
+            else { $('span#filespan').html("上傳..."); }
         });
 
     </script>

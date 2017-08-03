@@ -29,9 +29,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10 modelDisplayFor">
-                <a target="_blank" href="@Html.DisplayFor(model => model.Url)">
+                <a class="urllink" target="_blank" href="@Html.DisplayFor(model => model.Url)">
                     @Html.DisplayFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
                 </a>
+                @*<i class="glyphicon glyphicon-copy" style="margin-left:15px;font-size:20px;"></i>
+                    <span class="tooltiptext">複製到剪貼簿</span>*@
+                <label class="copy">點此複製</label>
             </div>
         </div>
         <div class="form-group">
@@ -79,8 +82,27 @@
             var data = @Html.Raw(Json.Encode(ViewData["Message"]));
             if (data != undefined && data.length > 0) {
                 alert(data);
-            }s
+            }
         });
+        $(".copy").click(function () {
+            var urllink = document.querySelector("a.urllink");  
+            var range = document.createRange();
+            range.selectNode(urllink);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            try {
+                var successful = document.execCommand("copy");
+                var msg = successful ? "successful" : "unsuccessful";
+                if (successful) {
+                    $(this).toggleClass('b5276e');
+                }
+                
+                console.log("Copy email command was " + msg);
+            } catch (err) {
+                console.log("Oops, unable to copy");
+            }
+        });
+
     </script>
 
 }

@@ -223,7 +223,8 @@ namespace EG_MagicCube.Controllers
                         MedImg = valueistem[i].WorksImg_m,
                         //MiniImgID = valueistem[i].WorksImgID,
                         Name = valueistem[i].WorksName,
-                        Price = valueistem[i].Price.ToString()
+                        Price = valueistem[i].Price.ToString("#,#"),
+                        Years = valueistem[i].Year
                     });
                     model.Summary += valueistem[i].Price;
                 }

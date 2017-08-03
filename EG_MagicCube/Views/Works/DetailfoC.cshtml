@@ -23,11 +23,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.WorksName)
+            @Html.DisplayNameFor(model => model.Years)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.WorksName)
+            @Html.DisplayFor(model => model.Years)
         </dd>
 
         @if (Model.MaterialsName != null)
@@ -41,30 +41,7 @@
                     @Html.DisplayFor(item => m)
                 </dd>
             }
-        }
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.GenreNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GenreNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PropStyle)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PropStyle)
-        </dd>
-
+        }   
     </dl>
 </div>
 
@@ -72,8 +49,7 @@
 @Html.Action("Index", "Files", new { id = Model.WorksNo })
 
 @section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js.map"></script>
+   <script src="@Url.Content("~/Scripts/imageviewer.min.js")"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="@Url.Content("~/Scripts/jquery.lazyload.js")"></script>
     <script>
@@ -86,9 +62,11 @@
                 itemSelector: '.grid-item'
             });
         });
-        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
-            event.preventDefault();
-            $(this).ekkoLightbox();
+        $('.gallery-items').click(function () {
+            var viewer = ImageViewer();
+            var imgSrc = this.src,
+                highResolutionImage = $(this).data('high-res-img');
+            viewer.show(imgSrc, highResolutionImage);
         });
 
     </script>

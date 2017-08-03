@@ -119,11 +119,11 @@ namespace EG_MagicCube.Models
                 string BeforeName = "誠品畫廊推薦";
                 string strNowDate = DateTime.Now.ToString("yyyyMMdd");
                 var oldName = context.Packages.AsQueryable().Where(c => (BeforeName + strNowDate).Contains(c.PackagesName)).Select(c => c.PackagesName).FirstOrDefault();
-                var NameCount = context.Packages.AsQueryable().Where(c => c.CreateDate>=System.DateTime.Today).Count();
+                var NameCount = context.Packages.AsQueryable().Where(c => c.CreateDate >= System.DateTime.Today).Count();
                 string NewPackagesName = "";
                 NewPackagesName = BeforeName + strNowDate + (NameCount + 1).ToString().PadLeft(2, '0');
-                
-                
+
+
                 _Package.PackagesName = NewPackagesName;
                 _Package.EndDate = this.EndDate;
                 _Package.PackingDate = this.PackingDate;
@@ -262,7 +262,7 @@ namespace EG_MagicCube.Models
                                        ModifyDate = c.ModifyDate,
                                        SearchJson = c.SearchJson,
                                        PackagesMemo = c.PackagesMemo,
-                                       ItemAmount = (_PackageItems?.Where(pi => pi.PackagesNo == c.PackagesNo && pi.IsJoin == "Y").Count()).Value.ToString() ?? "0" + " (" + (_PackageItems?.Count).Value.ToString() ?? "0" + ")",
+                                       ItemAmount = _PackageItems?.Where(pi => pi.PackagesNo == c.PackagesNo && pi.IsJoin == "Y").Count().ToString() + " (" + (_PackageItems?.Where(pi => pi.PackagesNo == c.PackagesNo).Count().ToString()) + ")",
                                        Budget = c.Budget
                                    }).ToList();
                     }
