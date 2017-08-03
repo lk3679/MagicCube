@@ -161,7 +161,7 @@ namespace EG_MagicCube.Models
         /// </summary>
         /// <param name="_FileSortingItemList"></param>
         /// <returns></returns>
-        public static bool UpdateSortint(List<FileSortingItem> _FileSortingItemList)
+        public static bool UpdateSorting(FileSortingItem [] _FileSortingItemList)
         {
             if (_FileSortingItemList != null)
             {
@@ -175,11 +175,12 @@ namespace EG_MagicCube.Models
                         {
                             _File.Sorting = _FileSortingItem.Sorting;
                         }
+                        if (context.SaveChanges() == 0)
+                        {
+                           
+                        }
                     }
-                    if (context.SaveChanges() == 0)
-                    {
-                        return false;
-                    }
+
                 }
 
 

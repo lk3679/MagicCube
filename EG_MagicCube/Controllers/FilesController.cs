@@ -105,5 +105,13 @@ namespace EG_MagicCube.Controllers
             return Json(id);
 
         }
+
+        [HttpPost]
+        public JsonResult UPdateSorting(WorksFilesModel.FileSortingItem [] data)
+        {
+            // TODO: Add delete logic here
+            return Json(WorksFilesModel.UpdateSorting(data));
+
+        }
     }
 }

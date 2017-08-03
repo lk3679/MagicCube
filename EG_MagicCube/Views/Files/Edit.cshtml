@@ -29,7 +29,7 @@
     {
         foreach (var item in Model)
         {
-            <div class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+            <div data-no="@Html.Raw(item.WorksFilesNo)" data-sorting="@Html.Raw(item.Sorting)" class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="col-xs-12 thumbnail">
                     <div id="imgche">
                         <i class="fa fa-check fa-6" aria-hidden="true" value="@Html.Raw(item.WorksFilesNo)"></i>
@@ -46,9 +46,10 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js.map"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js.map"></script>*@
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui/jquery-ui.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.lazyload.js")"></script>
     <script>
 
@@ -62,15 +63,15 @@
             effect: "fadeIn",
             effectspeed: 500
         });
-        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
-            event.preventDefault();
-            $(this).ekkoLightbox();
-        });
+        //$(document).on('click', '[data-toggle="lightbox"]', function (event) {
+        //    event.preventDefault();
+        //    $(this).ekkoLightbox();
+        //});
 
         $('input[type="file"]').change(function () {
             if (this.files.length > 0) {
                 $('span.fileinput-button').css('visibility', 'hidden');
-                $('div.container').css("cursor","wait");
+                $('div.container').css("cursor", "wait");
                 $('#CreateFiles').submit();
             }
         });
@@ -85,11 +86,13 @@
             }
         }
 
-        $('div.imgdiv').click(function () {
+        $('div.imgdiv').dblclick(function () {
+            event.preventDefault();
             deletebtn(this);
         });
 
-        $('div#imgche').click(function () {
+        $('div#imgche').dblclick(function () {
+            event.preventDefault();
             deletebtn(this);
         });
 
@@ -106,7 +109,7 @@
             $('span.fileinput-button').css('visibility', 'hidden');
             $('div.container').css("cursor", "wait");
             $('#delete-btn').css('visibility', 'hidden');
-             $.ajax({
+            $.ajax({
                 type: "Post",
                 url: '@Url.Action("Delete")',
                 data: { id: data },
@@ -121,6 +124,38 @@
                     $('span.fileinput-button').css('visibility', 'visible');
                     $('div.container').css("cursor", "pointer");
                     $('#delete-btn').css('visibility', 'visible');
+                }
+            });
+        });
+
+
+
+
+        $(function () {
+            $(".grid").sortable({
+                tolerance: 'pointer',
+                revert: 'invalid',
+                placeholder: 'grid-item',
+                update: function (event, ui) {
+                    var sortingitems = [];
+                    ui.item.parent().find(".grid-item").each(function (K, v) {
+                        $(v).data("sorting", K.toString());
+                        var no = $(v).data("no");
+                        var sitm = { WorksFilesNo: no, Sorting: K };
+                        sortingitems.push(sitm);
+                    });
+                    $('.grid').masonry({
+                        itemSelector: '.grid-item'
+                    });
+                    $.ajax({
+                        type: "Post",
+                        url: '@Url.Action("UPdateSorting")',
+                        data: { data: sortingitems},
+                        async: true,
+                        cache: false,
+                        dataType: "json",
+                        success: function (data) {}
+                    });
                 }
             });
         });
