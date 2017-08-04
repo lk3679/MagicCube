@@ -324,9 +324,8 @@ namespace EG_MagicCube.Controllers
                 {
                     No = value.PackageItems[i].WorksNo,
                     Author = value.PackageItems[i].AuthorsName,
-                    MedImg = value.PackageItems[i].WorksImgBase64,
-                    MiniImgBase64 = value.PackageItems[i].WorksImg_m,
-                    //MiniImgID = value.PackageItems[i].WorksImgID,
+                    MedImg = value.PackageItems[i].WorksImg_m,
+                    MiniImgBase64 = value.PackageItems[i].WorksImgBase64,
                     Name = value.PackageItems[i].WorksName,
                     Price = value.PackageItems[i].Price.ToString(),
                     Checked = value.PackageItems[i].IsJoin == "Y"

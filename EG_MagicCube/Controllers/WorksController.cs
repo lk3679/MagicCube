@@ -140,8 +140,8 @@ namespace EG_MagicCube.Controllers
                 WorksNo = value.WorksNo,
                 WorksName = value.WorksName,
                 AuthorsName = string.Join(",", value.WorksAuthors.Select(a => a.MenuName)),
-                MaterialsName = value.WorksModuleList.Select(m => m.Length.ToString() + "x" + m.Height.ToString() + "x"
-                    + m.Width.ToString() + "x" + m.Deep.ToString() + " cm " + "\n影片長度 " + m.TimeLength.ToString() + " ," + m.Amount.ToString() + " " + m.CountNoun.MenuName).ToList(),
+                MaterialsName = value.WorksModuleList.Select(m => m.Material.MenuName + " " + m.Length.ToString() + "x" + m.Height.ToString() + "x"
+                    + m.Width.ToString() + "x" + m.Deep.ToString() + " cm " + (string.IsNullOrEmpty(m.TimeLength) ? "" : (" 影片長度:" + m.TimeLength)) + (m.Amount > 1 ? (" ," + m.Amount.ToString() + " " + m.CountNoun.MenuName) : "")).ToList(),
                 Remarks = value.Remarks,
                 Owner = string.Join(",", value.WorksPropOwnerList.Select(o => o.MenuName)),
                 PropWare = string.Join(",", value.WorksPropWareTypeList.Select(o => o.MenuName)),
@@ -170,8 +170,8 @@ namespace EG_MagicCube.Controllers
                 WorksNo = value.WorksNo,
                 WorksName = value.WorksName,
                 AuthorsName = string.Join(",", value.WorksAuthors.Select(a => a.MenuName)),
-                MaterialsName = value.WorksModuleList.Select(m => m.Length.ToString() + "x" + m.Height.ToString() + "x"
-                    + m.Width.ToString() + "x" + m.Deep.ToString() + " cm " + "\n影片長度 " + m.TimeLength.ToString() + " ," + m.Amount.ToString() + " " + m.CountNoun.MenuName).ToList(),
+                MaterialsName = value.WorksModuleList.Select(m => m.Material.MenuName + " " + m.Length.ToString() + "x" + m.Height.ToString() + "x"
+                    + m.Width.ToString() + "x" + m.Deep.ToString() + " cm " + (string.IsNullOrEmpty(m.TimeLength) ? "" : (" 影片長度:" + m.TimeLength)) + (m.Amount > 1 ? ( " ," + m.Amount.ToString() + " " + m.CountNoun.MenuName) : "")).ToList(),
                 Remarks = value.Remarks,
                 Owner = string.Join(",", value.WorksPropOwnerList.Select(o => o.MenuName)),
                 PropWare = string.Join(",", value.WorksPropWareTypeList.Select(o => o.MenuName)),

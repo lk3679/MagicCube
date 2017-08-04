@@ -52,23 +52,6 @@
                     @Html.DropDownList("Sort", (SelectList)ViewBag.MeunOrderList, new { @class = "form-control" })
                 </div>
             </div>
-
-            @*<div class="form-group">
-                    <label class="control-label col-md-3">
-                        @Html.DisplayNameFor(model => model.MinePrice)
-                    </label>
-                    <div class="col-md-5">
-                        <input type="number" name="MinePrice" class="form-control text-box single-line" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">
-                        @Html.DisplayNameFor(model => model.MaxPrice)
-                    </label>
-                    <div class="col-md-5">
-                        <input type="number" name="MaxPrice" class="form-control text-box single-line" />
-                    </div>
-                </div>*@
             <div class="form-group">
                 <div class="col-md-2 col-xs-3 text-right">
                     <input type="button" id="delete-btn" data-url="@Url.Action("Delete")" class="btn btn-danger pull-right fixed-top" value="刪除" style="visibility:hidden;">

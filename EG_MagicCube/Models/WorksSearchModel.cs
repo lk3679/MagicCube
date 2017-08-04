@@ -132,9 +132,9 @@ namespace EG_MagicCube.Models
                     {
                         r = r.Where(f => f.Price >= this.MinePrice);
                     }
-                    if (this.MinePrice > 0)
+                    if (this.MaxPrice > 0)
                     {
-                        r = r.Where(f => f.Price <= this.MinePrice);
+                        r = r.Where(f => f.Price <= this.MaxPrice);
                     }
 
                     List<Guid> _WorksNoList = new List<Guid>();
