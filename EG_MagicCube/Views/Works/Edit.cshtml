@@ -79,11 +79,11 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-12">
-                    <label class="control-label col-md-2 col-xs-3" for="width">長</label>
+                    @*<label class="control-label col-md-2 col-xs-3" for="width">長</label>
                     <div class="col-md-4 col-xs-3">
                         <input class="form-control text-box single-line" data-val="true" id="length" name="length" type="number" value="">
                         <span class="field-validation-valid text-danger" data-valmsg-for="length" data-valmsg-replace="true"></span>
-                    </div>
+                    </div>*@
                     <label class="control-label col-md-2 col-xs-3" for="times">影片長度</label>
                     <div class="col-md-4 col-xs-3">
                         <input class="form-control text-box single-line"
@@ -117,9 +117,9 @@
                                 <th>
                                     材質
                                 </th>
-                                <th>
+                                @*<th>
                                     高
-                                </th>
+                                </th>*@
                                 <th>
                                     寬
                                 </th>
@@ -167,10 +167,10 @@
                                             @Html.HiddenFor(model => model.WorksModuleList[i].Deep)
                                             @Html.DisplayFor(model => model.WorksModuleList[i].Deep)
                                         </td>
-                                        <td>
+                                        @*<td>
                                             @Html.HiddenFor(model => model.WorksModuleList[i].Length)
                                             @Html.DisplayFor(model => model.WorksModuleList[i].Length)
-                                        </td>
+                                        </td>*@
                                         <td>
                                             @Html.HiddenFor(model => model.WorksModuleList[i].TimeLength)
                                             @Html.DisplayFor(model => model.WorksModuleList[i].TimeLength)
@@ -257,33 +257,33 @@
                 @Html.LabelFor(model => model.Marketability, htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
                 <div class="col-md-4 col-xs-3">
                     @Html.EditorFor(model => model.Marketability, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Marketability, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Marketability, "", new { @class = "text-danger", @min = "0", @max = "10" })
                 </div>
 
                 @Html.LabelFor(model => model.Packageability, htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
                 <div class="col-md-4 col-xs-3">
                     @Html.EditorFor(model => model.Packageability, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Packageability, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Packageability, "", new { @class = "text-danger", @min = "0", @max = "10" })
                 </div>
             </div>
             <div class="col-md-6 col-xs-12">
                 @Html.LabelFor(model => model.Valuability, htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
                 <div class="col-md-4 col-xs-3">
                     @Html.EditorFor(model => model.Valuability, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Valuability, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Valuability, "", new { @class = "text-danger", @min = "0", @max = "10" })
                 </div>
 
                 @Html.LabelFor(model => model.Artisticability, htmlAttributes: new { @class = "control-label  col-md-2 col-xs-3" })
                 <div class="col-md-4 col-xs-3">
                     @Html.EditorFor(model => model.Artisticability, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Artisticability, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Artisticability, "", new { @class = "text-danger", @min = "0", @max = "10" })
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-4 col-sm-6 col-xs-3" })
                 <div class="col-md-8 col-sm-6 col-xs-3">
                     @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger",@readonly="readonly" })
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-6">
@@ -353,9 +353,9 @@
             if ($('input#deep').val() == "") {
                 obj["deep"] = "此項目必填";
             }
-            if ($('input#length').val() == "") {
-                obj["length"] = "此項目必填";
-            }
+            //if ($('input#length').val() == "") {
+            //    obj["length"] = "此項目必填";
+            //}
             if ($('input#nums').val() == "") {
                 obj["nums"] = "此項目必填";
             }
@@ -377,7 +377,7 @@
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].Height" value="' + $('#height').val() + '"></input>' + $('#height').val() + '</td>' +
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].Width" value="' + $('#width').val() + '"></input>' + $('#width').val() + '</td > ' +
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].Deep" value="' + $('#deep').val() + '"></input>' + $('#deep').val() + '</td > ' +
-                '<td><input type="hidden" name="WorksModuleList[' + index + '].Length" value="' + $('#length').val() + '"></input>' + $('#length').val() + '</td > ' +
+                //'<td><input type="hidden" name="WorksModuleList[' + index + '].Length" value="' + $('#length').val() + '"></input>' + $('#length').val() + '</td > ' +
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].TimeLength" value="' + $('#times').val() + '"></input>' + $('#times').val() + '</td > ' +
                 '<td hidden= "hidden" > <input type="hidden" name="WorksModuleList[' + index + '].CountNoun.MenuID" value="' + $('#CountNoun').val() + '"></input>' + $('#CountNoun').val() + '</td>' +
                 '<td><input type="hidden" name="WorksModuleList[' + index + '].Amount" value="' + $('#nums').val() + '"></input>' +
@@ -411,6 +411,32 @@
             if (l > 0) { $('span#filespan').html("已選 " + l + " 個檔案"); }
             else { $('span#filespan').html("上傳..."); }
         });
+        //$("#Marketability,#Packageability,#Valuability,#Artisticability").change(function () {
+        //    var m = 0.0;
+        //    var p = 0.0;
+        //    var v = 0.0;
+        //    var a = 0.0;
+        //    m = parseFloat($("#Marketability").val())*0.3;
+        //    p = parseFloat($("#Packageability").val())*0.1;
+        //    v = parseFloat($("#Valuability").val()) * 0.25;
+        //    a = parseFloat($("#Artisticability").val()) * 0.2;
+        //    var r = (m + p + v + a) / 2.0;
+        //    var r2 = (m + p + v + a) % 2.0;
+        //    if (r2 > 0.0)
+        //    {
+        //        r = r + 1;
+        //    }
+        //    $("#Rating").val((parseInt(r)).toString());
 
+            
+        //});
+        $('form').on('focus', 'input[type=number]', function (e) {
+            $(this).on('mousewheel.disableScroll', function (e) {
+                e.preventDefault()
+            })
+        })
+        $('form').on('blur', 'input[type=number]', function (e) {
+            $(this).off('mousewheel.disableScroll')
+        })
     </script>
 }

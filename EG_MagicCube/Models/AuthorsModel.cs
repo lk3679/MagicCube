@@ -71,9 +71,9 @@ namespace EG_MagicCube.Models
         [DisplayName("作品數量")]
         public int WorksAmount { get; set; } = 0;
         /// <summary>
-        /// 作品分級
+        /// 作品數量分級
         /// </summary>
-        [DisplayName("作品分級")]
+        [DisplayName("作品數量分級")]
         public string Rating { get; set; } = "";
 
         #region Methods
@@ -244,7 +244,7 @@ namespace EG_MagicCube.Models
                     {
                         var r_AuthorsPropArea = context?.AuthorsPropArea?.AsQueryable()?.Where(c => c.AuthorsNo == r_Authors.AuthorsNo).ToList();
                         var r_AuthorsPropTag = context?.AuthorsPropTag?.AsQueryable()?.Where(c => c.AuthorsNo == r_Authors.AuthorsNo).ToList();
-
+                        int _WorksAmount = (context?.WorksAuthors?.AsQueryable()?.Where(c => c.Author_No == r_Authors.AuthorsNo).Count()).Value;
                         _AuthorsModel.AuthorsNo = r_Authors.AuthorsNo;
                         _AuthorsModel.AuthorsCName = r_Authors.AuthorsCName;
                         _AuthorsModel.AuthorsEName = r_Authors.AuthorsEName;
@@ -266,9 +266,8 @@ namespace EG_MagicCube.Models
                         _AuthorsModel.CreateUser = r_Authors.CreateUser;
                         _AuthorsModel.ModifyDate = r_Authors.ModifyDate.Value;
                         _AuthorsModel.ModifyUser = r_Authors.ModifyUser;
-                        _AuthorsModel.Rating = r_Authors.Rating;
                         _AuthorsModel.WorksAmount = r_Authors.WorksAmount;
-
+                        _AuthorsModel.Rating = r_Authors.Rating;
                     }
                 }
             }
@@ -276,7 +275,36 @@ namespace EG_MagicCube.Models
             return _AuthorsModel;
         }
         #endregion
-
+        /// <summary>
+        /// 計算數量等級
+        /// </summary>
+        /// <param name="_WorksAmount"></param>
+        /// <returns></returns>
+        public static int CalculateAuthorsRating(int _WorksAmount)
+        {
+            int _Rating = 0;
+            if (_WorksAmount >= 1 && _WorksAmount <= 10)
+            {
+                _Rating = 1;
+            }
+            if (_WorksAmount >= 11 && _WorksAmount <= 20)
+            {
+                _Rating = 2;
+            }
+            if (_WorksAmount >= 21 && _WorksAmount <= 30)
+            {
+                _Rating = 3;
+            }
+            if (_WorksAmount >= 31 && _WorksAmount <= 40)
+            {
+                _Rating = 4;
+            }
+            if (_WorksAmount >= 41 && _WorksAmount < 40)
+            {
+                _Rating = 5;
+            }
+            return _Rating;
+        }
         #region Update
         /// <summary>
         /// 以新藝術家資料更新
