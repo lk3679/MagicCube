@@ -133,7 +133,7 @@ namespace EG_MagicCube.Models
                             string FileName_m = Math.Abs(Guid.NewGuid().GetHashCode()).ToString() + ".jpg";
                             string FileName_s = Math.Abs(Guid.NewGuid().GetHashCode()).ToString() + ".jpg";
 
-                            byte[] FileBinary_o = ImgFileToFileBinary(new MagickImage(thePictureAsBytes), 70);
+                            byte[] FileBinary_o = ImgFileToFileBinary(new MagickImage(thePictureAsBytes),0, 70);
                             byte[] FileBinary_m = ImgFileToFileBinary(new MagickImage(thePictureAsBytes), 800, 70);
                             byte[] FileBinary_s = ImgFileToFileBinary(new MagickImage(thePictureAsBytes), 200, 40);
                             
@@ -243,7 +243,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.WorksFiles.Count() > 0)
                 {
-                    _FileList = context.WorksFiles.AsQueryable().Where(c => c.WorksNo == Guid_WorksNo).OrderBy(c=>c.Sorting).Select(c => new FileGroup() { WorksFilesNo=c.WorksFilesNo,FileBase64=c.FileBase64Str,File_o_Url=c.File_o_Url,File_m_Url=c.File_m_Url, File_s_Url=c.File_s_Url,Sorting=c.Sorting}).ToList();
+                    _FileList = context.WorksFiles.AsQueryable().Where(c => c.WorksNo == Guid_WorksNo).OrderBy(c=>c.Sorting).ThenBy(c => c.WorksFilesNo).Select(c => new FileGroup() { WorksFilesNo=c.WorksFilesNo,FileBase64=c.FileBase64Str,File_o_Url=c.File_o_Url,File_m_Url=c.File_m_Url, File_s_Url=c.File_s_Url,Sorting=c.Sorting}).ToList();
                 }
             }
             return _FileList;
