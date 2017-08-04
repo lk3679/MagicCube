@@ -51,11 +51,11 @@
     <script src="@Url.Content("~/Scripts/jquery-ui/jquery-ui.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.lazyload.js")"></script>
     <script>
-        jQuery(window).on('load resize scroll', function () {
-            $('.grid').masonry({
-                itemSelector: '.grid-item'
-            });
-        });
+        //jQuery(window).on('load resize scroll', function () {
+        //    $('.grid').masonry({
+        //        itemSelector: '.grid-item'
+        //    });
+        //});
 
         $("img").lazyload({
             effect: "fadeIn",
@@ -152,9 +152,9 @@
                         var sitm = { WorksFilesNo: no, Sorting: K };
                         sortingitems.push(sitm);
                     });
-                    $('.grid').masonry({
-                        itemSelector: '.grid-item'
-                    });
+                    //$('.grid').masonry({
+                    //    itemSelector: '.grid-item'
+                    //});
                     $.ajax({
                         type: "Post",
                         url: '@Url.Action("UPdateSorting")',

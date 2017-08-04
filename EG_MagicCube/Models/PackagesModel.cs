@@ -378,8 +378,8 @@ namespace EG_MagicCube.Models
                         {
                             PackageItemModel _PackageItemModel = new PackageItemModel();
                             _PackageItemModel.WorksNo = _PackageItems.WorksNo.ToString();
-                            _PackageItemModel.WorksImgBase64 = _WorksFiles.Where(wf => wf.WorksNo == _PackageItems.WorksNo).OrderBy(c => c.Sorting).Select(wf => wf.FileBase64Str).FirstOrDefault();
-                            _PackageItemModel.WorksImg_m = _WorksFiles.Where(wf => wf.WorksNo == _PackageItems.WorksNo).OrderBy(c=>c.Sorting).Select(wf => wf.File_m_Url).FirstOrDefault();
+                            _PackageItemModel.WorksImgBase64 = _WorksFiles.Where(wf => wf.WorksNo == _PackageItems.WorksNo).OrderBy(c => c.Sorting).ThenBy(c=>c.WorksFilesNo).Select(wf => wf.FileBase64Str).FirstOrDefault();
+                            _PackageItemModel.WorksImg_m = _WorksFiles.Where(wf => wf.WorksNo == _PackageItems.WorksNo).OrderBy(c=>c.Sorting).ThenBy(c => c.WorksFilesNo).Select(wf => wf.File_m_Url).FirstOrDefault();
                             _PackageItemModel.WorksName = _Works?.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().WorksName;
                             _PackageItemModel.IsJoin = _PackageItems.IsJoin;
                             _PackageItemModel.Price = (_Works?.Where(w => w.WorksNo == _PackageItems.WorksNo)?.FirstOrDefault()?.Price).Value;

@@ -4,64 +4,7 @@
     ViewBag.Title = "選項維護";
     //Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-    .tags {
-        list-style: none;
-        margin: 0;
-        overflow: hidden;
-        padding: 0;
-    }
 
-        .tags li {
-            float: left;
-        }
-
-    .tag {
-        background: #eee;
-        border-radius: 3px 0 0 3px;
-        color: #999;
-        display: inline-block;
-        height: 26px;
-        line-height: 26px;
-        padding: 0 20px 0 23px;
-        position: relative;
-        margin: 0 10px 10px 0;
-        text-decoration: none;
-        -webkit-transition: color 0.2s;
-    }
-
-        .tag::before {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
-            content: '';
-            height: 6px;
-            left: 10px;
-            position: absolute;
-            width: 6px;
-            top: 10px;
-        }
-
-        .tag::after {
-            background: #fff;
-            border-bottom: 13px solid transparent;
-            border-left: 10px solid #eee;
-            border-top: 13px solid transparent;
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-        }
-
-        .tag:hover {
-            background-color: #999;
-            color: white;
-        }
-
-            .tag:hover::after {
-                border-left-color: #999;
-            }
-</style>
 <h2>標籤設定</h2>
 
 @using (Html.BeginForm())
@@ -75,7 +18,7 @@
     <div class="form-group">
 
         <div class="col-md-offset-1 col-md-10">
-            <label class="control-label">標籤名稱</label><input class="form-control" id="MenuName" name="MenuName"/>
+            <label class="control-label">標籤名稱</label><input class="form-control" id="MenuName" name="MenuName" />
         </div>
     </div>
     <br /><br />
@@ -83,12 +26,12 @@
         <div class="col-md-offset-5 col-md-7">
             <input type="hidden" id="whosubmit" name="whosubmit" />
             <input type="hidden" id="MenuNo" name="MenuNo" />
-            <br/>
+            <br />
             <input type="submit" value="儲存" class="btn btn-primary" id="btnSave" />
             <input type="submit" value="取消" class="btn btn-warning" id="btnCancel" />
             <input type="submit" value="新增" class="btn btn-success" id="btnaddnew" />
             <input type="submit" value="查詢" class="btn btn-info" id="btnsearch" />
-            
+
         </div>
     </div><br />
 
@@ -99,7 +42,7 @@
         <span data-class="@item.MenuClass" data-no="@item.MenuNo" class="tag label label-default MenuName">@item.MenuName　<i class="fa fa-times fa-2x del" aria-hidden="true"></i></span>
     }
 </div>
-@section Scripts {    
+@section Scripts {
     <script>
         $(function () {
             $("#btnSave").hide();
@@ -109,8 +52,7 @@
             });
             $(".MenuTags .del").on("click", function (e) {
                 e.stopPropagation();
-                if (confirm("確定刪除?"))
-                {
+                if (confirm("確定刪除?")) {
                     $("#whosubmit").val("btndel");
                 }
                 $("#MenuNo").val($($(this).parent()).data("no"));
@@ -118,7 +60,10 @@
             });
 
             $(".MenuTags .MenuName").on("click", function (e) {
+                
                 e.stopPropagation();
+                $(".MenuTags .MenuName").removeClass("act");
+                $(this).addClass("act");
                 $("#MenuName").val($(this).text().replace("　", ""));
                 $("#MenuNo").val($(this).data("no"));
                 $("#MenuClass").val($(this).data("class"));

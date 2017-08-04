@@ -64,9 +64,14 @@
         });
         $('.gallery-items').click(function () {
             var viewer = ImageViewer();
-            var imgSrc = this.src,
-                highResolutionImage = $(this).data('high-res-img');
+            viewer.maxZoom = 200;
+            //viewer.snapView = true;
+            viewer.refreshOnResize = true;
+            viewer.zoomOnMouseWheel = true;
+            var imgSrc = this.src;
+            var highResolutionImage = $(this).data('high-res-src');
             viewer.show(imgSrc, highResolutionImage);
+            //viewer.snapView = false;
         });
 
     </script>

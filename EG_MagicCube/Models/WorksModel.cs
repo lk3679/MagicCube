@@ -85,21 +85,25 @@ namespace EG_MagicCube.Models
         /// 市場性
         /// </summary>
         [DisplayName("市場性")]
+        [Range(0.0, 10.0)]
         public double Marketability { get; set; } = 0.0;
         /// <summary>
         /// 包裹性
         /// </summary>
         [DisplayName("包裹性")]
+        [Range(0.0, 10.0)]
         public double Packageability { get; set; } = 0.0;
         /// <summary>
         /// 增值性
         /// </summary>
         [DisplayName("增值性")]
+        [Range(0.0, 10.0)]
         public double Valuability { get; set; } = 0.0;
         /// <summary>
         /// 藝術性
         /// </summary>
         [DisplayName("藝術性")]
+        [Range(0.0,10.0)]
         public double Artisticability { get; set; } = 0.0;
         /// <summary>
         /// 建立者
@@ -240,7 +244,7 @@ namespace EG_MagicCube.Models
                 _Works.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                 _Works.ModifyDate = DateTime.Now;
                 _Works.Remarks = this.Remarks;
-                _Works.Rating = this.Rating;
+                _Works.Rating = CalculateWorksRating(this).ToString();
                 _Works.IsDel = "";
 
                 context.Works.Add(_Works);
@@ -278,7 +282,6 @@ namespace EG_MagicCube.Models
                     //藝術家
                     foreach (int _AuthorNo in this.AuthorNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
                     {
-
                         context.WorksAuthors.Add(new WorksAuthors() { Works_No = _Works.WorksNo, Author_No = _AuthorNo });
                     }
                     //類型
@@ -305,6 +308,18 @@ namespace EG_MagicCube.Models
                     {
                         return false;
                     }
+                    else
+                    {
+                        foreach (int _AuthorNo in this.AuthorNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
+                        {
+                            var _Authors = context?.Authors?.FirstOrDefault(c => c.AuthorsNo == _AuthorNo);
+                            int _WorksAmount = (context?.WorksAuthors?.AsQueryable().Where(c => c.Author_No == _AuthorNo).Count()).Value;
+                            int _AuthorsRating = AuthorsModel.CalculateAuthorsRating(_WorksAmount);
+                            _Authors.Rating = _AuthorsRating.ToString();
+                            _Authors.WorksAmount = _WorksAmount;
+                            context.SaveChanges();
+                        }
+                    }
                 }
                 else
                 {
@@ -314,7 +329,30 @@ namespace EG_MagicCube.Models
             }
             return true;
         }
+        /// <summary>
+        /// 計算作品分級
+        /// </summary>
+        /// <param name="_WorksModel"></param>
+        /// <returns></returns>
+        public static int CalculateWorksRating(WorksModel _WorksModel)
+        {
+            double _Rating = 0;
+            int _WorksAmount = 0;
+            using (var context = new EG_MagicCubeEntities())
+            {
+                foreach (int _AuthorNo in _WorksModel.AuthorNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
+                {
+                    _WorksAmount = _WorksAmount + (context?.WorksAuthors?.AsQueryable().Where(c => c.Author_No == _AuthorNo).Count()).Value;
+                }
+            }
+            _WorksAmount = (_WorksAmount + 1) / _WorksModel.AuthorNo_InputString.Select(n => Convert.ToInt32(n)).Count();
+            double _AuthorsRating = Convert.ToDouble(AuthorsModel.CalculateAuthorsRating(_WorksAmount));
 
+            _Rating = (_WorksModel.Marketability * 0.3) + (_WorksModel.Packageability * 0.1) + (_WorksModel.Valuability * 0.25) + (_WorksModel.Artisticability * 0.2)+ (_AuthorsRating * 0.15);
+            return Convert.ToInt32(_Rating);
+        }
+
+        
         /// <summary>
         /// 新增並回傳
         /// </summary>
@@ -350,7 +388,7 @@ namespace EG_MagicCube.Models
                     var _WorksPropOwnerList = context?.WorksPropOwner?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wpo => wpo).ToList();
                     var _WorksPropStyleList = context?.WorksPropStyle?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wps => wps).ToList();
                     var _WorksPropWareTypeList = context?.WorksPropWareType?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wpwt => wpwt).ToList();
-                    var _WorksWorksFilesList = context?.WorksFiles?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).OrderBy(c=>c.Sorting).Select(wf => wf).ToList();
+                    var _WorksWorksFilesList = context?.WorksFiles?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).OrderBy(c=>c.Sorting).ThenBy(c => c.WorksFilesNo).Select(wf => wf).ToList();
                     var _WorksWorksModulesList = context?.WorksModules?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wm => wm).ToList();
 
                     _WorksModel.WorksNo = _Works.WorksNo.ToString();
@@ -490,7 +528,15 @@ namespace EG_MagicCube.Models
                 oldWorks.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                 oldWorks.ModifyDate = System.DateTime.Now;
                 oldWorks.Remarks = newWorks.Remarks;
-                oldWorks.Rating = newWorks.Rating;
+                oldWorks.Rating = CalculateWorksRating(newWorks).ToString();
+                foreach (int _AuthorNo in newWorks.AuthorNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
+                {
+                    var _Authors = context?.Authors?.FirstOrDefault(c => c.AuthorsNo == _AuthorNo);
+                    int _WorksAmount = (context?.WorksAuthors?.AsQueryable().Where(c => c.Author_No == _AuthorNo).Count()).Value;
+                    int _AuthorsRating = AuthorsModel.CalculateAuthorsRating(_WorksAmount);
+                    _Authors.Rating = _AuthorsRating.ToString();
+                    _Authors.WorksAmount = _WorksAmount;
+                }
                 //組件
                 foreach (WorksModuleModel _WorksModuleModel in newWorks.WorksModuleList)
                 {
@@ -564,6 +610,19 @@ namespace EG_MagicCube.Models
                 if (context.SaveChanges() == 0)
                 {
                     return false;
+                }
+                else
+                {
+                    foreach (int _AuthorNo in newWorks.AuthorNo_InputString.Select(n => Convert.ToInt32(n)).ToArray())
+                    {
+                        var _Authors = context?.Authors?.FirstOrDefault(c => c.AuthorsNo == _AuthorNo);
+                        int _WorksAmount = (context?.WorksAuthors?.AsQueryable().Where(c => c.Author_No == _AuthorNo).Count()).Value;
+                        int _AuthorsRating = AuthorsModel.CalculateAuthorsRating(_WorksAmount);
+                        _Authors.Rating = _AuthorsRating.ToString();
+                        _Authors.WorksAmount = _WorksAmount;
+                        context.SaveChanges();
+                    }
+                    
                 }
             }
 
