@@ -27,14 +27,20 @@
             <input type="hidden" id="whosubmit" name="whosubmit" />
             <input type="hidden" id="MenuNo" name="MenuNo" />
             <br />
-            <input type="submit" value="儲存" class="btn btn-primary" id="btnSave" />
-            <input type="submit" value="取消" class="btn btn-warning" id="btnCancel" />
-            <input type="submit" value="新增" class="btn btn-success" id="btnaddnew" />
-            <input type="submit" value="查詢" class="btn btn-info" id="btnsearch" />
+            <input type="submit" value="儲存" class="btn btn-primary" id="btnSave" style="display:none"/>
+            <input type="submit" value="取消" class="btn btn-warning" id="btnCancel" style="display:none"/>
+            <input type="submit" value="新增" class="btn btn-success" id="btnaddnew"  />
+            <input type="submit" value="查詢" class="btn btn-info" id="btnsearch"  />
 
         </div>
-    </div><br />
+    </div><br /><br />
 
+}
+@if (!string.IsNullOrEmpty(ViewBag.MenuName))
+{
+    <div class="alert alert-warning col-md-offset-1 col-md-10" role="alert" style="margin-top:20px;">
+        <strong>查詢名稱：</strong> @ViewBag.MenuName
+    </div>
 }
 <div class="col-md-offset-1 col-md-10 MenuTags" style="margin-top: 20px;">
     @foreach (var item in Model)
@@ -86,6 +92,10 @@
                 $("#btnCancel").hide();
                 $("#btnaddnew").show();
                 $("#btnsearch").show();
+            });
+            $("form").on("submit", function () {
+                $("input[type=submit]:not(:visible)")
+
             });
         });
     </script>

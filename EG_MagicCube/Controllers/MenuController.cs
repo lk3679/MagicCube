@@ -25,6 +25,10 @@ namespace EG_MagicCube.Controllers
             {
                 MenuClass = "";
             }
+            if (!string.IsNullOrEmpty(MenuName))
+            {
+                ViewBag.MenuName = MenuName;
+            }
             List<Models.ViewModel.MenuViewModels> _MenuViewModelList = new List<Models.ViewModel.MenuViewModels>();
             MenuModel.MenuClassEnum _MenuClassEnum = MenuModel.MenuClassEnum.AuthorArea;
             if(!string.IsNullOrEmpty(MenuClass))
