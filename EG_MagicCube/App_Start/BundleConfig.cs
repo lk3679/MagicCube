@@ -34,6 +34,9 @@ namespace EG_MagicCube
 
             bundles.Add(new ScriptBundle("~/bundles/lazyload").Include(
                       "~/Scripts/jquery.lazyload.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/eslite").Include(
+                      "~/Scripts/eslitemg.js"));
         }
     }
 }

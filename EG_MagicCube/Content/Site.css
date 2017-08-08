@@ -313,41 +313,48 @@ label.b5276e {
     -webkit-transition: color 0.2s;
 }
 
-    .MenuTags .tag::before {
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
-        content: '';
-        height: 6px;
-        left: 10px;
-        position: absolute;
-        width: 6px;
-        top: 10px;
-    }
+.MenuTags .tag::before {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
+    content: '';
+    height: 6px;
+    left: 10px;
+    position: absolute;
+    width: 6px;
+    top: 10px;
+}
 
-    .MenuTags .tag::after {
-        background: #fff;
-        border-bottom: 13px solid transparent;
-        border-left: 10px solid #eee;
-        border-top: 13px solid transparent;
-        content: '';
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
+.MenuTags .tag::after {
+    background: #fff;
+    border-bottom: 13px solid transparent;
+    border-left: 10px solid #eee;
+    border-top: 13px solid transparent;
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+}
 
-    .MenuTags .tag:hover {
-        background-color: #999;
-        color: white;
-    }
+.MenuTags .tag:hover {
+    background-color: #999;
+    color: white;
+}
 .MenuTags .act {
     background-color: #999;
     color: white;
     border-left-color: #999;
 }
-    .MenuTags .act::after {
-        border-left-color: #999;
-    }
-        .MenuTags .tag:hover::after {
-            border-left-color: #999;
-        }
+.MenuTags .act::after {
+    border-left-color: #999;
+}
+.MenuTags .tag:hover::after {
+    border-left-color: #999;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
