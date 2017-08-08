@@ -203,7 +203,7 @@ namespace EG_MagicCube.Models
 
                     if (MenuModel.MeunOrderbyTypeEnum.預設排序 == OrderbyType)
                     {
-                        pgl = pgl.OrderByDescending(c => c.PackagesNo);
+                        pgl = pgl.OrderByDescending(c => c.CreateDate);
                     }
                     else
                      if (MenuModel.MeunOrderbyTypeEnum.建立時間由舊至新 == OrderbyType)
@@ -237,7 +237,7 @@ namespace EG_MagicCube.Models
                     }
                     else
                     {
-                        pgl = pgl.OrderByDescending(c => c.PackagesNo);
+                        pgl = pgl.OrderByDescending(c => c.CreateDate);
                     }
                     if (PageIndex > 0)
                     {
