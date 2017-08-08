@@ -321,14 +321,16 @@ namespace EG_MagicCube.Models
                 {
                     foreach (AuthorsPropArea _AuthorsPropArea in oldAuthors.AuthorsPropArea.ToList())
                     {
-                        context.AuthorsPropArea.Remove(_AuthorsPropArea);
+                        var del_AuthorsPropArea = context.AuthorsPropArea.AsQueryable().FirstOrDefault(c => c.AuthorsPropAreaNo == _AuthorsPropArea.AuthorsPropAreaNo);
+                        context.AuthorsPropArea.Remove(del_AuthorsPropArea);
                     }
                 }
                 if (oldAuthors.AuthorsPropTag != null)
                 {
                     foreach (AuthorsPropTag _AuthorsPropTag in oldAuthors.AuthorsPropTag.ToList())
                     {
-                        context.AuthorsPropTag.Remove(_AuthorsPropTag);
+                        var del_del_AuthorsPropTag = context.AuthorsPropTag.AsQueryable().FirstOrDefault(c => c.AuthorsPropTagNo == _AuthorsPropTag.AuthorsPropTagNo);
+                        context.AuthorsPropTag.Remove(del_del_AuthorsPropTag);
                     }
                 }
 

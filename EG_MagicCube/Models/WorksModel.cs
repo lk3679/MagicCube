@@ -467,48 +467,48 @@ namespace EG_MagicCube.Models
                     {
                         foreach (WorksModules _WorksModules in oldWorks.WorksModules.ToList())
                         {
-                            context.WorksModules.Remove(_WorksModules);
-                            //oldWorks.WorksModules.Remove(_WorksModules);
+                            var del_WorksModules = context.WorksModules.AsQueryable().FirstOrDefault(c => c.WorksModulesNo == _WorksModules.WorksModulesNo);
+                            context.WorksModules.Remove(del_WorksModules);
                         }
                     }
                     if (oldWorks.WorksAuthors != null)
                     {
                         foreach (WorksAuthors _WorksAuthors in oldWorks.WorksAuthors.ToList())
                         {
-                            context.WorksAuthors.Remove(_WorksAuthors);
-                            //oldWorks.WorksPropGenre.Remove(_WorksPropGenre);
+                            var del_WorksAuthors = context.WorksAuthors.AsQueryable().FirstOrDefault(c => c.Works_Author_No == _WorksAuthors.Works_Author_No);
+                            context.WorksAuthors.Remove(del_WorksAuthors);
                         }
                     }
                     if (oldWorks.WorksPropGenre != null)
                     {
                         foreach (WorksPropGenre _WorksPropGenre in oldWorks.WorksPropGenre.ToList())
                         {
-                            context.WorksPropGenre.Remove(_WorksPropGenre);
-                            //oldWorks.WorksPropGenre.Remove(_WorksPropGenre);
+                            var del_WorksPropGenre = context.WorksPropGenre.AsQueryable().FirstOrDefault(c => c.WorksPropGenreNo == _WorksPropGenre.WorksPropGenreNo);
+                            context.WorksPropGenre.Remove(del_WorksPropGenre);
                         }
                     }
                     if (oldWorks.WorksPropStyle != null)
                     {
                         foreach (WorksPropStyle _WorksPropStyle in oldWorks.WorksPropStyle.ToList())
                         {
-                            context.WorksPropStyle.Remove(_WorksPropStyle);
-                            //oldWorks.WorksPropStyle.Remove(_WorksPropStyle);
+                            var del_WorksPropStyle = context.WorksPropStyle.AsQueryable().FirstOrDefault(c => c.WorksPropStyleNo == _WorksPropStyle.WorksPropStyleNo);
+                            context.WorksPropStyle.Remove(del_WorksPropStyle);
                         }
                     }
                     if (oldWorks.WorksPropOwner != null)
                     {
                         foreach (WorksPropOwner _WorksPropOwner in oldWorks.WorksPropOwner.ToList())
                         {
-                            context.WorksPropOwner.Remove(_WorksPropOwner);
-                            //oldWorks.WorksPropOwner.Remove(_WorksPropOwner);
+                            var del_WorksPropOwner =context.WorksPropOwner.AsQueryable().FirstOrDefault(c => c.WorksPropOwnerNo == _WorksPropOwner.WorksPropOwnerNo);
+                            context.WorksPropOwner.Remove(del_WorksPropOwner);
                         }
                     }
                     if (oldWorks.WorksPropWareType != null)
                     {
                         foreach (WorksPropWareType _WorksPropWareType in oldWorks.WorksPropWareType.ToList())
                         {
-                            context.WorksPropWareType.Remove(_WorksPropWareType);
-                            //oldWorks.WorksPropWareType.Remove(_WorksPropWareType);
+                            var del_WorksPropWareType = context.WorksPropWareType.AsQueryable().FirstOrDefault(c => c.WorksPropWareTypeNo == _WorksPropWareType.WorksPropWareTypeNo);
+                            context.WorksPropWareType.Remove(del_WorksPropWareType);
                         }
                     }
                 }
