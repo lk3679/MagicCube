@@ -117,18 +117,18 @@
                                 <th>
                                     材質
                                 </th>
-                                @*<th>
+                                <th>
                                     高
-                                </th>*@
+                                </th>
                                 <th>
                                     寬
                                 </th>
                                 <th>
                                     深
                                 </th>
-                                <th>
+                                @*<th>
                                     長
-                                </th>
+                                </th>*@
                                 <th>
                                     影片長度
                                 </th>
@@ -257,39 +257,37 @@
                 @Html.LabelFor(model => model.Marketability, htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
                 <div class="col-md-4 col-xs-3">
                     @Html.EditorFor(model => model.Marketability, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Marketability, "", new { @class = "text-danger", @min = "0", @max = "10" })
+                    @Html.ValidationMessageFor(model => model.Marketability, "", new { @class = "text-danger", @min = "0", @max = "10", @data_toggle = "tooltip", @data_html = "true", @title = "作品等級=<red>市場性(30%)</red>+包裹性(10%)+藝術性(20%)+增值性(25%)+作者數量等級(15%)" })
                 </div>
 
                 @Html.LabelFor(model => model.Packageability, htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
                 <div class="col-md-4 col-xs-3">
                     @Html.EditorFor(model => model.Packageability, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Packageability, "", new { @class = "text-danger", @min = "0", @max = "10" })
+                    @Html.ValidationMessageFor(model => model.Packageability, "", new { @class = "text-danger", @min = "0", @max = "10", @data_toggle = "tooltip", @data_html = "true", @title = "作品等級=市場性(30%)+<red>包裹性(10%)</red>+增值性(25%)+藝術性(20%)+作者數量等級(15%)" })
                 </div>
             </div>
             <div class="col-md-6 col-xs-12">
                 @Html.LabelFor(model => model.Valuability, htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
                 <div class="col-md-4 col-xs-3">
                     @Html.EditorFor(model => model.Valuability, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Valuability, "", new { @class = "text-danger", @min = "0", @max = "10" })
+                    @Html.ValidationMessageFor(model => model.Valuability, "", new { @class = "text-danger", @min = "0", @max = "10", @data_toggle = "tooltip", @data_html = "true", @title = "作品等級=市場性(30%)+包裹性(10%)+<red>增值性(25%)</red>+藝術性(20%)+作者數量等級(15%)" })
                 </div>
 
                 @Html.LabelFor(model => model.Artisticability, htmlAttributes: new { @class = "control-label  col-md-2 col-xs-3" })
                 <div class="col-md-4 col-xs-3">
                     @Html.EditorFor(model => model.Artisticability, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Artisticability, "", new { @class = "text-danger", @min = "0", @max = "10" })
+                    @Html.ValidationMessageFor(model => model.Artisticability, "", new { @class = "text-danger", @min = "0", @max = "10", @data_toggle = "tooltip", @data_html = "true", @title = "作品等級=市場性(30%)+包裹性(10%)+增值性(25%)+<red>藝術性(20%)</red>+作者數量等級(15%)" })
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-4 col-sm-6 col-xs-3" })
-                <div class="col-md-8 col-sm-6 col-xs-3">
-                    @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger",@readonly="readonly" })
-                </div>
+                <label class="control-label col-md-4 col-sm-6 col-xs-3" id="WorkRating" style="text-align:center;">@Model.Rating</label >
             </div>
             <div class="col-md-3 col-sm-6 col-xs-6">
                 @*@Html.LabelFor(model => model.UploadWorksFiles, htmlAttributes: new { @class = "control-label col-md-4 col-xs-6" })*@
-                <label class="control-label col-md-4 col-xs-6" for="UploadWorksFiles">作品(@Model.ImageCount.ToString())</label>
-                <div class="col-md-8 col-sm-6 col-xs-3">
+
+                @Html.ActionLink("作品圖片 (" + Model.ImageCount.ToString() + ")", "Edit", "Files", new { id = Model.WorksNo }, new { @class = "col-md-5 col-xs-8" })
+                <div class="col-md-5 col-sm-6 col-xs-3">
                     <span class="btn btn-success fileinput-button">
                         <i class="glyphicon glyphicon-plus"></i>
                         <span id="filespan">上傳...</span>
@@ -411,25 +409,24 @@
             if (l > 0) { $('span#filespan').html("已選 " + l + " 個檔案"); }
             else { $('span#filespan').html("上傳..."); }
         });
-        //$("#Marketability,#Packageability,#Valuability,#Artisticability").change(function () {
-        //    var m = 0.0;
-        //    var p = 0.0;
-        //    var v = 0.0;
-        //    var a = 0.0;
-        //    m = parseFloat($("#Marketability").val())*0.3;
-        //    p = parseFloat($("#Packageability").val())*0.1;
-        //    v = parseFloat($("#Valuability").val()) * 0.25;
-        //    a = parseFloat($("#Artisticability").val()) * 0.2;
-        //    var r = (m + p + v + a) / 2.0;
-        //    var r2 = (m + p + v + a) % 2.0;
-        //    if (r2 > 0.0)
-        //    {
-        //        r = r + 1;
-        //    }
-        //    $("#Rating").val((parseInt(r)).toString());
-
+        $("#Marketability,#Packageability,#Valuability,#Artisticability").change(function () {
+            var m = 0.0;
+            var p = 0.0;
+            var v = 0.0;
+            var a = 0.0;
+            m = (isNaN($("#Marketability").val())) == true ? 0.0 :parseFloat($("#Marketability").val())*0.3;
+            p = (isNaN($("#Packageability").val())) == true ? 0.0 :parseFloat($("#Packageability").val())*0.1;
+            v = (isNaN($("#Valuability").val())) == true ? 0.0 :parseFloat($("#Valuability").val()) * 0.25;
+            a = (isNaN($("#Artisticability").val())) == true ? 0.0 :parseFloat($("#Artisticability").val()) * 0.2;
+            var r = (m + p + v + a) / 2.0;
+            var r2 = (m + p + v + a) % 2.0;
+            if (r2 > 0.0)
+            {
+                r = r + 1;
+            }
             
-        //});
+            $("#WorkRating").text(isNaN((parseInt(r)) == true ? 0 : (parseInt(r))).toString());
+        });
         $('form').on('focus', 'input[type=number]', function (e) {
             $(this).on('mousewheel.disableScroll', function (e) {
                 e.preventDefault()
@@ -438,5 +435,13 @@
         $('form').on('blur', 'input[type=number]', function (e) {
             $(this).off('mousewheel.disableScroll')
         })
+        var tooltiptemplate ='<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="background-color:white;color:black;border: 1px solid #ccc;border-radius: 4px;background-color: #f5f5f5;"></div></div>'
+        $(document).ready(function () {
+            $('#Marketability').tooltip({ 'trigger': 'focus hover', html: true, template: tooltiptemplate, 'title': '作品等級=<font color="red">市場性(30%)</font>+包裹性(10%)+藝術性(20%)+增值性(25%)+作者作品數量分級(15%)' });
+            $('#Packageability').tooltip({ 'trigger': 'focus hover', html: true, template: tooltiptemplate, 'title': '作品等級=市場性(30%)+<font color="red">包裹性(10%)</font>+藝術性(20%)+增值性(25%)+作者作品數量分級(15%)' });
+            $('#Artisticability').tooltip({ 'trigger': 'focus hover', html: true, template: tooltiptemplate, 'title': '作品等級=市場性(30%)+包裹性(10%)+<font color="red">藝術性(20%)</font>+增值性(25%)+作者作品數量分級(15%)' });
+            $('#Valuability').tooltip({ 'trigger': 'focus hover', html: true, template: tooltiptemplate, 'title': '作品等級=市場性(30%)+包裹性(10%)+藝術性(20%)+<font color="red">增值性(25%)</font>+作者作品數量分級(15%)' });
+            $('#WorkRating').tooltip({ 'trigger': 'focus hover', html: true, template: tooltiptemplate, 'title': '<font color="red">作品等級</font>=市場性(30%)+包裹性(10%)+藝術性(20%)+增值性(25%)+作者作品數量分級(15%)' });
+        });
     </script>
 }

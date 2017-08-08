@@ -49,17 +49,19 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.WorksAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.WorksAmount, htmlAttributes: new { @class = "control-label col-md-2",@id= "labWorksAmount" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.WorksAmount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.WorksAmount, "", new { @class = "text-danger", @readonly = "readonly" })
+                <label class="control-label col-md-4 col-sm-6 col-xs-3" id="WorksAmount" style="text-align:center;">@Model.WorksAmount</label>
+                @*@Html.EditorFor(model => model.WorksAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.WorksAmount, "", new { @class = "text-danger", @readonly = "readonly" })*@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2", @id = "labAuthorRating" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger", @readonly = "readonly" })
+                <label class="control-label col-md-4 col-sm-6 col-xs-3" id="AuthorRating" style="text-align:center;">@Model.Rating</label>
+                @*@Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger", @readonly = "readonly" })*@
             </div>
         </div>
         <div class="form-group">
@@ -108,6 +110,12 @@
             }
 
         });
-
+        var tooltiptemplate = '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="background-color:white;color:black;border: 1px solid #ccc;border-radius: 4px;background-color: #f5f5f5;font-size: 10px;"></div></div>'
+        $(document).ready(function () {
+            //$('#WorksAmount,#labWorksAmount').tooltip({ 'trigger': 'focus hover', html: true, template: tooltiptemplate, 'title': '作品等級=市場性(30%)+包裹性(10%)+藝術性(20%)+增值性(25%)+作者數量等級(15%)' });
+            $('#AuthorRating,#labAuthorRating').tooltip({
+                'trigger': 'focus hover', html: true, template: tooltiptemplate, 'title': '等級1：1~10件,等級2：11~20件<br/>等級3：21~30件, 等級4：31~40件<br/>等級5：41件以上<br/>作品等級=市場性(30 %)+ 包裹性(10 %)+ 藝術性(20 %)+ 增值性(25 %)+ <font color="red">作品數量分級(15%)</font>' });
+            
+        });
 </script>
 }
