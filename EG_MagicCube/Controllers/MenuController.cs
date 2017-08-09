@@ -64,20 +64,20 @@ namespace EG_MagicCube.Controllers
                 _strMenuClass = Request.QueryString["MenuClass"] == null ? "" : Request.QueryString["MenuClass"];
             }
             //新增
-            if (_strwhosubmit.IndexOf("btnaddnew", StringComparison.OrdinalIgnoreCase) >= 0 && (!string.IsNullOrEmpty(_strMenuName)))
+            if ((_strwhosubmit.IndexOf("btnaddnew", StringComparison.OrdinalIgnoreCase) >= 0 && (!string.IsNullOrEmpty(_strMenuName))))
             {
                 MenuModel _MenuModel = new MenuModel();
                 _MenuModel.InsertMenu((MenuModel.MenuClassEnum)Enum.Parse(typeof(MenuModel.MenuClassEnum), _strMenuClass, true), new List<MenuViewModel>(){ new MenuViewModel() { MenuClass= _strMenuClass, MenuName= _strMenuName } });
                 _strMenuName = "";
             }
             //修改
-            if (_strwhosubmit.IndexOf("btnSave", StringComparison.OrdinalIgnoreCase) >= 0 && (!string.IsNullOrEmpty(_strMenuName)))
+            if (_strwhosubmit.IndexOf("btnSave", StringComparison.OrdinalIgnoreCase) >= 0 && (!string.IsNullOrEmpty(_strMenuName)) && (!string.IsNullOrEmpty(_MenuNo)))
             {
                 MenuModel.UpdateMenu((MenuModel.MenuClassEnum)Enum.Parse(typeof(MenuModel.MenuClassEnum), _strMenuClass, true), _MenuNo, _strMenuName);
                 _strMenuName = "";
             }
             //刪除
-            if (_strwhosubmit.IndexOf("btndel", StringComparison.OrdinalIgnoreCase) >= 0)
+            if (_strwhosubmit.IndexOf("btndel", StringComparison.OrdinalIgnoreCase) >= 0 && (!string.IsNullOrEmpty(_MenuNo)))
             {
                 MenuModel.DeleteMenu((MenuModel.MenuClassEnum)Enum.Parse(typeof(MenuModel.MenuClassEnum), _strMenuClass, true), new List<MenuViewModel>() { new MenuViewModel() { MenuID = int.Parse(_MenuNo) } });
             }

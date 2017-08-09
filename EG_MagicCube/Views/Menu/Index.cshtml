@@ -92,10 +92,26 @@
                 $("#btnCancel").hide();
                 $("#btnaddnew").show();
                 $("#btnsearch").show();
+                $("#MenuName").val();
             });
             $("form").on("submit", function () {
-                $("input[type=submit]:not(:visible)")
+                if ($("input[type=submit][id='btnSave']:visible").length>0)
+                {
+                    if ($("#whosubmit").val().length == 0)
+                    {
+                        $("#whosubmit").val('btnSave');
+                    }
+                    
+                }
+                if ($("[id='btnaddnew']:visible,[id='btnsearch']:visible").length > 0)
+                {
+                    if ($("#whosubmit").val().length == 0)
+                    {
+                        $("#whosubmit").val('btnsearch');
+                    }
+                    
 
+                }
             });
         });
     </script>
