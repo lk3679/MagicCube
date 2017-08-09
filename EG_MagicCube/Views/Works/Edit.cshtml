@@ -283,19 +283,19 @@
                 @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-4 col-sm-6 col-xs-3" })
                 <label class="control-label col-md-4 col-sm-6 col-xs-3" id="WorkRating" style="text-align:center;">@Model.Rating</label >
             </div>
-            <div class="col-md-3 col-sm-6 col-xs-6">
+            <div class="col-md-3 col-sm-12 col-xs-12" style="vertical-align: middle;line-height: 35px;">
                 @*@Html.LabelFor(model => model.UploadWorksFiles, htmlAttributes: new { @class = "control-label col-md-4 col-xs-6" })*@
-
-                @Html.ActionLink("作品圖片 (" + Model.ImageCount.ToString() + ")", "Edit", "Files", new { id = Model.WorksNo }, new { @class = "col-md-5 col-xs-8" })
-                <div class="col-md-5 col-sm-6 col-xs-3">
-                    <span class="btn btn-success fileinput-button">
-                        <i class="glyphicon glyphicon-plus"></i>
-                        <span id="filespan">上傳...</span>
-                        <input type="file" name="Img" multiple accept="image/*" />
-                        @*<img id="imgPreview" style="max-width: 150px;" />*@
-                    </span>
-                </div>
-            </div>
+                <a href="@Url.Action("Edit", "Files", new { id = Model.WorksNo})" class="col-md-6 col-sm-4 col-xs-4">作品圖片 (@Model.ImageCount.ToString())</a>
+                @*@Html.ActionLink("作品圖片 (" + Model.ImageCount.ToString() + ")", "Edit", "Files", new { id = Model.WorksNo }, new { @class = "col-md-5 col-xs-8" })*@
+                    <div class="col-md-5 col-sm-6 col-xs-3">
+                        <span class="btn btn-success fileinput-button">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span id="filespan">上傳...</span>
+                            <input type="file" name="Img" multiple accept="image/*" />
+                            @*<img id="imgPreview" style="max-width: 150px;" />*@
+                        </span>
+                    </div>
+</div>
             <div class="col-xs-6 pull-right text-right">
                 <input type="submit" value="儲存" class="btn btn-primary" />
             </div>
