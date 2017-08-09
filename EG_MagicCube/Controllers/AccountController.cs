@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using EG_MagicCube.Models;
 using EG_MagicCube.Models.ViewModel;
+using System.Web.Security;
+using Newtonsoft.Json;
+
 namespace EG_MagicCube.Controllers
 {
     public class AccountController : BaseController
@@ -12,6 +15,33 @@ namespace EG_MagicCube.Controllers
         // GET: Account
         public ActionResult Index()
         {
+            if (Request.IsAuthenticated)
+            {
+                try
+                {
+                    FormsIdentity id = (FormsIdentity)User.Identity;
+                    // 再取出使用者的 FormsAuthenticationTicket
+                    FormsAuthenticationTicket ticket = id.Ticket;
+
+                    Dictionary<string, string[]> _userData = new Dictionary<string, string[]>();
+
+                    string accid = "";
+                    if (ticket.UserData != null && ticket.UserData.Length > 0)
+                    {
+                        _userData = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(ticket.UserData);
+                        accid = _userData.Keys.ElementAt(0);
+                    }
+                    if (!User.IsInRole("1"))
+                    {
+                        return RedirectToAction("Edit", new { id = accid });
+                    }
+                }
+                catch
+                {
+                    FormsAuthentication.SignOut();
+                }
+
+            }
             List<AccountModel> _AccountModel = new List<AccountModel>();
             _AccountModel = AccountModel.GetAccountList();
 
@@ -47,6 +77,7 @@ namespace EG_MagicCube.Controllers
         [HttpPost]
         public ActionResult Create(AccountModel Input_AccountModel)
         {
+
             try
             {
                 List<SelectListItem> AccountRoleList = new List<SelectListItem>();
@@ -62,13 +93,18 @@ namespace EG_MagicCube.Controllers
                     });
                 }
                 ViewBag.AccountRoleList = AccountRoleList;
-                Input_AccountModel.Create();
-                return RedirectToAction("Index");
+                if (Input_AccountModel != null && ModelState.IsValid)
+                {
+                    Input_AccountModel.Create();
+                    return RedirectToAction("Index");
+                }
+
             }
             catch
             {
                 return View();
             }
+            return View();
         }
 
         // GET: Account/Edit/5
@@ -89,6 +125,7 @@ namespace EG_MagicCube.Controllers
                     ,Selected= _AccountModel.RoleNo== _AccountRole.MenuID
                 });
             }
+
             ViewBag.AccountRoleList = AccountRoleList;
 
             return View(_AccountModel);
@@ -124,13 +161,25 @@ namespace EG_MagicCube.Controllers
                 }
                 Input_AccountModel.UserAccountsNo = id;
                 ViewBag.AccountRoleList = AccountRoleList;
-                Input_AccountModel.Update();
-                return RedirectToAction("Index");
+                if (Input_AccountModel != null && ModelState.IsValid)
+                {
+                    Input_AccountModel.Update();
+                    if (!User.IsInRole("1"))
+                    {
+                        return RedirectToAction("Index","Home");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    
+                }
             }
             catch
             {
                 return View();
             }
+            return View();
         }
 
         // GET: Account/Delete/5

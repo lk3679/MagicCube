@@ -390,8 +390,8 @@ namespace EG_MagicCube.Models
         public string SaltKey { get { return _SaltKey; } }
         public PasswordHandler(string StrPwd)
         {
-            _EnStrPw = GenerateSalt();
-            _SaltKey = EncryptToHashString(StrPwd, SaltKey);
+            _SaltKey = GenerateSalt();
+            _EnStrPw = EncryptToHashString(StrPwd, SaltKey);
         }
         /// <summary>
         /// 產生哈希密碼金鑰
@@ -431,17 +431,19 @@ namespace EG_MagicCube.Models
         /// <param name="EncryptHashString">已加密哈希密碼字串</param>  
         public static bool CompareEncryptHashString(string StrPwd, string saltKey, string EncryptHashString)
         {
+            bool IsCompare = false;
             byte[] src = System.Text.Encoding.Unicode.GetBytes(StrPwd);
             byte[] saltbuf = Convert.FromBase64String(saltKey);
             byte[] dst = new byte[saltbuf.Length + src.Length];
             byte[] inArray = null;
-            System.Buffer.BlockCopy(saltbuf, 0, dst, 0, saltbuf.Length);
-            System.Buffer.BlockCopy(src, 0, dst, saltbuf.Length, src.Length);
+            Buffer.BlockCopy(saltbuf, 0, dst, 0, saltbuf.Length);
+            Buffer.BlockCopy(src, 0, dst, saltbuf.Length, src.Length);
 
             System.Security.Cryptography.HashAlgorithm algorithm = System.Security.Cryptography.HashAlgorithm.Create(HashType);
             inArray = algorithm.ComputeHash(dst);
-
-            return (Convert.ToBase64String(inArray) == EncryptHashString);
+            string strbase64 = Convert.ToBase64String(inArray);
+            IsCompare = (strbase64 == EncryptHashString);
+            return IsCompare;
         }
     }
 }

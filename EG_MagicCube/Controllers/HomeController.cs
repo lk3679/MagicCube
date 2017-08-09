@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using EG_MagicCube.Models;
+using Newtonsoft.Json;
+
 namespace EG_MagicCube.Controllers
 {
     public class HomeController : BaseController
@@ -61,10 +63,30 @@ namespace EG_MagicCube.Controllers
                 bool IsAccount = false;
                 bool IsPwd = false;
                 AccountModel _AccountModel = AccountModel.Login(model.LoginAccount, model.Password, out IsAccount, out IsPwd);
-                if (true)
+                if (IsAccount && IsPwd)
                 {
                     //Login成功
-                    FormsAuthentication.SetAuthCookie(model.LoginAccount, true);
+
+                    var now = DateTime.Now;
+
+                    List<string> roles = new List<string>();
+                    roles.AddRange(_AccountModel.RoleNo.ToString().Split(',').ToList());
+                    Dictionary<string, string[]> _userData = new Dictionary<string, string[]>();
+                    _userData.Add(_AccountModel.UserAccountsNo.ToString(), roles.ToArray());
+                    string struserData = JsonConvert.SerializeObject(_userData);
+
+                    var ticket = new FormsAuthenticationTicket(
+                        version: 1,
+                        name: _AccountModel.Name.ToString(), //這邊看個人，你想放使用者名稱也可以，自行更改
+                        issueDate: now,//現在時間
+                        expiration: now.AddHours(10),//Cookie有效時間=現在時間往後+10小時
+                        isPersistent: true,//記住我 true or false
+                        userData: struserData, //這邊可以放使用者名稱，而我這邊是放使用者的群組代號
+                        cookiePath: FormsAuthentication.FormsCookiePath);
+                    
+                    var encryptedTicket = FormsAuthentication.Encrypt(ticket); //把驗證的表單加密
+                    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                    Response.Cookies.Add(cookie);
 
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
