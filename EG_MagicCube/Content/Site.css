@@ -189,10 +189,10 @@ div.selected {
     }
 
 .copy {
-    cursor: pointer;
+    /*cursor: pointer;
     text-decoration: underline;
     color: #138200;
-    margin-left: 10px;
+    margin-left: 10px;*/
 }
 
 label.b5276e {
