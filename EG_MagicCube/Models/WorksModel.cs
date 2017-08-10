@@ -84,25 +84,25 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 市場性
         /// </summary>
-        [DisplayName("市場性")]
+        [DisplayName("市場性30%")]
         [Range(0.0, 10.0)]
         public double Marketability { get; set; } = 0.0;
         /// <summary>
         /// 包裹性
         /// </summary>
-        [DisplayName("包裹性")]
+        [DisplayName("＋包裹性10%")]
         [Range(0.0, 10.0)]
         public double Packageability { get; set; } = 0.0;
         /// <summary>
         /// 增值性
         /// </summary>
-        [DisplayName("增值性")]
+        [DisplayName("＋增值性25%")]
         [Range(0.0, 10.0)]
         public double Valuability { get; set; } = 0.0;
         /// <summary>
         /// 藝術性
         /// </summary>
-        [DisplayName("藝術性")]
+        [DisplayName("＋藝術性20%")]
         [Range(0.0,10.0)]
         public double Artisticability { get; set; } = 0.0;
         /// <summary>
@@ -208,7 +208,7 @@ namespace EG_MagicCube.Models
         /// 作品等級
         /// </summary>
         [Required]
-        [DisplayName("作品等級")]
+        [DisplayName("＝作品等級")]
         public string Rating { get; set; } = "";
         #endregion
 

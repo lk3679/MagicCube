@@ -48,56 +48,47 @@
                 作品組件
             </div>
             <div class="well  col-xs-12" style="padding:5px;">
-                <div class="col-md-6 col-xs-12">
-                    <label class="control-label col-md-2 col-xs-3" for="MaterialsID">材質</label>
-                    <div class="col-md-4 col-xs-3">
+                <div class="col-md-10 col-xs-12">
+                    <label class="control-label col-md-1 col-xs-3" for="MaterialsID">材質</label>
+                    <div class="col-md-2 col-xs-3">
                         @Html.DropDownList("MaterialsID", (IEnumerable<SelectListItem>)ViewBag.WorksModuleList, new { @class = "js-example-basic-multiple js-states form-control" })
                         <span class="field-validation-valid text-danger" data-valmsg-for="MaterialsID" data-valmsg-replace="true"></span>
                     </div>
 
-                    <label class="control-label col-md-2 col-xs-3" for="height">高</label>
-                    <div class="col-md-4 col-xs-3">
+                    <label class="control-label col-md-1 col-xs-3" for="height">高</label>
+                    <div class="col-md-1 col-xs-3">
                         <input class="form-control text-box single-line" data-val="true" id="height" name="height" type="number" value="">
                         <span class="field-validation-valid text-danger" data-valmsg-for="height" data-valmsg-replace="true"></span>
                     </div>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <label class="control-label col-md-2 col-xs-3" for="width">寬</label>
-                    <div class="col-md-4 col-xs-3">
+                    <label class="control-label col-md-1 col-xs-3" for="width">寬</label>
+                    <div class="col-md-1 col-xs-3">
                         <input class="form-control text-box single-line" data-val="true" id="width" name="width" type="number" value="">
                         <span class="field-validation-valid text-danger" data-valmsg-for="width" data-valmsg-replace="true"></span>
                     </div>
 
-                    <label class="control-label col-md-2 col-xs-3" for="deep">深</label>
-                    <div class="col-md-4 col-xs-3">
+                    <label class="control-label col-md-1 col-xs-3" for="deep">深</label>
+                    <div class="col-md-1 col-xs-3">
                         <input class="form-control text-box single-line" id="deep" name="deep" type="number" value="">
                         <span class="field-validation-valid text-danger" data-valmsg-for="deep" data-valmsg-replace="true"></span>
                     </div>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    @*<label class="control-label col-md-2 col-xs-3" for="width">長</label>
-                    <div class="col-md-4 col-xs-3">
-                        <input class="form-control text-box single-line" data-val="true" id="length" name="length" type="number" value="">
-                        <span class="field-validation-valid text-danger" data-valmsg-for="length" data-valmsg-replace="true"></span>
-                    </div>*@
-                    <label class="control-label col-md-2 col-xs-3" for="times">影片長度</label>
-                    <div class="col-md-4 col-xs-3">
+                    <label class="control-label col-md-1 col-xs-3" for="times">影片長度</label>
+                    <div class="col-md-2 col-xs-3">
                         <input class="form-control text-box single-line"
                                id="times" name="times" type="text" value="">
                     </div>
                 </div>
-                <div class="col-md-4 col-xs-9">
-                    <label class="control-label col-md-3 col-xs-4" for="nums">數量單位</label>
-                    <div class="col-xs-4">
+                <div class="col-md-8 col-xs-9">
+                    <label class="control-label col-md-2 col-xs-4" for="nums">數量單位</label>
+                    <div class="col-md-2 col-xs-4">
                         <input class="form-control text-box single-line" id="nums" name="nums" type="number" value="">
                         <span class="field-validation-valid text-danger" data-valmsg-for="nums" data-valmsg-replace="true"></span>
                     </div>
-                    <div class="col-xs-4">
+                    <div class="col-md-2 col-xs-4">
                         @Html.DropDownList("CountNoun", (IEnumerable<SelectListItem>)ViewBag.WorksCountNounList, new { @class = "js-example-basic-multiple js-states form-control" })
                         <span class="field-validation-valid text-danger" data-valmsg-for="CountNoun" data-valmsg-replace="true"></span>
                     </div>
                 </div>
-                <div class="col-md-2 col-xs-3 text-right">
+                <div class="col-md-2 col-xs-12 text-right">
                     <div class="col-xs-12">
                         <input type="button" id="mateadd" name="mateadd" class="btn btn-success" value="加入" />
                     </div>
@@ -123,9 +114,6 @@
                                 <th>
                                     深
                                 </th>
-                                @*<th>
-                                    長
-                                </th>*@
                                 <th>
                                     影片長度
                                 </th>
@@ -177,99 +165,102 @@
                     </table>
                 </div>
             </div>
-            @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9">
-                @Html.TextAreaFor(model => model.Remarks, new { @class = "form-control", rows = 1 })
-                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+
+            <div class="col-md-12 col-xs-12">
+                @Html.LabelFor(model => model.GenreNo_InputString, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
+                <div class="col-md-4 col-xs-9">
+                    @Html.DropDownList("GenreNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropGenreList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                    @Html.ValidationMessageFor(model => model.GenreNo_InputString, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.StyleNo_InputString, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
+                <div class="col-md-4 col-xs-9">
+                    @Html.DropDownList("StyleNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropStyleList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                    @Html.ValidationMessageFor(model => model.StyleNo_InputString, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-12">
+                @Html.LabelFor(model => model.OwnerNo_InputString, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
+                <div class="col-md-4 col-xs-9">
+                    @Html.DropDownList("OwnerNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropOwnerList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                    @Html.ValidationMessageFor(model => model.OwnerNo_InputString, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.WareTypeNo_InputString, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
+                <div class="col-md-4 col-xs-9">
+                    @Html.DropDownList("WareTypeNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropWareTypeList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                    @Html.ValidationMessageFor(model => model.WareTypeNo_InputString, "", new { @class = "text-danger" })
+                </div>
             </div>
 
-            @Html.LabelFor(model => model.OwnerNo_InputString, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9">
-                @Html.DropDownList("OwnerNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropOwnerList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-                @Html.ValidationMessageFor(model => model.OwnerNo_InputString, "", new { @class = "text-danger" })
-            </div>
+            <div class="col-md-12 col-xs-12">
+                @Html.LabelFor(model => model.Cost, htmlAttributes: new { @class = "control-label col-md-1 col-xs-2" })
+                <div class="col-md-2 col-xs-4" style="margin-bottom:0;">
+                    <span class="numberprice">
+                        <input type="text" class="form-control text-box single-line" />
+                        @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
+                    </span>
+                    @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+                </div>
 
-            @Html.LabelFor(model => model.WareTypeNo_InputString, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9">
-                @Html.DropDownList("WareTypeNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropWareTypeList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-                @Html.ValidationMessageFor(model => model.WareTypeNo_InputString, "", new { @class = "text-danger" })
-            </div>
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-1 col-xs-2" })
+                <div class="col-md-2 col-xs-4" style="margin-bottom:0;">
+                    <span class="numberprice">
+                        <input type="text" class="form-control text-box single-line" />
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    </span>
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
 
-            @Html.LabelFor(model => model.Cost, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-3" style="margin-bottom:0;">
-                <span class="numberprice">
-                    <input type="text" class="form-control text-box single-line" />
-                    @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
-                </span>
-                @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
-            </div>
+                @Html.LabelFor(model => model.PricingDate, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
+                <div class="col-md-2 col-xs-9">
+                    @Html.EditorFor(model => model.PricingDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    @Html.ValidationMessageFor(model => model.PricingDate, "", new { @class = "text-danger" })
+                </div>
 
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-3" style="margin-bottom:0;">
-                <span class="numberprice">
-                    <input type="text" class="form-control text-box single-line" />
-                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                </span>
-                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-            </div>
+                @Html.LabelFor(model => model.GrossMargin, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
+                <div class="col-md-1 col-xs-9">
+                    @Html.EditorFor(model => model.GrossMargin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.GrossMargin, "", new { @class = "text-danger" })
+                </div>
 
-            @Html.LabelFor(model => model.PricingDate, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9">
-                @Html.EditorFor(model => model.PricingDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
-                @Html.ValidationMessageFor(model => model.PricingDate, "", new { @class = "text-danger" })
             </div>
-
-            @Html.LabelFor(model => model.GrossMargin, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9">
-                @Html.EditorFor(model => model.GrossMargin, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GrossMargin, "", new { @class = "text-danger" })
-            </div>
-
-            @Html.LabelFor(model => model.GenreNo_InputString, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9">
-                @Html.DropDownList("GenreNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropGenreList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-                @Html.ValidationMessageFor(model => model.GenreNo_InputString, "", new { @class = "text-danger" })
-            </div>
-
-            @Html.LabelFor(model => model.StyleNo_InputString, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9">
-                @Html.DropDownList("StyleNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropStyleList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-                @Html.ValidationMessageFor(model => model.StyleNo_InputString, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-6 col-xs-12">
-                @Html.LabelFor(model => model.Marketability, htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
-                <div class="col-md-4 col-xs-3">
+            <div class="col-md-12 col-xs-12">
+                @Html.LabelFor(model => model.Marketability, htmlAttributes: new { @class = "control-label col-md-1 col-xs-6" })
+                <div class="col-md-1 col-xs-6">
                     @Html.EditorFor(model => model.Marketability, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Marketability, "", new { @class = "text-danger", @title = "" })
                 </div>
 
-                @Html.LabelFor(model => model.Packageability, htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
-                <div class="col-md-4 col-xs-3">
+                @Html.LabelFor(model => model.Packageability, htmlAttributes: new { @class = "control-label col-md-1 col-xs-6" })
+                <div class="col-md-1 col-xs-6">
                     @Html.EditorFor(model => model.Packageability, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Packageability, "", new { @class = "text-danger", @title = "" })
                 </div>
-            </div>
-            <div class="col-md-6 col-xs-12">
-                @Html.LabelFor(model => model.Valuability, htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
-                <div class="col-md-4 col-xs-3">
+                @Html.LabelFor(model => model.Valuability, htmlAttributes: new { @class = "control-label col-md-1 col-xs-6" })
+                <div class="col-md-1 col-xs-6">
                     @Html.EditorFor(model => model.Valuability, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Valuability, "", new { @class = "text-danger", @title = "" })
                 </div>
-
-                @Html.LabelFor(model => model.Artisticability, htmlAttributes: new { @class = "control-label  col-md-2 col-xs-3" })
-                <div class="col-md-4 col-xs-3">
+                @Html.LabelFor(model => model.Artisticability, htmlAttributes: new { @class = "control-label col-md-1 col-xs-6" })
+                <div class="col-md-1 col-xs-6">
                     @Html.EditorFor(model => model.Artisticability, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Artisticability, "", new { @class = "text-danger",@title="" })
+                    @Html.ValidationMessageFor(model => model.Artisticability, "", new { @class = "text-danger", @title = "" })
                 </div>
+                @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-1 col-xs-6" })
+                <label class="col-md-1 col-xs-6" id="WorkRating" style="text-align:center;"></label>
             </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-4 col-sm-6 col-xs-3" })
-                <label class="control-label col-md-4 col-sm-6 col-xs-3" id="WorkRating" style="text-align:center;"></label>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                @Html.LabelFor(model => model.UploadWorksFiles, htmlAttributes: new { @class = "control-label col-md-4 col-xs-6" })
-                @*<label class="control-label col-md-4 col-xs-6" for="UploadWorksFiles">作品</label>*@
-                <div class="col-md-8 col-sm-6 col-xs-3">
+
+
+
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
+                <div class="col-md-4 col-xs-9">
+                    @Html.TextAreaFor(model => model.Remarks, new { @class = "form-control", rows = 1 })
+                    @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.UploadWorksFiles, htmlAttributes: new { @class = "col-md-2 col-xs-5"})
+                <div class="col-md-2 col-sm-6 col-xs-3">
                     <span class="btn btn-success fileinput-button">
                         <i class="glyphicon glyphicon-plus"></i>
                         <span id="filespan">上傳...</span>
@@ -277,9 +268,9 @@
                         @*<img id="imgPreview" style="max-width: 150px;" />*@
                     </span>
                 </div>
-            </div>
-            <div class="col-md-6 pull-right text-right">
-                <input type="submit" value="儲存" class="btn btn-primary" />
+                <div class="col-md-1 col-xs-6 pull-right text-right">
+                    <input type="submit" value="儲存" class="btn btn-primary" />
+                </div>
             </div>
         </div>
     </div>
