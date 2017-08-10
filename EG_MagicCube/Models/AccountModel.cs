@@ -81,6 +81,8 @@ namespace EG_MagicCube.Models
         /// </summary>
         public DateTime ModifyDate { get; set; } = DateTime.Now;
 
+
+        public string RoleName { get; set; } = "";
         #region Create
         /// <summary>
         /// 新增帳號
@@ -294,7 +296,8 @@ namespace EG_MagicCube.Models
                         CreateDate = c.CreateDate,
                         CreateUser = c.CreateUser,
                         ModifyDate = c.ModifyDate.Value,
-                        ModifyUser = c.ModifyUser
+                        ModifyUser = c.ModifyUser,
+                        RoleName=c.RoleNo==1 ? "管理者":"操作者"
                     }).ToList();
                 }
             }
