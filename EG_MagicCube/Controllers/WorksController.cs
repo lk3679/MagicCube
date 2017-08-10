@@ -134,14 +134,24 @@ namespace EG_MagicCube.Controllers
             {
                 return RedirectToAction("Index");
             }
+            List<string> Worksize = new List<string>(); ;
+            foreach (var mod in value.WorksModuleList)
+            {
+                string m = mod.Material.MenuName+" ";
+                string h = mod.Height > 0.0 ? "高" + mod.Height.ToString() + "cm " : "";
+                string w = mod.Width > 0.0 ? "寬" + mod.Width.ToString() + "cm " : "";
+                string d = mod.Deep > 0.0 ? "深" + mod.Deep.ToString() + "cm " : "";
+                string t = mod.TimeLength.Length > 0 ? "影片長度：" + mod.TimeLength : "";
+                string c = mod.Amount > 1 ? mod.Amount + mod.CountNoun.MenuName : "";
+                Worksize.Add(m + h + w + d + t + c);
+            }
             WorksDetailViewModel model = new WorksDetailViewModel()
             {
                 PackagesNo = p,
                 WorksNo = value.WorksNo,
                 WorksName = value.WorksName,
                 AuthorsName = string.Join(",", value.WorksAuthors.Select(a => a.MenuName)),
-                MaterialsName = value.WorksModuleList.Select(m => m.Material.MenuName + " " + m.Length.ToString() + "x" + m.Height.ToString() + "x"
-                    + m.Width.ToString() + "x" + m.Deep.ToString() + " cm " + (string.IsNullOrEmpty(m.TimeLength) ? "" : (" 影片長度:" + m.TimeLength)) + (m.Amount > 1 ? (" ," + m.Amount.ToString() + " " + m.CountNoun.MenuName) : "")).ToList(),
+                MaterialsName = Worksize,
                 Remarks = value.Remarks,
                 Owner = string.Join(",", value.WorksPropOwnerList.Select(o => o.MenuName)),
                 PropWare = string.Join(",", value.WorksPropWareTypeList.Select(o => o.MenuName)),
@@ -150,7 +160,9 @@ namespace EG_MagicCube.Controllers
                 PricingDate = value.PricingDate.ToString("yyyy-MM-dd"),
                 GrossMargin = value.GrossMargin.ToString() + " %",
                 GenreNo = string.Join(",", value.WorksPropGenreList.Select(o => o.MenuName)),
-                PropStyle = string.Join(",", value.WorksPropStyleList.Select(o => o.MenuName))
+                PropStyle = string.Join(",", value.WorksPropStyleList.Select(o => o.MenuName)),
+                Years = value.YearStart.ToString() + (value.YearStart == value.YearEnd ? "" : " ~ " + value.YearEnd.ToString()),
+                WordsRating = value.Rating
             };
             return View(model);
         }
@@ -164,14 +176,25 @@ namespace EG_MagicCube.Controllers
             {
                 return RedirectToAction("Index");
             }
+            List<string> Worksize = new List<string>(); ;
+            foreach (var mod in value.WorksModuleList)
+            {
+                string m = mod.Material.MenuName + " ";
+                string h = mod.Height > 0.0 ? "高" + mod.Height.ToString() + "cm " : "";
+                string w = mod.Width > 0.0 ? "寬" + mod.Width.ToString() + "cm " : "";
+                string d = mod.Deep > 0.0 ? "深" + mod.Deep.ToString() + "cm " : "";
+                string t = mod.TimeLength.Length > 0 ? "影片長度：" + mod.TimeLength : "";
+                string c = mod.Amount > 1 ? mod.Amount + mod.CountNoun.MenuName : "";
+                Worksize.Add(m + h + w + d + t + c);
+            }
+
             WorksDetailViewModel model = new WorksDetailViewModel()
             {
                 PackagesNo = p,
                 WorksNo = value.WorksNo,
                 WorksName = value.WorksName,
                 AuthorsName = string.Join(",", value.WorksAuthors.Select(a => a.MenuName)),
-                MaterialsName = value.WorksModuleList.Select(m => m.Material.MenuName + " " + m.Length.ToString() + "x" + m.Height.ToString() + "x"
-                    + m.Width.ToString() + "x" + m.Deep.ToString() + " cm " + (string.IsNullOrEmpty(m.TimeLength) ? "" : (" 影片長度:" + m.TimeLength)) + (m.Amount > 1 ? ( " ," + m.Amount.ToString() + " " + m.CountNoun.MenuName) : "")).ToList(),
+                MaterialsName = Worksize,
                 Remarks = value.Remarks,
                 Owner = string.Join(",", value.WorksPropOwnerList.Select(o => o.MenuName)),
                 PropWare = string.Join(",", value.WorksPropWareTypeList.Select(o => o.MenuName)),
@@ -181,7 +204,8 @@ namespace EG_MagicCube.Controllers
                 GrossMargin = value.GrossMargin.ToString() + " %",
                 GenreNo = string.Join(",", value.WorksPropGenreList.Select(o => o.MenuName)),
                 PropStyle = string.Join(",", value.WorksPropStyleList.Select(o => o.MenuName)),
-                Years = value.YearStart.ToString() + (value.YearStart == value.YearEnd ? "" : " ~ " + value.YearEnd.ToString())
+                Years = value.YearStart.ToString() + (value.YearStart == value.YearEnd ? "" : " ~ " + value.YearEnd.ToString()),
+                WordsRating = value.Rating
             };
             return View(model);
         }
@@ -222,7 +246,6 @@ namespace EG_MagicCube.Controllers
             CreateSelect();
 
             WorksModel model = WorksModel.GetWorksModelDetail(id);
-            model.WareTypeNo_InputString.Add("2");
             return View(model);
         }
 
@@ -264,7 +287,7 @@ namespace EG_MagicCube.Controllers
             {
                 try
                 {   // TODO: Add delete logic here
-                    //WorksModel.Delete(id[i]);
+                    WorksModel.Delete(id[i]);
                 }
                 catch
                 {
