@@ -52,7 +52,8 @@ namespace EG_MagicCube.Models.ViewModel
 
         [Display(Name = "作品年份")]
         public string Years { get; set; }
-
+        [Display(Name = "作品分級")]
+        public string WordsRating { get; set; }
         //[Display(Name = "列表圖")]
         //public string FirstImg { get; set; }
 
