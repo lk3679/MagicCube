@@ -11,7 +11,7 @@
     @if (Model.WorksList != null && Model.WorksList.Count > 0 && Model.EndDate >= DateTime.Now)
     {
         <p>推薦作品：@Html.DisplayFor(model => model.WorksAmount)</p>
-        <p>@Html.DisplayNameFor(model => model.Summary)：@Model.Summary.ToString("#,#")</p>
+        @*<p>@Html.DisplayNameFor(model => model.Budget)：@Model.Budget.ToString("#,#")</p>*@
         @*<p>@Model.EndDate</p>*@
         <hr />
         <div class="col-xs-12 grid" style="padding: 0px;">
@@ -26,7 +26,7 @@
                             <div class="col-xs-12 bf-caption">
                                 <h4>@items.Name</h4>
                                 <p>@items.Author - @items.Years</p>
-                                <p>@items.Price</p>
+                                @*<p>@items.Price</p>*@
                             </div>
                         </div>
                     </a>
