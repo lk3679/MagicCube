@@ -12,7 +12,8 @@
 	[ModifyUser] [nvarchar](50) NOT NULL,
 	[ModifyDate] [datetime] NULL,
 	[IsDel] VARCHAR(5) NOT NULL DEFAULT (''), 
- CONSTRAINT [PK_User_AccountList] PRIMARY KEY CLUSTERED 
+ [ErrorCount] INT NOT NULL DEFAULT (0), 
+    CONSTRAINT [PK_User_AccountList] PRIMARY KEY CLUSTERED 
 (
 	[UserAccountsNo] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -71,3 +72,12 @@ EXEC sp_addextendedproperty @name = N'MS_Description',
     @level1name = N'UserAccounts',
     @level2type = N'COLUMN',
     @level2name = N'IsDel'
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'錯誤次數',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'UserAccounts',
+    @level2type = N'COLUMN',
+    @level2name = N'ErrorCount'

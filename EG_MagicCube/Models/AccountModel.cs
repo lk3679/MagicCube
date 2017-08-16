@@ -84,6 +84,10 @@ namespace EG_MagicCube.Models
 
 
         public string RoleName { get; set; } = "";
+        /// <summary>
+        /// 錯誤次數
+        /// </summary>
+        public int ErrorCount { get; set; } = 0;
         #region Create
         /// <summary>
         /// 新增帳號
@@ -109,6 +113,7 @@ namespace EG_MagicCube.Models
                 _UserAccounts.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                 _UserAccounts.ModifyDate = DateTime.Now;
                 _UserAccounts.IsDel = "";
+                _UserAccounts.ErrorCount = 0;
                 context.UserAccounts.Add(_UserAccounts);
                 if (context.SaveChanges() == 0)
                 {
@@ -214,8 +219,9 @@ namespace EG_MagicCube.Models
                         CreateDate = c.CreateDate,
                         CreateUser = c.CreateUser,
                         ModifyDate = c.ModifyDate.Value,
-                        ModifyUser = c.ModifyUser
-                    }).FirstOrDefault();
+                        ModifyUser = c.ModifyUser,
+                        ErrorCount = c.ErrorCount
+                }).FirstOrDefault();
                 }
             }
             return _AccountModel;
@@ -336,7 +342,7 @@ namespace EG_MagicCube.Models
                 oldUserAccount.AccountStatus = newAccountModel.AccountStatus;
                 oldUserAccount.ModifyUser = HttpContext.Current?.User?.Identity?.Name ?? "";
                 oldUserAccount.ModifyDate = DateTime.Now;
-
+                oldUserAccount.ErrorCount = newAccountModel.ErrorCount;
                 if (context.SaveChanges() == 0)
                 {
                     return false;

@@ -161,6 +161,7 @@
           <Property Name="ModifyUser" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ModifyDate" Type="datetime" />
           <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="ErrorCount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Works">
           <Key>
@@ -798,6 +799,7 @@
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="UserAccountRoles" Relationship="Self.FK_UserAccounts_UserAccountRoles" FromRole="UserAccounts" ToRole="UserAccountRoles" />
+          <Property Name="ErrorCount" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Works">
           <Key>
@@ -1440,6 +1442,7 @@
           <EntitySetMapping Name="UserAccounts">
             <EntityTypeMapping TypeName="EG_MagicCubeModel.UserAccounts">
               <MappingFragment StoreEntitySet="UserAccounts">
+                <ScalarProperty Name="ErrorCount" ColumnName="ErrorCount" />
                 <ScalarProperty Name="UserAccountsNo" ColumnName="UserAccountsNo" />
                 <ScalarProperty Name="UserAccount" ColumnName="UserAccount" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
