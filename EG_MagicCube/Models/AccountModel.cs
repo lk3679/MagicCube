@@ -156,26 +156,41 @@ namespace EG_MagicCube.Models
                 if (UserAccount != null)
                 {
                     IsPwd = PasswordHandler.CompareEncryptHashString(strPwd, UserAccount.Pwdself, UserAccount.Password);
+                    _AccountModel = new AccountModel()
+                    {
+                        UserAccountsNo = UserAccount.UserAccountsNo,
+                        Name = UserAccount.Name,
+                        UserAccount = UserAccount.UserAccount,
+                        Password = UserAccount.Password,
+                        Password_Confirm = UserAccount.Password,
+                        Pwdself = UserAccount.Pwdself,
+                        ErrorCount = UserAccount.ErrorCount,
+                        AccountStatus = UserAccount.AccountStatus,
+                        AccountNote = UserAccount.AccountNote,
+                        RoleNo = UserAccount.RoleNo,
+                        CreateDate = UserAccount.CreateDate,
+                        CreateUser = UserAccount.CreateUser,
+                        ModifyDate = UserAccount.ModifyDate.Value,
+                        ModifyUser = UserAccount.ModifyUser
+                    };
                     if (IsPwd)
                     {
-                        _AccountModel = new AccountModel()
+                        if (_AccountModel.AccountStatus != "L")
                         {
-                            UserAccountsNo = UserAccount.UserAccountsNo,
-                            Name = UserAccount.Name,
-                            UserAccount = UserAccount.UserAccount,
-                            Password = UserAccount.Password,
-                            Password_Confirm = UserAccount.Password,
-                            Pwdself = UserAccount.Pwdself,
-
-                            AccountStatus = UserAccount.AccountStatus,
-                            AccountNote = UserAccount.AccountNote,
-                            RoleNo = UserAccount.RoleNo,
-                            CreateDate = UserAccount.CreateDate,
-                            CreateUser = UserAccount.CreateUser,
-                            ModifyDate = UserAccount.ModifyDate.Value,
-                            ModifyUser = UserAccount.ModifyUser
-                        };
+                            _AccountModel.ErrorCount = 0;
+                            AccountModel.Update(_AccountModel);
+                        }
                     }
+                    else
+                    {
+                        _AccountModel.ErrorCount = _AccountModel.ErrorCount + 1;
+                        if (_AccountModel.ErrorCount >= 10)
+                        {
+                            _AccountModel.AccountStatus = "L";
+                        }
+                        AccountModel.Update(_AccountModel);
+                    }
+                    
                     IsAccount = true;
                 }
                 else
