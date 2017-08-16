@@ -233,7 +233,7 @@ namespace EG_MagicCube.Models
                 _Works.YearEnd = this.YearEnd;
                 _Works.Cost = this.Cost;
                 _Works.Price = this.Price;
-                _Works.GrossMargin = this.GrossMargin;
+                _Works.GrossMargin = Math.Round((((Convert.ToDouble(this.Price) - Convert.ToDouble(this.Cost)) / Convert.ToDouble(this.Price)) * Convert.ToDouble(100)), 3);
                 _Works.PricingDate = DateTime.Now;
                 _Works.Artisticability = this.Artisticability;
                 _Works.Marketability = this.Marketability;
@@ -266,7 +266,7 @@ namespace EG_MagicCube.Models
                         _WorksModules.TimeLength = _WorksModuleModel.TimeLength ?? "";
 
                         _WorksModules.Amount = _WorksModuleModel.Amount;
-                        _WorksModules.CountNoun = 1;
+                        _WorksModules.CountNoun = _WorksModuleModel.CountNoun.MenuID;
                         context.WorksModules.Add(_WorksModules);
                     }
                     //圖片
@@ -519,7 +519,7 @@ namespace EG_MagicCube.Models
                 oldWorks.YearEnd = newWorks.YearEnd;
                 oldWorks.Cost = newWorks.Cost;
                 oldWorks.Price = newWorks.Price;
-                oldWorks.GrossMargin = newWorks.GrossMargin;
+                oldWorks.GrossMargin = newWorks.GrossMargin = Math.Round((((Convert.ToDouble(newWorks.Price) - Convert.ToDouble(newWorks.Cost)) / Convert.ToDouble(newWorks.Price)) * Convert.ToDouble(100)), 3); ;
                 oldWorks.PricingDate = newWorks.PricingDate;
                 oldWorks.Artisticability = newWorks.Artisticability;
                 oldWorks.Marketability = newWorks.Marketability;

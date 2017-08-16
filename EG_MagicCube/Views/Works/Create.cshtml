@@ -219,10 +219,7 @@
                 </div>
 
                 @Html.LabelFor(model => model.GrossMargin, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-                <div class="col-md-1 col-xs-9">
-                    @Html.EditorFor(model => model.GrossMargin, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.GrossMargin, "", new { @class = "text-danger" })
-                </div>
+                <label class="col-md-1 col-xs-6" id="GrossMargin" style="text-align:center;"></label>
 
             </div>
             <div class="col-md-12 col-xs-12">
@@ -365,7 +362,23 @@
             if (r2 > 0.0) {
                 r = r + 1;
             }
-            $("#WorkRating").text((parseInt(r)).toString());
+            if (!isNaN(r))
+            {
+                $("#WorkRating").text((parseInt(r)).toString());
+            }
+            
+        });
+        $("#Price,#Cost").change(function () {
+            var p = 0.0; 
+            var c = 0.0;
+            var g = 0.0;
+            p = (isNaN($("#Price").val())) == true ? 0.0 : parseFloat($("#Price").val());
+            c = (isNaN($("#Cost").val())) == true ? 0.0 : parseFloat($("#Cost").val());
+            g = ((p - c) / p) * 100;
+            if (!isNaN(g))
+            {
+                $("#GrossMargin").text(g.toFixed(3).toString() + "%");
+            }
         });
         $('form').on('focus', 'input[type=number]', function (e) {
             $(this).on('mousewheel.disableScroll', function (e) {
