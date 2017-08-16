@@ -22,6 +22,7 @@ $('input#delete-btn').click(function () {
     $('div.container').css("cursor", "wait");
     $('#delete-btn').css('visibility', 'hidden');
     var url = $(this).data("url");
+    $("#loadingeffect").show();
     $.ajax({
         type: "Post",
         url: url,
@@ -31,9 +32,11 @@ $('input#delete-btn').click(function () {
         dataType: "json",
         success: function (data) {
             //alert(data);
+
             location.reload();
         },
         error: function (viewHTML) {
+            $("#loadingeffect").hide();
             alert("刪除失敗....");
             $('#delete-btn').css('visibility', 'visible');
         }

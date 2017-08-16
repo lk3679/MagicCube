@@ -70,6 +70,7 @@
             if (this.files.length > 0) {
                 $('span.fileinput-button').css('visibility', 'hidden');
                 $('div.container').css("cursor", "wait");
+                $("#loadingeffect").show();
                 $('#CreateFiles').submit();
             }
         });
@@ -107,6 +108,7 @@
             $('span.fileinput-button').css('visibility', 'hidden');
             $('div.container').css("cursor", "wait");
             $('#delete-btn').css('visibility', 'hidden');
+            $("#loadingeffect").show();
             $.ajax({
                 type: "Post",
                 url: '@Url.Action("Delete")',
@@ -115,6 +117,7 @@
                 cache: false,
                 dataType: "json",
                 success: function (data) {
+                    $("#loadingeffect").hide();
                     if (data) {
                         $('div.selected').parent().remove();
                         $('.grid').masonry({
@@ -126,8 +129,10 @@
                     }
                     $('span.fileinput-button').css('visibility', 'visible');
                     $('div.container').css("cursor", "default");
+
                 },
                 error: function (viewHTML) {
+                    $("#loadingeffect").hide();
                     alert("刪除失敗....");
                     $('span.fileinput-button').css('visibility', 'visible');
                     $('div.container').css("cursor", "default");
