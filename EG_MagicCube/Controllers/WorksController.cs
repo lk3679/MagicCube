@@ -16,7 +16,7 @@ namespace EG_MagicCube.Controllers
             List<WorksViewModel> model = new List<WorksViewModel>();
 
             WorksSearchModel value = new WorksSearchModel();
-            value.OrderbyType = MenuModel.MeunOrderbyTypeEnum.預設排序;
+            value.OrderbyType = MenuModel.MeunOrderbyTypeEnum.建立時間由新至舊;
             var _value = value.Search(p + 1, take);
             //多取一，若有表示有下一頁
             if (_value.Count == (take + 1))
