@@ -65,6 +65,9 @@
         <th>
             @Html.DisplayNameFor(model => model.WorksAmount)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateUser)
+        </th>
         <th></th>
     </tr>
 
@@ -87,6 +90,9 @@
                     </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.WorksAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateUser)
                 </td>
                 <td>
                     <div>

@@ -71,6 +71,7 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 建立者
         /// </summary>
+        [Display(Name = "建立者")]
         public string CreateUser { get; set; } = "";
         /// <summary>
         /// 修改者

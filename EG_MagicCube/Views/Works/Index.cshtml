@@ -70,42 +70,48 @@
         <th>
             <input type="checkbox" id="checkall" class="" />
         </th>
-        <th>
+        <th class="col-md-6">
             @Html.DisplayNameFor(model => model.WorksName)
         </th>
-        <th>
+        <th class="col-md-1">
             @Html.DisplayNameFor(model => model.AuthorsName)
         </th>
-        <th>
+        <th class="col-md-1">
             作品年代
         </th>
-        <th>
+        <th class="col-md-1">
             @Html.DisplayNameFor(model => model.Price)
         </th>
-        <th></th>
+        <th class="col-md-1">
+          @Html.DisplayNameFor(model => model.CreateUser)
+        </th>
+        <th class="col-md-2"></th>
     </tr>
     @if (Model != null)
     {
         foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td class="">
                     <input type="checkbox" id="@item.WorksNo" class="delcheck" />
                 </td>
-                <td>
+                <td class="col-md-6">
                     @Html.DisplayFor(modelItem => item.WorksName)
                 </td>
-                <td>
+                <td class="col-md-1">
                     @Html.DisplayFor(modelItem => item.AuthorsName)
                 </td>
-                <td>
+                <td class="col-md-1">
                     @Html.DisplayFor(modelItem => item.YearStart) @( item.YearStart == item.YearEnd ? "" : "~" + item.YearEnd.ToString())
                 </td>
-                <td>
+                <td class="col-md-1">
                     @*@Html.DisplayFor(modelItem => item.Price)*@
                     @item.Price.ToString("#,#")
                 </td>
-                <td>
+                <td class="col-md-1">
+                    @Html.DisplayFor(modelItem => item.CreateUser)
+                </td>
+                <td class="col-md-2">
                     <div>
                         @Html.ActionLink("編輯", "Edit", new { id = item.WorksNo }) |
                         @Html.ActionLink("介紹", "Details", new { id = item.WorksNo }) |

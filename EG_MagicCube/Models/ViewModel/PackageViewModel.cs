@@ -44,5 +44,8 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "備註")]
         [StringLength(500)]
         public string Remark { get; set; }
+
+        [Display(Name = "建立者")]
+        public string CreateUser { get; set; }
     }
 }

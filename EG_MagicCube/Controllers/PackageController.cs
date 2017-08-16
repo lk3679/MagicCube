@@ -37,7 +37,8 @@ namespace EG_MagicCube.Controllers
                     EndDate = _value[i].EndDate.HasValue ? _value[i].EndDate.Value : DateTime.Now.AddDays(-1),
                     PG_Name = _value[i].PackagesName,
                     PG_No = _value[i].PackagesNo.ToString(),
-                    WorksAmount = _value[i].ItemAmount
+                    WorksAmount = _value[i].ItemAmount,
+                    CreateUser= _value[i].CreateUser
                 });
             }
             setSortDropDown();

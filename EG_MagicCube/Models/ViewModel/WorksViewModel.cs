@@ -38,5 +38,8 @@ namespace EG_MagicCube.Models.ViewModel
 
         [Display(Name = "最大定價")]
         public int MaxPrice { get; set; } = 0;
+
+        [Display(Name = "建立者")]
+        public string CreateUser { get; set; } = "";
     }
 }

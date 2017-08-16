@@ -28,6 +28,9 @@
         <th>
             @Html.DisplayNameFor(model => model.RoleNo)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateUser)
+        </th>
         <th></th>
     </tr>
 
@@ -47,7 +50,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.RoleName)
             </td>
-
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateUser)
+            </td>
 
             <td>
                 <div>

@@ -39,7 +39,8 @@ namespace EG_MagicCube.Controllers
                     YearStart = _value[i].YearStart,
                     YearEnd = _value[i].YearEnd,
                     Cost = _value[i].Cost,
-                    Price = _value[i].Price
+                    Price = _value[i].Price,
+                    CreateUser= _value[i].CreateUser
                 });
             }
 
