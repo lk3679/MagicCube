@@ -24,7 +24,7 @@
                         </button>
                     }
                     <a class="navbar-brand" href="@Url.Action("Index", "Home" , new { })">
-                        <img src="http://www.eslitegallery.com/img/logo-welcome.png" alt="誠品畫廊" style="" />
+                        <img src="@Url.Content("~/logo-welcome.png")" alt="誠品畫廊" style="" />
                     </a>
                 </div>
                 @using (Html.BeginForm("LogOff", "Home", FormMethod.Post, new { id = "logoutForm" }))
