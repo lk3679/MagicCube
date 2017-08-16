@@ -52,8 +52,29 @@ namespace EG_MagicCube.Models.ViewModel
 
         [Display(Name = "作品年份")]
         public string Years { get; set; }
+
         [Display(Name = "作品分級")]
         public string WordsRating { get; set; }
+        /// <summary>
+        /// 市場性
+        /// </summary>
+        [Display(Name = "市場性30%")]
+        public double Marketability { get; set; } = 0.0;
+        /// <summary>
+        /// 包裹性
+        /// </summary>
+        [Display(Name = "＋包裹性10%")]
+        public double Packageability { get; set; } = 0.0;
+        /// <summary>
+        /// 增值性
+        /// </summary>
+        [Display(Name = "＋增值性25%")]
+        public double Valuability { get; set; } = 0.0;
+        /// <summary>
+        /// 藝術性
+        /// </summary>
+        [Display(Name = "＋藝術性20%")]
+        public double Artisticability { get; set; } = 0.0;
         //[Display(Name = "列表圖")]
         //public string FirstImg { get; set; }
 
