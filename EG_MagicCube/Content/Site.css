@@ -116,7 +116,7 @@ span.select2-container .select2-selection--single {
     .bf-caption h4 {
         margin: 0;
         padding: 10px 0;
-        border-bottom: solid 3px #8e8e8e;
+        /*border-bottom: solid 3px #8e8e8e;*/
     }
 
     .bf-caption p {
@@ -170,7 +170,7 @@ div.selected {
 }
 
 .grid-item {
-    padding: 4px;
+    padding: 2px;
 }
 
 .numberprice {

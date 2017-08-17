@@ -130,6 +130,10 @@ namespace EG_MagicCube.Controllers
         // GET: Works/Details/5
         public ActionResult Details(string id, string p = "")
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return RedirectToAction("Index");
+            }
             WorksModel value = WorksModel.GetWorksModelDetail(id);
             if (value == null || string.IsNullOrEmpty(value.WorksNo))
             {
@@ -139,9 +143,9 @@ namespace EG_MagicCube.Controllers
             foreach (var mod in value.WorksModuleList)
             {
                 string m = mod.Material.MenuName+" ";
-                string h = mod.Height > 0.0 ? "高" + mod.Height.ToString() + "cm " : "";
-                string w = mod.Width > 0.0 ? "寬" + mod.Width.ToString() + "cm " : "";
-                string d = mod.Deep > 0.0 ? "深" + mod.Deep.ToString() + "cm " : "";
+                string h = mod.Height > 0.0 ? "" + mod.Height.ToString() + " x " : "";
+                string w = mod.Width > 0.0 ? "" + mod.Width.ToString() + " x " : "";
+                string d = mod.Deep > 0.0 ? "" + mod.Deep.ToString() + "cm " : "";
                 string t = mod.TimeLength.Length > 0 ? "影片長度：" + mod.TimeLength : "";
                 string c = mod.Amount > 1 ? mod.Amount + mod.CountNoun.MenuName : "";
                 Worksize.Add(m + h + w + d + t + c);
@@ -185,9 +189,9 @@ namespace EG_MagicCube.Controllers
             foreach (var mod in value.WorksModuleList)
             {
                 string m = mod.Material.MenuName + " ";
-                string h = mod.Height > 0.0 ? "高" + mod.Height.ToString() + "cm " : "";
-                string w = mod.Width > 0.0 ? "寬" + mod.Width.ToString() + "cm " : "";
-                string d = mod.Deep > 0.0 ? "深" + mod.Deep.ToString() + "cm " : "";
+                string h = mod.Height > 0.0 ? "" + mod.Height.ToString() + " x " : "";
+                string w = mod.Width > 0.0 ? "" + mod.Width.ToString() + " x " : "";
+                string d = mod.Deep > 0.0 ? "" + mod.Deep.ToString() + " x " : "";
                 string t = mod.TimeLength.Length > 0 ? "影片長度：" + mod.TimeLength : "";
                 string c = mod.Amount > 1 ? mod.Amount + mod.CountNoun.MenuName : "";
                 Worksize.Add(m + h + w + d + t + c);

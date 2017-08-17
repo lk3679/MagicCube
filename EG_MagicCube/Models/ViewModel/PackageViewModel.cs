@@ -47,5 +47,10 @@ namespace EG_MagicCube.Models.ViewModel
 
         [Display(Name = "建立者")]
         public string CreateUser { get; set; }
+
+        [Display(Name = "總成本")]
+        public int SumCost { get; set; }
+        [Display(Name = "總金額")]
+        public int SumPrice { get; set; }
     }
 }

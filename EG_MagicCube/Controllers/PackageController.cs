@@ -213,6 +213,8 @@ namespace EG_MagicCube.Controllers
                 model.Budget = value.Budget;
                 model.WorksAmount = value.ItemAmount.Substring(0, value.ItemAmount.IndexOf('('));
                 model.EndDate = value.EndDate.HasValue ? value.EndDate.Value : DateTime.Now.AddDays(-1);
+                model.SumPrice = value.SumPrice;
+                model.SumCost = value.SumCost;
                 model.WorksList = new List<WorksInfoViewModel>();
                 var valueistem = PackagesModel.ReturnPackageItemList(id, true);
                 for (int i = 0; i < valueistem.Count; i++)
@@ -226,7 +228,8 @@ namespace EG_MagicCube.Controllers
                         //MiniImgID = valueistem[i].WorksImgID,
                         Name = valueistem[i].WorksName,
                         Price = valueistem[i].Price.ToString("#,#"),
-                        Years = valueistem[i].Year
+                        Years = valueistem[i].Year,
+                        Cost= valueistem[i].Cost.ToString("#,#")
                     });
                     model.Summary += valueistem[i].Price;
                 }
@@ -273,7 +276,11 @@ namespace EG_MagicCube.Controllers
                 Url = this.Url.Action("Detail_Works", "Package", new { id = id }, this.Request.Url.Scheme),
                 QRImg = PackagesModel.DrawQRcodeToImgBase64sting(this.Url.Action("Detail_Works", "Package", new { id = id }, this.Request.Url.Scheme)),
                 Remark = value.PackagesMemo,
-                WorksAmount = value.ItemAmount
+                WorksAmount = value.ItemAmount,
+                Budget= value.Budget,
+                SumCost=value.SumCost,
+                SumPrice=value.SumPrice,
+               
             };
             return View(model);
         }
@@ -289,6 +296,7 @@ namespace EG_MagicCube.Controllers
             value.PackagesName = collection.PG_Name;
             value.EndDate = collection.EndDate;
             value.PackagesMemo = collection.Remark ?? "";
+            value.Budget = collection.Budget;
             value.Update();
             ViewData["Message"] = "儲存成功";
 
@@ -330,7 +338,8 @@ namespace EG_MagicCube.Controllers
                     MiniImgBase64 = value.PackageItems[i].WorksImgBase64,
                     Name = value.PackageItems[i].WorksName,
                     Price = value.PackageItems[i].Price.ToString(),
-                    Checked = value.PackageItems[i].IsJoin == "Y"
+                    Checked = value.PackageItems[i].IsJoin == "Y",
+                    Cost = value.PackageItems[i].Cost.ToString("#,#")
                 });
                 if (model.WorksList[i].Checked)
                 {

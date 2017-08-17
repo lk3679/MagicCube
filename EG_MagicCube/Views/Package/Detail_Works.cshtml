@@ -5,7 +5,7 @@
     ViewBag.Title = @Html.DisplayFor(model => model.PG_Name);
 }
 
-<h2>@Html.DisplayFor(model => model.PG_Name)</h2>
+<h3>@Html.DisplayFor(model => model.PG_Name)</h3>
 <div class="form-horizontal">
     <hr />
     @if (Model.WorksList != null && Model.WorksList.Count > 0 && Model.EndDate >= DateTime.Now)
@@ -19,13 +19,14 @@
             {
                 <div class="grid-item col-md-4 col-sm-6 ">
                     <a target="_blank" href="@Url.Action("DetailfoC", "Works", new { id = items.No, p = Model.PG_No })">
-                        <div class="col-xs-12 thumbnail selected ">
+                        <div class="col-xs-12 thumbnail selected " style="margin: 0px;">
                             <div class="col-xs-12" style="padding:5px;">
                                 <img class=".img-responsive" data-original="@items.MedImg" alt="Red dot" @*style="max-width:350px;"*@ />
                             </div>
                             <div class="col-xs-12 bf-caption">
-                                <h4>@items.Name</h4>
                                 <p>@items.Author - @items.Years</p>
+                                <h4>@items.Name</h4>
+                                
                                 @*<p>@items.Price</p>*@
                             </div>
                         </div>

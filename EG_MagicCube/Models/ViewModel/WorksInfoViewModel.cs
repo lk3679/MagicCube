@@ -26,6 +26,9 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "定價")]
         public string Price { get; set; }
 
+        [Display(Name = "成本")]
+        public string Cost { get; set; }
+
         [Display(Name = "選取")]
         public bool Checked { get; set; }
 

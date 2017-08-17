@@ -48,7 +48,7 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "最大高度")]
         public int MaxHeight { get; set; } = 0;
 
-        [Display(Name = " 最小深度")]
+        [Display(Name = " 深")]
         public int MineDeep { get; set; } = 0;
 
         [Display(Name = "深")]

@@ -14,75 +14,22 @@
 {
     <div class="form-horizontal">
         <div class="nonpadding">
-            @Html.LabelFor(model => model.Budget, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
+            @*@Html.LabelFor(model => model.Budget, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
             <div class="col-md-3 col-xs-9" style="margin-bottom:0;">
                 <span class="numberprice">
                     <input type="text" class="form-control text-box single-line" />
                     @Html.EditorFor(model => model.Budget, new { htmlAttributes = new { @class = "form-control" } })
                 </span>
-            </div>
+            </div>*@
 
             @Html.LabelFor(model => model.AuthorNoList, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
             <div class="col-md-3 col-xs-9">
                 @Html.Hidden("AuthorNo_InputStringHide", string.Join(",", string.Join(",", Model.AuthorNoList ?? new List<string>())))
                 @Html.DropDownListFor(model => model.AuthorNoList, (IEnumerable<SelectListItem>)ViewBag.Authors, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
             </div>
-
             @Html.LabelFor(model => model.WorksName, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
             <div class="col-md-3 col-xs-9">
                 @Html.EditorFor(model => model.WorksName, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-
-
-
-            @Html.LabelFor(model => model.MineLength, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
-            <div class="col-md-3 col-xs-9">
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MineLength, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MaxLength, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            @Html.LabelFor(model => model.MineWidth, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
-            <div class="col-md-3 col-xs-9">
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MineWidth, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MaxWidth, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            @Html.LabelFor(model => model.MineHeight, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
-            <div class="col-md-3 col-xs-9">
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MineHeight, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MaxHeight, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            @Html.LabelFor(model => model.MineDeep, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
-            <div class="col-md-3 col-xs-9">
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MineDeep, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MaxDeep, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            @Html.LabelFor(model => model.MineTimeLength, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9">
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MineTimeLength, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MaxTimeLength, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
             </div>
 
             @Html.LabelFor(model => model.Price_U, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
@@ -100,6 +47,57 @@
                     </span>
                 </div>
             </div>
+
+
+
+            @*@Html.LabelFor(model => model.MineLength, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
+            <div class="col-md-3 col-xs-9">
+                <div class="col-xs-6">
+                    @Html.EditorFor(model => model.MineLength, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-xs-6">
+                    @Html.EditorFor(model => model.MaxLength, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>*@
+            @Html.LabelFor(model => model.MineHeight, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
+            <div class="col-md-3 col-xs-9">
+                <div class="col-xs-6">
+                    @Html.EditorFor(model => model.MineHeight, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-xs-6">
+                    @Html.EditorFor(model => model.MaxHeight, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            @Html.LabelFor(model => model.MineWidth, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
+            <div class="col-md-3 col-xs-9">
+                <div class="col-xs-6">
+                    @Html.EditorFor(model => model.MineWidth, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-xs-6">
+                    @Html.EditorFor(model => model.MaxWidth, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            @Html.LabelFor(model => model.MineDeep, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
+            <div class="col-md-3 col-xs-9">
+                <div class="col-xs-6">
+                    @Html.EditorFor(model => model.MineDeep, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-xs-6">
+                    @Html.EditorFor(model => model.MaxDeep, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            @*@Html.LabelFor(model => model.MineTimeLength, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
+            <div class="col-md-3 col-xs-9">
+                <div class="col-xs-6">
+                    @Html.EditorFor(model => model.MineTimeLength, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-xs-6">
+                    @Html.EditorFor(model => model.MaxTimeLength, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>*@
+
+
 
             @Html.LabelFor(model => model.GenreNoList, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
             <div class="col-md-3 col-xs-9">

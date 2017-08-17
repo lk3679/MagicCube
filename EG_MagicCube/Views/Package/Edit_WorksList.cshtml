@@ -44,7 +44,7 @@
             foreach (var items in Model.WorksList)
             {
                 <div class="grid-item col-md-4 col-sm-6 ">
-                    <div class="col-xs-12 thumbnail @(items.Checked ? "selected": "") ">
+                    <div class="col-xs-12 thumbnail @(items.Checked ? "selected": "")" style="margin: 0px;">
                         <div class="imgdiv col-xs-12 text-center">
                             <div id="imgche">
                                 <i class="fa fa-check fa-6" aria-hidden="true" value="@Html.Raw(items.No)" data-price="@items.Price"></i>
@@ -53,8 +53,9 @@
                         </div>
                         <div class="col-xs-12 bf-caption">
                             <a target="_blank" href="@Url.Action("Details", "Works", new { id = items.No, p = Model.PG_No })">
-                                <h4>@items.Name</h4>
                                 <p>@items.Author - @items.Price </p>
+                                <h4>@items.Name</h4>
+                                
                             </a>
                         </div>
 

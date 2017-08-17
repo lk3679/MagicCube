@@ -98,6 +98,14 @@ namespace EG_MagicCube.Models
         /// </summary>
         public int Budget { get; set; } = 0;
         /// <summary>
+        /// 總成本
+        /// </summary>
+        public int SumCost { get; set; } = 0;
+        /// <summary>
+        /// 總金額
+        /// </summary>
+        public int SumPrice { get; set; } = 0;
+        /// <summary>
         /// 排序方式
         /// </summary>
         public MenuModel.MeunOrderbyTypeEnum OrderbyType = MenuModel.MeunOrderbyTypeEnum.預設排序;
@@ -289,12 +297,15 @@ namespace EG_MagicCube.Models
 
                     if (r_Packages != null)
                     {
-                        var _PackageItems = context?.PackageItems?.AsQueryable()?.Where(pi => pi.PackagesNo == r_Packages.PackagesNo).Select(c => c).ToList();
+                        var _PackageItems = context?.PackageItems?.AsQueryable()?.Where(pi => pi.PackagesNo == r_Packages.PackagesNo && pi.Works.IsDel!="Y").Select(c => c).ToList();
                         int _ItemAmount = 0;
                         int _JoinItemAmount = 0;
+                        int _Summary = 0;
+                        int _SumCost = 0;
                         _ItemAmount = (_PackageItems?.Count()).Value;
                         _JoinItemAmount = (_PackageItems?.Where(pi => pi.IsJoin == "Y").Count()).Value;
-
+                        _Summary = _PackageItems.Where(pi => pi.IsJoin == "Y").Select(c=>c.Works.Price).Sum();
+                        _SumCost = _PackageItems.Where(pi => pi.IsJoin == "Y").Select(c => c.Works.Cost).Sum();
                         _PackagesModel.PackagesNo = r_Packages.PackagesNo.ToString();
                         _PackagesModel.QRImg = "";
                         _PackagesModel.PackagesName = r_Packages.PackagesName;
@@ -308,6 +319,9 @@ namespace EG_MagicCube.Models
                         _PackagesModel.PackagesMemo = r_Packages.PackagesMemo;
                         _PackagesModel.ItemAmount = _JoinItemAmount.ToString() + " (" + _ItemAmount.ToString() + ")";
                         _PackagesModel.Budget = r_Packages.Budget;
+                        _PackagesModel.SumCost = _SumCost;
+                        _PackagesModel.SumPrice = _Summary;
+                        _PackagesModel.PackageItems = ReturnPackageItemList(PackagesNo, true);
                         //PackageItems = c.PackageItems.Select(pi => new PackageItemModel()
                         //{
                         //    WorksNo = pi.WorksNo.ToString(),
@@ -383,6 +397,7 @@ namespace EG_MagicCube.Models
                             _PackageItemModel.WorksName = _Works?.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().WorksName;
                             _PackageItemModel.IsJoin = _PackageItems.IsJoin;
                             _PackageItemModel.Price = (_Works?.Where(w => w.WorksNo == _PackageItems.WorksNo)?.FirstOrDefault()?.Price).Value;
+                            _PackageItemModel.Cost = (_Works?.Where(w => w.WorksNo == _PackageItems.WorksNo)?.FirstOrDefault()?.Cost).Value;
                             string YearStart = _Works?.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().YearStart.ToString();
                             string YearEnd = _Works?.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().YearEnd.ToString();
                             _PackageItemModel.Year = YearStart == YearEnd ? YearEnd : YearStart + "~" + YearEnd;
@@ -690,9 +705,14 @@ namespace EG_MagicCube.Models
             /// </summary>
             public string IsJoin { set; get; } = "N";
             /// <summary>
+            /// 成本
+            /// </summary>
+            public int Cost { set; get; } = 0;
+            /// <summary>
             /// 價格
             /// </summary>
             public int Price { set; get; } = 0;
+
 
         }
 
