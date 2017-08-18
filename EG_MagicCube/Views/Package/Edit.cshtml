@@ -44,6 +44,7 @@
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="edit">
+                <br /><br />
                 <div class="form-group">
                     @Html.LabelFor(model => model.PG_Name, htmlAttributes: new { @class = "control-label col-sm-2" })
                     <div class="col-sm-3">
@@ -87,7 +88,23 @@
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="info">
+                <br />
+                <div class="col-md-10 col-xs-12 text-center">
+                    <table>
+                        <tr><th class="col-md-2 text-center">作品名稱</th><th class="col-md-1 text-center">藝術家</th><th class="col-md-1 text-center">成本</th><th class="col-md-1 text-center">定價</th>
+                        <tr />
 
+                        @foreach (var _item in Model.WorksList)
+                        {
+                            <tr><td>@_item.Name</td><td>@_item.Author</td><td>@_item.Cost</td><td>@_item.Price</td></tr>
+                        }
+                        <tr><td colspan="2">總計</td><td>@Model.SumCost.ToString("#,#")</td><td>@Model.SumPrice.ToString("#,#")</td></tr>
+                        <tr><td colspan="2">預算</td><td colspan="2">@Model.Budget.ToString("#,#")</td></tr>
+                    </table>
+
+                </div>
+
+                <br /><br />
             </div>
         </div>
 

@@ -282,6 +282,25 @@ namespace EG_MagicCube.Controllers
                 SumPrice=value.SumPrice,
                
             };
+            model.WorksList = new List<WorksInfoViewModel>();
+            var valueistem = PackagesModel.ReturnPackageItemList(id, true);
+            for (int i = 0; i < valueistem.Count; i++)
+            {
+                model.WorksList.Add(new WorksInfoViewModel()
+                {
+                    //No = valueistem[i].WorksNo,
+                    Author = valueistem[i].AuthorsName,
+                    //MiniImgBase64 = valueistem[i].WorksImgBase64,
+                    //MedImg = valueistem[i].WorksImg_m,
+                    //MiniImgID = valueistem[i].WorksImgID,
+                    Name = valueistem[i].WorksName,
+                    Price = valueistem[i].Price.ToString("#,#"),
+                    Years = valueistem[i].Year,
+                    Cost = valueistem[i].Cost.ToString("#,#")
+                    
+                });
+                model.Summary += valueistem[i].Price;
+            }
             return View(model);
         }
 
@@ -302,6 +321,25 @@ namespace EG_MagicCube.Controllers
 
             collection.Url = this.Url.Action("Detail_Works", "Package", new { id = id }, this.Request.Url.Scheme);
             collection.QRImg = PackagesModel.DrawQRcodeToImgBase64sting(this.Url.Action("Detail_Works", "Package", new { id = id }, this.Request.Url.Scheme));
+            collection.WorksList = new List<WorksInfoViewModel>();
+            var valueistem = PackagesModel.ReturnPackageItemList(id, true);
+            for (int i = 0; i < valueistem.Count; i++)
+            {
+                collection.WorksList.Add(new WorksInfoViewModel()
+                {
+                    //No = valueistem[i].WorksNo,
+                    Author = valueistem[i].AuthorsName,
+                    //MiniImgBase64 = valueistem[i].WorksImgBase64,
+                    //MedImg = valueistem[i].WorksImg_m,
+                    //MiniImgID = valueistem[i].WorksImgID,
+                    Name = valueistem[i].WorksName,
+                    Price = valueistem[i].Price.ToString("#,#"),
+                    Years = valueistem[i].Year,
+                    Cost = valueistem[i].Cost.ToString("#,#")
+
+                });
+                collection.Summary += valueistem[i].Price;
+            }
             return View(collection);
             //}
             //catch
