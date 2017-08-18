@@ -5,8 +5,9 @@
 }
 
 <div class="main-login main-center">
-
+    
     <form class="form-horizontal" method="post">
+        @Html.AntiForgeryToken()
         <div class="row  panel-group" style="margin-top:20px;">
 
             <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-1 col-lg-8 col-md-8 col-sm-10 col-xs-12  control-group" style="line-height: 60px;">
@@ -15,7 +16,7 @@
                         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-1 col-xs-offset-1 col-lg-8 col-md-8 col-sm-10 col-xs-10 ">
                             @Html.LabelFor(model => model.LoginAccount, new { @class = " control-label" })
                             @Html.TextBoxFor(model => model.LoginAccount, new { @class = "form-control", placeholder = ModelMetadata.FromLambdaExpression(model => model.LoginAccount, ViewData).Watermark })
-                            @Html.ValidationMessageFor(model => model.LoginAccount, "", new { @class = "validation-error" })
+                            @Html.ValidationMessageFor(model => model.LoginAccount, "", new { @class = "validation-error text-danger" })
                         </div>
                     </div>
                 </div>
@@ -24,11 +25,43 @@
                         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-1  col-xs-offset-1 col-lg-8 col-md-8 col-sm-10 col-xs-10 ">
                             @Html.LabelFor(model => model.Password, new { @class = " control-label" })
                             @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = ModelMetadata.FromLambdaExpression(model => model.Password, ViewData).Watermark })
-                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "validation-error" })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "validation-error text-danger" })
                         </div>
 
                     </div>
                 </div>
+                @if (@ViewBag.ErrorCount != null && @ViewBag.ErrorCount > 2)
+                {
+                    <div class="row">
+                        <div class="control-group">
+                            <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-1 col-xs-offset-1 col-lg-8 col-md-8 col-sm-10 col-xs-10 ">
+                                @Html.LabelFor(model => model.VerifyCode, new { @class = " control-label" })
+                                @Html.TextBoxFor(model => model.VerifyCode, new { @class = "form-control", placeholder = ModelMetadata.FromLambdaExpression(model => model.VerifyCode, ViewData).Watermark })
+                                @Html.ValidationMessageFor(model => model.VerifyCode, "", new { @class = "validation-error text-danger" })<br/>
+                                <div id="validatecodepanel" style="margin:0 auto;vertical-align:middle;height:32px" class="col-md-4 col-xs-8">
+                                    <img class="base_validatecode" src="" />
+                                
+                                </div>
+                                <i id="reloadvalidatecode" class="fa fa-refresh fa-2x" style="cursor:pointer"></i>
+                                
+                            </div>
+                        </div>
+                    </div>
+                }
+                <input id="ErrorCount" name="ErrorCount" type="hidden" value="@ViewBag.ErrorCount" />
+               
+                @*<div class="row Vacpanel">
+                    <div class="control-group">
+                        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-1  col-xs-offset-1 col-lg-8 col-md-8 col-sm-10 col-xs-10 ">
+                            <input id="vac" name="vac" maxlength="4" type="number" placeholder="請輸入驗證碼" class="form-control" required="required" /><br />
+                            <label id="vacmsg" class="base_msglabel"></label>
+                            <div id="validatecodepanel" style="width:100%;margin:0 auto;vertical-align:middle;">
+                                <img class="base_validatecode" src="" />
+                                <i id="reloadvalidatecode" class="fa fa-refresh fa-3x" style="cursor:pointer"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
                 <div data-valmsg-summary="true"></div>
 
                 <div class="row text-right col-lg-10 col-md-10" >
@@ -38,12 +71,29 @@
                     </div>
                 </div>
             </div>
-            @*<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 container" style="padding:30px 20px 0 20px;font-size:14px;line-height: 25px;">
-                    <span>
-                        介紹文。<br />
-                    </span>
-                    <img src="http://www.eslitecorp.com/images/logo.png" style="width:144px;height:28px;float:right;margin:20px 20px 0 0;">
-                </div>*@
         </div>
     </form>
 </div>
+@section Scripts {
+    <script>
+        function ReLoadVerificationCode(item) {
+            $.ajax({
+                url: "../VerificationCode/VerificationCode",
+                async: false,
+                processData: false,
+                contentType: false,
+                dataType: "html",
+                type: 'GET',
+                success: function (data) {
+                    item.src = data;
+                },
+            });
+        }
+        $(function () {
+            ReLoadVerificationCode($(".base_validatecode")[0]);
+            $("#reloadvalidatecode").bind("click", function () {
+                ReLoadVerificationCode($(".base_validatecode")[0]);
+            });
+        })
+    </script>
+}

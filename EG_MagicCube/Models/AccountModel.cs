@@ -155,6 +155,7 @@ namespace EG_MagicCube.Models
 
                 if (UserAccount != null)
                 {
+                    //判斷密碼是否正確
                     IsPwd = PasswordHandler.CompareEncryptHashString(strPwd, UserAccount.Pwdself, UserAccount.Password);
                     _AccountModel = new AccountModel()
                     {
@@ -173,7 +174,8 @@ namespace EG_MagicCube.Models
                         ModifyDate = UserAccount.ModifyDate.Value,
                         ModifyUser = UserAccount.ModifyUser
                     };
-                    if (IsPwd)
+                    //密碼正確且錯誤次數小於10
+                    if (IsPwd && _AccountModel.ErrorCount<10)
                     {
                         if (_AccountModel.AccountStatus != "L")
                         {

@@ -50,60 +50,106 @@ namespace EG_MagicCube.Controllers
             }
             ViewBag.Title = "Home Page";
             ViewBag.ReturnUrl = returnUrl;
+            ViewBag.ErrorCount = 0;
             //return RedirectToAction("Index", "Home");
             return View();
         }
 
-        [HttpPost]
-        [AllowAnonymous]
+        [HttpPost,AllowAnonymous, ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
-            if (model != null && ModelState.IsValid)
+            bool IsAccount = false;
+            bool IsPwd = false;
+            bool IsVerify = false;
+            ModelState.Remove("VerifyCode");
+            if (model != null && model.ErrorCount < 3)
             {
-                bool IsAccount = false;
-                bool IsPwd = false;
-                AccountModel _AccountModel = AccountModel.Login(model.LoginAccount, model.Password, out IsAccount, out IsPwd);
-                if (IsAccount && IsPwd)
+                IsVerify = true;
+            }
+            else if (model != null && model.ErrorCount >= 3)
+            {
+                if (!string.IsNullOrEmpty(model.VerifyCode))
                 {
-                    //Login成功
-
-                    var now = DateTime.Now;
-
-                    List<string> roles = new List<string>();
-                    roles.AddRange(_AccountModel.RoleNo.ToString().Split(',').ToList());
-                    Dictionary<string, string[]> _userData = new Dictionary<string, string[]>();
-                    _userData.Add(_AccountModel.UserAccountsNo.ToString(), roles.ToArray());
-                    string struserData = JsonConvert.SerializeObject(_userData);
-
-                    var ticket = new FormsAuthenticationTicket(
-                        version: 1,
-                        name: _AccountModel.Name.ToString(), //這邊看個人，你想放使用者名稱也可以，自行更改
-                        issueDate: now,//現在時間
-                        expiration: now.AddHours(10),//Cookie有效時間=現在時間往後+10小時
-                        isPersistent: true,//記住我 true or false
-                        userData: struserData, //這邊可以放使用者名稱，而我這邊是放使用者的群組代號
-                        cookiePath: FormsAuthentication.FormsCookiePath);
-                    
-                    var encryptedTicket = FormsAuthentication.Encrypt(ticket); //把驗證的表單加密
-                    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                    Response.Cookies.Add(cookie);
-
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    if (Session["ValidateCode"] != null && (model.VerifyCode.ToLower().Equals(Session["ValidateCode"].ToString().ToLower())))
                     {
-                        return Redirect(returnUrl);
+                        IsVerify = true;
                     }
-                    return RedirectToAction("Index");
+                    else
+                    {
+                        model.VerifyCode = "";
+                        ViewBag.ErrorCount = model.ErrorCount + 1;
+                        ModelState.AddModelError("VerifyCode", "請驗證碼錯誤，請重新輸入。");
+                    }
                 }
                 else
                 {
-                    //Login失敗
-                    ModelState.AddModelError(string.Empty, "帳號或密碼輸入錯誤。若未註冊過，請點選「註冊」");
-                    return View(model);
+                    model.VerifyCode = "";
+                    ViewBag.ErrorCount = model.ErrorCount + 1;
+                    ModelState.AddModelError("VerifyCode", "請輸入驗證碼。");
                 }
             }
-            else
+            else if(model==null)
             {
-                ModelState.AddModelError(string.Empty, "請確認帳號/密碼格式是否正確。");
+                IsVerify = true;
+            }
+            if (IsVerify)
+            {
+                if (model != null && ModelState.IsValid)
+                {
+                    AccountModel _AccountModel = AccountModel.Login(model.LoginAccount, model.Password, out IsAccount, out IsPwd);
+                    if (IsAccount && IsPwd)
+                    {
+                        //Login成功
+
+                        var now = DateTime.Now;
+
+                        List<string> roles = new List<string>();
+                        roles.AddRange(_AccountModel.RoleNo.ToString().Split(',').ToList());
+                        Dictionary<string, string[]> _userData = new Dictionary<string, string[]>();
+                        _userData.Add(_AccountModel.UserAccountsNo.ToString(), roles.ToArray());
+                        string struserData = JsonConvert.SerializeObject(_userData);
+
+                        var ticket = new FormsAuthenticationTicket(
+                            version: 1,
+                            name: _AccountModel.Name.ToString(), //這邊看個人，你想放使用者名稱也可以，自行更改
+                            issueDate: now,//現在時間
+                            expiration: now.AddHours(10),//Cookie有效時間=現在時間往後+10小時
+                            isPersistent: true,//記住我 true or false
+                            userData: struserData, //這邊可以放使用者名稱，而我這邊是放使用者的群組代號
+                            cookiePath: FormsAuthentication.FormsCookiePath);
+
+                        var encryptedTicket = FormsAuthentication.Encrypt(ticket); //把驗證的表單加密
+                        var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                        Response.Cookies.Add(cookie);
+
+                        if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        return RedirectToAction("Index");
+                    }
+                    else if (_AccountModel != null && _AccountModel.ErrorCount >= 10 && _AccountModel.AccountStatus == "L")
+                    {
+                        model.VerifyCode = "";
+                        //密碼錯誤太多被鎖定
+                        ModelState.AddModelError(string.Empty, "帳號已被所鎖定，請洽管理員。");
+                        return View(model);
+                    }
+                    else
+                    {
+                        model.VerifyCode = "";
+                        ViewBag.ErrorCount = model.ErrorCount + 1;
+                        //Login失敗
+                        ModelState.AddModelError(string.Empty, "帳號或密碼輸入錯誤。");
+                        return View(model);
+                    }
+                }
+                else
+                {
+                    model.VerifyCode = "";
+                    ViewBag.ErrorCount = model.ErrorCount + 1;
+                    ModelState.AddModelError(string.Empty, "請確認帳號/密碼格式是否正確。");
+                }
             }
             return View(model);
         }
