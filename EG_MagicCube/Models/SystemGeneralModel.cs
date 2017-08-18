@@ -25,6 +25,10 @@ namespace EG_MagicCube.Models
             /// </summary>
             EmptyContent,
             /// <summary>
+            /// 已過期要顯示的內容
+            /// </summary>
+            OverDayContent,
+            /// <summary>
             /// 包裝預設Open天數
             /// </summary>
             OpenDays

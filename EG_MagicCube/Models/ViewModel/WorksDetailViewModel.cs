@@ -75,6 +75,10 @@ namespace EG_MagicCube.Models.ViewModel
         /// </summary>
         [Display(Name = "＋藝術性20%")]
         public double Artisticability { get; set; } = 0.0;
+        /// <summary>
+        /// 到期日期
+        /// </summary>
+        public DateTime EndDate { get; set; }
         //[Display(Name = "列表圖")]
         //public string FirstImg { get; set; }
 

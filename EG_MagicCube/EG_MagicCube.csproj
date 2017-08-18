@@ -183,6 +183,7 @@
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\PackageController.cs" />
+    <Compile Include="Controllers\VerificationCodeController.cs" />
     <Compile Include="Controllers\WorksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -789,6 +790,8 @@
     <Content Include="Views\Files\Edit.cshtml" />
     <Content Include="Views\Shared\_LayoutNonli.cshtml" />
     <Content Include="Views\Works\DetailfoC.cshtml" />
+    <Content Include="Views\VerificationCode\Index.cshtml" />
+    <Content Include="Views\Home\ExceptionContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

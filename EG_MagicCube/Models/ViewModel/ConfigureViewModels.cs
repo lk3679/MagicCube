@@ -11,9 +11,15 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "無包裝內容時要顯示的內文", Prompt = "")]
         [Required(ErrorMessage = "無包裝內容時要顯示的內文")]
         public string EmptyContent { get; set; } = "";
+
         [Display(Name = "發生錯時時要顯示的內文", Prompt = "")]
         [Required(ErrorMessage = "發生錯時時要顯示的內文")]
         public string ErrorContent { get; set; } = "";
+
+        [Display(Name = "過期時要顯示的內文", Prompt = "")]
+        [Required(ErrorMessage = "過期時要顯示的內文")]
+        public string OverDayContent { get; set; } = "";
+
         [Display(Name = "包裝預設開放的天數", Prompt = "")]
         [Required(ErrorMessage = "包裝預設開放的天數")]
         public string OpenDays { get; set; } = "";

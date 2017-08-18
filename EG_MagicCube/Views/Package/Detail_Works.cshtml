@@ -5,46 +5,53 @@
     ViewBag.Title = @Html.DisplayFor(model => model.PG_Name);
 }
 
-<h3>@Html.DisplayFor(model => model.PG_Name)</h3>
-<div class="form-horizontal">
-    <hr />
-    @if (Model.WorksList != null && Model.WorksList.Count > 0 && Model.EndDate >= DateTime.Now)
+@if (Model.WorksList != null && Model.WorksList.Count > 0)
+{
+    if (Model.EndDate >= DateTime.Today)
     {
-        <p>推薦作品：@Html.DisplayFor(model => model.WorksAmount)</p>
-        @*<p>@Html.DisplayNameFor(model => model.Budget)：@Model.Budget.ToString("#,#")</p>*@
-        @*<p>@Model.EndDate</p>*@
-        <hr />
-        <div class="col-xs-12 grid" style="padding: 0px;">
-            @foreach (var items in Model.WorksList)
-            {
-                <div class="grid-item col-md-4 col-sm-6 ">
-                    <a target="_blank" href="@Url.Action("DetailfoC", "Works", new { id = items.No, p = Model.PG_No })">
-                        <div class="col-xs-12 thumbnail selected " style="margin: 0px;">
-                            <div class="col-xs-12" style="padding:5px;">
-                                <img class=".img-responsive" data-original="@items.MedImg" alt="Red dot" @*style="max-width:350px;"*@ />
+        <h3>@Html.DisplayFor(model => model.PG_Name)</h3>
+        <div class="form-horizontal">
+            <hr />
+
+            <p>推薦作品：@Html.DisplayFor(model => model.WorksAmount)</p>
+            @*<p>@Html.DisplayNameFor(model => model.Budget)：@Model.Budget.ToString("#,#")</p>*@
+            @*<p>@Model.EndDate</p>*@
+            <hr />
+            <div class="col-xs-12 grid" style="padding: 0px;">
+                @foreach (var items in Model.WorksList)
+                {
+                    <div class="grid-item col-md-4 col-sm-6 ">
+                        <a target="_blank" href="@Url.Action("DetailfoC", "Works", new { id = items.No, p = Model.PG_No })">
+                            <div class="col-xs-12 thumbnail selected " style="margin: 0px;">
+                                <div class="col-xs-12" style="padding:5px;">
+                                    <img class=".img-responsive" data-original="@items.MedImg" alt="Red dot" @*style="max-width:350px;"*@ />
+                                </div>
+                                <div class="col-xs-12 bf-caption">
+                                    <p>@items.Author - @items.Years</p>
+                                    <h4>@items.Name</h4>
+
+                                    @*<p>@items.Price</p>*@
+                                </div>
                             </div>
-                            <div class="col-xs-12 bf-caption">
-                                <p>@items.Author - @items.Years</p>
-                                <h4>@items.Name</h4>
-                                
-                                @*<p>@items.Price</p>*@
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            }
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
     }
     else
     {
-        @Html.Action("Expired");
+        @Html.Action("ExceptionContent", "Home", new { type = EG_MagicCube.Models.SystemGeneralModel.ConfigureClassEnum.OverDayContent.ToString() });
     }
-</div>
-
+}
+else
+{
+    @Html.Action("ExceptionContent", "Home", new { type = EG_MagicCube.Models.SystemGeneralModel.ConfigureClassEnum.EmptyContent.ToString() });
+}
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="@Url.Content("~/Scripts/jquery.lazyload.js")"></script>
-<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script>
         $("img").lazyload({
             effect: "fadeIn",

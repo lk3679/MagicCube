@@ -180,42 +180,48 @@ namespace EG_MagicCube.Controllers
         // GET: Works/Details/5
         public ActionResult DetailfoC(string id, string p = "")
         {
-            WorksModel value = WorksModel.GetWorksModelDetail(id);
-            if (value == null || string.IsNullOrEmpty(value.WorksNo))
+            WorksModel value = null;
+            PackagesModel _PackagesModel = null;
+            WorksDetailViewModel model = null;
+            if (!string.IsNullOrEmpty(id))
             {
-                return RedirectToAction("Index");
-            }
-            List<string> Worksize = new List<string>(); ;
-            foreach (var mod in value.WorksModuleList)
-            {
-                string m = mod.Material.MenuName + " ";
-                string h = mod.Height > 0.0 ? "" + mod.Height.ToString() + " x " : "";
-                string w = mod.Width > 0.0 ? "" + mod.Width.ToString() + " x " : "";
-                string d = mod.Deep > 0.0 ? "" + mod.Deep.ToString() + " x " : "";
-                string t = mod.TimeLength.Length > 0 ? "影片長度：" + mod.TimeLength : "";
-                string c = mod.Amount > 1 ? mod.Amount + mod.CountNoun.MenuName : "";
-                Worksize.Add(m + h + w + d + t + c);
+                value = WorksModel.GetWorksModelDetail(id);
+                _PackagesModel = PackagesModel.GetPackageDetail(p);
+
+                List<string> Worksize = new List<string>(); ;
+                foreach (var mod in value.WorksModuleList)
+                {
+                    string m = mod.Material.MenuName + " ";
+                    string h = mod.Height > 0.0 ? "" + mod.Height.ToString() + " x " : "";
+                    string w = mod.Width > 0.0 ? "" + mod.Width.ToString() + " x " : "";
+                    string d = mod.Deep > 0.0 ? "" + mod.Deep.ToString() + " x " : "";
+                    string t = mod.TimeLength.Length > 0 ? "影片長度：" + mod.TimeLength : "";
+                    string c = mod.Amount > 1 ? mod.Amount + mod.CountNoun.MenuName : "";
+                    Worksize.Add(m + h + w + d + t + c);
+                }
+
+                model = new WorksDetailViewModel()
+                {
+                    PackagesNo = p,
+                    WorksNo = value.WorksNo,
+                    WorksName = value.WorksName,
+                    AuthorsName = string.Join(",", value.WorksAuthors.Select(a => a.MenuName)),
+                    MaterialsName = Worksize,
+                    Remarks = value.Remarks,
+                    Owner = string.Join(",", value.WorksPropOwnerList.Select(o => o.MenuName)),
+                    PropWare = string.Join(",", value.WorksPropWareTypeList.Select(o => o.MenuName)),
+                    Cost = value.Cost.ToString(),
+                    Price = value.Price.ToString(),
+                    PricingDate = value.PricingDate.ToString("yyyy-MM-dd"),
+                    GrossMargin = value.GrossMargin.ToString() + " %",
+                    GenreNo = string.Join(",", value.WorksPropGenreList.Select(o => o.MenuName)),
+                    PropStyle = string.Join(",", value.WorksPropStyleList.Select(o => o.MenuName)),
+                    Years = value.YearStart.ToString() + (value.YearStart == value.YearEnd ? "" : " ~ " + value.YearEnd.ToString()),
+                    WordsRating = value.Rating,
+                    EndDate = _PackagesModel.EndDate.Value
+                };
             }
 
-            WorksDetailViewModel model = new WorksDetailViewModel()
-            {
-                PackagesNo = p,
-                WorksNo = value.WorksNo,
-                WorksName = value.WorksName,
-                AuthorsName = string.Join(",", value.WorksAuthors.Select(a => a.MenuName)),
-                MaterialsName = Worksize,
-                Remarks = value.Remarks,
-                Owner = string.Join(",", value.WorksPropOwnerList.Select(o => o.MenuName)),
-                PropWare = string.Join(",", value.WorksPropWareTypeList.Select(o => o.MenuName)),
-                Cost = value.Cost.ToString(),
-                Price = value.Price.ToString(),
-                PricingDate = value.PricingDate.ToString("yyyy-MM-dd"),
-                GrossMargin = value.GrossMargin.ToString() + " %",
-                GenreNo = string.Join(",", value.WorksPropGenreList.Select(o => o.MenuName)),
-                PropStyle = string.Join(",", value.WorksPropStyleList.Select(o => o.MenuName)),
-                Years = value.YearStart.ToString() + (value.YearStart == value.YearEnd ? "" : " ~ " + value.YearEnd.ToString()),
-                WordsRating = value.Rating
-            };
             return View(model);
         }
 

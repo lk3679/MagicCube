@@ -116,5 +116,12 @@ namespace EG_MagicCube.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", new { returnUrl = "Index" });
         }
+        [AllowAnonymous]
+        public ActionResult ExceptionContent(string type)
+        {
+            ViewData["Message"] = SystemGeneralModel.GetConfigure(type).ConfigureContent;
+            return PartialView();
+        }
+        //
     }
 }

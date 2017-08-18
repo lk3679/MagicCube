@@ -16,6 +16,7 @@ namespace EG_MagicCube.Controllers
             _ConfigureViewModels.OpenDays = SystemGeneralModel.GetConfigure(SystemGeneralModel.ConfigureClassEnum.OpenDays.ToString()).ConfigureContent;
             _ConfigureViewModels.EmptyContent = SystemGeneralModel.GetConfigure(SystemGeneralModel.ConfigureClassEnum.EmptyContent.ToString()).ConfigureContent;
             _ConfigureViewModels.ErrorContent = SystemGeneralModel.GetConfigure(SystemGeneralModel.ConfigureClassEnum.ErrorContent.ToString()).ConfigureContent;
+            _ConfigureViewModels.OverDayContent = SystemGeneralModel.GetConfigure(SystemGeneralModel.ConfigureClassEnum.OverDayContent.ToString()).ConfigureContent;
             return View(_ConfigureViewModels);
         }
 
@@ -38,7 +39,10 @@ namespace EG_MagicCube.Controllers
             _SystemGeneralModel_ErrorContent.ConfigureContent = formcollection["ErrorContent"];
             _SystemGeneralModel_ErrorContent.Update();
 
-
+            SystemGeneralModel _SystemGeneralModel_OverDayContent = new SystemGeneralModel();
+            _SystemGeneralModel_OverDayContent = _SystemGeneralModel_OverDayContent.ReturnConfigure("OverDayContent");
+            _SystemGeneralModel_OverDayContent.ConfigureContent = formcollection["OverDayContent"];
+            _SystemGeneralModel_OverDayContent.Update();
 
             return RedirectToAction("Index");
         }
