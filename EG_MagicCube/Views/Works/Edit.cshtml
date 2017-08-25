@@ -346,6 +346,7 @@
 
         $('#mateadd').click(function () {
             if (CheckData()) {
+                
                 return;
             }
             $('label.error:visible').hide();
@@ -380,6 +381,7 @@
             $('label.error').hide();
             if ($('#WorksModuleList tr:visible').length == 1) {
                 $('label.error').show();
+                $("#loadingeffect").hide();
                 return false;
             }
 
