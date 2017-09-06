@@ -375,7 +375,7 @@ namespace EG_MagicCube.Controllers
                     MedImg = value.PackageItems[i].WorksImg_m,
                     MiniImgBase64 = value.PackageItems[i].WorksImgBase64,
                     Name = value.PackageItems[i].WorksName,
-                    Price = value.PackageItems[i].Price.ToString(),
+                    Price = value.PackageItems[i].Price.ToString("#,#"),
                     Checked = value.PackageItems[i].IsJoin == "Y",
                     Cost = value.PackageItems[i].Cost.ToString("#,#")
                 });

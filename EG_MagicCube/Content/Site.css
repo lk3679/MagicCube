@@ -40,8 +40,9 @@ input.form-control {
 }
 
 a.navbar-brand img {
+    width: 100px;
     padding-left: 15px;
-    margin-top: -5px;
+    /*margin-top: -5px;*/
 }
 
 div.container {

@@ -38,7 +38,7 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "定價日期")]
         public string PricingDate { get; set; }
 
-        [Display(Name = "毛利率(%)")]
+        [Display(Name = "毛利率")]
         public string GrossMargin { get; set; }
 
         [Display(Name = "作品類型")]
@@ -58,22 +58,22 @@ namespace EG_MagicCube.Models.ViewModel
         /// <summary>
         /// 市場性
         /// </summary>
-        [Display(Name = "市場性30%")]
+        [Display(Name = "市場性")]
         public double Marketability { get; set; } = 0.0;
         /// <summary>
         /// 包裹性
         /// </summary>
-        [Display(Name = "＋包裹性10%")]
+        [Display(Name = "包裹性")]
         public double Packageability { get; set; } = 0.0;
         /// <summary>
         /// 增值性
         /// </summary>
-        [Display(Name = "＋增值性25%")]
+        [Display(Name = "增值性")]
         public double Valuability { get; set; } = 0.0;
         /// <summary>
         /// 藝術性
         /// </summary>
-        [Display(Name = "＋藝術性20%")]
+        [Display(Name = "藝術性")]
         public double Artisticability { get; set; } = 0.0;
         /// <summary>
         /// 到期日期

@@ -417,7 +417,7 @@
             var g = 0.0;
             p = (isNaN($("#Price").val())) == true ? 0.0 : parseFloat($("#Price").val());
             c = (isNaN($("#Cost").val())) == true ? 0.0 : parseFloat($("#Cost").val());
-            g = ((p - c) / p) * 100;
+            g = (((p / 1.05) - c) / (p / 1.05)) * 100;
             if (!isNaN(g))
             {
                 $("#GrossMargin").text(g.toFixed(3).toString() + "%");

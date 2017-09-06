@@ -79,30 +79,30 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 毛利率
         /// </summary>
-        [DisplayName("毛利率(%)")]
+        [DisplayName("毛利率")]
         public double GrossMargin { get; set; } = 0.0;
         /// <summary>
         /// 市場性
         /// </summary>
-        [DisplayName("市場性30%")]
+        [DisplayName("市場性")]
         [Range(0.0, 10.0)]
         public double Marketability { get; set; } = 0.0;
         /// <summary>
         /// 包裹性
         /// </summary>
-        [DisplayName("＋包裹性10%")]
+        [DisplayName("包裹性")]
         [Range(0.0, 10.0)]
         public double Packageability { get; set; } = 0.0;
         /// <summary>
         /// 增值性
         /// </summary>
-        [DisplayName("＋增值性25%")]
+        [DisplayName("增值性")]
         [Range(0.0, 10.0)]
         public double Valuability { get; set; } = 0.0;
         /// <summary>
         /// 藝術性
         /// </summary>
-        [DisplayName("＋藝術性20%")]
+        [DisplayName("藝術性")]
         [Range(0.0,10.0)]
         public double Artisticability { get; set; } = 0.0;
         /// <summary>
@@ -233,7 +233,7 @@ namespace EG_MagicCube.Models
                 _Works.YearEnd = this.YearEnd;
                 _Works.Cost = this.Cost;
                 _Works.Price = this.Price;
-                _Works.GrossMargin = Math.Round((((Convert.ToDouble(this.Price) - Convert.ToDouble(this.Cost)) / Convert.ToDouble(this.Price)) * Convert.ToDouble(100)), 3);
+                _Works.GrossMargin = Math.Round((((Convert.ToDouble((this.Price / double.Parse("1.05"))) - Convert.ToDouble(this.Cost)) / Convert.ToDouble((this.Price / double.Parse("1.05")))) * Convert.ToDouble(100)), 3);
                 _Works.PricingDate = DateTime.Now;
                 _Works.Artisticability = this.Artisticability;
                 _Works.Marketability = this.Marketability;
@@ -519,7 +519,7 @@ namespace EG_MagicCube.Models
                 oldWorks.YearEnd = newWorks.YearEnd;
                 oldWorks.Cost = newWorks.Cost;
                 oldWorks.Price = newWorks.Price;
-                oldWorks.GrossMargin = newWorks.GrossMargin = Math.Round((((Convert.ToDouble(newWorks.Price) - Convert.ToDouble(newWorks.Cost)) / Convert.ToDouble(newWorks.Price)) * Convert.ToDouble(100)), 3); ;
+                oldWorks.GrossMargin = newWorks.GrossMargin = Math.Round((((Convert.ToDouble((newWorks.Price / double.Parse("1.05"))) - Convert.ToDouble(newWorks.Cost)) / Convert.ToDouble((newWorks.Price / double.Parse("1.05")))) * Convert.ToDouble(100)), 3); ;
                 oldWorks.PricingDate = newWorks.PricingDate;
                 oldWorks.Artisticability = newWorks.Artisticability;
                 oldWorks.Marketability = newWorks.Marketability;

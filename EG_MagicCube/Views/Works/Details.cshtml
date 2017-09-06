@@ -9,56 +9,58 @@
         margin-top: 120px;
     }
 </style>
-<h2>
-@Html.DisplayFor(model => model.WorksName)
-</h2>
 <h4>
-    @Html.DisplayFor(model => model.AuthorsName)/@Html.DisplayFor(model => model.Years)
+@Html.DisplayFor(model => model.WorksName)
+</h4>
+<h4>
+    @Html.DisplayFor(model => model.AuthorsName) @Html.DisplayFor(model => model.Years)
 </h4>
 <div class="col-xs-12">
-    @Html.ActionLink("編輯作品", "Edit", new { id = Model.WorksNo }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("返回作品列表", "Index", "Works", null, new { @class = "btn  btn-warning pull-right" })
+    @Html.ActionLink("返回作品列表", "Index", "Works", null, new { @class = "btn-sm btn-warning pull-right" })
+    @Html.ActionLink("編輯作品", "Edit", new { id = Model.WorksNo }, new { @class = "btn-sm btn-primary" })
 </div>
 <p></p>
 <div class="col-xs-12">
     @*<h4>WorksDetailViewModel</h4>*@
 
     <hr />
-    <div  class="formg col-md-4 col-xs-12">
-        @Html.DisplayNameFor(model => model.Cost)：@Html.DisplayFor(model => model.Cost)<br />
-        @Html.DisplayNameFor(model => model.Price)：@Html.DisplayFor(model => model.Price)<br />
-        @Html.DisplayNameFor(model => model.GrossMargin)：@Html.DisplayFor(model => model.GrossMargin)<br />
-        @Html.DisplayNameFor(model => model.PricingDate)：@Html.DisplayFor(model => model.PricingDate)<br /><br />
-        @Html.DisplayNameFor(model => model.PropWare)：@Html.DisplayFor(model => model.PropWare)<br />
-        @Html.DisplayNameFor(model => model.Owner)：@Html.DisplayFor(model => model.Owner)
-    </div>
-    <div class="col-md-4 col-xs-12">
+    <div class="col-md-12 col-xs-12">
 
         @if (Model.MaterialsName != null)
             {
                 foreach (string m in Model.MaterialsName)
                 {
-            @Html.DisplayFor(item => m)<br />
-                }
-            }<br /><br />
-        @Html.DisplayNameFor(model => model.GenreNo)：@Html.DisplayFor(model => model.GenreNo)<br />
-        @Html.DisplayNameFor(model => model.PropStyle)：@Html.DisplayFor(model => model.PropStyle)
+                @Html.DisplayFor(item => m)<br />
+            }
+        }<br />
 
     </div>
-    <div class="formg col-md-4 col-xs-12">
+    <div class="formg col-md-12 col-xs-12">
         @Html.DisplayNameFor(model => model.Remarks)：@Html.DisplayFor(model => model.Remarks)
     </div>
-    <hr />
+    <div class="formg col-md-4 col-xs-12">
+        @Html.DisplayNameFor(model => model.PropWare)：@Html.DisplayFor(model => model.PropWare)<br />
+        @Html.DisplayNameFor(model => model.Owner)：@Html.DisplayFor(model => model.Owner)<br />
+        @Html.DisplayNameFor(model => model.GenreNo)：@Html.DisplayFor(model => model.GenreNo)<br />
+        @Html.DisplayNameFor(model => model.PropStyle)：@Html.DisplayFor(model => model.PropStyle)<br />
+    </div>
+    <div class="formg col-md-4 col-xs-12">
+        @Html.DisplayNameFor(model => model.WordsRating)：@Html.DisplayFor(model => model.WordsRating)<br />
+        @Html.DisplayNameFor(model => model.Marketability)：@Html.DisplayFor(model => model.Marketability)<br />
+        @Html.DisplayNameFor(model => model.Valuability)：@Html.DisplayFor(model => model.Valuability)<br />
+        @Html.DisplayNameFor(model => model.Artisticability)：@Html.DisplayFor(model => model.Artisticability)<br />
+        @Html.DisplayNameFor(model => model.Artisticability)：@Html.DisplayFor(model => model.Packageability)
+    </div>
+    <div class="formg col-md-4 col-xs-12">
+        @Html.DisplayNameFor(model => model.Cost)：@Html.DisplayFor(model => model.Cost)<br />
+        @Html.DisplayNameFor(model => model.Price)：@Html.DisplayFor(model => model.Price)<br />
+        @Html.DisplayNameFor(model => model.GrossMargin)：@Html.DisplayFor(model => model.GrossMargin)<br />
+        @Html.DisplayNameFor(model => model.PricingDate)：@Html.DisplayFor(model => model.PricingDate)
+    </div>
+   
 </div>
 
-<div class="formg col-xs-12">
-    <hr />
-    @Html.DisplayNameFor(model => model.Marketability):@Html.DisplayFor(model => model.Marketability)
-    @Html.DisplayNameFor(model => model.Valuability):@Html.DisplayFor(model => model.Valuability)
-    @Html.DisplayNameFor(model => model.Artisticability):@Html.DisplayFor(model => model.Artisticability)
-    @Html.DisplayNameFor(model => model.Packageability):@Html.DisplayFor(model => model.Packageability)
-    @Html.DisplayNameFor(model => model.WordsRating):@Html.DisplayFor(model => model.WordsRating)
-</div>
+
 <hr />
 @Html.Action("Index", "Files", new { id = Model.WorksNo })
 

@@ -160,8 +160,8 @@ namespace EG_MagicCube.Controllers
                 Remarks = value.Remarks,
                 Owner = string.Join(",", value.WorksPropOwnerList.Select(o => o.MenuName)),
                 PropWare = string.Join(",", value.WorksPropWareTypeList.Select(o => o.MenuName)),
-                Cost = value.Cost.ToString(),
-                Price = value.Price.ToString(),
+                Cost = value.Cost.ToString("#,#"),
+                Price = value.Price.ToString("#,#"),
                 PricingDate = value.PricingDate.ToString("yyyy-MM-dd"),
                 Artisticability= value.Artisticability,
                 Marketability = value.Marketability,
@@ -196,8 +196,8 @@ namespace EG_MagicCube.Controllers
                     string w = mod.Width > 0.0 ? "" + mod.Width.ToString() + " x " : "";
                     string d = mod.Deep > 0.0 ? "" + mod.Deep.ToString() + " x " : "";
                     string t = mod.TimeLength.Length > 0 ? "影片長度：" + mod.TimeLength : "";
-                    string c = mod.Amount > 1 ? mod.Amount + mod.CountNoun.MenuName : "";
-                    Worksize.Add(m + h + w + d + t + c);
+                    string c = mod.Amount > 1 ? ","+mod.Amount + mod.CountNoun.MenuName : "";
+                    Worksize.Add("【" + m + "("+h + w + d + t+")"+ c+ "】");
                 }
 
                 model = new WorksDetailViewModel()
@@ -210,8 +210,8 @@ namespace EG_MagicCube.Controllers
                     Remarks = value.Remarks,
                     Owner = string.Join(",", value.WorksPropOwnerList.Select(o => o.MenuName)),
                     PropWare = string.Join(",", value.WorksPropWareTypeList.Select(o => o.MenuName)),
-                    Cost = value.Cost.ToString(),
-                    Price = value.Price.ToString(),
+                    Cost = value.Cost.ToString("#,#"),
+                    Price = value.Price.ToString("#,#"),
                     PricingDate = value.PricingDate.ToString("yyyy-MM-dd"),
                     GrossMargin = value.GrossMargin.ToString() + " %",
                     GenreNo = string.Join(",", value.WorksPropGenreList.Select(o => o.MenuName)),

@@ -96,10 +96,10 @@
 
                         @foreach (var _item in Model.WorksList)
                         {
-                            <tr><td>@_item.Name</td><td>@_item.Author</td><td>@_item.Cost</td><td>@_item.Price</td></tr>
+                            <tr><td style="text-align:left;">@_item.Name</td><td style="text-align:left;">@_item.Author</td><td style="text-align:right;">@_item.Cost</td><td style="text-align:right;">@_item.Price</td></tr>
                         }
-                        <tr><td colspan="2">總計</td><td>@Model.SumCost.ToString("#,#")</td><td>@Model.SumPrice.ToString("#,#")</td></tr>
-                        <tr><td colspan="2">預算</td><td colspan="2">@Model.Budget.ToString("#,#")</td></tr>
+                        <tr><td></td><td style="text-align:left;">總計</td><td style="text-align:right;">@Model.SumCost.ToString("#,#")</td><td style="text-align:right;">@Model.SumPrice.ToString("#,#")</td></tr>
+                        <tr><td></td><td style="text-align:left;">預算</td><td colspan="2"  style="text-align:right;">@Model.Budget.ToString("#,#")</td></tr>
                     </table>
 
                 </div>
