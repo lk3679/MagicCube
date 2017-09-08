@@ -160,6 +160,7 @@
                                         <td>
                                             @Html.HiddenFor(model => model.WorksModuleList[i].Amount)
                                             @Html.HiddenFor(model => model.WorksModuleList[i].CountNoun.MenuName)
+                                            @Html.HiddenFor(model => model.WorksModuleList[i].CountNoun.MenuID)
                                             @Html.DisplayFor(model => model.WorksModuleList[i].Amount) @Html.DisplayFor(model => model.WorksModuleList[i].CountNoun.MenuName)
                                         </td>
                                         <td><i class="fa fa-times fa-4" aria-hidden="true"></i></td>
@@ -182,7 +183,7 @@
                 <div class="col-md-4 col-xs-9">
                     @Html.Hidden("StyleNo_InputStringHide", string.Join(",", string.Join(",", Model.StyleNo_InputString ?? new List<string>())))
                     @Html.DropDownList("StyleNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropStyleList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-                    @Html.ValidationMessageFor(model => model.StyleNo_InputString, "", new { @class = "text-danger" })
+                    @*@Html.ValidationMessageFor(model => model.StyleNo_InputString, "", new { @class = "text-danger" })*@
                 </div>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">

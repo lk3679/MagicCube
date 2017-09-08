@@ -30,7 +30,7 @@
             {
                 foreach (string m in Model.MaterialsName)
                 {
-                @Html.DisplayFor(item => m)<br />
+                @Html.DisplayFor(item => m )<br/>
             }
         }<br />
 
@@ -49,7 +49,8 @@
         @Html.DisplayNameFor(model => model.Marketability)：@Html.DisplayFor(model => model.Marketability)<br />
         @Html.DisplayNameFor(model => model.Valuability)：@Html.DisplayFor(model => model.Valuability)<br />
         @Html.DisplayNameFor(model => model.Artisticability)：@Html.DisplayFor(model => model.Artisticability)<br />
-        @Html.DisplayNameFor(model => model.Artisticability)：@Html.DisplayFor(model => model.Packageability)
+        @Html.DisplayNameFor(model => model.Packageability)：@Html.DisplayFor(model => model.Packageability)<br />
+        @Html.DisplayNameFor(model => model.WorksAmount)：@Html.DisplayFor(model => model.WorksAmount)<br />
     </div>
     <div class="formg col-md-4 col-xs-12">
         @Html.DisplayNameFor(model => model.Cost)：@Html.DisplayFor(model => model.Cost)<br />

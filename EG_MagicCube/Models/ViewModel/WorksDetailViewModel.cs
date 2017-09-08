@@ -79,6 +79,12 @@ namespace EG_MagicCube.Models.ViewModel
         /// 到期日期
         /// </summary>
         public DateTime EndDate { get; set; }
+        /// <summary>
+        /// 作品數量
+        /// </summary>
+        [Display(Name = "作品數量")]
+        public int WorksAmount { get; set; } = 0;
+
         //[Display(Name = "列表圖")]
         //public string FirstImg { get; set; }
 

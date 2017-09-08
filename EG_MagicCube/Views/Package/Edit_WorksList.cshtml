@@ -53,9 +53,10 @@
                         </div>
                         <div class="col-xs-12 bf-caption">
                             <a target="_blank" href="@Url.Action("Details", "Works", new { id = items.No, p = Model.PG_No })">
-                                <p>@items.Author - @items.Price </p>
-                                <p>@items.Name</p>
-                                
+                                @*<p>@items.Author - @items.Price </p>
+                                <p>@items.Name</p>*@
+                                <sapn style="font-size:0.8em">@items.Name</sapn><br/>
+                                <sapn style="font-size:1.2em">@items.Author - @items.Years</sapn>
                             </a>
                         </div>
 

@@ -377,7 +377,8 @@ namespace EG_MagicCube.Controllers
                     Name = value.PackageItems[i].WorksName,
                     Price = value.PackageItems[i].Price.ToString("#,#"),
                     Checked = value.PackageItems[i].IsJoin == "Y",
-                    Cost = value.PackageItems[i].Cost.ToString("#,#")
+                    Cost = value.PackageItems[i].Cost.ToString("#,#"),
+                    Years= value.PackageItems[i].Year
                 });
                 if (model.WorksList[i].Checked)
                 {

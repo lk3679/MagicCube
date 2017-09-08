@@ -186,7 +186,7 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 新增修改作品風格清單字串，用,分隔
         /// </summary>
-        [Required]
+        //[Required]
         [DisplayName("作品風格")]
         public List<string> StyleNo_InputString { get; set; } = new List<string>();
         /// <summary>
@@ -210,6 +210,11 @@ namespace EG_MagicCube.Models
         [Required]
         [DisplayName("＝作品等級")]
         public string Rating { get; set; } = "";
+        /// <summary>
+        /// 作品數量
+        /// </summary>
+        [DisplayName("＝作品數量")]
+        public int WorksAmount { get; set; } = 0;
         #endregion
 
         #region Methods
@@ -425,6 +430,7 @@ namespace EG_MagicCube.Models
                     _WorksModel.WorksPropStyleList = _WorksPropStyleList?.Select(wps => new MenuViewModel() { MenuID = wps.StyleNo, MenuName = wps.Menu_Style.StyleName }).ToList();
                     _WorksModel.WorksPropWareTypeList = _WorksPropWareTypeList?.Select(wpwt => new MenuViewModel() { MenuID = wpwt.WareTypeNo, MenuName = wpwt.Menu_WareType.WareTypeName }).ToList();
                     _WorksModel.ImageCount = _WorksWorksFilesList.Count;
+                    _WorksModel.WorksAmount = _Works.WorksAuthors.FirstOrDefault().Authors.WorksAmount;
                     //_WorksModel.ViewWorksFiles = _Works.WorksFiles.Select(wf => wf.FileBase64Str).ToList();
 
                     _WorksModel.WorksModuleList = _WorksWorksModulesList?.Select(wm => new WorksModel.WorksModuleModel()

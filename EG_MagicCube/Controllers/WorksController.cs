@@ -142,13 +142,27 @@ namespace EG_MagicCube.Controllers
             List<string> Worksize = new List<string>(); ;
             foreach (var mod in value.WorksModuleList)
             {
+                string str_Size = "";
+                List<string> _SizeList = new List<string>();
+
+
                 string m = mod.Material.MenuName+" ";
-                string h = mod.Height > 0.0 ? "" + mod.Height.ToString() + " x " : "";
-                string w = mod.Width > 0.0 ? "" + mod.Width.ToString() + " x " : "";
-                string d = mod.Deep > 0.0 ? "" + mod.Deep.ToString() + "cm " : "";
+
+                if (mod.Height > 0.0) _SizeList.Add(mod.Height.ToString());
+                if (mod.Width > 0.0) _SizeList.Add(mod.Width.ToString());
+                if (mod.Deep > 0.0) _SizeList.Add(mod.Deep.ToString());
+
+                if (_SizeList.Count > 0)
+                {
+                   str_Size = string.Join("x", _SizeList.ToArray())+"cm";
+                }
+
+                //string h = mod.Height > 0.0 ? "" + mod.Height.ToString() + " x " : "";
+                //string w = mod.Width > 0.0 ? "" + mod.Width.ToString() + " x " : "";
+                //string d = mod.Deep > 0.0 ? "" + mod.Deep.ToString() + "cm " : "";
                 string t = mod.TimeLength.Length > 0 ? "影片長度：" + mod.TimeLength : "";
-                string c = mod.Amount > 1 ? mod.Amount + mod.CountNoun.MenuName : "";
-                Worksize.Add(m + h + w + d + t + c);
+                string c = mod.Amount > 1 ? " "+mod.Amount + mod.CountNoun.MenuName : "";
+                Worksize.Add(m + str_Size + t + c);
             }
             WorksDetailViewModel model = new WorksDetailViewModel()
             {
@@ -171,7 +185,8 @@ namespace EG_MagicCube.Controllers
                 GenreNo = string.Join(",", value.WorksPropGenreList.Select(o => o.MenuName)),
                 PropStyle = string.Join(",", value.WorksPropStyleList.Select(o => o.MenuName)),
                 Years = value.YearStart.ToString() + (value.YearStart == value.YearEnd ? "" : " ~ " + value.YearEnd.ToString()),
-                WordsRating = value.Rating
+                WordsRating = value.Rating,
+                WorksAmount=value.WorksAmount
             };
             return View(model);
         }
@@ -191,13 +206,27 @@ namespace EG_MagicCube.Controllers
                 List<string> Worksize = new List<string>(); ;
                 foreach (var mod in value.WorksModuleList)
                 {
+                    string str_Size = "";
+                    List<string> _SizeList = new List<string>();
+
+
                     string m = mod.Material.MenuName + " ";
-                    string h = mod.Height > 0.0 ? "" + mod.Height.ToString() + " x " : "";
-                    string w = mod.Width > 0.0 ? "" + mod.Width.ToString() + " x " : "";
-                    string d = mod.Deep > 0.0 ? "" + mod.Deep.ToString() + " x " : "";
+
+                    if (mod.Height > 0.0) _SizeList.Add(mod.Height.ToString());
+                    if (mod.Width > 0.0) _SizeList.Add(mod.Width.ToString());
+                    if (mod.Deep > 0.0) _SizeList.Add(mod.Deep.ToString());
+
+                    if (_SizeList.Count > 0)
+                    {
+                        str_Size = string.Join("x", _SizeList.ToArray()) + "cm";
+                    }
+
+                    //string h = mod.Height > 0.0 ? "" + mod.Height.ToString() + " x " : "";
+                    //string w = mod.Width > 0.0 ? "" + mod.Width.ToString() + " x " : "";
+                    //string d = mod.Deep > 0.0 ? "" + mod.Deep.ToString() + "cm " : "";
                     string t = mod.TimeLength.Length > 0 ? "影片長度：" + mod.TimeLength : "";
-                    string c = mod.Amount > 1 ? ","+mod.Amount + mod.CountNoun.MenuName : "";
-                    Worksize.Add("【" + m + "("+h + w + d + t+")"+ c+ "】");
+                    string c = mod.Amount > 1 ? " " + mod.Amount + mod.CountNoun.MenuName : "";
+                    Worksize.Add(m + str_Size + t + c);
                 }
 
                 model = new WorksDetailViewModel()
