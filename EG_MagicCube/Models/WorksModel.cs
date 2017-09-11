@@ -382,22 +382,22 @@ namespace EG_MagicCube.Models
         public static WorksModel GetWorksModelDetail(string WorksNo)
         {
             WorksModel _WorksModel = new WorksModel();
-            Guid Guid_WorksNo = Guid.Parse(WorksNo);
+            Guid Guid_WorksNo = Guid.Parse(WorksNo.ToUpper());
             using (var context = new EG_MagicCubeEntities())
             {
-                var _Works = context.Works.AsQueryable().Where(c => c.IsDel != "Y" && c.WorksNo == Guid_WorksNo).Select(c => c).FirstOrDefault();
+                Works _Works = context.Works.AsQueryable().Where(c => c.IsDel != "Y" && c.WorksNo.Equals(Guid_WorksNo)).Select(c => c).FirstOrDefault<Works>();
                 if (_Works != null)
                 {
-                    var _WorksAuthorsist = context?.WorksAuthors?.AsQueryable()?.Where(c => c.Works_No == Guid_WorksNo).Select(wa => wa).ToList();
-                    var _WorksPropGenreList = context?.WorksPropGenre?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wpg => wpg).ToList();
-                    var _WorksPropOwnerList = context?.WorksPropOwner?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wpo => wpo).ToList();
-                    var _WorksPropStyleList = context?.WorksPropStyle?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wps => wps).ToList();
-                    var _WorksPropWareTypeList = context?.WorksPropWareType?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wpwt => wpwt).ToList();
-                    var _WorksWorksFilesList = context?.WorksFiles?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).OrderBy(c=>c.Sorting).ThenBy(c => c.WorksFilesNo).Select(wf => wf).ToList();
-                    var _WorksWorksModulesList = context?.WorksModules?.AsQueryable()?.Where(c => c.WorksNo == Guid_WorksNo).Select(wm => wm).ToList();
-
+                    var _WorksAuthorsist = context.WorksAuthors.AsQueryable().Where(c => c.Works_No.Equals(Guid_WorksNo)).Select(wa => wa).ToList();
+                    var _WorksPropGenreList = context.WorksPropGenre.AsQueryable().Where(c => c.WorksNo.Equals(Guid_WorksNo)).Select(wpg => wpg).ToList();
+                    var _WorksPropOwnerList = context.WorksPropOwner.AsQueryable().Where(c => c.WorksNo.Equals(Guid_WorksNo)).Select(wpo => wpo).ToList();
+                    var _WorksPropStyleList = context.WorksPropStyle.AsQueryable().Where(c => c.WorksNo.Equals(Guid_WorksNo)).Select(wps => wps).ToList();
+                    var _WorksPropWareTypeList = context.WorksPropWareType.AsQueryable().Where(c => c.WorksNo.Equals(Guid_WorksNo)).Select(wpwt => wpwt).ToList();
+                    var _WorksWorksFilesList = context.WorksFiles.AsQueryable().Where(c => c.WorksNo.Equals(Guid_WorksNo)).OrderBy(c=>c.Sorting).ThenBy(c => c.WorksFilesNo).Select(wf => wf).ToList();
+                    var _WorksWorksModulesList = context.WorksModules.AsQueryable().Where(c => c.WorksNo.Equals(Guid_WorksNo)).Select(wm => wm).ToList();
+                    
                     _WorksModel.WorksNo = _Works.WorksNo.ToString();
-                    _WorksModel.MaterialsID = "";
+                    _WorksModel.MaterialsID = _Works.MaterialsID;
                     _WorksModel.AuthorsNo = _Works.AuthorsNo;
                     _WorksModel.AuthorsName = _Works.WorksAuthors.FirstOrDefault().Authors.AuthorsCName;
                     _WorksModel.WorksName = _Works.WorksName;
@@ -431,7 +431,7 @@ namespace EG_MagicCube.Models
                     _WorksModel.WorksPropWareTypeList = _WorksPropWareTypeList?.Select(wpwt => new MenuViewModel() { MenuID = wpwt.WareTypeNo, MenuName = wpwt.Menu_WareType.WareTypeName }).ToList();
                     _WorksModel.ImageCount = _WorksWorksFilesList.Count;
                     _WorksModel.WorksAmount = _Works.WorksAuthors.FirstOrDefault().Authors.WorksAmount;
-                    //_WorksModel.ViewWorksFiles = _Works.WorksFiles.Select(wf => wf.FileBase64Str).ToList();
+                    _WorksModel.ViewWorksFiles = _Works.WorksFiles.Select(wf => wf.FileBase64Str).ToList();
 
                     _WorksModel.WorksModuleList = _WorksWorksModulesList?.Select(wm => new WorksModel.WorksModuleModel()
                     {
@@ -463,7 +463,7 @@ namespace EG_MagicCube.Models
         /// <returns></returns>
         public static bool Update(WorksModel newWorks)
         {
-            Guid Guid_WorksNo = Guid.Parse(newWorks.WorksNo);
+            Guid Guid_WorksNo = Guid.Parse(newWorks.WorksNo.ToUpper());
             using (var context = new EG_MagicCubeEntities())
             {
                 var oldWorks = context.Works.AsQueryable().First(x => x.WorksNo == Guid_WorksNo);
@@ -649,7 +649,7 @@ namespace EG_MagicCube.Models
         /// <returns></returns>
         public static bool Delete(string WorksNo)
         {
-            Guid Guid_WorksNo = Guid.Parse(WorksNo);
+            Guid Guid_WorksNo = Guid.Parse(WorksNo.ToUpper());
             using (var context = new EG_MagicCubeEntities())
             {
                 var works = context.Works.AsQueryable().FirstOrDefault(x => x.WorksNo == Guid_WorksNo);

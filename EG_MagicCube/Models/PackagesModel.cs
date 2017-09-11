@@ -148,7 +148,7 @@ namespace EG_MagicCube.Models
                 {
                     foreach (PackageItemModel _PackageItemModel in PackageItems)
                     {
-                        Guid Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
+                        Guid Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo.ToUpper());
                         context.PackageItems.Add(new PackageItems()
                         {
                             PackagesNo = _Package.PackagesNo,
@@ -292,7 +292,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.Packages.Count() > 0)
                 {
-                    var Guid_PackagesNo = Guid.Parse(PackagesNo.ToString());
+                    var Guid_PackagesNo = Guid.Parse(PackagesNo.ToUpper());
                     var r_Packages = context?.Packages?.AsQueryable()?.Where(f => f.IsDel != "Y" && f.PackagesNo == Guid_PackagesNo).Select(c => c).FirstOrDefault();
 
                     if (r_Packages != null)
@@ -372,7 +372,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.PackageItems.Count() > 0)
                 {
-                    var Guid_PackagesNo = Guid.Parse(PackagesNo);
+                    var Guid_PackagesNo = Guid.Parse(PackagesNo.ToUpper());
                     var r_PackageItems = context.PackageItems?.AsQueryable().Where(f => f.PackagesNo == Guid_PackagesNo && f.Works.IsDel!="Y");
                     if (ShowJoin)
                     {
@@ -443,7 +443,7 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var Guid_PackagesNo = Guid.Parse(newPackages.PackagesNo);
+                var Guid_PackagesNo = Guid.Parse(newPackages.PackagesNo.ToUpper());
                 var oldPackages = context.Packages.AsQueryable().First(x => x.PackagesNo == Guid_PackagesNo);
                 if (oldPackages != null)
                 {
@@ -461,7 +461,7 @@ namespace EG_MagicCube.Models
                     var _PackageItems = context.PackageItems.AsQueryable().Where(c => c.PackagesNo == oldPackages.PackagesNo).ToList();
                     foreach (PackageItemModel _PackageItemModel in newPackages.PackageItems)
                     {
-                        var Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
+                        var Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo.ToUpper());
                         int PackageItemCount = _PackageItems.Where(c => c.WorksNo == Guid_WorksNo).Count();
                         if (PackageItemCount == 0)
                         {
@@ -518,7 +518,7 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var Guid_PackagesNo = Guid.Parse(PackagesNo);
+                var Guid_PackagesNo = Guid.Parse(PackagesNo.ToUpper());
 
                 var oldPackages = context.Packages.AsQueryable().First(x => x.PackagesNo == Guid_PackagesNo);
                 var _PackageItems = context.PackageItems.AsQueryable().Where(c => c.PackagesNo == oldPackages.PackagesNo).ToList();
@@ -526,7 +526,7 @@ namespace EG_MagicCube.Models
                 {
                     foreach (PackageItemModel _PackageItemModel in PackageItemModelList)
                     {
-                        var Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo);
+                        var Guid_WorksNo = Guid.Parse(_PackageItemModel.WorksNo.ToUpper());
                         int PackageItemCount = _PackageItems.Where(c => c.WorksNo == Guid_WorksNo).Count();
                         if (PackageItemCount == 0)
                         {
@@ -566,8 +566,8 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var Guid_PackagesNo = Guid.Parse(PackagesNo);
-                var Guid_WorksNo = Guid.Parse(WorksNo);
+                var Guid_PackagesNo = Guid.Parse(PackagesNo.ToUpper());
+                var Guid_WorksNo = Guid.Parse(WorksNo.ToUpper());
                 var PackageItemList = context.PackageItems.AsQueryable().Where(x => x.PackagesNo == Guid_PackagesNo && x.WorksNo == Guid_WorksNo).Select(c => c).ToList();
 
                 if (PackageItemList != null | PackageItemList.Count > 0)
@@ -602,7 +602,7 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var Guid_PackagesNo = Guid.Parse(PackagesNo);
+                var Guid_PackagesNo = Guid.Parse(PackagesNo.ToUpper());
                 var package = context.Packages.AsQueryable().FirstOrDefault(x => x.PackagesNo == Guid_PackagesNo);
 
                 if (package != null)
@@ -642,8 +642,8 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var Guid_PackagesNo = Guid.Parse(PackagesNo);
-                var Guid_WorksNo = Guid.Parse(WorksNo);
+                var Guid_PackagesNo = Guid.Parse(PackagesNo.ToUpper());
+                var Guid_WorksNo = Guid.Parse(WorksNo.ToUpper());
                 var PackageItemList = context.PackageItems.AsQueryable().Where(x => x.PackagesNo == Guid_PackagesNo && x.WorksNo == Guid_WorksNo).Select(c => c).ToList();
 
                 if (PackageItemList != null | PackageItemList.Count > 0)

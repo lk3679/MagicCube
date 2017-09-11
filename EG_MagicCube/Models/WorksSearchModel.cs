@@ -121,7 +121,7 @@ namespace EG_MagicCube.Models
 
                     if (!string.IsNullOrEmpty(this.WorksNo))
                     {
-                        r = r.Where(f => f.WorksNo == Guid.Parse(WorksNo));
+                        r = r.Where(f => f.WorksNo == Guid.Parse(WorksNo.ToUpper()));
                     }
                     if (!string.IsNullOrEmpty(this.WorksName))
                     {
@@ -244,7 +244,7 @@ namespace EG_MagicCube.Models
                     if (!string.IsNullOrEmpty(this.PackagesNo))
                     {
                         FilterCount++;
-                        var pkgitmwkno= context.PackageItems?.AsQueryable()?.Where(c => c.PackagesNo== Guid.Parse(this.PackagesNo)).Select(c => c.WorksNo).ToList();
+                        var pkgitmwkno= context.PackageItems?.AsQueryable()?.Where(c => c.PackagesNo== Guid.Parse(this.PackagesNo.ToUpper())).Select(c => c.WorksNo).ToList();
 
                         if (pkgitmwkno != null && pkgitmwkno.Count > 0)
                         {
@@ -343,7 +343,7 @@ namespace EG_MagicCube.Models
                                }
                         ).ToList();
 
-            Guid[] _WorksNoArray = _WorksModelList.Select(c => Guid.Parse(c.WorksNo)).ToArray();
+            Guid[] _WorksNoArray = _WorksModelList.Select(c => Guid.Parse(c.WorksNo.ToUpper())).ToArray();
 
             using (var context = new EG_MagicCubeEntities())
             {
@@ -360,11 +360,11 @@ namespace EG_MagicCube.Models
 
                 foreach (WorksModel _WorksModel in _WorksModelList)
                 {
-                    _WorksModel.AuthorsName = string.Join(",", _WorksAuthors.Where(c => c.Works_No == Guid.Parse(_WorksModel.WorksNo)).Select(c => c.Authors.AuthorsCName).ToArray());
+                    _WorksModel.AuthorsName = string.Join(",", _WorksAuthors.Where(c => c.Works_No == Guid.Parse(_WorksModel.WorksNo.ToUpper())).Select(c => c.Authors.AuthorsCName).ToArray());
 
                     foreach (WorksModel.WorksModuleModel _WorksModule in _WorksModel.WorksModuleList)
                     {
-                        var wm = _WorksModules.Where(c => c.WorksNo == Guid.Parse(_WorksModel.WorksNo)).FirstOrDefault();
+                        var wm = _WorksModules.Where(c => c.WorksNo == Guid.Parse(_WorksModel.WorksNo.ToUpper())).FirstOrDefault();
                         if (wm != null)
                         {
                             _WorksModule.WorksModulesNo = wm.WorksModulesNo;
