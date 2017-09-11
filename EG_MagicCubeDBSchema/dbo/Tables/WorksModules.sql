@@ -7,7 +7,7 @@
 	[Width] [float] NOT NULL,
 	[Height] [float] NOT NULL,
 	[Deep] [float] NOT NULL,
-	[TimeLength] [nvarchar](50) NOT NULL,
+	[TimeLength] [nvarchar](100) NOT NULL,
 	[Amount] [int] NOT NULL,
 	[CountNoun] [int] NOT NULL,
  CONSTRAINT [PK_Works_Module_List] PRIMARY KEY CLUSTERED 

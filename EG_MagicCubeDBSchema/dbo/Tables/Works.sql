@@ -2,7 +2,7 @@
 	[WorksNo] [uniqueidentifier] NOT NULL,
 	[MaterialsID] [nvarchar](20) NOT NULL,
 	[AuthorsNo] [int] NOT NULL,
-	[WorksName] [nvarchar](100) NOT NULL,
+	[WorksName] [nvarchar](200) NOT NULL,
 	[YearStart] [smallint] NOT NULL,
 	[YearEnd] [smallint] NOT NULL,
 	[Remarks] [nvarchar](500) NOT NULL,

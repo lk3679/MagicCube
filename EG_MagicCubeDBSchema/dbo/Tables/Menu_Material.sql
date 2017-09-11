@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Menu_Material](
 	[MaterialNo] [int] IDENTITY(1,1) NOT NULL,
-	[MaterialName] [nvarchar](50) NOT NULL,
+	[MaterialName] [nvarchar](200) NOT NULL,
 	[IsDel] VARCHAR(5) NOT NULL DEFAULT (''), 
  CONSTRAINT [PK_Menu_Material] PRIMARY KEY CLUSTERED 
 (
