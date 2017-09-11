@@ -74,7 +74,7 @@
             <PropertyRef Name="MaterialNo" />
           </Key>
           <Property Name="MaterialNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MaterialName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaterialName" Type="nvarchar" MaxLength="200" />
           <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu_Owner">
@@ -170,7 +170,7 @@
           <Property Name="WorksNo" Type="uniqueidentifier" Nullable="false" />
           <Property Name="MaterialsID" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="AuthorsNo" Type="int" Nullable="false" />
-          <Property Name="WorksName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="WorksName" Type="nvarchar" MaxLength="200" />
           <Property Name="YearStart" Type="smallint" Nullable="false" />
           <Property Name="YearEnd" Type="smallint" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" Nullable="false" />
@@ -221,7 +221,7 @@
           <Property Name="Width" Type="float" Nullable="false" />
           <Property Name="Height" Type="float" Nullable="false" />
           <Property Name="Deep" Type="float" Nullable="false" />
-          <Property Name="TimeLength" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeLength" Type="nvarchar" MaxLength="100" />
           <Property Name="Amount" Type="int" Nullable="false" />
           <Property Name="CountNoun" Type="int" Nullable="false" />
         </EntityType>
@@ -703,7 +703,7 @@
             <PropertyRef Name="MaterialNo" />
           </Key>
           <Property Name="MaterialNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MaterialName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaterialName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="WorksModules" Relationship="Self.FK_Works_Module_List_Menu_Material" FromRole="Menu_Material" ToRole="WorksModules" />
         </EntityType>
@@ -808,7 +808,7 @@
           <Property Name="WorksNo" Type="Guid" Nullable="false" />
           <Property Name="MaterialsID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AuthorsNo" Type="Int32" Nullable="false" />
-          <Property Name="WorksName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WorksName" Type="String" MaxLength="200" FixedLength="false" Unicode="true"/>
           <Property Name="YearStart" Type="Int16" Nullable="false" />
           <Property Name="YearEnd" Type="Int16" Nullable="false" />
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
@@ -870,7 +870,7 @@
           <Property Name="Width" Type="Double" Nullable="false" />
           <Property Name="Height" Type="Double" Nullable="false" />
           <Property Name="Deep" Type="Double" Nullable="false" />
-          <Property Name="TimeLength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TimeLength" Type="String" MaxLength="100" FixedLength="false" Unicode="true"/>
           <Property Name="Amount" Type="Int32" Nullable="false" />
           <Property Name="CountNoun" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Menu_CountNoun" Relationship="Self.FK_Works_Module_List_Menu_CountNoun" FromRole="WorksModules" ToRole="Menu_CountNoun" />
