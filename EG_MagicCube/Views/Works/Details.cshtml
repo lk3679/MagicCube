@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = @Html.DisplayFor(model => model.WorksName) + " - " + @Html.DisplayFor(model => model.AuthorsName);
 }
-<link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.css" rel="stylesheet" />
+@*<link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.css" rel="stylesheet" />*@
 <style>
     .modal-dialog {
         margin-top: 120px;
@@ -67,24 +67,86 @@
 
 @section Scripts {
     <script src="@Url.Content("~/Scripts/imageviewer.min.js")"></script>
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="@Url.Content("~/Scripts/masonry.pkgd.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.lazyload.js")"></script>
+<script src="@Url.Content("~/Scripts/panzoom.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.mousewheel.js")"></script>
     <script>
         $("img").lazyload({
             effect: "fadeIn",
             effectspeed: 500
-        });
-
-        $('.gallery-items').click(function () {
-            var viewer = ImageViewer();
-            var imgSrc = this.src,
-                highResolutionImage = $(this).data('high-res-img');
-            viewer.show(imgSrc, highResolutionImage);
         });
         jQuery(window).on('load resize scroll', function () {
             $('.grid').masonry({
                 itemSelector: '.grid-item'
             });
         });
+        var thtml = '<div id="fullview" class="fullview" style="display: block;position: fixed;background: #0d0d0d;width: 100%;height: 100%;top: 0;left: 0;z-index: 1031;">' +
+            '<div class="image-view"><div class="image-wrap" style="text-align: center;overflow: hidden; position: relative;">' +
+            '<img class="large-image"src="@@src" style="height: 100vh;width: auto;"/>' +
+            '</div></div><div class="iv-close"/><div/></div>';
+        $(function () {
+            $('.gallery-items').click(function () {
+                var imgSrc = this.src;
+                var highResolutionImage = $(this).data('high-res-src');
+
+                if ($(".fullview").length == 0) {
+                    var vimg = thtml.replace('@@src', highResolutionImage);
+                    $("body").prepend(vimg);
+
+                    $(".iv-close").on("click", function () {
+                        $(".fullview").hide();
+                    });
+
+
+                    //var $section = $('.fullview');
+                    // touchstart touchmove touchend gesturechange gestureend
+                    var $panzoom = $('.large-image').panzoom();
+                    $panzoom.parent().on('mousewheel.image-wrap gestureend', function (e) {
+                        e.preventDefault();
+                        var delta = e.delta || e.originalEvent.wheelDelta;
+
+                        console.log(e.originalEvent.wheelDelta)
+
+                        var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+
+                        $panzoom.panzoom('zoom', zoomOut, {
+                            increment: 0.1,
+                            panOnlyWhenZoomed: true,
+                            minScale: 1,
+                            maxScale: 5,
+                            animate: true,
+                            silent: true,
+                            transition: true,
+                            disablePan: true,
+                            disableZoom: false,
+                            disableXAxis: true,
+                            disableYAxis: true,
+                            which: 1,
+                            focal: e,
+                            panning: false
+                        });
+                    });
+
+
+                }
+                else {
+                    var vimg = $(".large-image")[0]
+                    vimg.src = highResolutionImage;
+                    $(".fullview").show();
+                }
+
+            });
+
+
+
+        });
+        //$('.gallery-items').click(function () {
+        //    var viewer = ImageViewer();
+        //    var imgSrc = this.src,
+        //        highResolutionImage = $(this).data('high-res-img');
+        //    viewer.show(imgSrc, highResolutionImage);
+        //});
+
     </script>
 }

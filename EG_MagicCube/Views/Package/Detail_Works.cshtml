@@ -27,8 +27,8 @@
                                     <img class=".img-responsive" data-original="@items.MedImg" alt="Red dot" @*style="max-width:350px;"*@ />
                                 </div>
                                 <div class="col-xs-12 bf-caption">
-                                    <sapn style="font-size:0.8em">@items.Name</sapn><br />
-                                    <sapn style="font-size:1.2em">@items.Author - @items.Years</sapn>
+                                    <sapn style="font-size:1em">@items.Author - @items.Years</sapn><br />
+                                    <sapn style="font-size:1.2em">@items.Name</sapn>
 
                                     @*<p>@items.Price</p>*@
                                 </div>
@@ -51,7 +51,7 @@ else
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="@Url.Content("~/Scripts/jquery.lazyload.js")"></script>
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="@Url.Content("~/Scripts/masonry.pkgd.min.js")"></script>
     <script>
         $("img").lazyload({
             effect: "fadeIn",

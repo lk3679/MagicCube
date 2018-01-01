@@ -1,5 +1,5 @@
 ﻿@model List<EG_MagicCube.Models.WorksFilesModel.FileGroup>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.css" rel="stylesheet" />
+@*<link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.css" rel="stylesheet" />*@
 <style>
     .modal-dialog {
         margin-top: 120px;
@@ -47,7 +47,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     @*<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js.map"></script>*@
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="@Url.Content("~/Scripts/masonry.pkgd.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery-ui/jquery-ui.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.lazyload.js")"></script>
     <script>
