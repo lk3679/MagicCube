@@ -168,7 +168,7 @@ namespace EG_MagicCube.Controllers
                 AuthorNoList = collection.AuthorNoList,
                 GenreNoList = collection.GenreNoList,
                 GradedNoList = collection.GradedNoList,
-                OrderbyType= MenuModel.MeunOrderbyTypeEnum.預設排序
+                OrderbyType= MenuModel.WorkOrderbyTypeEnum.名稱姓名小至大
             };
             PackagesModel pm = new PackagesModel();
             if (string.IsNullOrEmpty(id))

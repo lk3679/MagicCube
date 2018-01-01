@@ -83,7 +83,26 @@ namespace EG_MagicCube.Models
             修改時間由舊至新,
             修改時間由新至舊
         }
-
+        public enum PackageOrderbyTypeEnum
+        {
+            預設排序,
+            名稱姓名大至小,
+            名稱姓名小至大,
+            建立時間由新至舊,
+            建立時間由舊至新,
+            修改時間由舊至新,
+            修改時間由新至舊
+        }
+        public enum WorkOrderbyTypeEnum
+        {
+            預設排序,
+            名稱姓名大至小,
+            名稱姓名小至大,
+            作品起始年代小至大,
+            作品起始年代大至小,
+            定價小至大,
+            定價大至小,
+        }
         /// <summary>
         /// 取得Menu
         /// </summary>

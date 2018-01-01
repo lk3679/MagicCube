@@ -102,7 +102,7 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 排序方式
         /// </summary>
-        public MenuModel.MeunOrderbyTypeEnum OrderbyType= MenuModel.MeunOrderbyTypeEnum.預設排序;
+        public MenuModel.WorkOrderbyTypeEnum OrderbyType= MenuModel.WorkOrderbyTypeEnum.預設排序;
         /// <summary>
         /// 搜尋
         /// </summary>
@@ -263,43 +263,43 @@ namespace EG_MagicCube.Models
                             r = r.Where(f => _WorksNoArray.Contains(f.WorksNo));
                         }
                     }
-                    if (MenuModel.MeunOrderbyTypeEnum.預設排序 == this.OrderbyType)
+                    if (MenuModel.WorkOrderbyTypeEnum.預設排序 == this.OrderbyType)
                     {
-                        r = r.OrderByDescending(c => c.AuthorsNo);
+                        r = r.OrderByDescending(c => c.YearStart).ThenByDescending(c => c.CreateDate);
                     }
                     else
-                    if (MenuModel.MeunOrderbyTypeEnum.建立時間由舊至新 == this.OrderbyType)
+                    if (MenuModel.WorkOrderbyTypeEnum.作品起始年代小至大 == this.OrderbyType)
                     {
-                        r = r.OrderBy(c => c.CreateDate);
+                        r = r.OrderBy(c => c.YearStart).ThenByDescending(c => c.CreateDate);
                     }
                     else
-                    if (MenuModel.MeunOrderbyTypeEnum.建立時間由新至舊 == this.OrderbyType)
+                    if (MenuModel.WorkOrderbyTypeEnum.作品起始年代大至小 == this.OrderbyType)
+                    {
+                        r = r.OrderByDescending(c => c.YearStart).ThenByDescending(c => c.CreateDate);
+                    }
+                    else
+                    if (MenuModel.WorkOrderbyTypeEnum.定價小至大 == this.OrderbyType)
+                    {
+                        r = r.OrderBy(c => c.Price).ThenByDescending(c => c.CreateDate);
+                    }
+                    else
+                    if (MenuModel.WorkOrderbyTypeEnum.定價大至小 == this.OrderbyType)
+                    {
+                        r = r.OrderByDescending(c => c.Price).ThenByDescending(c => c.CreateDate);
+                    }
+                    else
+                    if (MenuModel.WorkOrderbyTypeEnum.名稱姓名小至大 == this.OrderbyType)
+                    {
+                        r = r.OrderBy(c => c.WorksName).ThenByDescending(c => c.CreateDate);
+                    }
+                    else
+                    if (MenuModel.WorkOrderbyTypeEnum.名稱姓名大至小 == this.OrderbyType)
+                    {
+                        r = r.OrderByDescending(c => c.WorksName).ThenByDescending(c => c.CreateDate);
+                    }
+                    else
                     {
                         r = r.OrderByDescending(c => c.CreateDate);
-                    }
-                    else
-                    if (MenuModel.MeunOrderbyTypeEnum.修改時間由舊至新 == this.OrderbyType)
-                    {
-                        r = r.OrderBy(c => c.ModifyDate);
-                    }
-                    else
-                    if (MenuModel.MeunOrderbyTypeEnum.修改時間由新至舊 == this.OrderbyType)
-                    {
-                        r = r.OrderByDescending(c => c.ModifyDate);
-                    }
-                    else
-                    if (MenuModel.MeunOrderbyTypeEnum.名稱姓名小至大 == this.OrderbyType)
-                    {
-                        r = r.OrderBy(c => c.WorksName);
-                    }
-                    else
-                    if (MenuModel.MeunOrderbyTypeEnum.名稱姓名大至小 == this.OrderbyType)
-                    {
-                        r = r.OrderByDescending(c => c.WorksName);
-                    }
-                    else
-                    {
-                        r = r.OrderByDescending(c => c.AuthorsNo);
                     }
                     if (PageIndex > 0 && PageIndex > 0)
                     {
