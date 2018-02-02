@@ -2,7 +2,13 @@
 /packages
 /.vs
 /EG_MagicCube/obj
+/EG_MagicCube/bin
+/DataTransfer/bin
 /EG_MagicCubeDBSchema/bin/Debug
+/EG_MagicCubeDBSchema/bin/Release
 /EG_MagicCubeDBSchema/obj
+/EG_MagicCubeEntity/bin
 obj
-bin
+/SAPToMgcube/bin/Debug
+/SAPToMgcube/bin/Release
+
