@@ -50,6 +50,8 @@
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Owner_Works_List" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Style_Works_List" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_WareType_Works_List" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.ET_MASTER" Width="1.5" PointX="8.375" PointY="6.75" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.ET_VENDOR" Width="1.5" PointX="10.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

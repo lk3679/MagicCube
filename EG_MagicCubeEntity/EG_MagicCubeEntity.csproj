@@ -71,6 +71,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ET_MASTER.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ET_VENDOR.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Menu_AuthorsArea.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>

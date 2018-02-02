@@ -168,6 +168,17 @@ namespace EG_MagicCube.Controllers
             ViewData["Message"] = SystemGeneralModel.GetConfigure(type).ConfigureContent;
             return PartialView();
         }
-        //
+        [HttpPost, AllowAnonymous]
+        public JsonResult FromSAPToMASTER(FromSAPModel.ET_MASTER [] value)
+        {
+            FromSAPModel.ET_MASTER.BatchInsert(value);
+            return Json(new { R = true },JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost, AllowAnonymous]
+        public JsonResult FromSAPToET_VENDOR(FromSAPModel.ET_VENDOR[] value)
+        {
+            string a = "";
+            return Json(new { R = true }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

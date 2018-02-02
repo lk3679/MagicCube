@@ -37,6 +37,46 @@
           <Property Name="AuthorsNo" Type="int" Nullable="false" />
           <Property Name="AuthorsTagNo" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="ET_MASTER">
+          <Key>
+            <PropertyRef Name="MASTER_No" />
+          </Key>
+          <Property Name="MASTER_No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MATNR" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ZZCT" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="NAME1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ZFPRESERVE_D" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ZZSE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LOCATION" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="STATUS" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="STPRS" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="NETPR" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="WAERS" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ERDAT" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="UDATE" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="IsNew" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="IsSync" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="SyncTime" Type="datetime" />
+          <Property Name="SyncUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ET_VENDOR">
+          <Key>
+            <PropertyRef Name="VENDOR_No" />
+          </Key>
+          <Property Name="VENDOR_No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LIFNR" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="SORTL" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LAND1" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ERDAT" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="UDATE" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="IsNew" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="IsSync" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="SyncTime" Type="datetime" />
+          <Property Name="SyncUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Menu_AuthorsArea">
           <Key>
             <PropertyRef Name="AuthorsAreaNo" />
@@ -513,6 +553,8 @@
           <EntitySet Name="Authors" EntityType="Self.Authors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AuthorsPropArea" EntityType="Self.AuthorsPropArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AuthorsPropTag" EntityType="Self.AuthorsPropTag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ET_MASTER" EntityType="Self.ET_MASTER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ET_VENDOR" EntityType="Self.ET_VENDOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu_AuthorsArea" EntityType="Self.Menu_AuthorsArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu_AuthorsTag" EntityType="Self.Menu_AuthorsTag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu_CountNoun" EntityType="Self.Menu_CountNoun" Schema="dbo" store:Type="Tables" />
@@ -1278,7 +1320,49 @@
             <End Role="Works" EntitySet="Works" />
             <End Role="WorksPropWareType" EntitySet="WorksPropWareType" />
           </AssociationSet>
+          <EntitySet Name="ET_MASTER" EntityType="EG_MagicCubeModel.ET_MASTER" />
+          <EntitySet Name="ET_VENDOR" EntityType="EG_MagicCubeModel.ET_VENDOR" />
         </EntityContainer>
+        <EntityType Name="ET_MASTER">
+          <Key>
+            <PropertyRef Name="MASTER_No" />
+          </Key>
+          <Property Name="MASTER_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MATNR" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ZZCT" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NAME1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ZFPRESERVE_D" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ZZSE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LOCATION" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="STATUS" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="STPRS" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NETPR" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="WAERS" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ERDAT" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UDATE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsNew" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="IsSync" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SyncTime" Type="DateTime" Precision="3" />
+          <Property Name="SyncUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ET_VENDOR">
+          <Key>
+            <PropertyRef Name="VENDOR_No" />
+          </Key>
+          <Property Name="VENDOR_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LIFNR" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SORTL" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LAND1" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ERDAT" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UDATE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsNew" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="IsSync" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SyncTime" Type="DateTime" Precision="3" />
+          <Property Name="SyncUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1558,6 +1642,48 @@
                 <ScalarProperty Name="WorksPropWareTypeNo" ColumnName="WorksPropWareTypeNo" />
                 <ScalarProperty Name="WorksNo" ColumnName="WorksNo" />
                 <ScalarProperty Name="WareTypeNo" ColumnName="WareTypeNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ET_MASTER">
+            <EntityTypeMapping TypeName="EG_MagicCubeModel.ET_MASTER">
+              <MappingFragment StoreEntitySet="ET_MASTER">
+                <ScalarProperty Name="SyncUser" ColumnName="SyncUser" />
+                <ScalarProperty Name="SyncTime" ColumnName="SyncTime" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsNew" ColumnName="IsNew" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UDATE" ColumnName="UDATE" />
+                <ScalarProperty Name="ERDAT" ColumnName="ERDAT" />
+                <ScalarProperty Name="WAERS" ColumnName="WAERS" />
+                <ScalarProperty Name="NETPR" ColumnName="NETPR" />
+                <ScalarProperty Name="STPRS" ColumnName="STPRS" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
+                <ScalarProperty Name="ZZSE" ColumnName="ZZSE" />
+                <ScalarProperty Name="ZFPRESERVE_D" ColumnName="ZFPRESERVE_D" />
+                <ScalarProperty Name="NAME1" ColumnName="NAME1" />
+                <ScalarProperty Name="ZZCT" ColumnName="ZZCT" />
+                <ScalarProperty Name="MATNR" ColumnName="MATNR" />
+                <ScalarProperty Name="MASTER_No" ColumnName="MASTER_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ET_VENDOR">
+            <EntityTypeMapping TypeName="EG_MagicCubeModel.ET_VENDOR">
+              <MappingFragment StoreEntitySet="ET_VENDOR">
+                <ScalarProperty Name="SyncUser" ColumnName="SyncUser" />
+                <ScalarProperty Name="SyncTime" ColumnName="SyncTime" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsNew" ColumnName="IsNew" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UDATE" ColumnName="UDATE" />
+                <ScalarProperty Name="ERDAT" ColumnName="ERDAT" />
+                <ScalarProperty Name="LAND1" ColumnName="LAND1" />
+                <ScalarProperty Name="SORTL" ColumnName="SORTL" />
+                <ScalarProperty Name="LIFNR" ColumnName="LIFNR" />
+                <ScalarProperty Name="NAME1" ColumnName="NAME1" />
+                <ScalarProperty Name="VENDOR_No" ColumnName="VENDOR_No" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

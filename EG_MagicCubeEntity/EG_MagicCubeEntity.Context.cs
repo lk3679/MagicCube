@@ -49,5 +49,7 @@ namespace EG_MagicCubeEntity
         public DbSet<WorksPropOwner> WorksPropOwner { get; set; }
         public DbSet<WorksPropStyle> WorksPropStyle { get; set; }
         public DbSet<WorksPropWareType> WorksPropWareType { get; set; }
+        public DbSet<ET_MASTER> ET_MASTER { get; set; }
+        public DbSet<ET_VENDOR> ET_VENDOR { get; set; }
     }
 }

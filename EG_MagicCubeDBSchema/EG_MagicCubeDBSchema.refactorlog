@@ -49,4 +49,88 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="File_s_Url" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="91d96576-fe43-4325-b5e5-f2bf6defcb49" ChangeDateTime="01/01/2018 07:16:25">
+    <Property Name="ElementName" Value="[dbo].[ET_MASTER].[ERDAT]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ET_MASTER]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UDATE" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="13f27253-f926-48ff-aac5-c786691a29df" ChangeDateTime="01/01/2018 07:22:32">
+    <Property Name="ElementName" Value="[dbo].[ET_MASTER].[Is]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ET_MASTER]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsSync" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="071328d9-f483-41a2-9269-33f95256c12f" ChangeDateTime="01/01/2018 07:24:21">
+    <Property Name="ElementName" Value="[dbo].[ET_MASTER].[IsSync]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ET_MASTER]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SyncTime" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="896f09fd-3ec1-4859-9085-6d1b3cf44bfb" ChangeDateTime="01/01/2018 07:24:56">
+    <Property Name="ElementName" Value="[dbo].[ET_MASTER].[IsSync]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ET_MASTER]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Insert" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f73a3f95-45f5-48ff-924e-fad4d49ffb6b" ChangeDateTime="01/01/2018 07:25:32">
+    <Property Name="ElementName" Value="[dbo].[ET_MASTER].[Insert]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ET_MASTER]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CreateTime" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="756f94a6-8121-4c27-b910-c38dc7e55cb7" ChangeDateTime="01/01/2018 07:25:59">
+    <Property Name="ElementName" Value="[dbo].[ET_MASTER].[SyncTime]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ET_MASTER]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsNew" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="92756131-51be-4e95-a57a-f2d2ddb0f9c5" ChangeDateTime="01/01/2018 07:26:42">
+    <Property Name="ElementName" Value="[dbo].[ET_MASTER].[SyncTime]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ET_MASTER]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsSync" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e11ebea7-b8f9-4222-9133-0f7f8de65e61" ChangeDateTime="01/01/2018 07:27:41">
+    <Property Name="ElementName" Value="[dbo].[ET_MASTER].[SyncU]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ET_MASTER]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SyncUser" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3093ef3c-dc3e-4cc8-8e16-5168bd6497d3" ChangeDateTime="01/01/2018 07:28:40">
+    <Property Name="ElementName" Value="[dbo].[ET_MASTER].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ET_MASTER]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="StyleNo" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="73be2f37-a51f-41c3-9a91-ec045ec875b1" ChangeDateTime="01/01/2018 07:28:54">
+    <Property Name="ElementName" Value="[dbo].[ET_MASTER].[StyleNo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ET_MASTER]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MASTERNo" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f452698c-4d06-46d9-a3da-e7465f143028" ChangeDateTime="01/01/2018 07:29:50">
+    <Property Name="ElementName" Value="[dbo].[ET_MASTER].[MASTERNo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ET_MASTER]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MASTER_No" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="369c9ae2-4d19-47a4-baaf-73b466e7c6aa" ChangeDateTime="01/01/2018 07:31:30">
+    <Property Name="ElementName" Value="[dbo].[ET_VENDOR].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ET_VENDOR]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="VENDOR_No" />
+  </Operation>
 </Operations>

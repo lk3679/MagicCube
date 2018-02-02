@@ -54,14 +54,14 @@ namespace DataTransfer
         static void Main(string[] args)
         {
 
-            using (var context = new EG_MagicCubeEntities())
-            {
-                string sql = @"SELECT 匯入流水號,匯入時間,藝術家中文名稱,藝術家外文名稱,藝術家區域,藝術家標籤,作品編號,作品名稱,作品年代起,作品年代迄,媒材,計算尺寸,高度
-                ,寬度,深度,錄像長度,數量,單位詞,作品所有人,作品庫別,成本,定價,定價時間,毛利率,作品類型,作品風格,市場性,增值性,藝術性,包裹性,備註
-                FROM dbo.匯入20170910";
-                匯入資料List = context.Database.SqlQuery<匯入資料>(sql).ToList();
+            //using (var context = new EG_MagicCubeEntities())
+            //{
+            //    string sql = @"SELECT 匯入流水號,匯入時間,藝術家中文名稱,藝術家外文名稱,藝術家區域,藝術家標籤,作品編號,作品名稱,作品年代起,作品年代迄,媒材,計算尺寸,高度
+            //    ,寬度,深度,錄像長度,數量,單位詞,作品所有人,作品庫別,成本,定價,定價時間,毛利率,作品類型,作品風格,市場性,增值性,藝術性,包裹性,備註
+            //    FROM dbo.匯入20170910";
+            //    匯入資料List = context.Database.SqlQuery<匯入資料>(sql).ToList();
 
-            }
+            //}
 
             //foreach (匯入資料 _匯入資料 in 匯入資料List)
             //{
@@ -493,11 +493,12 @@ namespace DataTransfer
                 foreach (var _w in _WorksList)
                 {
                     Console.WriteLine(_w.MaterialsID + " "+ _w.WorksName);
-                    string dirpath_o = @"D:\eslite\Doc\魔術方塊\資料匯入\img_o\img\" + _w.MaterialsID + @"\";
-                    string dirpath_m = @"D:\eslite\Doc\魔術方塊\資料匯入\img_800\img\" + _w.MaterialsID + @"\";
-                    string dirpath_s = @"D:\eslite\Doc\魔術方塊\資料匯入\img_200\img\" + _w.MaterialsID + @"\";
+                    string dirpath_o = @"D:\eslite\Doc\魔術方塊\資料匯入\img_20180109_o\" + _w.MaterialsID + @"\";
+                    string dirpath_m = @"D:\eslite\Doc\魔術方塊\資料匯入\img_20180109_800\" + _w.MaterialsID + @"\";
+                    string dirpath_s = @"D:\eslite\Doc\魔術方塊\資料匯入\img_20180109_200\" + _w.MaterialsID + @"\";
                     if (System.IO.Directory.Exists(dirpath_o))
                     {
+                        Console.WriteLine(_w.MaterialsID);
                         foreach (System.IO.FileInfo _file in new System.IO.DirectoryInfo(dirpath_o).GetFiles())
                         {
                             string filepath = _file.FullName.ToUpper();
@@ -545,15 +546,10 @@ namespace DataTransfer
                                 fileStream_s.Dispose();
                             }
                         }
-
                     }
-                
-
                 }
                 Console.ReadLine();
-            }
-                
+            }    
         }
-
     }
 }
