@@ -373,7 +373,7 @@ namespace EG_MagicCube.Models
                 if (context.PackageItems.Count() > 0)
                 {
                     var Guid_PackagesNo = Guid.Parse(PackagesNo.ToUpper());
-                    var r_PackageItems = context.PackageItems?.AsQueryable().Where(f => f.PackagesNo == Guid_PackagesNo && f.Works.IsDel!="Y");
+                    var r_PackageItems = context.PackageItems?.AsQueryable().Where(f => f.PackagesNo == Guid_PackagesNo && f.Works.IsDel!="Y").Take(1000);
                     if (ShowJoin)
                     {
                         r_PackageItems = r_PackageItems.Where(f => f.IsJoin == "Y");
