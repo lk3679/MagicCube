@@ -239,7 +239,7 @@ namespace EG_MagicCube.Controllers
                 Cost = value.Cost.ToString("#,#"),
                 Price = value.Price.ToString("#,#"),
                 PricingDate = value.PricingDate.ToString("yyyy-MM-dd"),
-                Artisticability= value.Artisticability,
+                Artisticability = value.Artisticability,
                 Marketability = value.Marketability,
                 Packageability = value.Packageability,
                 Valuability = value.Valuability,
@@ -248,7 +248,9 @@ namespace EG_MagicCube.Controllers
                 PropStyle = string.Join(",", value.WorksPropStyleList.Select(o => o.MenuName)),
                 Years = value.YearStart.ToString() + (value.YearStart == value.YearEnd ? "" : " ~ " + value.YearEnd.ToString()),
                 WordsRating = value.Rating,
-                WorksAmount=value.WorksAmount
+                WorksAmount = value.WorksAmount,
+                CreateUser = value.CreateUser,
+                ModifyDate = value.ModifyDate.ToString("yyyy-MM-dd")
             };
             return View(model);
         }

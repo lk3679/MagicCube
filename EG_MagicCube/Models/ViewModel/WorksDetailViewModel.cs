@@ -90,5 +90,10 @@ namespace EG_MagicCube.Models.ViewModel
 
         //[Display(Name = "圖片列表")]
         //public Dictionary<long, string> ProFileListpStyle { get; set; }
+
+        [Display(Name = "建立者")]
+        public string CreateUser { get; set; }
+        [Display(Name = "異動日期")]
+        public string ModifyDate { get; set; }
     }
 }

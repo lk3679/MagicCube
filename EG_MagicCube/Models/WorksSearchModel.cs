@@ -102,7 +102,7 @@ namespace EG_MagicCube.Models
         /// <summary>
         /// 排序方式
         /// </summary>
-        public MenuModel.WorkOrderbyTypeEnum OrderbyType= MenuModel.WorkOrderbyTypeEnum.預設排序;
+        public MenuModel.WorkOrderbyTypeEnum OrderbyType = MenuModel.WorkOrderbyTypeEnum.預設排序;
         /// <summary>
         /// 搜尋
         /// </summary>
@@ -117,7 +117,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.Works.Count() > 0)
                 {
-                    var r = context.Works?.AsQueryable().Where(f=>f.IsDel != "Y");
+                    var r = context.Works?.AsQueryable().Where(f => f.IsDel != "Y");
 
                     if (!string.IsNullOrEmpty(this.WorksNo))
                     {
@@ -187,8 +187,8 @@ namespace EG_MagicCube.Models
                         rwm = rwm.Where(f => Convert.ToInt16(f.TimeLength) <= this.MaxTimeLength);
                     }
 
-                    var _wkno=rwm.Select(c => c.WorksNo).ToList();
-                    if (_wkno != null && _wkno.Count>0)
+                    var _wkno = rwm.Select(c => c.WorksNo).ToList();
+                    if (_wkno != null && _wkno.Count > 0)
                     {
                         _WorksNoList.AddRange(_wkno);
                     }
@@ -207,7 +207,7 @@ namespace EG_MagicCube.Models
                         FilterCount++;
                         int[] _AuthorNoArray = this.AuthorNoList.ConvertAll(s => int.Parse(s)).ToArray();
                         var _wawkno = context.WorksAuthors?.AsQueryable()?.Where(wa => _AuthorNoArray.Contains(wa.Author_No)).Select(c => c.Works_No).ToList();
-                        if(_wawkno != null && _wawkno.Count > 0)
+                        if (_wawkno != null && _wawkno.Count > 0)
                         {
                             _WorksNoList.AddRange(_wawkno);
                         }
@@ -244,7 +244,7 @@ namespace EG_MagicCube.Models
                     if (!string.IsNullOrEmpty(this.PackagesNo))
                     {
                         FilterCount++;
-                        var pkgitmwkno= context.PackageItems?.AsQueryable()?.Where(c => c.PackagesNo== Guid.Parse(this.PackagesNo.ToUpper())).Select(c => c.WorksNo).ToList();
+                        var pkgitmwkno = context.PackageItems?.AsQueryable()?.Where(c => c.PackagesNo == Guid.Parse(this.PackagesNo.ToUpper())).Select(c => c.WorksNo).ToList();
 
                         if (pkgitmwkno != null && pkgitmwkno.Count > 0)
                         {
@@ -254,18 +254,19 @@ namespace EG_MagicCube.Models
 
                     }
                     if (_WorksNoList != null && _WorksNoList.Count > 0)
-                    {                        
+                    {
                         var _WorksNoArray = _WorksNoList.GroupBy(i => i)
                         .Where(g => g.Count() == FilterCount)
                         .Select(g => g.ElementAt(0)).ToArray();
-                        if (_WorksNoArray != null && _WorksNoArray.Length>0)
+                        if (_WorksNoArray != null && _WorksNoArray.Length > 0)
                         {
                             r = r.Where(f => _WorksNoArray.Contains(f.WorksNo));
                         }
                     }
                     if (MenuModel.WorkOrderbyTypeEnum.預設排序 == this.OrderbyType)
                     {
-                        r = r.OrderByDescending(c => c.YearStart).ThenByDescending(c => c.CreateDate);
+                        //r = r.OrderByDescending(c => c.YearStart).ThenByDescending(c => c.CreateDate);
+                        r = r.OrderBy(c => c.MaterialsID).ThenByDescending(c => c.YearStart).ThenByDescending(c => c.CreateDate);
                     }
                     else
                     if (MenuModel.WorkOrderbyTypeEnum.作品起始年代小至大 == this.OrderbyType)
@@ -303,7 +304,7 @@ namespace EG_MagicCube.Models
                     }
                     if (PageIndex > 0 && PageIndex > 0)
                     {
-                        r = r.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize+1);
+                        r = r.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize + 1);
                     }
 
                     var _rw = r.ToList();
@@ -361,7 +362,7 @@ namespace EG_MagicCube.Models
                 foreach (WorksModel _WorksModel in _WorksModelList)
                 {
                     _WorksModel.AuthorsName = string.Join(",", _WorksAuthors.Where(c => c.Works_No == Guid.Parse(_WorksModel.WorksNo.ToUpper())).Select(c => c.Authors.AuthorsCName).ToArray());
-                    _WorksModel.MaterialsName = string.Join(",", _WorksModules.Where(c => c.WorksNo == Guid.Parse(_WorksModel.WorksNo.ToUpper())) .Select(c => c.Menu_Material.MaterialName).Distinct().ToArray());
+                    _WorksModel.MaterialsName = string.Join(",", _WorksModules.Where(c => c.WorksNo == Guid.Parse(_WorksModel.WorksNo.ToUpper())).Select(c => c.Menu_Material.MaterialName).Distinct().ToArray());
 
                     foreach (WorksModel.WorksModuleModel _WorksModule in _WorksModel.WorksModuleList)
                     {
