@@ -348,7 +348,7 @@ namespace EG_MagicCube.Controllers
             //}
         }
 
-        public ActionResult Edit_WorksList(string id = "")
+        public ActionResult Edit_WorksList(string id = "", string showType = "img")
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -368,6 +368,11 @@ namespace EG_MagicCube.Controllers
             model.WorksList = new List<WorksInfoViewModel>();
             for (int i = 0; i < value.PackageItems.Count; i++)
             {
+                // test 
+                //if (i > 10)
+                //{
+                //    continue;
+                //}
                 model.WorksList.Add(new WorksInfoViewModel()
                 {
                     No = value.PackageItems[i].WorksNo,
@@ -389,6 +394,7 @@ namespace EG_MagicCube.Controllers
             cookie.Value = id;
             HttpContext.Response.Cookies.Remove("PID");
             HttpContext.Response.SetCookie(cookie);
+            ViewBag.ShowType = showType;
             return View(model);
         }
 

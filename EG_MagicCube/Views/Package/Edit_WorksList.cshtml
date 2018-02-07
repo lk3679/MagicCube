@@ -38,7 +38,59 @@
             @Model.Summary.ToString("#,#")
         </div>
     </div>
-    <div class="col-xs-12 grid" style="padding: 0px;">
+
+    <div class="form-group">
+        @{ 
+            string ShowTypeName = (ViewBag.ShowType == "img" ? "切換文字列表顯示" : "切換圖示列表顯示");
+            string chgShowType = (ViewBag.ShowType == "img" ? "list":"img");
+        }
+        @Html.ActionLink(ShowTypeName, "Edit_WorksList", new { id = Model.PG_No, showType = chgShowType }, new { @class = "btn btn-default" })
+    </div>
+
+@if (Model.WorksList != null && Model.WorksList.Count > 0)
+{
+    <table class="table" @Html.Raw(ViewBag.ShowType == "list" ? "": "style='display:none;'")>
+        <tr>
+            <th>
+                
+            </th>
+            <th>
+                
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorksList[0].Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorksList[0].Years)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorksList[0].Name)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var items in Model.WorksList)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" id="@Html.Raw(items.No)" class="selcheck"  @(items.Checked ? "checked" : "") onchange="chkSelect(this);"  />
+                </td>
+                <td>
+                    <img class=".img-responsive" data-original="@items.MedImg" alt="Red dot" style="max-width:100px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => items.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => items.Years)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => items.Name)
+                </td>
+            </tr>
+        }
+    </table>
+}
+    <div class="col-xs-12 grid" style="padding: 0px;  @Html.Raw(ViewBag.ShowType == "img" ? "": "display:none;")" >
         @if (Model.WorksList != null && Model.WorksList.Count > 0)
         {
             foreach (var items in Model.WorksList)
@@ -67,7 +119,6 @@
         }
     </div>
 </div>
-@*}*@
 
 
 
@@ -75,6 +126,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script src="@Url.Content("~/Scripts/jquery.lazyload.js")"></script>
     <script src="@Url.Content("~/Scripts/masonry.pkgd.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/deleteforlist.js")"></script>
     <script>
         $("img").lazyload({
             effect: "fadeIn",
@@ -90,7 +142,11 @@
             var wn = $(_d).parent().find('i.fa').attr('value');
             var _addtype = $(_d).parent().parent().hasClass('selected');
             var p = $(_d).parent().find('i.fa').data('price');
-             $.ajax({
+            ajaxUpdate($('#PG_No').val(), wn, _addtype);
+        }
+
+        function ajaxUpdate(PackageNo, wn, _addtype) {
+            $.ajax({
                 type: "Post",
                 url: '@Url.Action("PackageAddWorks")',
                 data: { PackageNo: $('#PG_No').val(), WorkNo: wn, addtype: _addtype },
@@ -126,5 +182,12 @@
         $('.imgdiv img').click(function () {
             upadtepackage(this);
         });
+
+        function chkSelect(obj) {
+            var chked = obj.checked;
+            var id = obj.id;
+            ajaxUpdate($('#PG_No').val(), id, chked);
+        }
+
     </script>
 }
