@@ -31,6 +31,11 @@ namespace EG_MagicCube.Models
         [DisplayName("物料代碼")]
         public string MaterialsID { get; set; } = "";
         /// <summary>
+        /// 物料名稱
+        /// </summary>
+        [DisplayName("物料名稱")]
+        public string MaterialsName { get; set; } = "";
+        /// <summary>
         /// 藝術家編號
         /// </summary>
         [DisplayName("藝術家編號")]

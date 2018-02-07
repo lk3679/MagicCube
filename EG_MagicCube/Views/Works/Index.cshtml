@@ -71,7 +71,7 @@
         <th>
             <input type="checkbox" id="checkall" class="" />
         </th>
-        <th class="col-md-6">
+        <th class="col-md-5">
             @Html.DisplayNameFor(model => model.WorksName)
         </th>
         <th class="col-md-1">
@@ -80,11 +80,11 @@
         <th class="col-md-1">
             作品年代
         </th>
-        <th class="col-md-1">
-            @Html.DisplayNameFor(model => model.Price)
+        <th class="col-md-2">
+            @Html.DisplayNameFor(model => model.Material)
         </th>
         <th class="col-md-1">
-          @Html.DisplayNameFor(model => model.CreateUser)
+            @Html.DisplayNameFor(model => model.Price)
         </th>
         <th class="col-md-2"></th>
     </tr>
@@ -96,7 +96,7 @@
                 <td class="">
                     <input type="checkbox" id="@item.WorksNo" class="delcheck" />
                 </td>
-                <td class="col-md-6">
+                <td class="col-md-5">
                     @Html.DisplayFor(modelItem => item.WorksName)
                 </td>
                 <td class="col-md-1">
@@ -105,12 +105,12 @@
                 <td class="col-md-1">
                     @Html.DisplayFor(modelItem => item.YearStart) @( item.YearStart == item.YearEnd ? "" : "~" + item.YearEnd.ToString())
                 </td>
+                <td class="col-md-2">
+                    @Html.DisplayFor(modelItem => item.Material)
+                </td>
                 <td class="col-md-1">
                     @*@Html.DisplayFor(modelItem => item.Price)*@
                     @item.Price.ToString("#,#")
-                </td>
-                <td class="col-md-1">
-                    @Html.DisplayFor(modelItem => item.CreateUser)
                 </td>
                 <td class="col-md-2">
                     <div>
