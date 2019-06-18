@@ -20,6 +20,10 @@
           <Property Name="Rating" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="WorksAmount" Type="int" Nullable="false" />
           <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="LIFNR" Type="int" />
+          <Property Name="LAND1" Type="nvarchar" MaxLength="50" />
+          <Property Name="BirthYear" Type="smallint" Nullable="false" />
+          <Property Name="Gender" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="AuthorsPropArea">
           <Key>
@@ -37,52 +41,20 @@
           <Property Name="AuthorsNo" Type="int" Nullable="false" />
           <Property Name="AuthorsTagNo" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="ET_MASTER">
-          <Key>
-            <PropertyRef Name="MASTER_No" />
-          </Key>
-          <Property Name="MASTER_No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MATNR" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="ZZCT" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="NAME1" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ZFPRESERVE_D" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="ZZSE" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="LOCATION" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="STATUS" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="STPRS" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="NETPR" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="WAERS" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="ERDAT" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="UDATE" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="CreateTime" Type="datetime" Nullable="false" />
-          <Property Name="IsNew" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="IsSync" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="SyncTime" Type="datetime" />
-          <Property Name="SyncUser" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ET_VENDOR">
-          <Key>
-            <PropertyRef Name="VENDOR_No" />
-          </Key>
-          <Property Name="VENDOR_No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NAME1" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="LIFNR" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="SORTL" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="LAND1" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="ERDAT" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="UDATE" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="CreateTime" Type="datetime" Nullable="false" />
-          <Property Name="IsNew" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="IsSync" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="SyncTime" Type="datetime" />
-          <Property Name="SyncUser" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
         <EntityType Name="Menu_AuthorsArea">
           <Key>
             <PropertyRef Name="AuthorsAreaNo" />
           </Key>
           <Property Name="AuthorsAreaNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AuthorsAreaName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menu_AuthorsGender">
+          <Key>
+            <PropertyRef Name="AuthorsGenderNo" />
+          </Key>
+          <Property Name="AuthorsGenderNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuthorsGenderName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu_AuthorsTag">
@@ -117,11 +89,19 @@
           <Property Name="MaterialName" Type="nvarchar" MaxLength="200" />
           <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
+        <EntityType Name="Menu_Nation">
+          <Key>
+            <PropertyRef Name="AreaCode" />
+          </Key>
+          <Property Name="AreaCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AreaName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDel" Type="varchar" MaxLength="5" />
+        </EntityType>
         <EntityType Name="Menu_Owner">
           <Key>
             <PropertyRef Name="OwnerNo" />
           </Key>
-          <Property Name="OwnerNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OwnerNo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="OwnerName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
@@ -139,6 +119,15 @@
           </Key>
           <Property Name="WareTypeNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WareTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="Werks" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Menu_WorksSize">
+          <Key>
+            <PropertyRef Name="WorksSizeNo" />
+          </Key>
+          <Property Name="WorksSizeNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WorksSizeName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="PackageItems">
@@ -160,7 +149,7 @@
           <Property Name="PackagesName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="EndDate" Type="datetime" />
           <Property Name="PackingDate" Type="datetime" />
-          <Property Name="SearchJson" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="SearchJson" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="PackagesMemo" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="CreateUser" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
@@ -213,10 +202,10 @@
           <Property Name="WorksName" Type="nvarchar" MaxLength="200" />
           <Property Name="YearStart" Type="smallint" Nullable="false" />
           <Property Name="YearEnd" Type="smallint" Nullable="false" />
-          <Property Name="Remarks" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="Cost" Type="int" Nullable="false" />
-          <Property Name="Price" Type="int" Nullable="false" />
-          <Property Name="PricingDate" Type="datetime" Nullable="false" />
+          <Property Name="Purchase" Type="int" Nullable="false" />
+          <Property Name="PricingDate" Type="datetime" />
           <Property Name="GrossMargin" Type="float" Nullable="false" />
           <Property Name="Marketability" Type="float" Nullable="false" />
           <Property Name="Packageability" Type="float" Nullable="false" />
@@ -224,10 +213,19 @@
           <Property Name="Artisticability" Type="float" Nullable="false" />
           <Property Name="CreateUser" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifyUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ModifyUser" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifyDate" Type="datetime" />
           <Property Name="Rating" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="IsDel" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="Material" Type="nvarchar" MaxLength="255" />
+          <Property Name="MaterialEng" Type="varchar" MaxLength="255" />
+          <Property Name="Currency" Type="varchar" MaxLength="20" />
+          <Property Name="ZFVOLUME" Type="varchar" MaxLength="50" />
+          <Property Name="ZZPAGE" Type="varchar" MaxLength="10" />
+          <Property Name="WorkSize" Type="nvarchar" MaxLength="50" />
+          <Property Name="GenreName" Type="nvarchar" MaxLength="50" />
+          <Property Name="TotalInventory" Type="int" Nullable="false" />
+          <Property Name="ChangeState" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="WorksAuthors">
           <Key>
@@ -265,6 +263,19 @@
           <Property Name="Amount" Type="int" Nullable="false" />
           <Property Name="CountNoun" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="WorksPrices">
+          <Key>
+            <PropertyRef Name="MaterialsID" />
+            <PropertyRef Name="Currency" />
+          </Key>
+          <Property Name="MaterialsID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Currency" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="PricingDate" Type="datetime" Nullable="false" />
+          <Property Name="source" Type="varchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="WorksPropGenre">
           <Key>
             <PropertyRef Name="WorksPropGenreNo" />
@@ -296,6 +307,25 @@
           <Property Name="WorksPropWareTypeNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WorksNo" Type="uniqueidentifier" Nullable="false" />
           <Property Name="WareTypeNo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorksSizes">
+          <Key>
+            <PropertyRef Name="WorksSizeNo" />
+          </Key>
+          <Property Name="WorksSizeNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WorksNo" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SizeNo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorksStocks">
+          <Key>
+            <PropertyRef Name="MaterialsID" />
+            <PropertyRef Name="WERKS" />
+          </Key>
+          <Property Name="MaterialsID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="WERKS" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="MENGE" Type="smallint" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <Association Name="FK_Author_Prop_Area_Author_List">
           <End Role="Authors" Type="Self.Authors" Multiplicity="1" />
@@ -477,18 +507,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Works_Prop_Owner_Menu_Owner">
-          <End Role="Menu_Owner" Type="Self.Menu_Owner" Multiplicity="1" />
-          <End Role="WorksPropOwner" Type="Self.WorksPropOwner" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Menu_Owner">
-              <PropertyRef Name="OwnerNo" />
-            </Principal>
-            <Dependent Role="WorksPropOwner">
-              <PropertyRef Name="OwnerNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Works_Prop_Owner_Works_List">
           <End Role="Works" Type="Self.Works" Multiplicity="1" />
           <End Role="WorksPropOwner" Type="Self.WorksPropOwner" Multiplicity="*" />
@@ -553,16 +571,17 @@
           <EntitySet Name="Authors" EntityType="Self.Authors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AuthorsPropArea" EntityType="Self.AuthorsPropArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AuthorsPropTag" EntityType="Self.AuthorsPropTag" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ET_MASTER" EntityType="Self.ET_MASTER" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ET_VENDOR" EntityType="Self.ET_VENDOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu_AuthorsArea" EntityType="Self.Menu_AuthorsArea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu_AuthorsGender" EntityType="Self.Menu_AuthorsGender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu_AuthorsTag" EntityType="Self.Menu_AuthorsTag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu_CountNoun" EntityType="Self.Menu_CountNoun" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu_Genre" EntityType="Self.Menu_Genre" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu_Material" EntityType="Self.Menu_Material" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu_Nation" EntityType="Self.Menu_Nation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu_Owner" EntityType="Self.Menu_Owner" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu_Style" EntityType="Self.Menu_Style" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu_WareType" EntityType="Self.Menu_WareType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu_WorksSize" EntityType="Self.Menu_WorksSize" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PackageItems" EntityType="Self.PackageItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Packages" EntityType="Self.Packages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemConfigure" EntityType="Self.SystemConfigure" Schema="dbo" store:Type="Tables" />
@@ -572,10 +591,13 @@
           <EntitySet Name="WorksAuthors" EntityType="Self.WorksAuthors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorksFiles" EntityType="Self.WorksFiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorksModules" EntityType="Self.WorksModules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorksPrices" EntityType="Self.WorksPrices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorksPropGenre" EntityType="Self.WorksPropGenre" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorksPropOwner" EntityType="Self.WorksPropOwner" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorksPropStyle" EntityType="Self.WorksPropStyle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorksPropWareType" EntityType="Self.WorksPropWareType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorksSizes" EntityType="Self.WorksSizes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorksStocks" EntityType="Self.WorksStocks" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Author_Prop_Area_Author_List" Association="Self.FK_Author_Prop_Area_Author_List">
             <End Role="Authors" EntitySet="Authors" />
             <End Role="AuthorsPropArea" EntitySet="AuthorsPropArea" />
@@ -636,10 +658,6 @@
             <End Role="Works" EntitySet="Works" />
             <End Role="WorksPropGenre" EntitySet="WorksPropGenre" />
           </AssociationSet>
-          <AssociationSet Name="FK_Works_Prop_Owner_Menu_Owner" Association="Self.FK_Works_Prop_Owner_Menu_Owner">
-            <End Role="Menu_Owner" EntitySet="Menu_Owner" />
-            <End Role="WorksPropOwner" EntitySet="WorksPropOwner" />
-          </AssociationSet>
           <AssociationSet Name="FK_Works_Prop_Owner_Works_List" Association="Self.FK_Works_Prop_Owner_Works_List">
             <End Role="Works" EntitySet="Works" />
             <End Role="WorksPropOwner" EntitySet="WorksPropOwner" />
@@ -683,6 +701,10 @@
           <NavigationProperty Name="AuthorsPropArea" Relationship="Self.FK_Author_Prop_Area_Author_List" FromRole="Authors" ToRole="AuthorsPropArea" />
           <NavigationProperty Name="AuthorsPropTag" Relationship="Self.FK_Author_Prop_Tag_Author_List" FromRole="Authors" ToRole="AuthorsPropTag" />
           <NavigationProperty Name="WorksAuthors" Relationship="Self.FK_Works_Author_Author_List" FromRole="Authors" ToRole="WorksAuthors" />
+          <Property Name="LIFNR" Type="Int32" />
+          <Property Name="LAND1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BirthYear" Type="Int16" Nullable="false" />
+          <Property Name="Gender" Type="Int16" Nullable="false" />
         </EntityType>
         <EntityType Name="AuthorsPropArea">
           <Key>
@@ -775,6 +797,7 @@
           <Property Name="WareTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="WorksPropWareType" Relationship="Self.FK_Works_Prop_WareType_Menu_WareType" FromRole="Menu_WareType" ToRole="WorksPropWareType" />
+          <Property Name="Werks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PackageItems">
           <Key>
@@ -797,7 +820,7 @@
           <Property Name="PackagesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EndDate" Type="DateTime" Precision="3" />
           <Property Name="PackingDate" Type="DateTime" Precision="3" />
-          <Property Name="SearchJson" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SearchJson" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PackagesMemo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -853,10 +876,9 @@
           <Property Name="WorksName" Type="String" MaxLength="200" FixedLength="false" Unicode="true"/>
           <Property Name="YearStart" Type="Int16" Nullable="false" />
           <Property Name="YearEnd" Type="Int16" Nullable="false" />
-          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Cost" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Int32" Nullable="false" />
-          <Property Name="PricingDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PricingDate" Type="DateTime" Precision="3" />
           <Property Name="GrossMargin" Type="Double" Nullable="false" />
           <Property Name="Marketability" Type="Double" Nullable="false" />
           <Property Name="Packageability" Type="Double" Nullable="false" />
@@ -864,7 +886,7 @@
           <Property Name="Artisticability" Type="Double" Nullable="false" />
           <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifyUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <Property Name="Rating" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
@@ -876,6 +898,16 @@
           <NavigationProperty Name="WorksPropOwner" Relationship="Self.FK_Works_Prop_Owner_Works_List" FromRole="Works" ToRole="WorksPropOwner" />
           <NavigationProperty Name="WorksPropStyle" Relationship="Self.FK_Works_Prop_Style_Works_List" FromRole="Works" ToRole="WorksPropStyle" />
           <NavigationProperty Name="WorksPropWareType" Relationship="Self.FK_Works_Prop_WareType_Works_List" FromRole="Works" ToRole="WorksPropWareType" />
+          <Property Name="Purchase" Type="Int32" Nullable="false" />
+          <Property Name="Material" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialEng" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Currency" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ZFVOLUME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZZPAGE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="WorkSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GenreName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TotalInventory" Type="Int32" Nullable="false" />
+          <Property Name="ChangeState" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="WorksAuthors">
           <Key>
@@ -1320,48 +1352,68 @@
             <End Role="Works" EntitySet="Works" />
             <End Role="WorksPropWareType" EntitySet="WorksPropWareType" />
           </AssociationSet>
-          <EntitySet Name="ET_MASTER" EntityType="EG_MagicCubeModel.ET_MASTER" />
-          <EntitySet Name="ET_VENDOR" EntityType="EG_MagicCubeModel.ET_VENDOR" />
+          <EntitySet Name="WorksPrices" EntityType="EG_MagicCubeModel.WorksPrices" />
+          <EntitySet Name="WorksStocks" EntityType="EG_MagicCubeModel.WorksStocks" />
+          <EntitySet Name="Menu_WorksSize" EntityType="EG_MagicCubeModel.Menu_WorksSize" />
+          <EntitySet Name="Menu_Nation" EntityType="EG_MagicCubeModel.Menu_Nation" />
+          <EntitySet Name="Menu_AuthorsGender" EntityType="EG_MagicCubeModel.Menu_AuthorsGender" />
+          <EntitySet Name="WorksSizes" EntityType="EG_MagicCubeModel.WorksSizes" />
         </EntityContainer>
-        <EntityType Name="ET_MASTER">
+        <EntityType Name="WorksPrices">
           <Key>
-            <PropertyRef Name="MASTER_No" />
+            <PropertyRef Name="MaterialsID" />
+            <PropertyRef Name="Currency" />
           </Key>
-          <Property Name="MASTER_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MATNR" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ZZCT" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="NAME1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ZFPRESERVE_D" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ZZSE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LOCATION" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="STATUS" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="STPRS" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="NETPR" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="WAERS" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ERDAT" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="UDATE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsNew" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="IsSync" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="SyncTime" Type="DateTime" Precision="3" />
-          <Property Name="SyncUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialsID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Currency" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="PricingDate" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="source" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="ET_VENDOR">
+        <EntityType Name="WorksStocks">
           <Key>
-            <PropertyRef Name="VENDOR_No" />
+            <PropertyRef Name="MaterialsID" />
+            <PropertyRef Name="WERKS" />
           </Key>
-          <Property Name="VENDOR_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NAME1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LIFNR" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="SORTL" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LAND1" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ERDAT" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="UDATE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsNew" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="IsSync" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="SyncTime" Type="DateTime" Precision="3" />
-          <Property Name="SyncUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialsID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="WERKS" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MENGE" Type="Int16" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Menu_WorksSize">
+          <Key>
+            <PropertyRef Name="WorksSizeNo" />
+          </Key>
+          <Property Name="WorksSizeNo" Type="Int32" Nullable="false" />
+          <Property Name="WorksSizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDel" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Menu_Nation">
+          <Key>
+            <PropertyRef Name="AreaCode" />
+          </Key>
+          <Property Name="AreaCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AreaName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDel" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Menu_AuthorsGender">
+          <Key>
+            <PropertyRef Name="AuthorsGenderNo" />
+          </Key>
+          <Property Name="AuthorsGenderNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuthorsGenderName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDel" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WorksSizes">
+          <Key>
+            <PropertyRef Name="WorksSizeNo" />
+          </Key>
+          <Property Name="WorksSizeNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorksNo" Type="Guid" Nullable="false" />
+          <Property Name="SizeNo" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1372,6 +1424,10 @@
           <EntitySetMapping Name="Authors">
             <EntityTypeMapping TypeName="EG_MagicCubeModel.Authors">
               <MappingFragment StoreEntitySet="Authors">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthYear" ColumnName="BirthYear" />
+                <ScalarProperty Name="LAND1" ColumnName="LAND1" />
+                <ScalarProperty Name="LIFNR" ColumnName="LIFNR" />
                 <ScalarProperty Name="AuthorsNo" ColumnName="AuthorsNo" />
                 <ScalarProperty Name="MaterialsID" ColumnName="MaterialsID" />
                 <ScalarProperty Name="AuthorsCName" ColumnName="AuthorsCName" />
@@ -1470,6 +1526,7 @@
           <EntitySetMapping Name="Menu_WareType">
             <EntityTypeMapping TypeName="EG_MagicCubeModel.Menu_WareType">
               <MappingFragment StoreEntitySet="Menu_WareType">
+                <ScalarProperty Name="Werks" ColumnName="Werks" />
                 <ScalarProperty Name="WareTypeNo" ColumnName="WareTypeNo" />
                 <ScalarProperty Name="WareTypeName" ColumnName="WareTypeName" />
                 <ScalarProperty Name="IsDel" ColumnName="IsDel" />
@@ -1546,6 +1603,16 @@
           <EntitySetMapping Name="Works">
             <EntityTypeMapping TypeName="EG_MagicCubeModel.Works">
               <MappingFragment StoreEntitySet="Works">
+                <ScalarProperty Name="ChangeState" ColumnName="ChangeState" />
+                <ScalarProperty Name="TotalInventory" ColumnName="TotalInventory" />
+                <ScalarProperty Name="GenreName" ColumnName="GenreName" />
+                <ScalarProperty Name="WorkSize" ColumnName="WorkSize" />
+                <ScalarProperty Name="ZZPAGE" ColumnName="ZZPAGE" />
+                <ScalarProperty Name="ZFVOLUME" ColumnName="ZFVOLUME" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="MaterialEng" ColumnName="MaterialEng" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
+                <ScalarProperty Name="Purchase" ColumnName="Purchase" />
                 <ScalarProperty Name="WorksNo" ColumnName="WorksNo" />
                 <ScalarProperty Name="MaterialsID" ColumnName="MaterialsID" />
                 <ScalarProperty Name="AuthorsNo" ColumnName="AuthorsNo" />
@@ -1554,7 +1621,6 @@
                 <ScalarProperty Name="YearEnd" ColumnName="YearEnd" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="PricingDate" ColumnName="PricingDate" />
                 <ScalarProperty Name="GrossMargin" ColumnName="GrossMargin" />
                 <ScalarProperty Name="Marketability" ColumnName="Marketability" />
@@ -1645,49 +1711,67 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ET_MASTER">
-            <EntityTypeMapping TypeName="EG_MagicCubeModel.ET_MASTER">
-              <MappingFragment StoreEntitySet="ET_MASTER">
-                <ScalarProperty Name="SyncUser" ColumnName="SyncUser" />
-                <ScalarProperty Name="SyncTime" ColumnName="SyncTime" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="IsNew" ColumnName="IsNew" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="UDATE" ColumnName="UDATE" />
-                <ScalarProperty Name="ERDAT" ColumnName="ERDAT" />
-                <ScalarProperty Name="WAERS" ColumnName="WAERS" />
-                <ScalarProperty Name="NETPR" ColumnName="NETPR" />
-                <ScalarProperty Name="STPRS" ColumnName="STPRS" />
-                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
-                <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
-                <ScalarProperty Name="ZZSE" ColumnName="ZZSE" />
-                <ScalarProperty Name="ZFPRESERVE_D" ColumnName="ZFPRESERVE_D" />
-                <ScalarProperty Name="NAME1" ColumnName="NAME1" />
-                <ScalarProperty Name="ZZCT" ColumnName="ZZCT" />
-                <ScalarProperty Name="MATNR" ColumnName="MATNR" />
-                <ScalarProperty Name="MASTER_No" ColumnName="MASTER_No" />
+          <EntitySetMapping Name="WorksPrices">
+            <EntityTypeMapping TypeName="EG_MagicCubeModel.WorksPrices">
+              <MappingFragment StoreEntitySet="WorksPrices">
+                <ScalarProperty Name="source" ColumnName="source" />
+                <ScalarProperty Name="PricingDate" ColumnName="PricingDate" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="MaterialsID" ColumnName="MaterialsID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ET_VENDOR">
-            <EntityTypeMapping TypeName="EG_MagicCubeModel.ET_VENDOR">
-              <MappingFragment StoreEntitySet="ET_VENDOR">
-                <ScalarProperty Name="SyncUser" ColumnName="SyncUser" />
-                <ScalarProperty Name="SyncTime" ColumnName="SyncTime" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="IsNew" ColumnName="IsNew" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="UDATE" ColumnName="UDATE" />
-                <ScalarProperty Name="ERDAT" ColumnName="ERDAT" />
-                <ScalarProperty Name="LAND1" ColumnName="LAND1" />
-                <ScalarProperty Name="SORTL" ColumnName="SORTL" />
-                <ScalarProperty Name="LIFNR" ColumnName="LIFNR" />
-                <ScalarProperty Name="NAME1" ColumnName="NAME1" />
-                <ScalarProperty Name="VENDOR_No" ColumnName="VENDOR_No" />
+          <EntitySetMapping Name="WorksStocks">
+            <EntityTypeMapping TypeName="EG_MagicCubeModel.WorksStocks">
+              <MappingFragment StoreEntitySet="WorksStocks">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="MENGE" ColumnName="MENGE" />
+                <ScalarProperty Name="WERKS" ColumnName="WERKS" />
+                <ScalarProperty Name="MaterialsID" ColumnName="MaterialsID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Menu_WorksSize">
+            <EntityTypeMapping TypeName="EG_MagicCubeModel.Menu_WorksSize">
+              <MappingFragment StoreEntitySet="Menu_WorksSize">
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="WorksSizeName" ColumnName="WorksSizeName" />
+                <ScalarProperty Name="WorksSizeNo" ColumnName="WorksSizeNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu_Nation">
+            <EntityTypeMapping TypeName="EG_MagicCubeModel.Menu_Nation">
+              <MappingFragment StoreEntitySet="Menu_Nation">
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+                <ScalarProperty Name="AreaCode" ColumnName="AreaCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu_AuthorsGender">
+            <EntityTypeMapping TypeName="EG_MagicCubeModel.Menu_AuthorsGender">
+              <MappingFragment StoreEntitySet="Menu_AuthorsGender">
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="AuthorsGenderName" ColumnName="AuthorsGenderName" />
+                <ScalarProperty Name="AuthorsGenderNo" ColumnName="AuthorsGenderNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorksSizes">
+            <EntityTypeMapping TypeName="EG_MagicCubeModel.WorksSizes">
+              <MappingFragment StoreEntitySet="WorksSizes">
+                <ScalarProperty Name="SizeNo" ColumnName="SizeNo" />
+                <ScalarProperty Name="WorksNo" ColumnName="WorksNo" />
+                <ScalarProperty Name="WorksSizeNo" ColumnName="WorksSizeNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

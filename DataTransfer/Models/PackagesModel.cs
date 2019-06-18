@@ -304,7 +304,7 @@ namespace EG_MagicCube.Models
                         int _SumCost = 0;
                         _ItemAmount = (_PackageItems?.Count()).Value;
                         _JoinItemAmount = (_PackageItems?.Where(pi => pi.IsJoin == "Y").Count()).Value;
-                        _Summary = _PackageItems.Where(pi => pi.IsJoin == "Y").Select(c=>c.Works.Price).Sum();
+                        _Summary = _PackageItems.Where(pi => pi.IsJoin == "Y").Select(c=>c.Works.Cost).Sum();
                         _SumCost = _PackageItems.Where(pi => pi.IsJoin == "Y").Select(c => c.Works.Cost).Sum();
                         _PackagesModel.PackagesNo = r_Packages.PackagesNo.ToString();
                         _PackagesModel.QRImg = "";
@@ -396,7 +396,7 @@ namespace EG_MagicCube.Models
                             _PackageItemModel.WorksImg_m = _WorksFiles.Where(wf => wf.WorksNo == _PackageItems.WorksNo).OrderBy(c=>c.Sorting).ThenBy(c => c.WorksFilesNo).Select(wf => wf.File_m_Url).FirstOrDefault();
                             _PackageItemModel.WorksName = _Works?.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().WorksName;
                             _PackageItemModel.IsJoin = _PackageItems.IsJoin;
-                            _PackageItemModel.Price = (_Works?.Where(w => w.WorksNo == _PackageItems.WorksNo)?.FirstOrDefault()?.Price).Value;
+                            _PackageItemModel.Price = (_Works?.Where(w => w.WorksNo == _PackageItems.WorksNo)?.FirstOrDefault()?.Cost).Value;
                             _PackageItemModel.Cost = (_Works?.Where(w => w.WorksNo == _PackageItems.WorksNo)?.FirstOrDefault()?.Cost).Value;
                             string YearStart = _Works?.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().YearStart.ToString();
                             string YearEnd = _Works?.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().YearEnd.ToString();

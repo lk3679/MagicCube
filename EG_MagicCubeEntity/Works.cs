@@ -34,8 +34,7 @@ namespace EG_MagicCubeEntity
         public short YearEnd { get; set; }
         public string Remarks { get; set; }
         public int Cost { get; set; }
-        public int Price { get; set; }
-        public System.DateTime PricingDate { get; set; }
+        public Nullable<System.DateTime> PricingDate { get; set; }
         public double GrossMargin { get; set; }
         public double Marketability { get; set; }
         public double Packageability { get; set; }
@@ -47,6 +46,16 @@ namespace EG_MagicCubeEntity
         public Nullable<System.DateTime> ModifyDate { get; set; }
         public string Rating { get; set; }
         public string IsDel { get; set; }
+        public int Purchase { get; set; }
+        public string Material { get; set; }
+        public string MaterialEng { get; set; }
+        public string Currency { get; set; }
+        public string ZFVOLUME { get; set; }
+        public string ZZPAGE { get; set; }
+        public string WorkSize { get; set; }
+        public string GenreName { get; set; }
+        public int TotalInventory { get; set; }
+        public string ChangeState { get; set; }
     
         public virtual ICollection<PackageItems> PackageItems { get; set; }
         public virtual ICollection<WorksAuthors> WorksAuthors { get; set; }

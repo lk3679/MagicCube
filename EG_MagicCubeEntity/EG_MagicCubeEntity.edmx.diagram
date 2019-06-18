@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5c696e1b400749699dd1beeeb9a924f9" Name="Diagram1">
+      <Diagram DiagramId="5c696e1b400749699dd1beeeb9a924f9" Name="Diagram1" ZoomLevel="85">
         <EntityTypeShape EntityType="EG_MagicCubeModel.Authors" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.AuthorsPropArea" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EG_MagicCubeModel.AuthorsPropTag" Width="1.5" PointX="6" PointY="2.75" IsExpanded="true" />
@@ -50,8 +50,12 @@
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Owner_Works_List" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_Style_Works_List" ManuallyRouted="false" />
         <AssociationConnector Association="EG_MagicCubeModel.FK_Works_Prop_WareType_Works_List" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="EG_MagicCubeModel.ET_MASTER" Width="1.5" PointX="8.375" PointY="6.75" />
-        <EntityTypeShape EntityType="EG_MagicCubeModel.ET_VENDOR" Width="1.5" PointX="10.375" PointY="6.75" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.WorksPrices" Width="1.5" PointX="10.375" PointY="11.75" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.WorksStocks" Width="1.5" PointX="12.375" PointY="6.75" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_WorksSize" Width="1.5" PointX="8.375" PointY="6.75" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_Nation" Width="1.5" PointX="12.375" PointY="9.75" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.Menu_AuthorsGender" Width="1.5" PointX="12.375" PointY="12.75" />
+        <EntityTypeShape EntityType="EG_MagicCubeModel.WorksSizes" Width="1.5" PointX="13.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

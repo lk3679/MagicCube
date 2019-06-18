@@ -130,11 +130,11 @@ namespace EG_MagicCube.Models
                     //價格
                     if (this.MinePrice > 0)
                     {
-                        r = r.Where(f => f.Price >= this.MinePrice);
+                        r = r.Where(f => f.Purchase >= this.MinePrice);
                     }
                     if (this.MaxPrice > 0)
                     {
-                        r = r.Where(f => f.Price <= this.MaxPrice);
+                        r = r.Where(f => f.Purchase <= this.MaxPrice);
                     }
 
                     List<Guid> _WorksNoList = new List<Guid>();
@@ -328,8 +328,8 @@ namespace EG_MagicCube.Models
                                    YearEnd = c.YearEnd,
                                    Remarks = c.Remarks,
                                    Cost = c.Cost,
-                                   Price = c.Price,
-                                   PricingDate = c.PricingDate,
+                                   Price = c.Purchase,
+                                   //PricingDate = c.PricingDate,
                                    GrossMargin = c.GrossMargin,
                                    Marketability = c.Marketability,
                                    Packageability = c.Packageability,

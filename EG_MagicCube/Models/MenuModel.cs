@@ -67,7 +67,15 @@ namespace EG_MagicCube.Models
             /// 帳號權限
             /// </summary>
             [Display(Name = "帳號權限")]
-            AccountRole
+            AccountRole,
+
+
+          [Display(Name = "作品尺幅")]
+            WorksSize,
+
+          [Display(Name ="藝術家性別")]
+            AuthorsGender
+
         };
 
         /// <summary>
@@ -81,7 +89,9 @@ namespace EG_MagicCube.Models
             建立時間由新至舊,
             建立時間由舊至新,
             修改時間由舊至新,
-            修改時間由新至舊
+            修改時間由新至舊,
+            出生年由小到大,
+            出生年由大到小
         }
         public enum PackageOrderbyTypeEnum
         {
@@ -102,6 +112,8 @@ namespace EG_MagicCube.Models
             作品起始年代大至小,
             定價小至大,
             定價大至小,
+            出生年由小到大,
+            出生年由大到小
         }
         /// <summary>
         /// 取得Menu
@@ -130,8 +142,10 @@ namespace EG_MagicCube.Models
                         { MenuClass = MenuClassName, MenuID = c.CountNounNo, MenuName = c.CountNounName }).ToList());
                         break;
                     case MenuClassEnum.Genre:
-                        _MenuViewModel.AddRange(context.Menu_Genre.AsQueryable().Where(c => c.IsDel != "Y").Select(c => new MenuViewModel()
-                        { MenuClass = MenuClassName, MenuID = c.GenreNo, MenuName = c.GenreName }).ToList());
+                        //_MenuViewModel.AddRange(context.Menu_Genre.AsQueryable().Where(c => c.IsDel != "Y").Select(c => new MenuViewModel()
+                        //{ MenuClass = MenuClassName, MenuID = c.GenreNo, MenuName = c.GenreName }).ToList());
+                        var _WorksGenreList = context.Works.AsEnumerable().Where(x => x.IsDel != "Y" && x.GenreName != null).Select(x => x.GenreName.Split('-').Last().ToString()).Distinct().ToList();
+                        _MenuViewModel.AddRange(_WorksGenreList.Select(c => new MenuViewModel() { MenuClass = MenuClassName, MenuID = 0, MenuName = c.ToString() }).ToList());
                         break;
                     case MenuClassEnum.Material:
                         _MenuViewModel.AddRange(context.Menu_Material.AsQueryable().Where(c => c.IsDel != "Y").Select(c => new MenuViewModel()
@@ -142,13 +156,21 @@ namespace EG_MagicCube.Models
                         { MenuClass = MenuClassName, MenuID = c.StyleNo, MenuName = c.StyleName }).ToList());
                         break;
                     case MenuClassEnum.WareType:
-                        _MenuViewModel.AddRange(context.Menu_WareType.AsQueryable().Where(c => c.IsDel != "Y").Select(c => new MenuViewModel()
+                        _MenuViewModel.AddRange(context.Menu_WareType.AsQueryable().Where(c => c.IsDel != "Y"&&c.Werks!=null).Select(c => new MenuViewModel()
                         { MenuClass = MenuClassName, MenuID = c.WareTypeNo, MenuName = c.WareTypeName }).ToList());
                         break;
 
                     case MenuClassEnum.Owner:
                         _MenuViewModel.AddRange(context.Menu_Owner.AsQueryable().Where(c => c.IsDel != "Y").Select(c => new MenuViewModel()
                         { MenuClass = MenuClassName, MenuID = c.OwnerNo, MenuName = c.OwnerName }).ToList());
+                        break;
+                    case MenuClassEnum.WorksSize:
+                        _MenuViewModel.AddRange(context.Menu_WorksSize.AsQueryable().Where(c => c.IsDel != "Y").Select(c => new MenuViewModel()
+                        { MenuClass = MenuClassName, MenuID = c.WorksSizeNo, MenuName = c.WorksSizeName }).ToList());
+                        break;
+                    case MenuClassEnum.AuthorsGender:
+                        _MenuViewModel.AddRange(context.Menu_AuthorsGender.AsQueryable().Where(c => c.IsDel != "Y").Select(c => new MenuViewModel()
+                        { MenuClass=MenuClassName,MenuID=c.AuthorsGenderNo,MenuName=c.AuthorsGenderName}));
                         break;
                     case MenuClassEnum.AccountRole:
                         _MenuViewModel.AddRange((from f in context.UserAccountRoles
@@ -216,11 +238,25 @@ namespace EG_MagicCube.Models
                             context.Menu_WareType.Add(new Menu_WareType() { WareTypeNo = _MenuViewModel.MenuID, WareTypeName = _MenuViewModel.MenuName, IsDel = "" });
                         }
                         break;
+                   
 
                     case MenuClassEnum.Owner:
                         foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
                         {
                             context.Menu_Owner.Add(new Menu_Owner() { OwnerNo = _MenuViewModel.MenuID, OwnerName = _MenuViewModel.MenuName, IsDel = "" });
+                        }
+                        break;
+
+                    case MenuClassEnum.WorksSize:
+                        foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
+                        {
+                            context.Menu_WorksSize.Add(new Menu_WorksSize { WorksSizeNo = _MenuViewModel.MenuID, WorksSizeName = _MenuViewModel.MenuName, IsDel = "" });
+                        }
+                        break;
+                    case MenuClassEnum.AuthorsGender:
+                        foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
+                        {
+                            context.Menu_AuthorsGender.Add(new Menu_AuthorsGender {AuthorsGenderNo = _MenuViewModel.MenuID, AuthorsGenderName = _MenuViewModel.MenuName, IsDel = "" });
                         }
                         break;
                 }
@@ -276,6 +312,15 @@ namespace EG_MagicCube.Models
                         var AccountRole = context.UserAccountRoles.First(c => c.RoleNo == _MenuNo);
                         if (AccountRole != null) AccountRole.RoleName = MenuName;
                         break;
+                    case MenuClassEnum.WorksSize:
+                        var WorksSize = context.Menu_WorksSize.First(c=>c.WorksSizeNo==_MenuNo);
+                        if (WorksSize != null) WorksSize.WorksSizeName = MenuName;
+                        break;
+                    case MenuClassEnum.AuthorsGender:
+                        var AuthorsGender = context.Menu_AuthorsGender.First(c => c.AuthorsGenderNo == _MenuNo);
+                        if (AuthorsGender != null) AuthorsGender.AuthorsGenderName = MenuName;
+                        break;
+
                 }
                 if (context.SaveChanges() == 0)
                 {
@@ -381,6 +426,29 @@ namespace EG_MagicCube.Models
                             }
                         }
                         break;
+                    case MenuClassEnum.WorksSize:
+                        foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
+                        {
+                            var delobj_Menu_WorksSize = context.Menu_WorksSize.FirstOrDefault(x => x.WorksSizeNo == _MenuViewModel.MenuID);
+                            if (delobj_Menu_WorksSize != null)
+                            {
+                                delobj_Menu_WorksSize.IsDel = "Y";
+                            }
+                        }
+                        break;
+                    case MenuClassEnum.AuthorsGender:
+                        foreach (MenuViewModel _MenuViewModel in _MenuViewModelList)
+                        {
+                            var delobj_Menu_AuthorsGender = context.Menu_AuthorsGender.FirstOrDefault(x => x.AuthorsGenderNo == _MenuViewModel.MenuID);
+
+                            if (delobj_Menu_AuthorsGender != null)
+                            {
+                                delobj_Menu_AuthorsGender.IsDel = "Y";
+                            }
+                        }
+                        break;
+
+
                 }
                 if (context.SaveChanges() == 0)
                 {
@@ -409,4 +477,12 @@ namespace EG_MagicCube.Models
         /// </summary>
         public string MenuName { get; set; }
     }
+
+    public class MenuStock
+    {
+        public string StockID { get; set; }
+
+        public string StockName { get; set; }
+    }
+
 }

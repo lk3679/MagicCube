@@ -9,9 +9,9 @@ namespace EG_MagicCube.Controllers
     public class AuthorController : BaseController
     {
         // GET: Author
-        public ActionResult Index(int p = 0)
+        public ActionResult Index(int p = 0, string AuthorsCName ="",string StartYear="",string EndYear="",string AuthorsGender_InputString="",string AuthorsTagNo_InputString="")
         {
-            List<AuthorsModel> AuthorsModelList = AuthorsModel.GetAuthorList("", p + 1, take);
+            List<AuthorsModel> AuthorsModelList = AuthorsModel.GetAuthorList(AuthorsCName, StartYear, EndYear, AuthorsGender_InputString, AuthorsTagNo_InputString, p + 1, take);
             //多取一，若有表示有下一頁
             if (AuthorsModelList.Count == (take + 1))
             {
@@ -22,6 +22,42 @@ namespace EG_MagicCube.Controllers
             {
                 ViewBag.pn = 0;
             }
+
+            MenuModel mm = new MenuModel();
+
+            ViewBag.AuthorsCName = AuthorsCName;
+            ViewBag.StartYear = StartYear;
+            ViewBag.EndYear = EndYear;
+            ViewBag.AuthorsGender_InputString = AuthorsGender_InputString;
+            ViewBag.AuthorsTagNo_InputString = AuthorsTagNo_InputString;
+
+            //藝術家下拉選單
+            List<SelectListItem> AuthorTagList = new List<SelectListItem>();
+            var _AuthorTagList = mm.GetMenu(MenuModel.MenuClassEnum.AuthorTag);
+            for (int i = 0; i < _AuthorTagList.Count; i++)
+            {
+                AuthorTagList.Add(new SelectListItem()
+                {
+                    Text = _AuthorTagList[i].MenuName,
+                    Value = _AuthorTagList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.AuthorTagList = AuthorTagList;
+
+
+            //藝術家性別選單
+            List<SelectListItem> AuthorsGenderLsit = new List<SelectListItem>();
+            var _AuthorGenderLsit = mm.GetMenu(MenuModel.MenuClassEnum.AuthorsGender);
+            foreach (var item in _AuthorGenderLsit)
+            {
+                AuthorsGenderLsit.Add(new SelectListItem()
+                {
+                    Text = item.MenuName,
+                    Value = item.MenuID.ToString()
+                });
+            }
+            ViewBag.AuthorsGenderLsit = AuthorsGenderLsit;
+
             ViewBag.pi = p;
             ViewBag.pt = take.ToString();
             setSortDropDown();
@@ -32,7 +68,7 @@ namespace EG_MagicCube.Controllers
         public ActionResult Index(FormCollection collection, int p = 0)
         {
             MenuModel.MeunOrderbyTypeEnum _MeunOrderbyTypeEnum = (MenuModel.MeunOrderbyTypeEnum)Enum.Parse(typeof(MenuModel.MeunOrderbyTypeEnum), collection["Sort"], true);
-            List<AuthorsModel> AuthorsModelList = AuthorsModel.GetAuthorList(collection["AuthorsCName"], p + 1, take, _MeunOrderbyTypeEnum);
+            List<AuthorsModel> AuthorsModelList = AuthorsModel.GetAuthorList(collection["AuthorsCName"], collection["StartYear"], collection["EndYear"], collection["AuthorsGender_InputString"], collection["AuthorsTagNo_InputString"], p + 1, take, _MeunOrderbyTypeEnum);
             if (AuthorsModelList.Count == (take + 1))
             {
                 ViewBag.pn = p + 1;
@@ -42,9 +78,45 @@ namespace EG_MagicCube.Controllers
             {
                 ViewBag.pn = 0;
             }
+
+            ViewBag.AuthorsCName = collection["AuthorsCName"];
+            ViewBag.StartYear = collection["StartYear"];
+            ViewBag.EndYear = collection["EndYear"];
+            ViewBag.AuthorsGender_InputString = collection["AuthorsGender_InputString"];
+            ViewBag.AuthorsTagNo_InputString = collection["AuthorsTagNo_InputString"];
             ViewBag.pi = p;
             ViewBag.pt = take.ToString();
             setSortDropDown(_MeunOrderbyTypeEnum);
+
+            MenuModel mm = new MenuModel();
+
+            //藝術家下拉選單
+            List<SelectListItem> AuthorTagList = new List<SelectListItem>();
+            var _AuthorTagList = mm.GetMenu(MenuModel.MenuClassEnum.AuthorTag);
+            for (int i = 0; i < _AuthorTagList.Count; i++)
+            {
+                AuthorTagList.Add(new SelectListItem()
+                {
+                    Text = _AuthorTagList[i].MenuName,
+                    Value = _AuthorTagList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.AuthorTagList = AuthorTagList;
+
+
+            //藝術家性別選單
+            List<SelectListItem> AuthorsGenderLsit = new List<SelectListItem>();
+            var _AuthorGenderLsit = mm.GetMenu(MenuModel.MenuClassEnum.AuthorsGender);
+            foreach (var item in _AuthorGenderLsit)
+            {
+                AuthorsGenderLsit.Add(new SelectListItem()
+                {
+                    Text = item.MenuName,
+                    Value = item.MenuID.ToString()
+                });
+            }
+            ViewBag.AuthorsGenderLsit = AuthorsGenderLsit;
+
             return View(AuthorsModelList);
         }
 
@@ -153,6 +225,18 @@ namespace EG_MagicCube.Controllers
                 });
             }
             ViewBag.AuthorTagList = AuthorTagList;
+
+            List<SelectListItem> AuthorsGenderLsit = new List<SelectListItem>();
+            var _AuthorGenderLsit = mm.GetMenu(MenuModel.MenuClassEnum.AuthorsGender);
+            foreach (var item in _AuthorGenderLsit)
+            {
+                AuthorsGenderLsit.Add(new SelectListItem()
+                {
+                    Text = item.MenuName,
+                    Value = item.MenuID.ToString()
+                });
+            }
+            ViewBag.AuthorsGenderLsit = AuthorsGenderLsit;
             return View(_AuthorsModel);
         }
 

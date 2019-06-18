@@ -82,6 +82,7 @@ namespace EG_MagicCube.Controllers
 
         public ActionResult Filter(string id = "")
         {
+            
             AdSearchViewModel model = new AdSearchViewModel();
             if (!string.IsNullOrEmpty(id))
             {
@@ -109,6 +110,15 @@ namespace EG_MagicCube.Controllers
                     Text = _AuthorNoList[i].AuthorsCName,
                     Value = _AuthorNoList[i].AuthorsNo.ToString()
                 });
+
+                if (!string.IsNullOrEmpty(_AuthorNoList[i].AuthorsEName))
+                {
+                    Authorsitems.Add(new SelectListItem()
+                    {
+                        Text = _AuthorNoList[i].AuthorsEName,
+                        Value = _AuthorNoList[i].AuthorsNo.ToString()
+                    });
+                }
             }
 
             ViewBag.AuthorNoList = Authorsitems;
@@ -142,34 +152,184 @@ namespace EG_MagicCube.Controllers
             ViewBag.GenreNoList = WorksGenreitems;
             ViewBag.GradedNoList = new List<SelectListItem>();
 
+            List<SelectListItem> WorksSizeList = new List<SelectListItem>();
+            var _WorksSizeList = mm.GetMenu(MenuModel.MenuClassEnum.WorksSize);
+            for (int i = 0; i < _WorksSizeList.Count; i++)
+            {
+                WorksSizeList.Add(new SelectListItem
+                {
+                    Text = _WorksSizeList[i].MenuName,
+                    Value = _WorksSizeList[i].MenuID.ToString()
+                });
+            }
+
+            ViewBag.WorksSizeList = WorksSizeList;
+
+            List<SelectListItem> AuthorTagList = new List<SelectListItem>();
+            var _AuthorTagList = mm.GetMenu(MenuModel.MenuClassEnum.AuthorTag);
+            for (int i = 0; i < _AuthorTagList.Count; i++)
+            {
+                AuthorTagList.Add(new SelectListItem()
+                {
+                    Text = _AuthorTagList[i].MenuName,
+                    Value = _AuthorTagList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.AuthorTagList = AuthorTagList;
+
+            List<SelectListItem> AuthorsGenderLsit = new List<SelectListItem>();
+            var _AuthorGenderLsit = mm.GetMenu(MenuModel.MenuClassEnum.AuthorsGender);
+            foreach (var item in _AuthorGenderLsit)
+            {
+                AuthorsGenderLsit.Add(new SelectListItem()
+                {
+                    Text = item.MenuName,
+                    Value = item.MenuID.ToString()
+                });
+            }
+            ViewBag.AuthorsGenderLsit = AuthorsGenderLsit;
+
+            List<SelectListItem> WorksPropOwnerList = new List<SelectListItem>();
+            var _WorksPropOwnerList = mm.GetMenu(MenuModel.MenuClassEnum.Owner);
+            for (int i = 0; i < _WorksPropOwnerList.Count; i++)
+            {
+                WorksPropOwnerList.Add(new SelectListItem()
+                {
+                    Text = _WorksPropOwnerList[i].MenuName,
+                    Value = _WorksPropOwnerList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.WorksPropOwnerList = WorksPropOwnerList;
+
+            List<SelectListItem> WorksWareTypeList = new List<SelectListItem>();
+            var _WorksWareTypeList = mm.GetMenu(MenuModel.MenuClassEnum.WareType);
+            for (int i = 0; i < _WorksWareTypeList.Count; i++)
+            {
+                WorksWareTypeList.Add(new SelectListItem()
+                {
+                    Text = _WorksWareTypeList[i].MenuName,
+                    Value = _WorksWareTypeList[i].MenuID.ToString()
+                });
+            }
+            ViewBag.WorksWareTypeList = WorksWareTypeList;
+
+            var MeunOrderList = new Dictionary<string, string>();
+            foreach (var item in Enum.GetValues(typeof(MenuModel.WorkOrderbyTypeEnum)))
+            {
+                MeunOrderList.Add(item.ToString(), item.ToString());
+            }
+            ViewBag.MeunOrderList = new SelectList(MeunOrderList, "Key", "Value", ViewBag.OrderbyType);
+
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Filter(AdSearchViewModel collection, string id = "")
+        public ActionResult Filter(FormCollection collection, string id = "")
         {
+            MenuModel.WorkOrderbyTypeEnum _MeunOrderbyTypeEnum = (MenuModel.WorkOrderbyTypeEnum)Enum.Parse(typeof(MenuModel.WorkOrderbyTypeEnum), collection["Sort"], true);
             WorksSearchModel value = new WorksSearchModel()
             {
-                Budget = collection.Budget,
-                MaxDeep = collection.MaxDeep,
-                MaxHeight = collection.MaxHeight,
-                MaxLength = collection.MaxLength,
-                MaxPrice = collection.Price_U,
-                MaxTimeLength = collection.MaxTimeLength,
-                MaxWidth = collection.MaxWidth,
-                MineDeep = collection.MineDeep,
-                MineHeight = collection.MineHeight,
-                MineLength = collection.MineLength,
-                MinePrice = collection.Price_L,
-                MineTimeLength = collection.MineTimeLength,
-                MineWidth = collection.MineWidth,
-                WorksName = collection.WorksName,
-                StyleNoList = collection.StyleNoList,
-                AuthorNoList = collection.AuthorNoList,
-                GenreNoList = collection.GenreNoList,
-                GradedNoList = collection.GradedNoList,
-                OrderbyType= MenuModel.WorkOrderbyTypeEnum.名稱姓名小至大
+                WorksName = collection["WorksName"],
+                OrderbyType = _MeunOrderbyTypeEnum
             };
+            ViewBag.OrderbyType = "";
+            if (!string.IsNullOrEmpty(collection["Sort"]))
+            {
+                ViewBag.OrderbyType = collection["Sort"];
+            }
+
+            ViewBag.WorksName = "";
+            if (!string.IsNullOrEmpty(collection["WorksName"]))
+            {
+                ViewBag.WorksName = collection["WorksName"].ToString();
+            }
+            ViewBag.AuthorNoList = "";
+            if (!string.IsNullOrEmpty(collection["AuthorNoList"]))
+            {
+                value.AuthorNoList = collection["AuthorNoList"].Split(',').ToList();
+                ViewBag.AuthorNoList = collection["AuthorNoList"].ToString();
+            }
+            ViewBag.MinePrice = "";
+            if (!string.IsNullOrEmpty(collection["MinePrice"]))
+            {
+                value.MinePrice = Convert.ToInt32(collection["MinePrice"]);
+                ViewBag.MinePrice = value.MinePrice.ToString();
+            }
+            ViewBag.MaxPrice = "";
+            if (!string.IsNullOrEmpty(collection["MaxPrice"]))
+            {
+                value.MaxPrice = Convert.ToInt32(collection["MaxPrice"]);
+                ViewBag.MaxPrice = value.MaxPrice.ToString();
+            }
+
+            if (!string.IsNullOrEmpty(collection["WorkStartYear"]))
+            {
+                value.WorkStartYear = Convert.ToInt32(collection["WorkStartYear"]);
+                ViewBag.WorkStartYear = value.WorkStartYear;
+            }
+
+            if (!string.IsNullOrEmpty(collection["WorkEndYear"]))
+            {
+                value.WorkEndYear = Convert.ToInt32(collection["WorkEndYear"]);
+                ViewBag.WorkEndYear = value.WorkEndYear;
+            }
+
+            if (!string.IsNullOrEmpty(collection["BirthStartYear"]))
+            {
+                value.BirthStartYear = Convert.ToInt32(collection["BirthStartYear"]);
+                ViewBag.BirthStartYear = value.BirthStartYear;
+            }
+
+            if (!string.IsNullOrEmpty(collection["BirthEndYear"]))
+            {
+                value.BirthEndYear = Convert.ToInt32(collection["BirthEndYear"]);
+                ViewBag.BirthEndYear = value.BirthEndYear;
+            }
+
+
+            if (!string.IsNullOrEmpty(collection["WorksSizeNo_InputString"]))
+            {
+                value.WorksSizeNo_InputString = collection["WorksSizeNo_InputString"];
+                ViewBag.WorksSizeNo_InputString = collection["WorksSizeNo_InputString"];
+            }
+
+            if (!string.IsNullOrEmpty(collection["AuthorsTagNo_InputString"]))
+            {
+                value.AuthorsTagNo_InputString = collection["AuthorsTagNo_InputString"];
+                ViewBag.AuthorsTagNo_InputString = collection["AuthorsTagNo_InputString"];
+            }
+
+            if (!string.IsNullOrEmpty(collection["AuthorsGender_InputString"]))
+            {
+                value.AuthorsGender_InputString = collection["AuthorsGender_InputString"];
+                ViewBag.AuthorsGender_InputString = collection["AuthorsGender_InputString"];
+            }
+
+            if (!string.IsNullOrEmpty(collection["WorksPropStyle_InputString"]))
+            {
+                value.WorksPropStyle_InputString = collection["WorksPropStyle_InputString"];
+                ViewBag.WorksPropStyle_InputString = collection["WorksPropStyle_InputString"];
+            }
+
+            if (!string.IsNullOrEmpty(collection["WorksWareTypeList_InputString"]))
+            {
+                value.WorksWareTypeList_InputString = collection["WorksWareTypeList_InputString"];
+                ViewBag.WorksWareTypeList_InputString = collection["WorksWareTypeList_InputString"];
+            }
+
+            if (!string.IsNullOrEmpty(collection["WorksPropOwnerList_InputString"]))
+            {
+                value.WorksPropOwnerList_InputString = collection["WorksPropOwnerList_InputString"];
+                ViewBag.WorksPropOwnerList_InputString = collection["WorksPropOwnerList_InputString"];
+            }
+
+            if (!string.IsNullOrEmpty(collection["WorksGenreList_InputString"]))
+            {
+                value.WorksGenreList_InputString = collection["WorksGenreList_InputString"];
+                ViewBag.WorksGenreList_InputString = collection["WorksGenreList_InputString"];
+            }
+
+
             PackagesModel pm = new PackagesModel();
             if (string.IsNullOrEmpty(id))
             {
@@ -193,7 +353,7 @@ namespace EG_MagicCube.Controllers
                 });
             }
             pm.SearchJson = JsonConvert.SerializeObject(value);
-            pm.Budget = collection.Budget;
+            //pm.Budget = collection.Budget;
             pm.Update();
 
             //儲存篩選條件
@@ -284,6 +444,7 @@ namespace EG_MagicCube.Controllers
             };
             model.WorksList = new List<WorksInfoViewModel>();
             var valueistem = PackagesModel.ReturnPackageItemList(id, true);
+            model.SumPrice = 0;
             for (int i = 0; i < valueistem.Count; i++)
             {
                 model.WorksList.Add(new WorksInfoViewModel()
@@ -300,6 +461,7 @@ namespace EG_MagicCube.Controllers
                     
                 });
                 model.Summary += valueistem[i].Price;
+                model.SumPrice += valueistem[i].Price;
             }
             return View(model);
         }

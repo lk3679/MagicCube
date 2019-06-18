@@ -208,13 +208,15 @@ namespace EG_MagicCube.Models
         /// 作品等級
         /// </summary>
         [Required]
-        [DisplayName("＝作品等級")]
+        [DisplayName("作品等級")]
         public string Rating { get; set; } = "";
         /// <summary>
         /// 作品數量
         /// </summary>
-        [DisplayName("＝作品數量")]
+        [DisplayName("作品數量")]
         public int WorksAmount { get; set; } = 0;
+        
+
         #endregion
 
         #region Methods
@@ -237,7 +239,7 @@ namespace EG_MagicCube.Models
                 _Works.YearStart = this.YearStart;
                 _Works.YearEnd = this.YearEnd;
                 _Works.Cost = this.Cost;
-                _Works.Price = this.Price;
+                _Works.Purchase = this.Price;
                 _Works.GrossMargin = Math.Round((((Convert.ToDouble((this.Price / double.Parse("1.05"))) - Convert.ToDouble(this.Cost)) / Convert.ToDouble((this.Price / double.Parse("1.05")))) * Convert.ToDouble(100)), 3);
                 if (double.IsNaN(_Works.GrossMargin))
                 {
@@ -409,8 +411,8 @@ namespace EG_MagicCube.Models
                     _WorksModel.YearEnd = _Works.YearEnd;
                     _WorksModel.Remarks = _Works.Remarks;
                     _WorksModel.Cost = _Works.Cost;
-                    _WorksModel.Price = _Works.Price;
-                    _WorksModel.PricingDate = _Works.PricingDate;
+                    _WorksModel.Price = _Works.Purchase;
+                    //_WorksModel.PricingDate = _Works.PricingDate;
                     _WorksModel.GrossMargin = _Works.GrossMargin;
                     _WorksModel.Marketability = _Works.Marketability;
                     _WorksModel.Packageability = _Works.Packageability;
@@ -521,6 +523,9 @@ namespace EG_MagicCube.Models
                             context.WorksPropWareType.Remove(del_WorksPropWareType);
                         }
                     }
+
+                    
+
                 }
                 oldWorks.MaterialsID = newWorks.MaterialsID;
                 oldWorks.AuthorsNo = newWorks.AuthorsNo;
@@ -528,7 +533,7 @@ namespace EG_MagicCube.Models
                 oldWorks.YearStart = newWorks.YearStart;
                 oldWorks.YearEnd = newWorks.YearEnd;
                 oldWorks.Cost = newWorks.Cost;
-                oldWorks.Price = newWorks.Price;
+                oldWorks.Purchase = newWorks.Price;
                 oldWorks.GrossMargin = newWorks.GrossMargin = Math.Round((((Convert.ToDouble((newWorks.Price / double.Parse("1.05"))) - Convert.ToDouble(newWorks.Cost)) / Convert.ToDouble((newWorks.Price / double.Parse("1.05")))) * Convert.ToDouble(100)), 3); ;
                 oldWorks.PricingDate = newWorks.PricingDate;
                 oldWorks.Artisticability = newWorks.Artisticability;

@@ -7,6 +7,7 @@
 <h2>作品列表</h2>
 <p>
     @Html.ActionLink("新增作品", "Create", "Works", null, new { @class = "btn btn-success" })
+    @Html.ActionLink("更新庫存", "RenewStock", "Works", null, new { @class = "btn btn-primary" })
 </p>
 
 @using (Html.BeginForm())
@@ -22,7 +23,7 @@
                     <input type="hidden" name="AuthorNo_InputStringHide" id="AuthorNo_InputStringHide" value="@ViewBag.AuthorNoList" />
                 </div>
                 <label class="control-label col-md-1">
-                    @Html.DisplayNameFor(model => model.Price)
+                    @Html.DisplayName("商品定價")
                 </label>
                 <div class="col-md-3" style="padding:0;">
                     <div class="col-xs-6">
@@ -54,15 +55,110 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-md-2 col-xs-3 text-right">
-                    <input type="button" id="delete-btn" data-url="@Url.Action("Delete")" class="btn btn-danger pull-right fixed-top" value="刪除" style="visibility:hidden;">
+                <label class="control-label col-md-2">
+                    @Html.DisplayName("作品年代")
+                </label>
+                <div class="col-md-3">
+                    <div class="col-xs-6">
+                        <input type="text" name="WorkStartYear" class="form-control text-box single-line" value="@ViewBag.WorkStartYear" />
+
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="text" name="WorkEndYear" class="form-control text-box single-line" value="@ViewBag.WorkEndYear" />
+
+                    </div>
                 </div>
-                <div class=" col-md-8 text-right">
-                    <input type="submit" name="search-btn" class="btn btn-info" value="篩選" />
+                <label class="control-label col-md-2">
+                    @Html.DisplayName("出生年")
+                </label>
+                <div class="col-md-3">
+                    <div class="col-xs-6">
+                        <input type="text" name="BirthStartYear" class="form-control text-box single-line" value="@ViewBag.BirthStartYear" />
+
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="text" name="BirthEndYear" class="form-control text-box single-line" value="@ViewBag.BirthEndYear" />
+
+                    </div>
+                </div>
+             </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">
+                    作品尺幅
+                </label>
+                <div class="col-md-3">
+                    <input type="hidden" id="WorksSizeNo_InputStringHide" value="@ViewBag.WorksSizeNo_InputString" /> 
+                    @Html.DropDownList("WorksSizeNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksSizeList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                </div>
+
+                <label class="control-label col-md-2">
+                    藝術家標籤
+                </label>
+                <div class="col-md-3">
+                    <input type="hidden" id="AuthorsTagNo_InputStringHide" value="@ViewBag.AuthorsTagNo_InputString" />      
+                    @Html.DropDownList("AuthorsTagNo_InputString", (IEnumerable<SelectListItem>)ViewBag.AuthorTagList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                </div>
+              </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">
+                    性別
+                </label>
+                <div class="col-md-3">
+                    <input type="hidden" id="AuthorsGender_InputStringHide" value="@ViewBag.AuthorsGender_InputString" /> 
+                    @Html.DropDownList("AuthorsGender_InputString", (IEnumerable<SelectListItem>)ViewBag.AuthorsGenderLsit, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                </div>
+
+                <label class="control-label col-md-2">
+                    作品風格
+                </label>
+                <div class="col-md-3">
+                    <input type="hidden" id="WorksPropStyle_InputStringHide" value="@ViewBag.WorksPropStyle_InputString" /> 
+                    @Html.DropDownList("WorksPropStyle_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropStyleList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
                 </div>
             </div>
 
-        </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">
+                    作品類型
+                </label>
+                <div class="col-md-3">
+                    <input type="hidden" id="WorksGenreList_InputStringHide" value="@ViewBag.WorksGenreList_InputString" /> 
+                    @Html.DropDownList("WorksGenreList_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksGenreList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                </div>
+
+                <label class="control-label col-md-2">
+                    存放地
+                </label>
+                <div class="col-md-3">
+                    <input type="hidden" id="WorksWareTypeList_InputStringHide" value="@ViewBag.WorksWareTypeList_InputString" /> 
+                    @Html.DropDownList("WorksWareTypeList_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksWareTypeList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                </div>
+
+               
+            </div>
+
+            <div class="form-group">
+                
+
+                <label class="control-label col-md-2">
+                    所有人
+                </label>
+                <div class="col-md-3">
+                    <input type="hidden" id="WorksPropOwnerList_InputStringHide" value="@ViewBag.WorksPropOwnerList_InputString" />
+                    @Html.DropDownList("WorksPropOwnerList_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropOwnerList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                </div>
+            </div>
+
+                <div class="form-group">
+                    <div class="col-md-2 col-xs-3 text-right">
+                        <input type="button" id="delete-btn" data-url="@Url.Action("Delete")" class="btn btn-danger pull-right fixed-top" value="刪除" style="visibility:hidden;">
+                    </div>
+                    <div class=" col-md-8 text-right">
+                        <input type="submit" name="search-btn" class="btn btn-info" value="篩選" />
+                    </div>
+                </div>
+
+            </div>
     </div>
 }
 
@@ -71,12 +167,12 @@
         <th>
             <input type="checkbox" id="checkall" class="" />
         </th>
-        <th class="col-md-5">
-            @Html.DisplayNameFor(model => model.WorksName)
-        </th>
         <th class="col-md-1">
             @Html.DisplayNameFor(model => model.AuthorsName)
         </th>
+        <th class="col-md-3">
+            @Html.DisplayNameFor(model => model.WorksName)
+        </th>     
         <th class="col-md-1">
             作品年代
         </th>
@@ -84,7 +180,10 @@
             @Html.DisplayNameFor(model => model.Material)
         </th>
         <th class="col-md-1">
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.WorkSize)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayName("商品定價")
         </th>
         <th class="col-md-2"></th>
     </tr>
@@ -96,17 +195,20 @@
                 <td class="">
                     <input type="checkbox" id="@item.WorksNo" class="delcheck" />
                 </td>
-                <td class="col-md-5">
-                    @Html.DisplayFor(modelItem => item.WorksName)
-                </td>
                 <td class="col-md-1">
                     @Html.DisplayFor(modelItem => item.AuthorsName)
                 </td>
+                <td class="col-md-3">
+                    @Html.DisplayFor(modelItem => item.WorksName)
+                </td>           
                 <td class="col-md-1">
                     @Html.DisplayFor(modelItem => item.YearStart) @( item.YearStart == item.YearEnd ? "" : "~" + item.YearEnd.ToString())
                 </td>
                 <td class="col-md-2">
                     @Html.DisplayFor(modelItem => item.Material)
+                </td>
+                <td class="col-md-1">
+                    @Html.DisplayFor(modelItem => item.WorkSize)
                 </td>
                 <td class="col-md-1">
                     @*@Html.DisplayFor(modelItem => item.Price)*@
@@ -127,13 +229,13 @@
 <div class="pull-right">
     @if (ViewBag.pi > 0)
     {
-        @Html.ActionLink("前" + (string)ViewBag.pt + "筆 ", "Index", new { p = (ViewBag.pi - 1), name = ViewBag.WorksName, mip = ViewBag.MinePrice, mxp = ViewBag.MaxPrice, sort = ViewBag.OrderbyType, artlist = ViewBag.AuthorNoList })
+        @Html.ActionLink("前" + (string)ViewBag.pt + "筆 ", "Index", new { p = (ViewBag.pi - 1), name = ViewBag.WorksName, mip = ViewBag.MinePrice, mxp = ViewBag.MaxPrice, sort = ViewBag.OrderbyType, artlist = ViewBag.AuthorNoList, WorkStartYear=ViewBag.WorkStartYear, WorkEndYear = ViewBag.WorkEndYear , BirthStartYear=ViewBag.BirthStartYear, BirthEndYear=ViewBag.BirthEndYear, WorksSizeNo_InputString=ViewBag.WorksSizeNo_InputString, AuthorsTagNo_InputString=ViewBag.AuthorsTagNo_InputString, AuthorsGender_InputString=ViewBag.AuthorsGender_InputString, WorksPropStyle_InputString=ViewBag.WorksPropStyle_InputString, WorksGenreList_InputString=ViewBag.WorksGenreList_InputString, WorksPropOwnerList_InputString=ViewBag.WorksPropOwnerList_InputString, WorksWareTypeList_InputString = ViewBag.WorksWareTypeList_InputString })
     }
     @if (ViewBag.pi > 0 && ViewBag.pn > 0)
     { <text> | </text> }
     @if (ViewBag.pn > 0)
     {
-        @Html.ActionLink("後" + (string)ViewBag.pt + "筆 ", "Index", new { p = (ViewBag.pn),name= ViewBag.WorksName, mip = ViewBag.MinePrice, mxp = ViewBag.MaxPrice, sort = ViewBag.OrderbyType, artlist = ViewBag.AuthorNoList })
+        @Html.ActionLink("後" + (string)ViewBag.pt + "筆 ", "Index", new { p = (ViewBag.pn),name= ViewBag.WorksName, mip = ViewBag.MinePrice, mxp = ViewBag.MaxPrice, sort = ViewBag.OrderbyType, artlist = ViewBag.AuthorNoList, WorkStartYear = ViewBag.WorkStartYear, WorkEndYear = ViewBag.WorkEndYear, BirthStartYear = ViewBag.BirthStartYear, BirthEndYear=ViewBag.BirthEndYear,WorksSizeNo_InputString = ViewBag.WorksSizeNo_InputString, AuthorsTagNo_InputString = ViewBag.AuthorsTagNo_InputString, AuthorsGender_InputString = ViewBag.AuthorsGender_InputString, WorksPropStyle_InputString = ViewBag.WorksPropStyle_InputString, WorksGenreList_InputString = ViewBag.WorksGenreList_InputString, WorksPropOwnerList_InputString = ViewBag.WorksPropOwnerList_InputString, WorksWareTypeList_InputString = ViewBag.WorksWareTypeList_InputString })
     }
 </div>
 @section Scripts {
@@ -147,6 +249,51 @@
                 $('#AuthorNoList  option[value="' + oAuthorNo[i] + '"]').attr('selected', 'selected');
             }
             $("#AuthorNoList").trigger("change");
+
+            var oWorksSizeNo = $('#WorksSizeNo_InputStringHide').val().split(',');
+            for (var i = 0; i < oWorksSizeNo.length; i++) {
+                $('#WorksSizeNo_InputString  option[value="' + oWorksSizeNo[i] + '"]').attr('selected', 'selected');
+            }
+            $("#WorksSizeNo_InputString").trigger("change");
+
+            var oAuthorsTagNo = $('#AuthorsTagNo_InputStringHide').val().split(',');
+            for (var i = 0; i < oAuthorsTagNo.length; i++) {
+                $('#AuthorsTagNo_InputString  option[value="' + oAuthorsTagNo[i] + '"]').attr('selected', 'selected');
+            }
+            $("#AuthorsTagNo_InputString").trigger("change");
+
+            var oAuthorsGender = $('#AuthorsGender_InputStringHide').val().split(',');
+            for (var i = 0; i < oAuthorsGender.length; i++) {
+                $('#AuthorsGender_InputString  option[value="' + oAuthorsGender[i] + '"]').attr('selected', 'selected');
+            }
+            $("#AuthorsGender_InputString").trigger("change");
+
+
+            var oWorksPropStyle = $('#WorksPropStyle_InputStringHide').val().split(',');
+            for (var i = 0; i < oWorksPropStyle.length; i++) {
+                $('#WorksPropStyle_InputString  option[value="' + oWorksPropStyle[i] + '"]').attr('selected', 'selected');
+            }
+            $("#WorksPropStyle_InputString").trigger("change");
+
+            var oWorksWareType = $('#WorksWareTypeList_InputStringHide').val().split(',');
+            for (var i = 0; i < oWorksWareType.length; i++) {
+                $('#WorksWareTypeList_InputString  option[value="' + oWorksWareType[i] + '"]').attr('selected', 'selected');
+            }
+            $("#WorksWareTypeList_InputString").trigger("change");
+
+
+            var oWorksPropOwner = $('#WorksPropOwnerList_InputStringHide').val().split(',');
+            for (var i = 0; i < oWorksPropOwner .length; i++) {
+                $('#WorksPropOwnerList_InputString  option[value="' + oWorksPropOwner[i] + '"]').attr('selected', 'selected');
+            }
+            $("#WorksPropOwnerList_InputString").trigger("change");
+
+            var oWorksGenreList = $("#WorksGenreList_InputStringHide").val().split(',');
+            for (var i = 0; i < oWorksGenreList.length; i++) {
+                $('#WorksGenreList_InputString  option[value="' + oWorksGenreList[i] + '"]').attr('selected', 'selected');
+            }
+            $("#WorksGenreList_InputString").trigger("change");
+
             
         });
     </script>

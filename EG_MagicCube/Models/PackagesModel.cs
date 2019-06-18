@@ -304,7 +304,7 @@ namespace EG_MagicCube.Models
                         int _SumCost = 0;
                         _ItemAmount = (_PackageItems?.Count()).Value;
                         _JoinItemAmount = (_PackageItems?.Where(pi => pi.IsJoin == "Y").Count()).Value;
-                        _Summary = _PackageItems.Where(pi => pi.IsJoin == "Y").Select(c=>c.Works.Price).Sum();
+                        _Summary = _PackageItems.Where(pi => pi.IsJoin == "Y").Select(c=>c.Works.Purchase).Sum();
                         _SumCost = _PackageItems.Where(pi => pi.IsJoin == "Y").Select(c => c.Works.Cost).Sum();
                         _PackagesModel.PackagesNo = r_Packages.PackagesNo.ToString();
                         _PackagesModel.QRImg = "";
@@ -383,7 +383,7 @@ namespace EG_MagicCube.Models
                     {
                         Guid[] WorksNoArray = r.Select(c => c.WorksNo).ToArray();
 
-                        var _Works = context?.Works?.AsQueryable().Where(c => WorksNoArray.Contains(c.WorksNo)).Select(c => c).ToList();
+                        var _Works = context?.Works?.AsQueryable().Where(c => WorksNoArray.Contains(c.WorksNo)&&c.TotalInventory>0).Select(c => c).ToList();
                         var _WorksFiles = context?.WorksFiles?.AsQueryable().Where(c => WorksNoArray.Contains(c.WorksNo)).Select(c => c).ToList();
                         var _WorksAuthors = context?.WorksAuthors?.AsQueryable().Where(c => WorksNoArray.Contains(c.Works_No)).Select(c => c).ToList();
                         int[] AuthorsNoArray = _WorksAuthors.Select(c => c.Author_No).ToArray();
@@ -394,9 +394,17 @@ namespace EG_MagicCube.Models
                             _PackageItemModel.WorksNo = _PackageItems.WorksNo.ToString();
                             _PackageItemModel.WorksImgBase64 = _WorksFiles.Where(wf => wf.WorksNo == _PackageItems.WorksNo).OrderBy(c => c.Sorting).ThenBy(c=>c.WorksFilesNo).Select(wf => wf.FileBase64Str).FirstOrDefault();
                             _PackageItemModel.WorksImg_m = _WorksFiles.Where(wf => wf.WorksNo == _PackageItems.WorksNo).OrderBy(c=>c.Sorting).ThenBy(c => c.WorksFilesNo).Select(wf => wf.File_m_Url).FirstOrDefault();
-                            _PackageItemModel.WorksName = _Works?.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().WorksName;
+                            _PackageItemModel.WorksName = _Works?.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().WorksName??"";
                             _PackageItemModel.IsJoin = _PackageItems.IsJoin;
-                            _PackageItemModel.Price = (_Works?.Where(w => w.WorksNo == _PackageItems.WorksNo)?.FirstOrDefault()?.Price).Value;
+                            //_PackageItemModel.Price = (_Works?.Where(w => w.WorksNo == _PackageItems.WorksNo)?.FirstOrDefault()?.Purchase).Value;
+
+                            //找出台幣定價
+                            string MaterialsID = _Works.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().MaterialsID.ToString()??"";
+                            if (!string.IsNullOrEmpty(MaterialsID))
+                            {
+                                _PackageItemModel.Price = context.WorksPrices.Where(p => p.MaterialsID == MaterialsID && p.Currency== "TWD").Select(x=>x.Price).FirstOrDefault();
+                            }
+                            
                             _PackageItemModel.Cost = (_Works?.Where(w => w.WorksNo == _PackageItems.WorksNo)?.FirstOrDefault()?.Cost).Value;
                             string YearStart = _Works?.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().YearStart.ToString();
                             string YearEnd = _Works?.Where(w => w.WorksNo == _PackageItems.WorksNo).FirstOrDefault().YearEnd.ToString();

@@ -49,15 +49,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\Test\wsEsliteProd\Bin\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\專案程式\新增資料夾\EG_MagicCube\SAPToMgcube\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="sapnco, Version=3.0.0.42, Culture=neutral, PublicKeyToken=50436dca5c7f7d23, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Test\wsEsliteProd\binx64\sapnco.dll</HintPath>
+    <Reference Include="sapnco">
+      <HintPath>..\..\..\專案程式\新增資料夾\EG_MagicCube\SAPToMgcube\bin\sapnco.dll</HintPath>
     </Reference>
-    <Reference Include="sapnco_utils, Version=3.0.0.42, Culture=neutral, PublicKeyToken=50436dca5c7f7d23, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Test\wsEsliteProd\binx64\sapnco_utils.dll</HintPath>
+    <Reference Include="sapnco_utils">
+      <HintPath>..\..\..\專案程式\新增資料夾\EG_MagicCube\SAPToMgcube\bin\sapnco_utils.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

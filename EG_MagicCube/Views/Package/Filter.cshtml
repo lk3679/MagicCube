@@ -13,115 +13,125 @@
 @using (Html.BeginForm())
 {
     <div class="form-horizontal">
-        <div class="nonpadding">
-            @*@Html.LabelFor(model => model.Budget, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9" style="margin-bottom:0;">
-                <span class="numberprice">
-                    <input type="text" class="form-control text-box single-line" />
-                    @Html.EditorFor(model => model.Budget, new { htmlAttributes = new { @class = "form-control" } })
-                </span>
-            </div>*@
+      
+            <div class="nonpadding">
 
-            @Html.LabelFor(model => model.AuthorNoList, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
-            <div class="col-md-3 col-xs-9">
-                @Html.Hidden("AuthorNo_InputStringHide", string.Join(",", string.Join(",", Model.AuthorNoList ?? new List<string>())))
-                @Html.DropDownListFor(model => model.AuthorNoList, (IEnumerable<SelectListItem>)ViewBag.Authors, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-            </div>
-            @Html.LabelFor(model => model.WorksName, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9">
-                @Html.EditorFor(model => model.WorksName, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AuthorNoList, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
+                    <div class="col-md-3 col-xs-9">
+                        @Html.Hidden("AuthorNo_InputStringHide", string.Join(",", string.Join(",", Model.AuthorNoList ?? new List<string>())))
+                        @Html.DropDownListFor(model => model.AuthorNoList, (IEnumerable<SelectListItem>)ViewBag.Authors, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                    </div>
+                    @Html.LabelFor(model => model.WorksName, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
+                    <div class="col-md-3 col-xs-9">
+                        @Html.EditorFor(model => model.WorksName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
 
-            @Html.LabelFor(model => model.Price_U, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
-            <div class="col-md-3 col-xs-9">
-                <div class="col-xs-6">
-                    <span class="numberprice">
-                        <input type="text" class="form-control text-box single-line" />
-                        @Html.EditorFor(model => model.Price_U, new { htmlAttributes = new { @class = "form-control" } })
-                    </span>
-                </div>
-                <div class="col-xs-6">
-                    <span class="numberprice">
-                        <input type="text" class="form-control text-box single-line" />
-                        @Html.EditorFor(model => model.Price_L, new { htmlAttributes = new { @class = "form-control" } })
-                    </span>
-                </div>
-            </div>
+                    <label class="control-label col-md-1 col-xs-3">商品訂價</label>
+                    <div class="col-md-3 col-xs-9">
+                        <div class="col-xs-6">
+                            <span class="numberprice">
+                                <input type="text" class="form-control text-box single-line" />
+                                <input type="number" name="MinePrice" class="form-control text-box single-line" value="@ViewBag.MinePrice" />
+                            </span>
+                        </div>
+                        <div class="col-xs-6">
+                            <span class="numberprice">
+                                <input type="text" class="form-control text-box single-line" />
+                                <input type="number" name="MaxPrice" class="form-control text-box single-line" value="@ViewBag.MaxPrice" />
+                            </span>
+                        </div>
+                    </div>
 
+                </div>
 
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-xs-3">作品尺幅</label>
+                    <div class="col-md-3 col-xs-9">
+                        <input type="hidden" id="WorksSizeNo_InputStringHide" value="@ViewBag.WorksSizeNo_InputString" />
+                        @Html.DropDownList("WorksSizeNo_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksSizeList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                    </div>
 
-            @*@Html.LabelFor(model => model.MineLength, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
-            <div class="col-md-3 col-xs-9">
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MineLength, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MaxLength, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>*@
-            @Html.LabelFor(model => model.MineHeight, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
-            <div class="col-md-3 col-xs-9">
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MineHeight, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MaxHeight, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-            @Html.LabelFor(model => model.MineWidth, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
-            <div class="col-md-3 col-xs-9">
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MineWidth, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MaxWidth, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-            @Html.LabelFor(model => model.MineDeep, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3 " })
-            <div class="col-md-3 col-xs-9">
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MineDeep, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MaxDeep, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            @*@Html.LabelFor(model => model.MineTimeLength, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9">
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MineTimeLength, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-                <div class="col-xs-6">
-                    @Html.EditorFor(model => model.MaxTimeLength, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>*@
+                    <label class="control-label col-md-1 col-xs-3">藝術家標籤</label>
+                    <div class="col-md-3 col-xs-9">
+                        <input type="hidden" id="AuthorsTagNo_InputStringHide" value="@ViewBag.AuthorsTagNo_InputString" />
+                        @Html.DropDownList("AuthorsTagNo_InputString", (IEnumerable<SelectListItem>)ViewBag.AuthorTagList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                    </div>
 
 
+                    @Html.LabelFor(model => model.GenreNoList, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
+                    <div class="col-md-3 col-xs-9">
+                        @Html.Hidden("WorksGenreList_InputStringHide", string.Join(",", string.Join(",", Model.GenreNoList ?? new List<string>())))
+                        @Html.DropDownList("WorksGenreList_InputString", (IEnumerable<SelectListItem>)ViewBag.GenreNoList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                    </div>
 
-            @Html.LabelFor(model => model.GenreNoList, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9">
-                @Html.Hidden("GenreNo_InputStringHide", string.Join(",", string.Join(",", Model.GenreNoList ?? new List<string>())))
-                @Html.DropDownList("GenreNoList", (IEnumerable<SelectListItem>)ViewBag.GenreNoList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-            </div>
+                </div>
+                <div class="form-group">
 
-            @Html.LabelFor(model => model.StyleNoList, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9">
-                @Html.Hidden("StyleNo_InputStringHide", string.Join(",", string.Join(",", Model.StyleNoList ?? new List<string>())))
-                @Html.DropDownList("StyleNoList", (IEnumerable<SelectListItem>)ViewBag.StyleNoList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-            </div>
+                    @Html.LabelFor(model => model.StyleNoList, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
+                    <div class="col-md-3 col-xs-9">
+                        @Html.Hidden("WorksPropStyle_InputStringHide", string.Join(",", string.Join(",", Model.StyleNoList ?? new List<string>())))
+                        @Html.DropDownList("WorksPropStyle_InputString", (IEnumerable<SelectListItem>)ViewBag.StyleNoList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                    </div>
 
-            @Html.LabelFor(model => model.GradedNoList, htmlAttributes: new { @class = "control-label col-md-1 col-xs-3" })
-            <div class="col-md-3 col-xs-9">
-                @Html.Hidden("GradedNo_InputStringHide", string.Join(",", string.Join(",", Model.GradedNoList ?? new List<string>())))
-                @Html.DropDownList("GradedNoList", (IEnumerable<SelectListItem>)ViewBag.GradedNoList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
-            </div>
 
-            <div class="col-xs-4 pull-right text-right">
-                <input type="submit" value="搜尋" class="btn btn-primary" />
-            </div>
+                    <label class="control-label col-md-1 col-xs-3">性別</label>
+                    <div class="col-md-3 col-xs-9">
+                        <input type="hidden" id="AuthorsGender_InputStringHide" value="@ViewBag.AuthorsGender_InputString" />
+                        @Html.DropDownList("AuthorsGender_InputString", (IEnumerable<SelectListItem>)ViewBag.AuthorsGenderLsit, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                    </div>
+
+                    <label class="control-label col-md-1 col-xs-3">存放地</label>
+                    <div class="col-md-3 col-xs-9">
+                        <input type="hidden" id="WorksWareTypeList_InputStringHide" value="@ViewBag.WorksWareTypeList_InputString" />
+                        @Html.DropDownList("WorksWareTypeList_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksWareTypeList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-xs-3">所有人</label>
+                    <div class="col-md-3 col-xs-9">
+                        <input type="hidden" id="WorksPropOwnerList_InputStringHide" value="@ViewBag.WorksPropOwnerList_InputString" />
+                        @Html.DropDownList("WorksPropOwnerList_InputString", (IEnumerable<SelectListItem>)ViewBag.WorksPropOwnerList, new { @class = "js-example-basic-multiple js-states form-control", @multiple = "multiple" })
+                    </div>
+
+                    <label class="control-label col-md-1 col-xs-3">作品年代</label>
+
+                    <div class="col-md-3 col-xs-9">
+                        <div class="col-xs-6">
+                            <input type="text" name="WorkStartYear" class="form-control text-box single-line" value="@ViewBag.WorkStartYear" />
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" name="WorkEndYear" class="form-control text-box single-line" value="@ViewBag.WorkEndYear" />
+                        </div>
+                    </div>
+
+                    <label class="control-label col-md-1 col-xs-3">出生年</label>
+
+                    <div class="col-md-3 col-xs-9">
+                        <div class="col-xs-6">
+                            <input type="text" name="BirthStartYear" class="form-control text-box single-line" value="@ViewBag.BirthStartYear" />
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" name="BirthEndYear" class="form-control text-box single-line" value="@ViewBag.BirthEndYear" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-xs-3">排序</label>
+                    <div class="col-md-3 col-xs-9">
+                        @Html.DropDownList("Sort", (SelectList)ViewBag.MeunOrderList, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                    <div class="col-xs-4 pull-right text-right">
+                        <input type="submit" value="搜尋" class="btn btn-primary" />
+                    </div>
+                </div>
         </div>
-    </div>
 }
 
 
@@ -136,23 +146,51 @@
             }
             $("#AuthorNoList").trigger("change");
 
-            var oGradedNo = $('#GradedNo_InputStringHide').val().split(',');
-            for (var i = 0; i < oGradedNo.length; i++) {
-                $('#GradedNoList  option[value="' + oGradedNo[i] + '"]').attr('selected', 'selected');
+            var oWorksSizeNo = $('#WorksSizeNo_InputStringHide').val().split(',');
+            for (var i = 0; i < oWorksSizeNo.length; i++) {
+                $('#WorksSizeNo_InputString  option[value="' + oWorksSizeNo[i] + '"]').attr('selected', 'selected');
             }
-            $("#GradedNoList").trigger("change");
+            $("#WorksSizeNo_InputString").trigger("change");
 
-            var oGenreNo = $('#GenreNo_InputStringHide').val().split(',');
-            for (var i = 0; i < oGenreNo.length; i++) {
-                $('#GenreNoList  option[value="' + oGenreNo[i] + '"]').attr('selected', 'selected');
+            var oAuthorsTagNo = $('#AuthorsTagNo_InputStringHide').val().split(',');
+            for (var i = 0; i < oAuthorsTagNo.length; i++) {
+                $('#AuthorsTagNo_InputString  option[value="' + oAuthorsTagNo[i] + '"]').attr('selected', 'selected');
             }
-            $("#GenreNoList").trigger("change");
+            $("#AuthorsTagNo_InputString").trigger("change");
 
-            var oStyleNo = $('#StyleNo_InputStringHide').val().split(',');
-            for (var i = 0; i < oStyleNo.length; i++) {
-                $('#StyleNoList  option[value="' + oStyleNo[i] + '"]').attr('selected', 'selected');
+            var oAuthorsGender = $('#AuthorsGender_InputStringHide').val().split(',');
+            for (var i = 0; i < oAuthorsGender.length; i++) {
+                $('#AuthorsGender_InputString  option[value="' + oAuthorsGender[i] + '"]').attr('selected', 'selected');
             }
-            $("#StyleNoList").trigger("change");
+            $("#AuthorsGender_InputString").trigger("change");
+
+
+            var oWorksPropStyle = $('#WorksPropStyle_InputStringHide').val().split(',');
+            for (var i = 0; i < oWorksPropStyle.length; i++) {
+                $('#WorksPropStyle_InputString  option[value="' + oWorksPropStyle[i] + '"]').attr('selected', 'selected');
+            }
+            $("#WorksPropStyle_InputString").trigger("change");
+
+            var oWorksWareType = $('#WorksWareTypeList_InputStringHide').val().split(',');
+            for (var i = 0; i < oWorksWareType.length; i++) {
+                $('#WorksWareTypeList_InputString  option[value="' + oWorksWareType[i] + '"]').attr('selected', 'selected');
+            }
+            $("#WorksWareTypeList_InputString").trigger("change");
+
+
+            var oWorksPropOwner = $('#WorksPropOwnerList_InputStringHide').val().split(',');
+            for (var i = 0; i < oWorksPropOwner.length; i++) {
+                $('#WorksPropOwnerList_InputString  option[value="' + oWorksPropOwner[i] + '"]').attr('selected', 'selected');
+            }
+            $("#WorksPropOwnerList_InputString").trigger("change");
+
+            var oWorksGenreList = $("#WorksGenreList_InputStringHide").val().split(',');
+            for (var i = 0; i < oWorksGenreList.length; i++) {
+                $('#WorksGenreList_InputString  option[value="' + oWorksGenreList[i] + '"]').attr('selected', 'selected');
+            }
+            $("#WorksGenreList_InputString").trigger("change");
+
+
         });
     </script>
 }

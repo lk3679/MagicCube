@@ -78,6 +78,24 @@ namespace EG_MagicCube.Models
         /// </summary>
         public int MaxPrice { get; set; } = 0;
         /// <summary>
+        /// 作品開始年份
+        /// </summary>
+        public int WorkStartYear { get; set; } = 0;
+        /// <summary>
+        /// 作品結束年份
+        /// </summary>
+        public int WorkEndYear { get; set; } = 0;
+
+        /// <summary>
+        /// 藝術家出生年
+        /// </summary>
+        public int BirthStartYear { get; set; } = 0;
+
+        /// <summary>
+        /// 藝術家出生年
+        /// </summary>
+        public int BirthEndYear { get; set; } = 0;
+        /// <summary>
         /// 類型編號清單
         /// </summary>
         public List<string> GenreNoList { get; set; } = new List<string>();
@@ -103,6 +121,14 @@ namespace EG_MagicCube.Models
         /// 排序方式
         /// </summary>
         public MenuModel.WorkOrderbyTypeEnum OrderbyType = MenuModel.WorkOrderbyTypeEnum.預設排序;
+
+        public string WorksSizeNo_InputString { get; set; } = "";
+        public string AuthorsTagNo_InputString { get; set; } = "";
+        public string AuthorsGender_InputString { get; set; } = "";
+        public string WorksPropStyle_InputString { get; set; } = "";
+        public string WorksWareTypeList_InputString { get; set; } = "";
+        public string WorksPropOwnerList_InputString { get; set; } = "";
+        public string WorksGenreList_InputString { get; set; } = "";
         /// <summary>
         /// 搜尋
         /// </summary>
@@ -117,7 +143,9 @@ namespace EG_MagicCube.Models
             {
                 if (context.Works.Count() > 0)
                 {
-                    var r = context.Works?.AsQueryable().Where(f => f.IsDel != "Y");
+                    var r = context.Works.AsEnumerable().Where(f => f.IsDel != "Y");
+
+                    r = r.Where(f => f.TotalInventory > 0).ToList();
 
                     if (!string.IsNullOrEmpty(this.WorksNo))
                     {
@@ -127,91 +155,68 @@ namespace EG_MagicCube.Models
                     {
                         r = r.Where(f => f.WorksName.Contains(this.WorksName));
                     }
-                    //價格
-                    if (this.MinePrice > 0)
+
+                    //作品尺幅查詢
+                    if (!string.IsNullOrEmpty(this.WorksSizeNo_InputString))
                     {
-                        r = r.Where(f => f.Price >= this.MinePrice);
+                        string[] List = this.WorksSizeNo_InputString.Split(',');
+                        string[] WorkSizeList=context.WorksSizes.AsEnumerable().Where(x=>List.Contains(x.SizeNo.ToString())).Select(x => x.WorksNo.ToString()).ToArray();
+                        r = r.Where(a => WorkSizeList.Contains(a.WorksNo.ToString()));
                     }
-                    if (this.MaxPrice > 0)
+
+                    //藝術家標籤
+                    if (!string.IsNullOrEmpty(this.AuthorsTagNo_InputString))
                     {
-                        r = r.Where(f => f.Price <= this.MaxPrice);
+                        string[] List = this.AuthorsTagNo_InputString.Split(',');
+                        string[] AuthorsList = context.AuthorsPropTag.AsEnumerable().Where(x => List.Contains(x.AuthorsTagNo.ToString())).Select(x => x.AuthorsNo.ToString()).ToArray();
+                        string[] LIFNRList = context.Authors.AsEnumerable().Where(x => AuthorsList.Contains(x.AuthorsNo.ToString())&&x.LIFNR>0).Select(x => x.LIFNR.ToString()).ToArray();
+                        r = r.Where(a => LIFNRList.Contains(a.AuthorsNo.ToString()));
+                    }
+
+                    //作品風格查詢
+                    if (!string.IsNullOrEmpty(this.WorksPropStyle_InputString))
+                    {
+                        string[] List = this.WorksPropStyle_InputString.Split(',');
+                        string[] WorkStyleList = context.WorksPropStyle.AsEnumerable().Where(x => List.Contains(x.StyleNo.ToString())).Select(x => x.WorksNo.ToString()).ToArray();
+                        r = r.Where(a => WorkStyleList.Contains(a.WorksNo.ToString()));
+                    }
+
+                    //存放地查詢
+                    if (!string.IsNullOrEmpty(this.WorksWareTypeList_InputString))
+                    {
+                        string[] List = this.WorksWareTypeList_InputString.Split(',');
+                        var WareNo = context.Menu_WareType.AsEnumerable().Where(x => x.IsDel != "Y" && x.Werks != null).ToList();
+                        string[] WareNoList = WareNo.AsEnumerable().Where(x => List.Contains(x.WareTypeNo.ToString())).Select(x=>x.Werks).ToArray();
+                        string[] WareTypeList = context.WorksStocks.AsEnumerable().Where(x => WareNoList.Contains(x.WERKS.ToString())).Select(x => x.MaterialsID.ToString()).ToArray();
+                        r = r.Where(a => WareTypeList.Contains(a.MaterialsID));
+                    }
+
+                  
+                    //所有人查詢
+                    if (!string.IsNullOrEmpty(this.WorksPropOwnerList_InputString))
+                    {
+                        string[] List = this.WorksPropOwnerList_InputString.Split(',');
+                        r = r.Where(a => List.Contains(a.ZZPAGE.ToString())).ToList();
+                    }
+
+                    //作品分類查詢
+                    if (!string.IsNullOrEmpty(this.WorksGenreList_InputString))
+                    {
+                        string[] List = this.WorksGenreList_InputString.Split(',');
+                        r=r.Where(x=>x.GenreName!=null).ToList();
+                        r = r.Where(a => List.Contains(a.GenreName.ToString().Split('-').Last().ToString())).ToList();
                     }
 
                     List<Guid> _WorksNoList = new List<Guid>();
-
-                    #region 組件查詢
-                    var rwm = context.WorksModules?.AsQueryable();
-                    //長度
-                    if (this.MineLength > 0)
-                    {
-                        rwm = rwm.Where(f => f.Length >= this.MineLength);
-                    }
-                    if (this.MaxLength > 0)
-                    {
-                        rwm = rwm.Where(f => f.Length <= this.MaxLength);
-                    }
-                    //寬度
-                    if (this.MineWidth > 0)
-                    {
-                        rwm = rwm.Where(f => f.Width >= this.MineWidth);
-                    }
-                    if (this.MaxLength > 0)
-                    {
-                        rwm = rwm.Where(f => f.Width <= this.MaxWidth);
-                    }
-                    //高度
-                    if (this.MineHeight > 0)
-                    {
-                        rwm = rwm.Where(f => f.Height >= this.MineHeight);
-                    }
-                    if (this.MaxHeight > 0)
-                    {
-                        rwm = rwm.Where(f => f.Height <= this.MaxHeight);
-                    }
-                    //深度
-                    if (this.MineDeep > 0)
-                    {
-                        rwm = rwm.Where(f => f.Deep >= this.MineDeep);
-                    }
-                    if (this.MaxDeep > 0)
-                    {
-                        rwm = rwm.Where(f => f.Deep <= this.MaxDeep);
-                    }
-                    //時間長度
-                    if (this.MineTimeLength > 0)
-                    {
-                        rwm = rwm.Where(f => Convert.ToInt16(f.TimeLength) >= this.MineTimeLength);
-                    }
-                    if (this.MaxTimeLength > 0)
-                    {
-                        rwm = rwm.Where(f => Convert.ToInt16(f.TimeLength) <= this.MaxTimeLength);
-                    }
-
-                    var _wkno = rwm.Select(c => c.WorksNo).ToList();
-                    if (_wkno != null && _wkno.Count > 0)
-                    {
-                        _WorksNoList.AddRange(_wkno);
-                    }
-
-                    if (_WorksNoList != null && _WorksNoList.Count > 0)
-                    {
-                        _WorksNoList = _WorksNoList.Distinct().ToList();
-                    }
-                    //取得組件符合搜尋條件的作品列表
-                    #endregion
                     int FilterCount = 1;
 
-                    //藝術家
+                    //藝術家查詢
                     if (this.AuthorNoList != null && this.AuthorNoList.Count > 0)
                     {
-                        FilterCount++;
+                      
                         int[] _AuthorNoArray = this.AuthorNoList.ConvertAll(s => int.Parse(s)).ToArray();
-                        var _wawkno = context.WorksAuthors?.AsQueryable()?.Where(wa => _AuthorNoArray.Contains(wa.Author_No)).Select(c => c.Works_No).ToList();
-                        if (_wawkno != null && _wawkno.Count > 0)
-                        {
-                            _WorksNoList.AddRange(_wawkno);
-                        }
-                        //r = r.Where(f => f.WorksAuthors.Any(wa => this.AuthorNoList.Contains(wa.Author_No.ToString())));
+                        var LIFNR_Array = context.Authors.Where(x => _AuthorNoArray.Contains(x.AuthorsNo)).Select(x => x.LIFNR.Value).ToList();
+                        r = r.Where(x => LIFNR_Array.Contains(x.AuthorsNo));
                     }
 
                     //類型
@@ -219,7 +224,7 @@ namespace EG_MagicCube.Models
                     {
                         FilterCount++;
                         int[] _GenreNoArray = this.GenreNoList.ConvertAll(s => int.Parse(s)).ToArray();
-                        var wpgwkno = context.WorksPropGenre?.AsQueryable()?.Where(c => _GenreNoArray.Contains(c.GenreNo)).Select(c => c.WorksNo).ToList();
+                        var wpgwkno = context.WorksPropGenre.AsEnumerable().Where(c => _GenreNoArray.Contains(c.GenreNo)).Select(c => c.WorksNo).ToList();
                         if (wpgwkno != null && wpgwkno.Count > 0)
                         {
                             _WorksNoList.AddRange(wpgwkno);
@@ -232,7 +237,7 @@ namespace EG_MagicCube.Models
                     {
                         FilterCount++;
                         int[] _StyleNoList = this.StyleNoList.ConvertAll(s => int.Parse(s)).ToArray();
-                        var wpswkno = context.WorksPropStyle?.AsQueryable()?.Where(c => _StyleNoList.Contains(c.StyleNo)).Select(c => c.WorksNo).ToList();
+                        var wpswkno = context.WorksPropStyle.AsEnumerable().Where(c => _StyleNoList.Contains(c.StyleNo)).Select(c => c.WorksNo).ToList();
                         if (wpswkno != null && wpswkno.Count > 0)
                         {
                             _WorksNoList.AddRange(wpswkno);
@@ -244,7 +249,7 @@ namespace EG_MagicCube.Models
                     if (!string.IsNullOrEmpty(this.PackagesNo))
                     {
                         FilterCount++;
-                        var pkgitmwkno = context.PackageItems?.AsQueryable()?.Where(c => c.PackagesNo == Guid.Parse(this.PackagesNo.ToUpper())).Select(c => c.WorksNo).ToList();
+                        var pkgitmwkno = context.PackageItems.AsEnumerable().Where(c => c.PackagesNo == Guid.Parse(this.PackagesNo.ToUpper())).Select(c => c.WorksNo).ToList();
 
                         if (pkgitmwkno != null && pkgitmwkno.Count > 0)
                         {
@@ -258,10 +263,10 @@ namespace EG_MagicCube.Models
                         var _WorksNoArray = _WorksNoList.GroupBy(i => i)
                         .Where(g => g.Count() == FilterCount)
                         .Select(g => g.ElementAt(0)).ToArray();
-                        if (_WorksNoArray != null && _WorksNoArray.Length > 0)
-                        {
-                            r = r.Where(f => _WorksNoArray.Contains(f.WorksNo));
-                        }
+                        //if (_WorksNoArray != null && _WorksNoArray.Length > 0)
+                        //{
+                        //    r = r.Where(f => _WorksNoArray.Contains(f.WorksNo));
+                        //}
                     }
                     if (MenuModel.WorkOrderbyTypeEnum.預設排序 == this.OrderbyType)
                     {
@@ -279,16 +284,16 @@ namespace EG_MagicCube.Models
                         r = r.OrderByDescending(c => c.YearStart).ThenByDescending(c => c.CreateDate);
                     }
                     else
-                    if (MenuModel.WorkOrderbyTypeEnum.定價小至大 == this.OrderbyType)
-                    {
-                        r = r.OrderBy(c => c.Price).ThenByDescending(c => c.CreateDate);
-                    }
-                    else
-                    if (MenuModel.WorkOrderbyTypeEnum.定價大至小 == this.OrderbyType)
-                    {
-                        r = r.OrderByDescending(c => c.Price).ThenByDescending(c => c.CreateDate);
-                    }
-                    else
+                    //if (MenuModel.WorkOrderbyTypeEnum.定價小至大 == this.OrderbyType)
+                    //{
+                    //    r = r.OrderBy(c => c.Purchase).ThenByDescending(c => c.CreateDate);
+                    //}
+                    //else
+                    //if (MenuModel.WorkOrderbyTypeEnum.定價大至小 == this.OrderbyType)
+                    //{
+                    //    r = r.OrderByDescending(c => c.Purchase).ThenByDescending(c => c.CreateDate);
+                    //}
+                    //else
                     if (MenuModel.WorkOrderbyTypeEnum.名稱姓名小至大 == this.OrderbyType)
                     {
                         r = r.OrderBy(c => c.WorksName).ThenByDescending(c => c.CreateDate);
@@ -302,35 +307,105 @@ namespace EG_MagicCube.Models
                     {
                         r = r.OrderByDescending(c => c.CreateDate);
                     }
-                    if (PageIndex > 0 && PageIndex > 0)
-                    {
-                        r = r.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize + 1);
-                    }
+                    //if (PageIndex > 0 && PageIndex > 0)
+                    //{
+                    //    r = r.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize + 1);
+                    //}
 
                     var _rw = r.ToList();
                     _WorksModel = WorksListToWorksModelList(_rw);
+
+                    //作品年代
+                    if (this.WorkStartYear > 0)
+                    {
+                        _WorksModel = _WorksModel.Where(f => f.YearStart >= this.WorkStartYear).ToList();
+                    }
+
+                    if (this.WorkEndYear > 0)
+                    {
+                        _WorksModel = _WorksModel.Where( f=> f.YearStart <= this.WorkEndYear).ToList();
+                    }
+
+                    //藝術家性別
+                    if (!string.IsNullOrEmpty(this.AuthorsGender_InputString))
+                    {
+                        string[] List = this.AuthorsGender_InputString.Split(',');
+                        _WorksModel = _WorksModel.Where(f => List.Contains(f.AuthorsGender.ToString())).ToList();
+                    }
+
+     
+
+                    //作者出生年
+                    if (this.BirthStartYear > 0)
+                    {
+                        _WorksModel = _WorksModel.Where(f=>f.AuthorsBirth>=this.BirthStartYear).ToList();
+                    }
+
+                    if (this.BirthEndYear > 0)
+                    {
+                        _WorksModel = _WorksModel.Where(f => f.AuthorsBirth <= this.BirthEndYear).ToList();
+                    }
+
+                    //價格
+                    if (this.MinePrice > 0)
+                    {
+                        _WorksModel = _WorksModel.Where(f => f.Price >= this.MinePrice).ToList();
+                    }
+                    if (this.MaxPrice > 0)
+                    {
+                        _WorksModel = _WorksModel.Where(f => f.Price <= this.MaxPrice).ToList();
+                    }
+
+                    //價格排序
+                    if (MenuModel.WorkOrderbyTypeEnum.定價小至大 == this.OrderbyType)
+                    {
+                        _WorksModel = _WorksModel.OrderBy(c => c.Price).ThenByDescending(c => c.CreateDate).ToList();
+                    }
+                    else
+                   if (MenuModel.WorkOrderbyTypeEnum.定價大至小 == this.OrderbyType)
+                    {
+                        _WorksModel = _WorksModel.OrderByDescending(c => c.Price).ThenByDescending(c => c.CreateDate).ToList();
+
+                    }
+
+                    //藝術家出生年排序
+                    if (MenuModel.WorkOrderbyTypeEnum.出生年由小到大 == this.OrderbyType)
+                    {
+                        _WorksModel = _WorksModel.OrderBy(c => c.AuthorsBirth).ThenByDescending(c => c.CreateDate).ToList();
+                    }
+
+                    if (MenuModel.WorkOrderbyTypeEnum.出生年由大到小 == this.OrderbyType)
+                    {
+                        _WorksModel = _WorksModel.OrderByDescending(c => c.AuthorsBirth).ThenByDescending(c => c.CreateDate).ToList();
+                    }
+
+
+                    if (PageIndex > 0 && PageIndex > 0)
+                    {
+                        _WorksModel = _WorksModel.Select(c => c).Skip((PageIndex * PageSize - PageSize)).Take(PageSize + 1).ToList();
+                    }
                 }
                 return _WorksModel;
             }
         }
         public List<WorksModel> WorksListToWorksModelList(List<Works> _WorksList)
         {
-            List<WorksModel> _WorksModelList = new List<WorksModel>();
-
+             List<WorksModel> _WorksModelList = new List<WorksModel>();
+            
             _WorksModelList = _WorksList.Select(c =>
                                new WorksModel()
                                {
                                    WorksNo = c.WorksNo.ToString(),
                                    MaterialsID = c.MaterialsID,
                                    AuthorsNo = c.AuthorsNo,
-                                   AuthorsName = "",
+                                   AuthorsName ="",
                                    WorksName = c.WorksName,
                                    YearStart = c.YearStart,
                                    YearEnd = c.YearEnd,
                                    Remarks = c.Remarks,
                                    Cost = c.Cost,
-                                   Price = c.Price,
-                                   PricingDate = c.PricingDate,
+                                   //Price = c.Purchase,
+                                   //PricingDate = c.PricingDate,
                                    GrossMargin = c.GrossMargin,
                                    Marketability = c.Marketability,
                                    Packageability = c.Packageability,
@@ -339,10 +414,13 @@ namespace EG_MagicCube.Models
                                    CreateUser = c.CreateUser,
                                    CreateDate = c.CreateDate,
                                    ModifyUser = c.ModifyUser,
-                                   ModifyDate = (DateTime)c.ModifyDate,
+                                   WorkSize=c.WorkSize,
+                                   //ModifyDate = (DateTime)c.ModifyDate,
+                                   ModifyDate = DateTime.Now,
+                                   MaterialsName=c.Material,
                                    WorksModuleList = new List<WorksModel.WorksModuleModel>() { }
                                }
-                        ).ToList();
+                        ).ToList();       
 
             Guid[] _WorksNoArray = _WorksModelList.Select(c => Guid.Parse(c.WorksNo.ToUpper())).ToArray();
 
@@ -351,42 +429,53 @@ namespace EG_MagicCube.Models
                 List<WorksAuthors> _WorksAuthors = new List<WorksAuthors>();
                 if (context.WorksAuthors.Count() > 0)
                 {
-                    _WorksAuthors = context?.WorksAuthors?.Where(c => _WorksNoArray.Contains(c.Works_No)).ToList();
+                    _WorksAuthors = context.WorksAuthors.Where(c => _WorksNoArray.Contains(c.Works_No)).ToList();
                 }
                 List<WorksModules> _WorksModules = new List<WorksModules>();
                 if (context.WorksModules.Count() > 0)
                 {
-                    _WorksModules = context?.WorksModules?.Where(c => _WorksNoArray.Contains(c.WorksNo)).ToList();
+                    _WorksModules = context.WorksModules.Where(c => _WorksNoArray.Contains(c.WorksNo)).ToList();
                 }
 
-                foreach (WorksModel _WorksModel in _WorksModelList)
+                var AuthorNameList = context.Authors.ToList();
+                var PriceList = context.WorksPrices.ToList();
+
+                //找出藝術家名稱和價格對映
+                foreach (WorksModel item in _WorksModelList)
                 {
-                    _WorksModel.AuthorsName = string.Join(",", _WorksAuthors.Where(c => c.Works_No == Guid.Parse(_WorksModel.WorksNo.ToUpper())).Select(c => c.Authors.AuthorsCName).ToArray());
-                    _WorksModel.MaterialsName = string.Join(",", _WorksModules.Where(c => c.WorksNo == Guid.Parse(_WorksModel.WorksNo.ToUpper())).Select(c => c.Menu_Material.MaterialName).Distinct().ToArray());
+                    string AuthorName = "";
 
-                    foreach (WorksModel.WorksModuleModel _WorksModule in _WorksModel.WorksModuleList)
+                    if (item.AuthorsNo != -1)
                     {
-                        var wm = _WorksModules.Where(c => c.WorksNo == Guid.Parse(_WorksModel.WorksNo.ToUpper())).FirstOrDefault();
-                        if (wm != null)
-                        {
-                            _WorksModule.WorksModulesNo = wm.WorksModulesNo;
-                            _WorksModule.WorksNo = wm.WorksNo.ToString();
-                            _WorksModule.Material = new MenuViewModel { MenuID = wm.Menu_Material.MaterialNo, MenuName = wm.Menu_Material.MaterialName };
-                            _WorksModule.Measure = wm.Measure;
-                            _WorksModule.Length = wm.Length;
-                            _WorksModule.Width = wm.Width;
-                            _WorksModule.Height = wm.Height;
-                            _WorksModule.Deep = wm.Deep;
-                            _WorksModule.TimeLength = wm.TimeLength;
-                            _WorksModule.Amount = wm.Amount;
-                            _WorksModule.CountNoun = new MenuViewModel { MenuID = wm.Menu_CountNoun.CountNounNo, MenuName = wm.Menu_CountNoun.CountNounName };
-                        }
-
+                        AuthorName = AuthorNameList.Where(x => x.LIFNR == item.AuthorsNo).Select(x => x.AuthorsCName).FirstOrDefault().ToString();
                     }
+
+                    var r= PriceList.Where(x => x.MaterialsID == item.MaterialsID&&x.Currency== "TWD").Select(x => x.Price).ToList();
+                    int AuthorsBirth = AuthorNameList.Where(x => x.LIFNR == item.AuthorsNo).Select(x => x.BirthYear).FirstOrDefault();
+                    int AuthorsGender = AuthorNameList.Where(x => x.LIFNR == item.AuthorsNo).Select(x => x.Gender).FirstOrDefault();
+
+                    if (!string.IsNullOrEmpty(AuthorName))
+                    {
+                        item.AuthorsName = AuthorName;
+                        item.AuthorsBirth = AuthorsBirth;
+                        item.AuthorsGender = AuthorsGender;
+                    }
+
+                    if (r.Count > 0)
+                    {
+                        item.Price = r.FirstOrDefault();
+                    }
+                    
+                    
+
+
                 }
+
+             
             }
             return _WorksModelList;
         }
+
     }
 
 

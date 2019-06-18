@@ -71,13 +71,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EG_MagicCubeEntity.edmx</DependentUpon>
     </Compile>
-    <Compile Include="ET_MASTER.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ET_VENDOR.cs">
-      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Menu_AuthorsArea.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Menu_AuthorsGender.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Menu_AuthorsTag.cs">
@@ -92,6 +89,9 @@
     <Compile Include="Menu_Material.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Menu_Nation.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Menu_Owner.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
@@ -99,6 +99,9 @@
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Menu_WareType.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Menu_WorksSize.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="PackageItems.cs">
@@ -129,6 +132,9 @@
     <Compile Include="WorksModules.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="WorksPrices.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="WorksPropGenre.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
@@ -139,6 +145,12 @@
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="WorksPropWareType.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorksSizes.cs">
+      <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorksStocks.cs">
       <DependentUpon>EG_MagicCubeEntity.tt</DependentUpon>
     </Compile>
   </ItemGroup>

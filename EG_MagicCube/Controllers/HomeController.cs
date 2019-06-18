@@ -171,7 +171,7 @@ namespace EG_MagicCube.Controllers
         [HttpPost, AllowAnonymous]
         public JsonResult FromSAPToMASTER(FromSAPModel.ET_MASTER [] value)
         {
-            FromSAPModel.ET_MASTER.BatchInsert(value);
+            //FromSAPModel.ET_MASTER.BatchInsert(value);
             return Json(new { R = true },JsonRequestBehavior.AllowGet);
         }
         [HttpPost, AllowAnonymous]

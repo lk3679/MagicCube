@@ -27,10 +27,10 @@ namespace EG_MagicCube.Models.ViewModel
         [Display(Name = "年代迄")]
         public short YearEnd { get; set; } = 10001;
 
-        [Display(Name = "成本")]
+        [Display(Name = "成本價")]
         public int Cost { get; set; }
 
-        [Display(Name = "定價")]
+        [Display(Name = "採購價")]
         public int Price { get; set; }
 
         [Display(Name = "最小定價")]
@@ -44,5 +44,12 @@ namespace EG_MagicCube.Models.ViewModel
 
         [Display(Name = "材質")]
         public string Material { get; set; }
+
+        [Display(Name = "異動狀態")]
+        public string ChangeStatus { get; set; } = "";
+
+        [Display(Name = "尺寸")]
+        public string WorkSize { get; set; } = "";
+
     }
 }

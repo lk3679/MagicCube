@@ -91,12 +91,12 @@
                 <br />
                 <div class="col-md-10 col-xs-12 text-center">
                     <table>
-                        <tr><th class="col-md-2 text-center">作品名稱</th><th class="col-md-1 text-center">藝術家</th><th class="col-md-1 text-center">成本</th><th class="col-md-1 text-center">定價</th>
+                        <tr><th class="col-md-2 text-center">藝術家(中)</th><th class="col-md-3 text-center">作品名稱</th><th class="col-md-1 text-center">成本(NT未稅)</th><th class="col-md-1 text-center">定價</th>
                         <tr />
 
                         @foreach (var _item in Model.WorksList)
                         {
-                            <tr><td style="text-align:left;">@_item.Name</td><td style="text-align:left;">@_item.Author</td><td style="text-align:right;">@_item.Cost</td><td style="text-align:right;">@_item.Price</td></tr>
+                            <tr><td style="text-align:left;">@_item.Author</td><td style="text-align:left;">@_item.Name</td><td style="text-align:right;">@_item.Cost</td><td style="text-align:right;">@_item.Price</td></tr>
                         }
                         <tr><td></td><td style="text-align:left;">總計</td><td style="text-align:right;">@Model.SumCost.ToString("#,#")</td><td style="text-align:right;">@Model.SumPrice.ToString("#,#")</td></tr>
                         <tr><td></td><td style="text-align:left;">預算</td><td colspan="2"  style="text-align:right;">@Model.Budget.ToString("#,#")</td></tr>

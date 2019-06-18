@@ -110,75 +110,75 @@ namespace EG_MagicCube.Models
             /// </summary>
             public string UDATE { get { return _UDATE; } set { _UDATE = value; } }
 
-            private bool Insert()
-            {
-                bool IsInsert = false;
-                using (var context = new EG_MagicCubeEntities())
-                {
-                    context.ET_MASTER.Add(new EG_MagicCubeEntity.ET_MASTER()
-                    {
+            //private bool Insert()
+            //{
+            //    bool IsInsert = false;
+            //    using (var context = new EG_MagicCubeEntities())
+            //    {
+            //        context.ET_MASTER.Add(new EG_MagicCubeEntity.ET_MASTER()
+            //        {
 
-                        MATNR = this.MATNR,
-                        ZZCT = this.ZZCT,
-                        NAME1 = this.NAME1,
-                        ZFPRESERVE_D = this.ZFPRESERVE_D,
-                        ZZSE = this.ZZSE,
-                        LOCATION = this.LOCATION,
-                        STATUS = this.STATUS,
-                        STPRS = this.STPRS,
-                        NETPR = this.NETPR,
-                        WAERS = this.WAERS,
-                        ERDAT = this.ERDAT,
-                        UDATE = this.UDATE,
-                    });
-                    if (context.SaveChanges() == 0)
-                    {
+            //            MATNR = this.MATNR,
+            //            ZZCT = this.ZZCT,
+            //            NAME1 = this.NAME1,
+            //            ZFPRESERVE_D = this.ZFPRESERVE_D,
+            //            ZZSE = this.ZZSE,
+            //            LOCATION = this.LOCATION,
+            //            STATUS = this.STATUS,
+            //            STPRS = this.STPRS,
+            //            NETPR = this.NETPR,
+            //            WAERS = this.WAERS,
+            //            ERDAT = this.ERDAT,
+            //            UDATE = this.UDATE,
+            //        });
+            //        if (context.SaveChanges() == 0)
+            //        {
 
-                        IsInsert = true;
-                    }
+            //            IsInsert = true;
+            //        }
                     
-                }
-                return IsInsert;
-            }
-            public static bool BatchInsert(ET_MASTER [] ET_MASTERArray)
-            {
-                bool IsInsert = false;
-                using (var context = new EG_MagicCubeEntities())
-                {
-                    foreach (var _ET_MASTER in ET_MASTERArray)
-                    {
+            //    }
+            //    return IsInsert;
+            //}
+            //public static bool BatchInsert(ET_MASTER [] ET_MASTERArray)
+            //{
+            //    bool IsInsert = false;
+            //    using (var context = new EG_MagicCubeEntities())
+            //    {
+            //        foreach (var _ET_MASTER in ET_MASTERArray)
+            //        {
 
-                        context.ET_MASTER.Add(new EG_MagicCubeEntity.ET_MASTER()
-                        {
+            //            context.ET_MASTER.Add(new EG_MagicCubeEntity.ET_MASTER()
+            //            {
 
-                            MATNR = _ET_MASTER.MATNR,
-                            ZZCT = _ET_MASTER.ZZCT,
-                            NAME1 = _ET_MASTER.NAME1,
-                            ZFPRESERVE_D = _ET_MASTER.ZFPRESERVE_D,
-                            ZZSE = _ET_MASTER.ZZSE,
-                            LOCATION = _ET_MASTER.LOCATION,
-                            STATUS = _ET_MASTER.STATUS,
-                            STPRS = _ET_MASTER.STPRS,
-                            NETPR = _ET_MASTER.NETPR,
-                            WAERS = _ET_MASTER.WAERS,
-                            ERDAT = _ET_MASTER.ERDAT,
-                            UDATE = _ET_MASTER.UDATE,
-                            CreateTime = DateTime.Now,
-                            IsNew="N",
-                            IsSync="",
-                            SyncTime=null,
-                            SyncUser=""
+            //                MATNR = _ET_MASTER.MATNR,
+            //                ZZCT = _ET_MASTER.ZZCT,
+            //                NAME1 = _ET_MASTER.NAME1,
+            //                ZFPRESERVE_D = _ET_MASTER.ZFPRESERVE_D,
+            //                ZZSE = _ET_MASTER.ZZSE,
+            //                LOCATION = _ET_MASTER.LOCATION,
+            //                STATUS = _ET_MASTER.STATUS,
+            //                STPRS = _ET_MASTER.STPRS,
+            //                NETPR = _ET_MASTER.NETPR,
+            //                WAERS = _ET_MASTER.WAERS,
+            //                ERDAT = _ET_MASTER.ERDAT,
+            //                UDATE = _ET_MASTER.UDATE,
+            //                CreateTime = DateTime.Now,
+            //                IsNew="N",
+            //                IsSync="",
+            //                SyncTime=null,
+            //                SyncUser=""
 
-                        });
-                    }
-                    if (context.SaveChanges() == 0)
-                    {
-                        IsInsert = true;
-                    }
+            //            });
+            //        }
+            //        if (context.SaveChanges() == 0)
+            //        {
+            //            IsInsert = true;
+            //        }
 
-                }
-                return IsInsert;
-            }
+            //    }
+            //    return IsInsert;
+            //}
 
         }
         

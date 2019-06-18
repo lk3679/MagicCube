@@ -49,7 +49,11 @@ namespace EG_MagicCubeEntity
         public DbSet<WorksPropOwner> WorksPropOwner { get; set; }
         public DbSet<WorksPropStyle> WorksPropStyle { get; set; }
         public DbSet<WorksPropWareType> WorksPropWareType { get; set; }
-        public DbSet<ET_MASTER> ET_MASTER { get; set; }
-        public DbSet<ET_VENDOR> ET_VENDOR { get; set; }
+        public DbSet<WorksPrices> WorksPrices { get; set; }
+        public DbSet<WorksStocks> WorksStocks { get; set; }
+        public DbSet<Menu_WorksSize> Menu_WorksSize { get; set; }
+        public DbSet<Menu_Nation> Menu_Nation { get; set; }
+        public DbSet<Menu_AuthorsGender> Menu_AuthorsGender { get; set; }
+        public DbSet<WorksSizes> WorksSizes { get; set; }
     }
 }

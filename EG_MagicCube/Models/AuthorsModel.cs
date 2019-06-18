@@ -77,6 +77,24 @@ namespace EG_MagicCube.Models
         [DisplayName("作品數量分級")]
         public string Rating { get; set; } = "";
 
+        [DisplayName("藝術家國別")]
+        public string LAND1 { get; set; } = "";
+
+        [DisplayName("藝術家SAP代號")]
+        public int? LIFNR { get; set; } = 0;
+
+        [DisplayName("性別")]
+        public string Gender { get; set; } = "";
+
+        [DisplayName("出生年")]
+        public int BirthYear { get; set; } = 0;
+
+        [DisplayName("性別類行")]
+        public List<MenuViewModel> AuthorsGenderList { get; set; } = new List<MenuViewModel>();
+
+        [DisplayName("新增修改性別字串")]
+        public List<string> AuthorsGender_InputString { get; set; } = new List<string>();
+
         #region Methods
         #region Create
 
@@ -150,57 +168,99 @@ namespace EG_MagicCube.Models
         /// <param name="PageSize">每頁筆數，0為不分頁</param>
         /// <param name="OrderbyType">排序方式</param>
         /// <returns></returns>
-        public static List<AuthorsModel> GetAuthorList(string KeyWords = "", int PageIndex = 0, int PageSize = 0, MenuModel.MeunOrderbyTypeEnum OrderbyType = MenuModel.MeunOrderbyTypeEnum.預設排序)
+        public static List<AuthorsModel> GetAuthorList(string KeyWords = "",string SatrtYear="",string EndYear="",string GenderLsit="",string PropList="", int PageIndex = 0, int PageSize = 0, MenuModel.MeunOrderbyTypeEnum OrderbyType = MenuModel.MeunOrderbyTypeEnum.預設排序)
         {
             if (string.IsNullOrEmpty(KeyWords)) KeyWords = "";
 
             List<AuthorsModel> _AuthorsModel = new List<AuthorsModel>();
             using (var context = new EG_MagicCubeEntities())
             {
-                var atrs = context?.Authors?.AsQueryable()?.Where(c => c.IsDel != "Y");
+                var atrs = context.Authors.AsEnumerable().Where(c => c.IsDel != "Y");
 
-                if (MenuModel.MeunOrderbyTypeEnum.預設排序 == OrderbyType)
+                if (!string.IsNullOrEmpty(SatrtYear))
                 {
-                    atrs = atrs.OrderByDescending(c => c.AuthorsNo);
+                    int Start = Convert.ToInt32(SatrtYear);
+                    atrs = atrs.Where(x => x.BirthYear >= Start).ToList();
                 }
-                else if (MenuModel.MeunOrderbyTypeEnum.建立時間由舊至新 == OrderbyType)
+
+                if (!string.IsNullOrEmpty(EndYear))
                 {
-                    atrs = atrs.OrderBy(c => c.CreateDate);
+                    int End = Convert.ToInt32(EndYear);
+                    atrs = atrs.Where(x => x.BirthYear <= End).ToList();
                 }
-                else if (MenuModel.MeunOrderbyTypeEnum.建立時間由新至舊 == OrderbyType)
+
+                if (!string.IsNullOrEmpty(GenderLsit))
                 {
-                    atrs = atrs.OrderByDescending(c => c.CreateDate);
+                    //Filter By Gender
+                    string[] List = GenderLsit.Split(',');
+                    atrs = atrs.Where(a => List.Contains(a.Gender.ToString())).ToList();
                 }
-                else if (MenuModel.MeunOrderbyTypeEnum.修改時間由舊至新 == OrderbyType)
+
+                if (!string.IsNullOrEmpty(PropList))
                 {
-                    atrs = atrs.OrderBy(c => c.ModifyDate);
+                    //Filter By Gender
+                    string[] List = PropList.Split(',');
+                    var AuthorList = context.AuthorsPropTag.AsEnumerable().Where(a => List.Contains(a.AuthorsTagNo.ToString())).Select(x=>x.AuthorsNo).ToList();
+                    atrs = atrs.Where(a => AuthorList.Contains(a.AuthorsNo)).ToList();
                 }
-                else if (MenuModel.MeunOrderbyTypeEnum.修改時間由新至舊 == OrderbyType)
-                {
-                    atrs = atrs.OrderByDescending(c => c.ModifyDate);
-                }
-                else if (MenuModel.MeunOrderbyTypeEnum.名稱姓名小至大 == OrderbyType)
-                {
-                    atrs = atrs.OrderBy(c => c.AuthorsCName).ThenBy(c => c.AuthorsEName);
-                }
-                else if (MenuModel.MeunOrderbyTypeEnum.名稱姓名大至小 == OrderbyType)
-                {
-                    atrs = atrs.OrderByDescending(c => c.AuthorsCName).ThenByDescending(c => c.AuthorsEName);
+
+                if (KeyWords.Length > 0)
+                {                
+                    atrs = atrs.Where(x => x.AuthorsCName.Contains(KeyWords)||x.AuthorsEName.Contains(KeyWords));             
                 }
                 else
-                {
-                    atrs = atrs.OrderByDescending(c => c.AuthorsNo);
+                {                  
+                    
+                    if (MenuModel.MeunOrderbyTypeEnum.預設排序 == OrderbyType)
+                    {
+                        atrs = atrs.OrderByDescending(c => c.AuthorsNo);
+                    }
+                    else if (MenuModel.MeunOrderbyTypeEnum.建立時間由舊至新 == OrderbyType)
+                    {
+                        atrs = atrs.OrderBy(c => c.CreateDate);
+                    }
+                    else if (MenuModel.MeunOrderbyTypeEnum.建立時間由新至舊 == OrderbyType)
+                    {
+                        atrs = atrs.OrderByDescending(c => c.CreateDate);
+                    }
+                    else if (MenuModel.MeunOrderbyTypeEnum.修改時間由舊至新 == OrderbyType)
+                    {
+                        atrs = atrs.OrderBy(c => c.ModifyDate);
+                    }
+                    else if (MenuModel.MeunOrderbyTypeEnum.修改時間由新至舊 == OrderbyType)
+                    {
+                        atrs = atrs.OrderByDescending(c => c.ModifyDate);
+                    }
+                    else if (MenuModel.MeunOrderbyTypeEnum.名稱姓名小至大 == OrderbyType)
+                    {
+                        atrs = atrs.OrderBy(c => c.AuthorsCName).ThenBy(c => c.AuthorsEName);
+                    }
+                    else if (MenuModel.MeunOrderbyTypeEnum.名稱姓名大至小 == OrderbyType)
+                    {
+                        atrs = atrs.OrderByDescending(c => c.AuthorsCName).ThenByDescending(c => c.AuthorsEName);
+                    }else if (MenuModel.MeunOrderbyTypeEnum.出生年由小到大 == OrderbyType)
+                    {
+                        atrs = atrs.OrderBy(c => c.BirthYear);
+                    }else if (MenuModel.MeunOrderbyTypeEnum.出生年由大到小==OrderbyType)
+                    {
+                        atrs=atrs.OrderByDescending(c => c.BirthYear);
+                    }
+                    else
+                    {
+                        atrs = atrs.OrderByDescending(c => c.AuthorsNo);
+                    }
+                    if (PageIndex > 0 && PageIndex > 0)
+                    {
+                        atrs = atrs.Skip(((PageIndex * PageSize) - PageSize)).Take(PageSize + 1);
+                    }
                 }
-                if (PageIndex > 0 && PageIndex > 0)
-                {
-                    atrs = atrs.Skip(((PageIndex * PageSize) - PageSize)).Take(PageSize + 1);
-                }
+               
                 var r_atrs = atrs.Select(c => c).ToList();
                 if (r_atrs != null && r_atrs.Count > 0)
                 {
                     int[] AuthorArray = r_atrs.Select(c => c.AuthorsNo).ToArray();
-                    var r_AuthorsPropArea = context?.AuthorsPropArea?.AsQueryable()?.Where(apa => AuthorArray.Contains(apa.AuthorsNo)).ToList();
-                    var r_AuthorsPropTag = context?.AuthorsPropTag?.AsQueryable()?.Where(apt => AuthorArray.Contains(apt.AuthorsNo)).ToList();
+                    var r_AuthorsPropArea = context?.AuthorsPropArea?.AsEnumerable()?.Where(apa => AuthorArray.Contains(apa.AuthorsNo)).ToList();
+                    var r_AuthorsPropTag = context?.AuthorsPropTag?.AsEnumerable()?.Where(apt => AuthorArray.Contains(apt.AuthorsNo)).ToList();
 
                     _AuthorsModel = r_atrs?.AsEnumerable().Select(c =>
                      new AuthorsModel
@@ -218,7 +278,11 @@ namespace EG_MagicCube.Models
                          MaterialsID = c.MaterialsID,
                          CreateUser = c.CreateUser,
                          ModifyDate = c.ModifyDate.Value,
-                         ModifyUser = c.ModifyUser
+                         ModifyUser = c.ModifyUser,
+                         LAND1 = context.Menu_Nation.AsEnumerable().Where(x => x.AreaCode == c.LAND1 && x.IsDel != "Y").FirstOrDefault().AreaName ?? "",
+                         LIFNR = c.LIFNR,
+                         Gender = c.Gender == 0 ? "" : context.Menu_AuthorsGender.Where(x => x.AuthorsGenderNo == c.Gender).FirstOrDefault().AuthorsGenderName.ToString(),
+                         BirthYear=c.BirthYear
                      }).ToList();
                 }
 
@@ -238,14 +302,14 @@ namespace EG_MagicCube.Models
             {
                 if (context.Authors.Count() > 0)
                 {
-                    var r_Authors = context?.Authors?.AsQueryable()?.Where(c => c.IsDel != "Y" && c.AuthorsNo == authorsNo).Select(c => c).FirstOrDefault();
+                    var r_Authors = context.Authors.AsEnumerable().Where(c => c.IsDel != "Y" && c.AuthorsNo == authorsNo).Select(c => c).FirstOrDefault();
 
 
                     if (r_Authors != null)
                     {
-                        var r_AuthorsPropArea = context?.AuthorsPropArea?.AsQueryable()?.Where(c => c.AuthorsNo == r_Authors.AuthorsNo).ToList();
-                        var r_AuthorsPropTag = context?.AuthorsPropTag?.AsQueryable()?.Where(c => c.AuthorsNo == r_Authors.AuthorsNo).ToList();
-                        int _WorksAmount = (context?.WorksAuthors?.AsQueryable()?.Where(c => c.Author_No == r_Authors.AuthorsNo).Count()).Value;
+                        var r_AuthorsPropArea = context.AuthorsPropArea.AsEnumerable().Where(c => c.AuthorsNo == r_Authors.AuthorsNo).ToList();
+                        var r_AuthorsPropTag = context.AuthorsPropTag.AsEnumerable().Where(c => c.AuthorsNo == r_Authors.AuthorsNo).ToList();
+                        int _WorksAmount = (context?.WorksAuthors?.AsEnumerable()?.Where(c => c.Author_No == r_Authors.AuthorsNo).Count()).Value;
                         _AuthorsModel.AuthorsNo = r_Authors.AuthorsNo;
                         _AuthorsModel.AuthorsCName = r_Authors.AuthorsCName;
                         _AuthorsModel.AuthorsEName = r_Authors.AuthorsEName;
@@ -262,13 +326,22 @@ namespace EG_MagicCube.Models
                             _AuthorsModel.AuthorsPropTag = r_AuthorsPropTag.Select(apa =>
                          new MenuViewModel() { MenuID = apa.Menu_AuthorsTag.AuthorsTagNo, MenuName = apa.Menu_AuthorsTag.AuthorsTagName }).ToList();
                         }
+
+                        List<string> GenderList = new List<string>();
+                        GenderList.Add(Convert.ToString(r_Authors.Gender));
+                        _AuthorsModel.AuthorsGender_InputString = GenderList;
+                        _AuthorsModel.AuthorsGenderList = context.Menu_AuthorsGender.AsEnumerable().Select(x =>new MenuViewModel { MenuID = x.AuthorsGenderNo, MenuName = x.AuthorsGenderName }).ToList();
+
                         _AuthorsModel.CreateDate = r_Authors.CreateDate;
                         _AuthorsModel.MaterialsID = r_Authors.MaterialsID;
                         _AuthorsModel.CreateUser = r_Authors.CreateUser;
                         _AuthorsModel.ModifyDate = r_Authors.ModifyDate.Value;
                         _AuthorsModel.ModifyUser = r_Authors.ModifyUser;
                         _AuthorsModel.WorksAmount = r_Authors.WorksAmount;
-                        _AuthorsModel.Rating = r_Authors.Rating;
+                        //_AuthorsModel.Rating = r_Authors.Rating;
+                        _AuthorsModel.Rating = CalculateAuthorsRating(r_Authors.WorksAmount).ToString();
+                        _AuthorsModel.LAND1 = context.Menu_Nation.AsEnumerable().Where(x => x.AreaCode == r_Authors.LAND1 && x.IsDel != "Y").FirstOrDefault().AreaName ?? "";                     
+                        _AuthorsModel.BirthYear = r_Authors.BirthYear;
                     }
                 }
             }
@@ -300,7 +373,8 @@ namespace EG_MagicCube.Models
             {
                 _Rating = 4;
             }
-            if (_WorksAmount >= 41 && _WorksAmount < 40)
+            //if (_WorksAmount >= 41 && _WorksAmount < 40)
+            if(_WorksAmount>=41)
             {
                 _Rating = 5;
             }
@@ -316,13 +390,13 @@ namespace EG_MagicCube.Models
         {
             using (var context = new EG_MagicCubeEntities())
             {
-                var oldAuthors = context.Authors.AsQueryable().First(x => x.AuthorsNo == newAuthors.AuthorsNo);
+                var oldAuthors = context.Authors.AsEnumerable().First(x => x.AuthorsNo == newAuthors.AuthorsNo);
 
                 if (oldAuthors.AuthorsPropArea != null)
                 {
                     foreach (AuthorsPropArea _AuthorsPropArea in oldAuthors.AuthorsPropArea.ToList())
                     {
-                        var del_AuthorsPropArea = context.AuthorsPropArea.AsQueryable().FirstOrDefault(c => c.AuthorsPropAreaNo == _AuthorsPropArea.AuthorsPropAreaNo);
+                        var del_AuthorsPropArea = context.AuthorsPropArea.AsEnumerable().FirstOrDefault(c => c.AuthorsPropAreaNo == _AuthorsPropArea.AuthorsPropAreaNo);
                         context.AuthorsPropArea.Remove(del_AuthorsPropArea);
                     }
                 }
@@ -330,7 +404,7 @@ namespace EG_MagicCube.Models
                 {
                     foreach (AuthorsPropTag _AuthorsPropTag in oldAuthors.AuthorsPropTag.ToList())
                     {
-                        var del_del_AuthorsPropTag = context.AuthorsPropTag.AsQueryable().FirstOrDefault(c => c.AuthorsPropTagNo == _AuthorsPropTag.AuthorsPropTagNo);
+                        var del_del_AuthorsPropTag = context.AuthorsPropTag.AsEnumerable().FirstOrDefault(c => c.AuthorsPropTagNo == _AuthorsPropTag.AuthorsPropTagNo);
                         context.AuthorsPropTag.Remove(del_del_AuthorsPropTag);
                     }
                 }
@@ -344,6 +418,7 @@ namespace EG_MagicCube.Models
                     oldAuthors.ModifyDate = DateTime.Now;
                     oldAuthors.Rating = newAuthors.Rating ?? "";
                     oldAuthors.WorksAmount = newAuthors.WorksAmount;
+                    oldAuthors.BirthYear = (short)newAuthors.BirthYear;
                 }
                 if (newAuthors.AuthorsAreaNo_InputString.Count > 0)
                 {
@@ -358,6 +433,11 @@ namespace EG_MagicCube.Models
                     {
                         context.AuthorsPropTag.Add(new AuthorsPropTag() { AuthorsNo = newAuthors.AuthorsNo, AuthorsTagNo = _AuthorsTagNo });
                     }
+                }
+
+                if (newAuthors.AuthorsGender_InputString.Count>0)
+                {
+                    oldAuthors.Gender =short.Parse(newAuthors.AuthorsGender_InputString[0].ToString());
                 }
 
                 if (context.SaveChanges() == 0)

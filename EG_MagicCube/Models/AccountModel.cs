@@ -149,10 +149,13 @@ namespace EG_MagicCube.Models
             IsPwd = false;
             IsAccount = true;
             AccountModel _AccountModel = null;
-            using (var context = new EG_MagicCubeEntities())
+            //using (var context = new EG_MagicCubeEntities())
+            //{
+            try
             {
-                var UserAccount = context.UserAccounts?.AsQueryable()?.FirstOrDefault(c => c.IsDel!="Y" && c.UserAccount == strAccount);
-
+                var context = new EG_MagicCubeEntities();
+                //var UserAccount = context.UserAccounts.AsQueryable().FirstOrDefault(c => c.IsDel != "Y" && c.UserAccount == strAccount);
+                var UserAccount = context.UserAccounts.AsEnumerable().FirstOrDefault(x=>x.IsDel!="Y"&& x.UserAccount == strAccount);
                 if (UserAccount != null)
                 {
                     //判斷密碼是否正確
@@ -175,7 +178,7 @@ namespace EG_MagicCube.Models
                         ModifyUser = UserAccount.ModifyUser
                     };
                     //密碼正確且錯誤次數小於10
-                    if (IsPwd && _AccountModel.ErrorCount<10)
+                    if (IsPwd && _AccountModel.ErrorCount < 10)
                     {
                         if (_AccountModel.AccountStatus != "L")
                         {
@@ -192,16 +195,20 @@ namespace EG_MagicCube.Models
                         }
                         AccountModel.Update(_AccountModel);
                     }
-                    
+
                     IsAccount = true;
                 }
                 else
                 {
                     IsAccount = false;
                 }
-
-
             }
+            catch (Exception e)
+            {
+                string a = e.ToString();
+            }
+                
+            //}
 
             return _AccountModel;
         }
@@ -259,7 +266,7 @@ namespace EG_MagicCube.Models
             {
                 if (context.UserAccounts.Count() > 0)
                 {
-                    var uas = context.UserAccounts.AsQueryable().Where(c => c.IsDel != "Y" && (c.Name.Contains(KeyWords) || c.UserAccount.Contains(KeyWords))).Select(c =>c);
+                    var uas = context.UserAccounts.AsEnumerable().Where(c => c.IsDel != "Y" && (c.Name.Contains(KeyWords) || c.UserAccount.Contains(KeyWords))).Select(c =>c);
 
                     if (MenuModel.MeunOrderbyTypeEnum.預設排序 == OrderbyType)
                     {

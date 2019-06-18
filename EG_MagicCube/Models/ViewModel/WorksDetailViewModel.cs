@@ -95,5 +95,8 @@ namespace EG_MagicCube.Models.ViewModel
         public string CreateUser { get; set; }
         [Display(Name = "異動日期")]
         public string ModifyDate { get; set; }
+
+        [Display(Name="作品類別")]
+        public string GenreName { get; set; } = "";
     }
 }

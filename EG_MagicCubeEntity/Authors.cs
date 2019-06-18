@@ -32,6 +32,10 @@ namespace EG_MagicCubeEntity
         public string Rating { get; set; }
         public int WorksAmount { get; set; }
         public string IsDel { get; set; }
+        public Nullable<int> LIFNR { get; set; }
+        public string LAND1 { get; set; }
+        public short BirthYear { get; set; }
+        public short Gender { get; set; }
     
         public virtual ICollection<AuthorsPropArea> AuthorsPropArea { get; set; }
         public virtual ICollection<AuthorsPropTag> AuthorsPropTag { get; set; }
