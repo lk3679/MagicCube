@@ -18,34 +18,31 @@ namespace EG_MagicCube.Controllers
             //透過WebService取得今日庫存
             List<Z_MM_QUBE_MENGE> Z_MM_QUBE_MENGE_List = new List<Z_MM_QUBE_MENGE>();
             RFC.service ws = new RFC.service();
+            ws.Timeout = 1200000;
             string P_DATE = DateTime.Now.ToString("yyyyMMdd");
             string JsonString = ws.GetAllStock(P_DATE);
             Z_MM_QUBE_MENGE_List = JsonConvert.DeserializeObject<List<Z_MM_QUBE_MENGE>>(JsonString);
-                     
-            using (var context = new EG_MagicCubeEntities())
-            {
-                var stocks = context.WorksStocks.ToList();
-                foreach (var item in Z_MM_QUBE_MENGE_List)
+
+            try {
+
+                using (var context = new EG_MagicCubeEntities())
                 {
-                    var r = stocks.Where(x => x.MaterialsID == item.MATNR && x.WERKS == item.WERKS).ToList();
-                    if (r.Count() > 0)
-                    {                   
-                        //更新庫存資料
-                        context.Database.ExecuteSqlCommand("UPDATE WorksStocks set MENGE=@p0,ModifyDate=GetDate()  where MaterialsID=@p1 and WERKS=@p2; ", Double.Parse(item.MENGE),item.MATNR,item.WERKS);
-                    }
-                    else
+                    //更新庫存資料前，先刪除所有庫存
+                    context.Database.ExecuteSqlCommand("Delete From WorksStocks ");
+
+                    foreach (var item in Z_MM_QUBE_MENGE_List)
                     {
-                        //新增庫存資料                     
-                        context.Database.ExecuteSqlCommand("Insert Into WorksStocks (MaterialsID,WERKS,MENGE,CreateDate) VALUES (@p0,@p1,@p2,GetDate()); ", Double.Parse(item.MATNR),item.WERKS,item.MATNR);
-
+                        context.Database.ExecuteSqlCommand("Insert Into WorksStocks (MaterialsID,WERKS,MENGE,CreateDate) VALUES (@p0,@p1,@p2,GetDate()); ", Double.Parse(item.MATNR), item.WERKS, item.MATNR);
+                        //更新商品總數
+                        context.Database.ExecuteSqlCommand("UPDATE works set TotalInventory=(SELECT isnull(sum(MENGE),0) FROM [dbo].[WorksStocks] where MaterialsID=@p0) Where MaterialsID=@p0; ", item.MATNR);
                     }
 
-                    //更新商品總數
-                    context.Database.ExecuteSqlCommand("UPDATE works set TotalInventory=(SELECT isnull(sum(MENGE),0) FROM [dbo].[WorksStocks] where MaterialsID=@p0) Where MaterialsID=@p0; ", item.MATNR);
+                    ViewBag.Result = "更新庫存完成";
                 }
-            
-                ViewBag.Result = JsonString;
-            }
+            } catch (Exception e)
+            {
+                ViewBag.Result = e.ToString(); 
+            }        
 
                 return View();
         }
