@@ -1,0 +1,67 @@
+﻿@model IEnumerable<EG_MagicCube.Models.ViewModel.WorksViewModel>
+
+@{
+    ViewBag.Title = "未確認的作品列表";
+}
+
+<h2>@ViewBag.Title </h2>
+<table class="table ">
+    <tr>
+        
+        <th class="col-md-4">
+            @Html.DisplayNameFor(model => model.WorksName)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.AuthorsName)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.ChangeStatus)
+        </th>
+        <th class="col-md-1">
+            作品年代
+        </th>
+        <th class="col-md-2">
+            @Html.DisplayNameFor(model => model.Material)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayName("商品定價")
+        </th>
+        <th class="col-md-2"></th>
+    </tr>
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+
+                <td class="col-md-4">
+                    @Html.DisplayFor(modelItem => item.WorksName)
+                </td>
+                <td class="col-md-1">
+                    @Html.DisplayFor(modelItem => item.AuthorsName)
+                </td>
+                <td class="col-md-1">
+                    @Html.DisplayFor(modelItem => item.ChangeStatus)
+                </td>
+                <td class="col-md-1">
+                    @Html.DisplayFor(modelItem => item.YearStart) @( item.YearStart == item.YearEnd ? "" : "~" + item.YearEnd.ToString())
+                </td>
+                <td class="col-md-2">
+                    @Html.DisplayFor(modelItem => item.Material)
+                </td>
+                <td class="col-md-1">
+                    @*@Html.DisplayFor(modelItem => item.Price)*@
+                    @item.Price.ToString("#,#")
+                </td>
+                <td class="col-md-2">
+                    <div>
+                        @Html.ActionLink("編輯", "Edit", new { id = item.WorksNo }) |
+                        @Html.ActionLink("介紹", "Details", new { id = item.WorksNo }) |
+                        @Html.ActionLink("編輯圖片", "Edit", "Files", new { id = item.WorksNo }, new { })
+                    </div>
+                </td>
+            </tr>
+        }
+    }
+
+</table>
